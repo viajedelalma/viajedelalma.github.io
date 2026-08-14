@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Viaje del Alma — Un gesto cada día, guiado por la luna</title>
+<meta name="description" content="Un ritual breve cada día, marcado por el ciclo lunar. Tarot, plantas, minerales y diario en una práctica espiritual diaria, en español.">
+<meta property="og:title" content="Viaje del Alma">
+<meta property="og:description" content="Un gesto cada día, guiado por la luna.">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --noche:#080614;
+  --noche-2:#0E0A20;
+  --noche-3:#160F2E;
+  --oro:#C49A3C;
+  --oro-claro:#E8CE8C;
+  --oro-brillo:#F6E3AE;
+  --violeta:#6B4E9E;
+  --violeta-niebla:rgba(107,78,158,.32);
+  --niebla:#D6CFE6;
+  --tenue:#978DB4;
+  --linea:rgba(196,154,60,.28);
+  --serif:"Cormorant Garamond",Georgia,serif;
+  --display:"Cinzel",Georgia,serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  background:var(--noche);
+  color:var(--niebla);
+  font-family:var(--serif);
+  font-size:21px;line-height:1.7;font-weight:300;
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+
+/* ── Atmósfera: niebla + estrellas ─────────────── */
+.cielo{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+.cielo::before{
+  content:"";position:absolute;inset:0;
+  background:
+    radial-gradient(ellipse 75% 55% at 50% -8%,var(--violeta-niebla),transparent 68%),
+    radial-gradient(ellipse 50% 38% at 12% 46%,rgba(107,78,158,.14),transparent 70%),
+    radial-gradient(ellipse 55% 40% at 88% 84%,rgba(196,154,60,.08),transparent 70%);
+}
+.estrella{position:absolute;border-radius:50%;background:#EFE6CE}
+@media (prefers-reduced-motion:no-preference){
+  .estrella{animation:titilar var(--t,4s) ease-in-out var(--d,0s) infinite}
+  @keyframes titilar{0%,100%{opacity:var(--o,.5)}50%{opacity:.08}}
+}
+
+.wrap{position:relative;z-index:1;max-width:680px;margin:0 auto;padding:0 26px}
+a{color:var(--oro-claro);text-decoration:none;border-bottom:1px solid var(--linea)}
+a:hover{border-bottom-color:var(--oro);color:var(--oro-brillo)}
+:focus-visible{outline:2px solid var(--oro);outline-offset:3px;border-radius:2px}
+
+.eyebrow{
+  font-family:var(--display);font-size:.74rem;letter-spacing:.32em;margin-bottom:6px;
+  text-transform:uppercase;color:var(--oro);font-weight:500;
+  display:flex;align-items:center;gap:14px;
+}
+.eyebrow::before,.eyebrow::after{content:"";height:1px;background:linear-gradient(90deg,transparent,var(--linea));flex:0 0 26px}
+.eyebrow::after{background:linear-gradient(90deg,var(--linea),transparent);flex:1}
+
+/* ── HERO ──────────────────────────────────────── */
+header.hero{padding:78px 0 70px;text-align:center;position:relative}
+.dial{width:min(320px,78vw);margin:0 auto 42px;display:block;filter:drop-shadow(0 0 34px rgba(196,154,60,.18))}
+.dial .tick{stroke:rgba(214,207,230,.22);stroke-width:1.4}
+.dial .tick.on{stroke:var(--oro-brillo);stroke-width:3;filter:drop-shadow(0 0 5px rgba(232,206,140,.9))}
+.dial .halo{fill:none;stroke:var(--linea);stroke-width:1}
+.dial text{font-family:var(--display);fill:var(--oro);letter-spacing:.28em;font-size:7.5px}
+h1{
+  font-family:var(--display);font-weight:400;
+  font-size:clamp(2.15rem,8.6vw,3.2rem);
+  letter-spacing:.14em;line-height:1.15;
+  background:linear-gradient(180deg,#F8F3E4 20%,var(--oro-claro) 85%);
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+}
+.hero p.claim{font-size:1.36rem;font-style:italic;color:var(--tenue);margin-top:20px}
+.sello{display:flex;align-items:center;justify-content:center;gap:16px;margin:36px auto;color:var(--oro)}
+.sello::before,.sello::after{content:"";width:64px;height:1px;background:linear-gradient(90deg,transparent,var(--oro));opacity:.6}
+.sello::after{background:linear-gradient(90deg,var(--oro),transparent)}
+.hero p.sub{color:var(--tenue);font-size:1.12rem;max-width:34em;margin:0 auto}
+
+/* ── SECCIONES con esquinas doradas ────────────── */
+section{padding:72px 0 60px;position:relative}
+section+section::before{
+  content:"✦";position:absolute;top:-13px;left:50%;transform:translateX(-50%);
+  color:var(--oro);font-size:.85rem;opacity:.8;line-height:1;
+  padding:2px 26px;background:var(--noche);
+}
+section+section{border-top:1px solid rgba(196,154,60,.16)}
+h2{
+  font-family:var(--display);font-weight:400;font-size:1.48rem;
+  letter-spacing:.09em;color:var(--oro-claro);margin:18px 0 24px;
+}
+h3{font-family:var(--display);font-weight:400;font-size:1.12rem;letter-spacing:.05em;color:var(--oro-claro);margin-bottom:7px}
+p+p{margin-top:15px}
+
+.marco{position:relative;padding:36px 32px;background:linear-gradient(168deg,var(--noche-2),var(--noche-3));border:1px solid var(--linea);border-radius:3px}
+.marco::before,.marco::after,
+.marco .e3::before,.marco .e3::after{
+  content:"";position:absolute;width:22px;height:22px;
+  border-color:var(--oro);border-style:solid;opacity:.85;
+}
+.marco::before{top:-1px;left:-1px;border-width:1.5px 0 0 1.5px;border-radius:3px 0 0 0}
+.marco::after{top:-1px;right:-1px;border-width:1.5px 1.5px 0 0;border-radius:0 3px 0 0}
+.marco .e3::before{bottom:-1px;left:-1px;border-width:0 0 1.5px 1.5px;border-radius:0 0 0 3px}
+.marco .e3::after{bottom:-1px;right:-1px;border-width:0 1.5px 1.5px 0;border-radius:0 0 3px 0}
+
+/* ── RITUAL ────────────────────────────────────── */
+.ritual .meta{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;margin-bottom:16px}
+.ritual .dia{
+  font-family:var(--display);font-size:2.7rem;line-height:1;font-weight:500;
+  color:var(--oro-brillo);text-shadow:0 0 22px rgba(232,206,140,.45);
+}
+.ritual .fase{font-family:var(--display);font-size:.62rem;letter-spacing:.28em;text-transform:uppercase;color:var(--tenue)}
+.ritual h3{font-size:1.4rem;color:#F5EFDF;margin-bottom:12px}
+.ritual .texto{font-size:1.22rem;line-height:1.76}
+.ritual .duracion{margin-top:22px;padding-top:16px;border-top:1px solid rgba(196,154,60,.18);font-size:.94rem;color:var(--tenue);font-style:italic;display:flex;align-items:center;gap:10px}
+.ritual .duracion::before{content:"☾";color:var(--oro);font-style:normal}
+
+/* ── CAPAS con glifos ──────────────────────────── */
+.capa{display:grid;grid-template-columns:56px 1fr;gap:18px;padding:24px 0;border-bottom:1px solid rgba(196,154,60,.12);align-items:start}
+.capa:last-of-type{border-bottom:0}
+.glifo-capa{
+  width:52px;height:52px;border:1px solid var(--linea);border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  color:var(--oro);font-size:1.3rem;
+  background:radial-gradient(circle at 50% 35%,rgba(196,154,60,.14),transparent 70%);
+  box-shadow:0 0 18px rgba(196,154,60,.1) inset;
+}
+.capa .marca{font-family:var(--display);font-size:.6rem;letter-spacing:.26em;text-transform:uppercase;color:var(--violeta);display:block;margin-bottom:4px;filter:brightness(1.5)}
+.capa p{font-size:1.08rem;color:var(--tenue)}
+.intimidad{
+  margin-top:28px;padding:18px 22px;text-align:center;
+  font-style:italic;font-size:1.1rem;color:var(--niebla);
+  border-top:1px solid var(--linea);border-bottom:1px solid var(--linea);
+}
+
+/* ── CORREO ────────────────────────────────────── */
+.campo{display:flex;flex-direction:column;gap:12px;margin-top:22px}
+input[type=email]{
+  background:rgba(8,6,20,.75);border:1px solid rgba(214,207,230,.24);
+  border-radius:2px;padding:14px 16px;color:#F5EFDF;
+  font-family:var(--serif);font-size:1.05rem;width:100%;
+}
+input[type=email]::placeholder{color:#635B7E}
+input[type=email]:focus{border-color:var(--oro);outline:none;box-shadow:0 0 0 3px rgba(196,154,60,.14)}
+button{
+  background:linear-gradient(180deg,var(--oro-claro),var(--oro));
+  color:#0A0716;border:0;border-radius:2px;
+  font-family:var(--display);font-size:.8rem;letter-spacing:.22em;
+  text-transform:uppercase;font-weight:600;padding:16px 22px;cursor:pointer;
+  box-shadow:0 0 24px rgba(196,154,60,.28);
+  transition:box-shadow .25s ease,transform .15s ease;
+}
+button:hover{box-shadow:0 0 34px rgba(232,206,140,.5);transform:translateY(-1px)}
+button:disabled{opacity:.45;cursor:default;box-shadow:none;transform:none}
+.aviso{margin-top:14px;font-size:.95rem;min-height:1.4em}
+.aviso.ok{color:var(--oro-claro)}
+.aviso.err{color:#E3A0A0}
+.letra-chica{font-size:.95rem;color:var(--tenue);margin-top:14px}
+
+/* ── FOOTER ────────────────────────────────────── */
+footer{padding:64px 0 64px;text-align:center;border-top:1px solid rgba(196,154,60,.16);position:relative}
+footer::before{
+  content:"✦";position:absolute;top:-13px;left:50%;transform:translateX(-50%);
+  color:var(--oro);font-size:.85rem;line-height:1;padding:2px 26px;background:var(--noche);
+}
+footer p{font-size:.9rem;color:var(--tenue)}
+footer nav{margin-bottom:16px;font-size:.92rem}
+footer nav a{margin:0 10px;display:inline-block}
+.triple{font-size:1.05rem;color:var(--oro);letter-spacing:.7em;margin-bottom:16px;opacity:.75}
+
+@media (prefers-reduced-motion:no-preference){
+  .fade{opacity:0;transform:translateY(16px);transition:opacity 1s ease,transform 1s ease}
+  .fade.vis{opacity:1;transform:none}
+}
+@media (max-width:520px){
+  body{font-size:19.5px}
+  .marco{padding:30px 22px}
+  section{padding:62px 0 50px}
+  .capa{grid-template-columns:46px 1fr;gap:14px}
+  .glifo-capa{width:44px;height:44px;font-size:1.1rem}
+}
+</style>
+</head>
+<body>
+
+<div class="cielo" id="cielo" aria-hidden="true"></div>
+
+<header class="hero wrap">
+  <svg class="dial" viewBox="0 0 200 200" role="img" aria-labelledby="dialTitulo">
+    <title id="dialTitulo">Rueda del ciclo lunar con el día de hoy señalado y la luna en su fase actual</title>
+    <circle class="halo" cx="100" cy="100" r="90"/>
+    <circle class="halo" cx="100" cy="100" r="64" opacity=".5"/>
+    <g id="ticks"></g>
+    <g id="luna"></g>
+  </svg>
+  <h1>Viaje del Alma</h1>
+  <p class="claim">Un gesto cada día, guiado por la luna.</p>
+  <div class="sello" aria-hidden="true">✦</div>
+  <p class="sub">
+    Una práctica espiritual diaria en español: rituales breves, tarot,
+    plantas y minerales, y un diario que solo lees tú.
+  </p>
+</header>
+
+<main>
+
+<section class="wrap fade">
+  <span class="eyebrow">El ritual de hoy · gratis, siempre</span>
+  <div class="marco ritual"><span class="e3"></span>
+    <div class="meta">
+      <span class="dia" id="numDia">—</span>
+      <span class="fase" id="nomFase">cargando</span>
+    </div>
+    <h3 id="tituloRitual">&nbsp;</h3>
+    <p class="texto" id="textoRitual">&nbsp;</p>
+    <p class="duracion">Tres minutos. Sin materiales que haya que comprar.</p>
+  </div>
+  <p class="letra-chica">
+    El ciclo tiene treinta días y vuelve a empezar con cada luna nueva.
+    Mañana habrá otro, y el de hoy no volverá hasta el mes que viene.
+  </p>
+</section>
+
+<section class="wrap fade">
+  <span class="eyebrow">Qué encontrarás dentro</span>
+  <h2>Tres capas, una misma práctica</h2>
+
+  <div class="capa">
+    <div class="glifo-capa" aria-hidden="true">☽</div>
+    <div>
+      <span class="marca">El día</span>
+      <h3>El gesto breve</h3>
+      <p>Tres minutos guiados, marcados por el día lunar: treinta rituales, uno por cada día del ciclo. Es el corazón de la app y es gratis para siempre — sin prueba que caduca, sin tarjeta al tercer día.</p>
+    </div>
+  </div>
+  <div class="capa">
+    <div class="glifo-capa" aria-hidden="true">✶</div>
+    <div>
+      <span class="marca">La curiosidad</span>
+      <h3>Explorar</h3>
+      <p>La planta, el mineral y la carta de hoy, y la Rueda del Año con sus ocho sabbats. Pequeñas puertas para los días en que quieres saber más.</p>
+    </div>
+  </div>
+  <div class="capa">
+    <div class="glifo-capa" aria-hidden="true">⚶</div>
+    <div>
+      <span class="marca">La hondura</span>
+      <h3>Profundidad</h3>
+      <p>Las 78 cartas del tarot con sus lecturas, treinta prácticas de yoga mental — una por día lunar, con gong y temporizador —, meditaciones con voz y un diario privado donde queda lo que vas viendo de ti.</p>
+    </div>
+  </div>
+
+  <p class="intimidad">Tu diario solo lo lees tú. Sin anuncios, sin vender datos: lo que escribes dentro se queda dentro.</p>
+</section>
+
+<section class="wrap fade">
+  <span class="eyebrow">Todavía no está abierta</span>
+  <h2>Te aviso el día que abra</h2>
+  <div class="marco"><span class="e3"></span>
+    <p>Viaje del Alma está en pruebas cerradas con un grupo pequeño de mujeres. Cuando llegue a Google Play, quiero que lo sepas por mí y no por un anuncio.</p>
+    <div class="campo">
+      <label for="email" class="letra-chica" style="margin:0">Tu correo</label>
+      <input type="email" id="email" placeholder="nombre@correo.com" autocomplete="email" required>
+      <button id="enviar" type="button">Avísame</button>
+    </div>
+    <p class="aviso" id="aviso" role="status" aria-live="polite"></p>
+    <p class="letra-chica">Te escribo el día que abra. Te borras cuando quieras y no comparto tu dirección con nadie.</p>
+  </div>
+</section>
+
+<section class="wrap fade">
+  <span class="eyebrow">Cuaderno</span>
+  <h2>La Rueda del Año, contada despacio</h2>
+  <p style="color:var(--tenue)">
+    Aquí irán los textos abiertos: los ocho sabbats, las lunas del año, las plantas de cada estación
+    y las cartas del tarot una a una. Empiezan a publicarse pronto.
+  </p>
+</section>
+
+</main>
+
+<footer class="wrap">
+  <div class="triple" aria-hidden="true">☽ ✦ ☾</div>
+  <nav>
+    <a href="/privacidad.html">Privacidad</a>
+    <a href="/terminos.html">Términos</a>
+    <a href="/borrar-cuenta.html">Borrar cuenta</a>
+  </nav>
+  <p>Viaje del Alma · Hecha en Madrid, para quien sigue a la luna.</p>
+</footer>
+
+<script>
+/* ═══════════════════════════════════════════════
+   CONFIGURACIÓN — rellenar antes de publicar
+   ═══════════════════════════════════════════════ */
+const SUPABASE_URL  = "https://orxyhxehapqmjwmqmqgv.supabase.co";
+const SUPABASE_KEY  = "sb_publishable_As7G8e_pyZwjApjgcC48ow_RDc4hZfN"; // clave publicable: segura en público, la protege la RLS
+const TABLA_CORREO  = "lista_correo";
+const CORREO_APOYO  = "viajedelalma.app@gmail.com";
+
+/* ── Cielo estrellado ──────────────────────────── */
+(function estrellas(){
+  const cielo = document.getElementById("cielo");
+  const n = Math.min(90, Math.floor(innerWidth / 12));
+  for (let i = 0; i < n; i++){
+    const s = document.createElement("span");
+    s.className = "estrella";
+    const t = Math.random();
+    const d = t < .82 ? 1 : t < .96 ? 1.6 : 2.2;   // casi todas diminutas
+    s.style.width = s.style.height = d + "px";
+    s.style.left = (Math.random() * 100) + "%";
+    s.style.top  = (Math.random() * 100) + "%";
+    s.style.setProperty("--o", (.25 + Math.random() * .5).toFixed(2));
+    s.style.setProperty("--t", (3 + Math.random() * 5).toFixed(1) + "s");
+    s.style.setProperty("--d", (Math.random() * 6).toFixed(1) + "s");
+    cielo.appendChild(s);
+  }
+})();
+
+/* ── Día del ciclo lunar ───────────────────────── */
+const SINODICO = 29.530588853;
+const LUNA_NUEVA_REF = Date.UTC(2000, 0, 6, 18, 14);
+
+function edadLunar(fecha = new Date()){
+  const dias = (fecha.getTime() - LUNA_NUEVA_REF) / 86400000;
+  let e = dias % SINODICO;
+  if (e < 0) e += SINODICO;
+  return e;
+}
+function diaDelCiclo(fecha = new Date()){
+  return Math.min(30, Math.floor(edadLunar(fecha)) + 1);
+}
+function nombreFase(edad){
+  if (edad < 1.2)  return "Luna nueva";
+  if (edad < 6.4)  return "Creciente";
+  if (edad < 8.4)  return "Cuarto creciente";
+  if (edad < 13.8) return "Gibosa creciente";
+  if (edad < 15.8) return "Luna llena";
+  if (edad < 21.1) return "Gibosa menguante";
+  if (edad < 23.1) return "Cuarto menguante";
+  if (edad < 28.5) return "Menguante";
+  return "Luna oscura";
+}
+
+/* ── Los treinta gestos ────────────────────────── */
+const CICLO = [
+ ["La página en blanco","Escribe una sola intención para este ciclo, en presente y concreta. Debajo, un gesto de esta semana para regarla. Enciende una vela mientras la lees en voz baja."],
+ ["El nombre exacto","Vuelve a tu intención de ayer y quítale una palabra de más. Lo que sobra en una frase suele sobrar también en la vida."],
+ ["Dos minutos","Elige el primer paso de tu intención y hazlo hoy en dos minutos. No el mejor paso: el más pequeño que exista."],
+ ["El terreno","Mira dónde va a vivir tu intención: una hora del día, un rincón de la casa. Lo que no tiene sitio no crece."],
+ ["El agua justa","Nombra una cosa que te sobra esta semana y déjala fuera. Sembrar también es hacer hueco."],
+ ["La aliada","Piensa en alguien que sabe de esto más que tú. Escríbele hoy, aunque sea una línea. Pedir pronto ahorra meses."],
+ ["La primera raíz","Repasa la semana: qué ha agarrado y qué sigue en el aire. Sin juicio — solo inventario."],
+ ["La subida","La luna ya empuja. Coge la tarea que venías aplazando y ponle hora en el calendario, no en la cabeza."],
+ ["La voz","Di tu intención en voz alta una vez, a solas. Escucha cómo suena cuando sale del cuerpo y no de la cabeza."],
+ ["Las manos","Haz despacio una tarea manual pequeña: amasar, ordenar un cajón, trocear verdura. Toda la atención en el tacto. Las manos piensan de otra manera."],
+ ["El fuego pequeño","Escribe la excusa exacta con la que esquivas lo importante. Quémala con cuidado o córtala en tiras. La tarea sigue ahí, pero ya sin guardaespaldas."],
+ ["La marea alta","Pon una canción que te encienda y muévete sin espejo. Al acabar, quédate quieta y di tu intención una vez: el cuerpo la oye distinto cuando está despierto."],
+ ["La antesala","Falta poco para la llena. Escribe qué quieres ver con claridad cuando llegue. Preguntar bien es media respuesta."],
+ ["La víspera","Hoy no añadas nada. Ordena lo que ya hay y acuéstate temprano: mañana la luz lo enseña todo."],
+ ["La luna llena","Sal a mirarla, aunque sea desde la ventana. Nombra en voz baja una cosa que ya está cumplida de lo que sembraste."],
+ ["La carta","Escríbele una carta a la mujer que cerrará este ciclo el día treinta. Cuéntale cómo estás hoy. Ciérrala y no la releas hasta entonces."],
+ ["El espejo honesto","Nombra una cosa tuya que no te gusta ver a plena luz. Solo nombrarla. Hoy no se arregla nada."],
+ ["Lo que pesa","Haz una lista de lo que cargas y marca lo que no es tuyo. La llena enseña también el peso ajeno."],
+ ["La gratitud concreta","Tres cosas, con nombre y apellido. Nada de «mi salud»: el vaso de agua, la llamada de ayer, el sol de las cuatro."],
+ ["El desorden útil","Elige un cajón, una carpeta, un archivo. Vacíalo entero y vuelve a meter solo lo que defenderías."],
+ ["La media vuelta","La luz empieza a bajar. Pregúntate qué te llevas de esta mitad del ciclo y qué se queda aquí."],
+ ["Repartir","Da hoy algo que te sobre: tiempo, una respuesta, un objeto, una recomendación. Sin esperar vuelta."],
+ ["La palabra dicha","Dile a alguien algo bueno que piensas de ella y nunca has dicho en voz alta. Hoy, no cuando toque."],
+ ["El límite","Di un no que llevabas debiendo. Sin explicación larga: los noes largos se negocian."],
+ ["La mesa compartida","Come con alguien sin pantallas, aunque sean veinte minutos. Repartir también es estar."],
+ ["La cosecha pequeña","Apunta tres cosas que este ciclo te ha dado y no esperabas. Suelen ser las que cuentan."],
+ ["La poda","Mira tu lista de pendientes y tacha, sin hacerla, una cosa que ya no significa nada. Podar es decidir."],
+ ["El descanso","Hoy el ritual es no hacer. Media hora sin móvil, sin objetivo, sin ganarte nada. La tierra también descansa."],
+ ["La semilla","De todo el ciclo, elige una sola cosa para guardar: «del ciclo que muere, guardo…». Escríbela y guárdala donde la encuentres."],
+ ["El umbral","Reúne lo escrito estos días y léelo una vez. Di la verdad en una frase sobre tu intención: creció, cambió de forma, no era su momento, o floreció entera. Todas son finales dignos."]
+];
+
+/* ── Pintar el ritual ──────────────────────────── */
+const edad = edadLunar();
+const dia  = diaDelCiclo();
+const [titulo, texto] = CICLO[dia - 1];
+document.getElementById("numDia").textContent       = dia;
+document.getElementById("nomFase").textContent      = nombreFase(edad);
+document.getElementById("tituloRitual").textContent = titulo;
+document.getElementById("textoRitual").textContent  = texto;
+
+/* ── La rueda: 30 marcas, la de hoy encendida ──── */
+const ticks = document.getElementById("ticks");
+for (let i = 0; i < 30; i++){
+  const a = (i / 30) * Math.PI * 2 - Math.PI / 2;
+  const r1 = i === dia - 1 ? 72 : 78, r2 = 88;
+  const l = document.createElementNS("http://www.w3.org/2000/svg","line");
+  l.setAttribute("x1", 100 + Math.cos(a) * r1);
+  l.setAttribute("y1", 100 + Math.sin(a) * r1);
+  l.setAttribute("x2", 100 + Math.cos(a) * r2);
+  l.setAttribute("y2", 100 + Math.sin(a) * r2);
+  l.setAttribute("class", i === dia - 1 ? "tick on" : "tick");
+  ticks.appendChild(l);
+}
+
+/* ── La luna, con su fase real y su halo ───────── */
+(function pintarLuna(){
+  const g = document.getElementById("luna");
+  const R = 44, CX = 100, CY = 100;
+  const p = edad / SINODICO;
+  const ang = p * Math.PI * 2;
+  const CLARO = "#F0E7CF", OSCURO = "#0D0922";
+  const ns = "http://www.w3.org/2000/svg";
+
+  // halo dorado suave detrás
+  const defs = document.createElementNS(ns,"defs");
+  defs.innerHTML =
+    '<radialGradient id="haloLuna"><stop offset="55%" stop-color="rgba(232,206,140,.32)"/><stop offset="100%" stop-color="rgba(232,206,140,0)"/></radialGradient>' +
+    '<radialGradient id="pielLuna" cx="42%" cy="36%"><stop offset="0%" stop-color="#F8F1DD"/><stop offset="72%" stop-color="#EBDFC0"/><stop offset="100%" stop-color="#D9C99F"/></radialGradient>';
+  g.appendChild(defs);
+
+  const halo = document.createElementNS(ns,"circle");
+  halo.setAttribute("cx",CX); halo.setAttribute("cy",CY); halo.setAttribute("r",R+16);
+  halo.setAttribute("fill","url(#haloLuna)");
+  g.appendChild(halo);
+
+  const disco = document.createElementNS(ns,"circle");
+  disco.setAttribute("cx",CX); disco.setAttribute("cy",CY); disco.setAttribute("r",R);
+  disco.setAttribute("fill",OSCURO);
+  disco.setAttribute("stroke","rgba(196,154,60,.4)");
+  g.appendChild(disco);
+
+  const creciendo = p < 0.5;
+  const semi = document.createElementNS(ns,"path");
+  semi.setAttribute("d", creciendo
+    ? `M ${CX} ${CY-R} A ${R} ${R} 0 0 1 ${CX} ${CY+R} Z`
+    : `M ${CX} ${CY-R} A ${R} ${R} 0 0 0 ${CX} ${CY+R} Z`);
+  semi.setAttribute("fill","url(#pielLuna)");
+  g.appendChild(semi);
+
+  const rx = Math.abs(Math.cos(ang)) * R;
+  const term = document.createElementNS(ns,"ellipse");
+  term.setAttribute("cx",CX); term.setAttribute("cy",CY);
+  term.setAttribute("rx",rx); term.setAttribute("ry",R);
+  term.setAttribute("fill", Math.cos(ang) > 0 ? OSCURO : "url(#pielLuna)");
+  g.appendChild(term);
+
+  // dos cráteres sutiles sobre la parte iluminada
+  [[CX-14,CY-8,5],[CX+9,CY+13,3.4]].forEach(([x,y,r])=>{
+    const c = document.createElementNS(ns,"circle");
+    c.setAttribute("cx",x); c.setAttribute("cy",y); c.setAttribute("r",r);
+    c.setAttribute("fill","rgba(13,9,34,.12)");
+    g.appendChild(c);
+  });
+})();
+
+/* ── Captura de correo ─────────────────────────── */
+const btn   = document.getElementById("enviar");
+const input = document.getElementById("email");
+const aviso = document.getElementById("aviso");
+
+function decir(msg, tipo){ aviso.textContent = msg; aviso.className = "aviso " + tipo; }
+
+btn.addEventListener("click", async () => {
+  const email = input.value.trim().toLowerCase();
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)){
+    decir("Ese correo no parece completo. Revísalo y vuelve a intentarlo.", "err");
+    input.focus(); return;
+  }
+  btn.disabled = true; decir("Apuntando…", "");
+  try{
+    const r = await fetch(`${SUPABASE_URL}/rest/v1/${TABLA_CORREO}`, {
+      method:"POST",
+      headers:{
+        "apikey": SUPABASE_KEY,
+        "Authorization": `Bearer ${SUPABASE_KEY}`,
+        "Content-Type": "application/json",
+        "Prefer": "return=minimal"
+      },
+      body: JSON.stringify({ email, origen: "web" })
+    });
+    if (r.ok){
+      decir("Apuntada. Te escribo el día que abra.", "ok");
+      input.value = ""; input.disabled = true;
+    } else if (r.status === 409){
+      decir("Ya estabas en la lista. No hace falta nada más.", "ok");
+      input.value = ""; input.disabled = true;
+    } else {
+      decir(`No he podido guardarlo. Prueba otra vez o escríbeme a ${CORREO_APOYO}.`, "err");
+      btn.disabled = false;
+    }
+  } catch {
+    decir(`Se ha cortado la conexión. Prueba otra vez o escríbeme a ${CORREO_APOYO}.`, "err");
+    btn.disabled = false;
+  }
+});
+input.addEventListener("keydown", e => { if (e.key === "Enter") btn.click(); });
+
+/* ── Aparición al bajar ────────────────────────── */
+if (matchMedia("(prefers-reduced-motion: no-preference)").matches){
+  const io = new IntersectionObserver(es => {
+    es.forEach(e => { if (e.isIntersecting){ e.target.classList.add("vis"); io.unobserve(e.target); } });
+  }, { threshold:.12 });
+  document.querySelectorAll(".fade").forEach(el => io.observe(el));
+}
+</script>
+</body>
+</html>
