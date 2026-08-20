@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Gracias — Viaje del Alma</title>
+<meta name="description" content="Ya estás en la lista. Tu Calendario Lunar te espera.">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#080614">
+<link rel="icon" type="image/png" href="favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&display=swap" rel="stylesheet">
+<style>
+:root{
+--noche:#080614; --noche-2:#0E0A20; --noche-3:#160F2E;
+--oro:#C49A3C; --oro-claro:#E8CE8C; --oro-brillo:#F6E3AE;
+--violeta-niebla:rgba(107,78,158,.32);
+--niebla:#D6CFE6; --tenue:#978DB4; --linea:rgba(196,154,60,.28);
+--serif:"Cormorant Garamond",Georgia,serif;
+--display:"Cinzel",Georgia,serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{font-size:17.5px}
+body{
+background:var(--noche);color:var(--niebla);font-family:var(--serif);
+font-size:23px;line-height:1.7;font-weight:300;
+-webkit-font-smoothing:antialiased;overflow-x:hidden;
+min-height:100vh;display:flex;align-items:center;justify-content:center;
+text-align:center;padding:40px 26px;
+}
+.cielo{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+.cielo::before{content:"";position:absolute;inset:0;background:
+radial-gradient(ellipse 75% 55% at 50% -8%,var(--violeta-niebla),transparent 68%),
+radial-gradient(ellipse 55% 40% at 88% 84%,rgba(196,154,60,.08),transparent 70%);}
+.estrella{position:absolute;border-radius:50%;background:#EFE6CE}
+@media (prefers-reduced-motion:no-preference){
+.estrella{animation:titilar var(--t,4s) ease-in-out var(--d,0s) infinite}
+@keyframes titilar{0%,100%{opacity:var(--o,.5)}50%{opacity:.08}}
+}
+main{position:relative;z-index:1;max-width:620px}
+.luna{font-size:2.6rem;color:var(--oro-claro);text-shadow:0 0 30px rgba(232,206,140,.5);line-height:1}
+h1{
+font-family:var(--display);font-weight:400;font-size:clamp(1.6rem,6vw,2.1rem);
+letter-spacing:.14em;margin:26px 0 14px;text-transform:uppercase;
+background:linear-gradient(180deg,#F8F3E4 20%,var(--oro-claro) 85%);
+-webkit-background-clip:text;background-clip:text;color:transparent;
+}
+p.sub{color:var(--tenue);font-size:1.12rem;max-width:30em;margin:0 auto}
+.marco{
+position:relative;margin:38px auto 0;padding:34px 30px;
+background:linear-gradient(168deg,var(--noche-2),var(--noche-3));
+border:1px solid var(--linea);border-radius:3px;
+}
+.marco::before,.marco::after,.e3::before,.e3::after{
+content:"";position:absolute;width:22px;height:22px;
+border-color:var(--oro);border-style:solid;opacity:.85;
+}
+.marco::before{top:-1px;left:-1px;border-width:1.5px 0 0 1.5px;border-radius:3px 0 0 0}
+.marco::after{top:-1px;right:-1px;border-width:1.5px 1.5px 0 0;border-radius:0 3px 0 0}
+.e3::before{bottom:-1px;left:-1px;border-width:0 0 1.5px 1.5px;border-radius:0 0 0 3px}
+.e3::after{bottom:-1px;right:-1px;border-width:0 1.5px 1.5px 0;border-radius:0 0 3px 0}
+.eyebrow{
+font-family:var(--display);font-size:.84rem;letter-spacing:.32em;
+text-transform:uppercase;color:var(--oro);font-weight:500;margin-bottom:14px;
+}
+.marco h2{font-family:var(--display);font-weight:400;font-size:1.3rem;letter-spacing:.06em;color:var(--oro-claro);margin-bottom:10px}
+.marco p{font-size:1.08rem;color:var(--niebla)}
+.boton{
+display:inline-block;margin-top:24px;
+background:linear-gradient(180deg,var(--oro-claro),var(--oro));
+color:#0A0716;border-radius:2px;border-bottom:none;
+font-family:var(--display);font-size:.88rem;letter-spacing:.22em;
+text-transform:uppercase;font-weight:600;padding:16px 30px;
+box-shadow:0 0 24px rgba(196,154,60,.28);
+transition:box-shadow .25s ease,transform .15s ease;
+}
+.boton:hover{box-shadow:0 0 34px rgba(232,206,140,.5);transform:translateY(-1px);color:#0A0716}
+a{color:var(--oro-claro);text-decoration:none;border-bottom:1px solid var(--linea)}
+a:hover{border-bottom-color:var(--oro)}
+.letra-chica{font-size:1.05rem;color:var(--tenue);margin-top:22px}
+.volver{margin-top:34px;font-size:1rem}
+</style>
+</head>
+<body>
+<div class="cielo" id="cielo" aria-hidden="true"></div>
+<main>
+<div class="luna" aria-hidden="true">☾</div>
+<h1>Ya estás en la lista</h1>
+<p class="sub">Te escribiré el día que Viaje del Alma abra sus puertas. Mientras tanto, la luna sigue su ciclo — y este regalo es para que lo camines con ella.</p>
+
+<div class="marco"><span class="e3"></span>
+<p class="eyebrow">Tu regalo</p>
+<h2>Calendario Lunar · Otoño–Invierno 2026</h2>
+<p>Las lunas de septiembre a diciembre con su día y su hora, un ritual de cinco
+minutos para cada luna nueva y llena, y los tres sabbats que cierran el año:
+Mabon, Samhain y Yule.</p>
+<a class="boton" href="calendario-lunar.pdf" download="ViajeDelAlma_CalendarioLunar.pdf">Descargar el calendario ✦</a>
+<p class="letra-chica">Es un PDF pensado para el móvil, y bonito también impreso.
+Si el botón no descarga, <a href="calendario-lunar.pdf">ábrelo aquí</a> y guárdalo.</p>
+</div>
+
+<p class="volver"><a href="/">← Volver a Viaje del Alma</a></p>
+</main>
+<script>
+(function estrellas(){
+const cielo = document.getElementById("cielo");
+const n = Math.min(90, Math.floor(innerWidth / 12));
+for (let i = 0; i < n; i++){
+const s = document.createElement("span");
+s.className = "estrella";
+const t = Math.random();
+const d = t < .82 ? 1 : t < .96 ? 1.6 : 2.2;
+s.style.width = s.style.height = d + "px";
+s.style.left = (Math.random() * 100) + "%";
+s.style.top = (Math.random() * 100) + "%";
+s.style.setProperty("--o", (.25 + Math.random() * .5).toFixed(2));
+s.style.setProperty("--t", (3 + Math.random() * 5).toFixed(1) + "s");
+s.style.setProperty("--d", (Math.random() * 6).toFixed(1) + "s");
+cielo.appendChild(s);
+}
+})();
+</script>
+</body>
+</html>
