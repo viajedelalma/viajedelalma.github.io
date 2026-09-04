@@ -157,6 +157,14 @@ font-style:italic;font-size:1.1rem;color:var(--niebla);
 border-top:1px solid var(--linea);border-bottom:1px solid var(--linea);
 }
 
+/* ── DESCARGA ──────────────────────────────────── */
+.descarga{display:inline-block;background:linear-gradient(180deg,var(--oro-claro),var(--oro));
+color:#0A0716;border-radius:2px;font-family:var(--display);font-size:.88rem;letter-spacing:.22em;
+text-transform:uppercase;font-weight:600;padding:16px 26px;text-decoration:none;border-bottom:0;
+box-shadow:0 0 24px rgba(196,154,60,.28);transition:box-shadow .25s ease,transform .15s ease}
+.descarga:hover{box-shadow:0 0 34px rgba(232,206,140,.5);transform:translateY(-1px);color:#0A0716;border-bottom:0}
+.descarga-hero{margin-top:26px}
+.descarga-nota{margin-top:12px;font-size:.92rem;color:var(--tenue)}
 /* ── CORREO ────────────────────────────────────── */
 .campo{display:flex;flex-direction:column;gap:12px;margin-top:22px}
 input[type=email]{
@@ -231,6 +239,8 @@ section.wrap{padding:80px 26px 50px}
 Una práctica espiritual diaria en español: rituales breves, tarot,
 plantas y minerales, y un diario que solo lees tú.
 </p>
+<p class="descarga-hero"><a class="descarga" href="https://play.google.com/store/apps/details?id=com.viajedelalma.app" rel="noopener">Descárgala en Google Play</a></p>
+<p class="descarga-nota">Ya disponible · Android · el ritual diario es gratis, siempre</p>
 </header>
 
 <main>
@@ -285,20 +295,22 @@ Mañana habrá otro, y el de hoy no volverá hasta el mes que viene.
 </section>
 
 <section class="wrap fade">
-<span class="eyebrow">Todavía no está abierta</span>
-<h2>Te aviso el día que abra</h2>
+<span class="eyebrow">Ya está en Google Play</span>
+<h2>Descárgala hoy</h2>
 <div class="marco"><span class="e3"></span>
-<p>Viaje del Alma está en pruebas cerradas con un grupo pequeño de mujeres. Cuando llegue a Google Play, quiero que lo sepas por mí y no por un anuncio.</p>
+<p>Viaje del Alma se publicó en Google Play el 4 de septiembre de 2026. El ritual diario es gratuito y lo será siempre; el tarot completo, el oráculo, las meditaciones y el diario se abren con 7 días de prueba.</p>
+<p class="descarga-hero"><a class="descarga" href="https://play.google.com/store/apps/details?id=com.viajedelalma.app" rel="noopener">Descárgala en Google Play</a></p>
+<p style="margin-top:28px">¿Prefieres que te escriba de vez en cuando? Déjame tu correo y te cuento las lunas, los sabbats y lo nuevo de la app, sin prisa y sin anuncios.</p>
 <p class="regalo">✦ Al apuntarte te llevas de regalo el <strong>Calendario Lunar de otoño e invierno</strong> (PDF):
 las lunas de septiembre a diciembre con su día y su hora, un ritual de cinco minutos para cada una,
 y los tres sabbats que cierran el año.</p>
 <div class="campo">
 <label for="email" class="letra-chica" style="margin:0">Tu correo</label>
 <input type="email" id="email" placeholder="nombre@correo.com" autocomplete="email" required>
-<button id="enviar" type="button">Avísame</button>
+<button id="enviar" type="button">Quiero recibirlo</button>
 </div>
 <p class="aviso" id="aviso" role="status" aria-live="polite"></p>
-<p class="letra-chica">Te escribo el día que abra. Te borras cuando quieras y no comparto tu dirección con nadie.</p>
+<p class="letra-chica">Pocos correos y con calma. Te borras cuando quieras y no comparto tu dirección con nadie.</p>
 </div>
 </section>
 
