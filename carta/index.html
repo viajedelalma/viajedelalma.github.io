@@ -37,6 +37,8 @@ h1 em{font-style:italic;color:var(--oro-claro)}
 .campos{display:grid;grid-template-columns:1fr 1fr;gap:16px}
 .campo{display:flex;flex-direction:column;gap:6px}
 .campo.ancho{grid-column:1/-1}
+.pista{margin:6px 0 0;font-size:.8rem;color:var(--tenue);letter-spacing:0;text-transform:none;line-height:1.5}
+#f-filtro{margin-bottom:6px}
 label{font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;color:var(--tenue)}
 .hora2{display:flex;align-items:center;gap:6px}.hora2 select{flex:1 1 0;min-width:0;text-align:center}.hora2-sep{color:var(--oro);font-size:1.1rem;line-height:1}
 input,select{font-family:var(--cuerpo);font-size:1rem;color:var(--texto);background:rgba(11,8,24,.7);border:1px solid var(--violeta-tenue);border-radius:2px;padding:11px 12px;width:100%}
@@ -133,7 +135,12 @@ button.principal:focus-visible{outline:2px solid var(--oro-claro);outline-offset
       <div class="campo ancho"><label for="f-nombre">Tu nombre (opcional)</label><input id="f-nombre" type="text" autocomplete="given-name" placeholder="Como quieras que te llame"></div>
       <div class="campo"><label for="f-fecha">Fecha de nacimiento</label><input id="f-fecha" type="date" required></div>
       <div class="campo"><label for="f-h">Hora</label><div class="hora2"><select id="f-h" aria-label="Hora de nacimiento"></select><span class="hora2-sep">:</span><select id="f-m" aria-label="Minutos de nacimiento"></select></div><input id="f-hora" type="hidden"></div>
-      <div class="campo ancho"><label for="f-ciudad">Lugar de nacimiento</label><select id="f-ciudad"></select></div>
+      <div class="campo ancho"><label for="f-pais">País de nacimiento</label><select id="f-pais"></select></div>
+      <div class="campo ancho"><label for="f-ciudad">Localidad de nacimiento</label>
+        <input id="f-filtro" type="search" placeholder="Escribe para buscar tu localidad" autocomplete="off" hidden>
+        <select id="f-ciudad" disabled></select>
+        <p class="pista" id="pista-ciudad" hidden>¿No aparece tu pueblo? Elige la localidad más cercana: a pocos kilómetros tu carta apenas cambia.</p>
+      </div>
       <div class="check"><input type="checkbox" id="f-sinhora"><label for="f-sinhora" style="text-transform:none;letter-spacing:0;font-size:.88rem">No sé mi hora exacta</label></div>
     </div>
     <button class="principal" type="submit">Ver mi carta</button>
@@ -835,48 +842,12 @@ const TEXTOS = {
 };
 
 /* ---------- Ciudades (lat, lon este +, zona IANA) ---------- */
-const CIUDADES = [
-  ["Madrid",40.4168,-3.7038,"Europe/Madrid"],["Pozuelo de Alarcón",40.4327,-3.8137,"Europe/Madrid"],
-  ["Barcelona",41.3874,2.1686,"Europe/Madrid"],["Valencia",39.4699,-0.3763,"Europe/Madrid"],
-  ["Sevilla",37.3891,-5.9845,"Europe/Madrid"],["Zaragoza",41.6488,-0.8891,"Europe/Madrid"],
-  ["Málaga",36.7213,-4.4214,"Europe/Madrid"],["Murcia",37.9922,-1.1307,"Europe/Madrid"],
-  ["Palma de Mallorca",39.5696,2.6502,"Europe/Madrid"],["Bilbao",43.2630,-2.9350,"Europe/Madrid"],
-  ["Alicante",38.3452,-0.4810,"Europe/Madrid"],["Córdoba",37.8882,-4.7794,"Europe/Madrid"],
-  ["Valladolid",41.6523,-4.7245,"Europe/Madrid"],["Vigo",42.2406,-8.7207,"Europe/Madrid"],
-  ["Gijón",43.5322,-5.6611,"Europe/Madrid"],["A Coruña",43.3623,-8.4115,"Europe/Madrid"],
-  ["Granada",37.1773,-3.5986,"Europe/Madrid"],["Pamplona",42.8125,-1.6458,"Europe/Madrid"],
-  ["Santander",43.4623,-3.8100,"Europe/Madrid"],["Salamanca",40.9701,-5.6635,"Europe/Madrid"],
-  ["Toledo",39.8628,-4.0273,"Europe/Madrid"],["San Sebastián",43.3183,-1.9812,"Europe/Madrid"],
-  ["Las Palmas de Gran Canaria",28.1235,-15.4363,"Atlantic/Canary"],
-  ["Santa Cruz de Tenerife",28.4636,-16.2518,"Atlantic/Canary"],
-  ["Ciudad de México",19.4326,-99.1332,"America/Mexico_City"],
-  ["Guadalajara (MX)",20.6597,-103.3496,"America/Mexico_City"],
-  ["Monterrey",25.6866,-100.3161,"America/Monterrey"],
-  ["Buenos Aires",-34.6037,-58.3816,"America/Argentina/Buenos_Aires"],
-  ["Córdoba (AR)",-31.4201,-64.1888,"America/Argentina/Cordoba"],
-  ["Rosario",-32.9442,-60.6505,"America/Argentina/Cordoba"],
-  ["Bogotá",4.7110,-74.0721,"America/Bogota"],["Medellín",6.2442,-75.5812,"America/Bogota"],
-  ["Cali",3.4516,-76.5320,"America/Bogota"],
-  ["Santiago de Chile",-33.4489,-70.6693,"America/Santiago"],
-  ["Lima",-12.0464,-77.0428,"America/Lima"],
-  ["Quito",-0.1807,-78.4678,"America/Guayaquil"],["Guayaquil",-2.1894,-79.8891,"America/Guayaquil"],
-  ["Caracas",10.4806,-66.9036,"America/Caracas"],
-  ["Montevideo",-34.9011,-56.1645,"America/Montevideo"],
-  ["La Paz (BO)",-16.4897,-68.1193,"America/La_Paz"],
-  ["Asunción",-25.2637,-57.5759,"America/Asuncion"],
-  ["San José (CR)",9.9281,-84.0907,"America/Costa_Rica"],
-  ["Ciudad de Panamá",8.9824,-79.5199,"America/Panama"],
-  ["La Habana",23.1136,-82.3666,"America/Havana"],
-  ["Santo Domingo",18.4861,-69.9312,"America/Santo_Domingo"],
-  ["San Juan (PR)",18.4655,-66.1057,"America/Puerto_Rico"],
-  ["Ciudad de Guatemala",14.6349,-90.5069,"America/Guatemala"],
-  ["San Salvador",13.6929,-89.2182,"America/El_Salvador"],
-  ["Tegucigalpa",14.0723,-87.1921,"America/Tegucigalpa"],
-  ["Managua",12.1150,-86.2362,"America/Managua"],
-  ["São Paulo",-23.5505,-46.6333,"America/Sao_Paulo"],
-  ["Lisboa",38.7223,-9.1393,"Europe/Lisbon"],
-  ["Miami",25.7617,-80.1918,"America/New_York"],
-];
+// Los paises se listan aqui; las localidades de cada uno viven en
+// ciudades/XX.json y se descargan solo cuando se elige ese pais.
+const PAISES = {"ES":"España","MX":"México","AR":"Argentina","CO":"Colombia","CL":"Chile","PE":"Perú","VE":"Venezuela","EC":"Ecuador","GT":"Guatemala","CU":"Cuba","BO":"Bolivia","DO":"República Dominicana","HN":"Honduras","PY":"Paraguay","SV":"El Salvador","NI":"Nicaragua","CR":"Costa Rica","PR":"Puerto Rico","UY":"Uruguay","PA":"Panamá","GQ":"Guinea Ecuatorial","PT":"Portugal","BR":"Brasil","US":"Estados Unidos","CA":"Canadá","FR":"Francia","DE":"Alemania","IT":"Italia","GB":"Reino Unido","CH":"Suiza","BE":"Bélgica","NL":"Países Bajos","AD":"Andorra","IE":"Irlanda","AT":"Austria","SE":"Suecia","NO":"Noruega","DK":"Dinamarca","PL":"Polonia","RO":"Rumanía","RU":"Rusia","MA":"Marruecos","DZ":"Argelia","SN":"Senegal","CN":"China","JP":"Japón","IN":"India","PH":"Filipinas","AU":"Australia","IL":"Israel","TR":"Turquía","GR":"Grecia","UA":"Ucrania","BG":"Bulgaria","CZ":"Chequia","HU":"Hungría","FI":"Finlandia","IS":"Islandia","LU":"Luxemburgo"};
+// La carta de ejemplo no debe depender de una descarga: va incrustada.
+const CIUDAD_EJEMPLO = ["Barcelona", 41.387, 2.169, "Europe/Madrid"];
+let CIUDADES = [];
 
 /* ---------- Hora local -> UTC usando la base horaria del navegador ---------- */
 function desfaseZona(fecha, zona) {
@@ -1050,17 +1021,79 @@ const ENLACE_APP = 'https://play.google.com/store/apps/details?id=com.viajedelal
 const $ = (id) => document.getElementById(id);
 const EJEMPLO = { fecha: '1988-03-12', hora: '09:15', ciudad: 'Barcelona', nombre: '' };
 
-(function arranque() {
+function sinTildes(s) {
+  return s.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
+}
+
+function pintaCiudades(filtro) {
   const sel = $('f-ciudad');
+  const f = filtro ? sinTildes(filtro) : '';
+  sel.innerHTML = '';
   const vacia = document.createElement('option');
-  vacia.value = ''; vacia.textContent = 'Elige tu ciudad';
+  vacia.value = '';
+  vacia.textContent = CIUDADES.length ? 'Elige tu localidad' : 'Elige antes tu país';
   sel.appendChild(vacia);
+  let n = 0;
   CIUDADES.forEach((c, i) => {
+    if (f && sinTildes(c[0]).indexOf(f) === -1) return;
     const o = document.createElement('option');
     o.value = String(i); o.textContent = c[0];
     sel.appendChild(o);
+    n++;
   });
+  if (f && n === 0) {
+    const o = document.createElement('option');
+    o.value = ''; o.textContent = 'Ninguna coincide';
+    sel.appendChild(o);
+  }
   sel.value = '';
+}
+
+async function cargarPais(cc) {
+  const sel = $('f-ciudad');
+  const err = $('error');
+  CIUDADES = [];
+  $('f-filtro').value = '';
+  if (!cc) {
+    sel.disabled = true; $('f-filtro').hidden = true; $('pista-ciudad').hidden = true;
+    pintaCiudades(''); return;
+  }
+  sel.disabled = true;
+  sel.innerHTML = '<option value="">Cargando localidades…</option>';
+  try {
+    const r = await fetch('ciudades/' + cc + '.json', { cache: 'force-cache' });
+    if (!r.ok) throw new Error(r.status);
+    CIUDADES = await r.json();
+  } catch (e) {
+    sel.innerHTML = '<option value="">No he podido cargar las localidades</option>';
+    err.textContent = 'No he podido cargar las localidades de ese país. Comprueba tu conexión y vuelve a elegirlo.';
+    err.hidden = false;
+    return;
+  }
+  err.hidden = true;
+  pintaCiudades('');
+  sel.disabled = false;
+  $('f-filtro').hidden = CIUDADES.length < 40;
+  $('pista-ciudad').hidden = false;
+}
+
+(function arranque() {
+  const selP = $('f-pais');
+  const vaciaP = document.createElement('option');
+  vaciaP.value = ''; vaciaP.textContent = 'Elige tu país';
+  selP.appendChild(vaciaP);
+  // España primero, que es de donde viene la mayoría; el resto por orden alfabético
+  const codigos = Object.keys(PAISES).sort((a, b) =>
+    a === 'ES' ? -1 : b === 'ES' ? 1 : PAISES[a].localeCompare(PAISES[b], 'es'));
+  codigos.forEach((cc) => {
+    const o = document.createElement('option');
+    o.value = cc; o.textContent = PAISES[cc];
+    selP.appendChild(o);
+  });
+  selP.value = '';
+  selP.addEventListener('change', () => cargarPais(selP.value));
+  $('f-filtro').addEventListener('input', (e) => pintaCiudades(e.target.value));
+  pintaCiudades('');
   $('f-fecha').value = '';
   $('f-hora').value = '';
   (function horaDoble() {
@@ -1118,11 +1151,12 @@ function calcular(esEjemplo) {
   const sinHora = esEjemplo ? false : $('f-sinhora').checked;
   const hora = esEjemplo ? EJEMPLO.hora : ($('f-hora').value || '12:00');
   const ciudad = esEjemplo
-    ? CIUDADES[CIUDADES.findIndex(c => c[0] === EJEMPLO.ciudad)]
+    ? CIUDAD_EJEMPLO
     : (iCiudad === '' ? null : CIUDADES[+iCiudad]);
   if (!esEjemplo) {
     if (!fecha) { err.textContent = 'Falta tu fecha de nacimiento.'; err.hidden = false; return; }
-    if (!ciudad) { err.textContent = 'Elige tu ciudad de nacimiento: sin ella no se puede calcular tu Ascendente.'; err.hidden = false; return; }
+    if (!$('f-pais').value) { err.textContent = 'Elige tu país de nacimiento.'; err.hidden = false; return; }
+    if (!ciudad) { err.textContent = 'Elige tu localidad de nacimiento: sin ella no se puede calcular tu Ascendente.'; err.hidden = false; return; }
     if (!$('f-hora').value && !sinHora) { err.textContent = 'Falta la hora. Si no la sabes, marca «No sé mi hora exacta».'; err.hidden = false; return; }
   }
   if (!fecha || !ciudad) { err.hidden = false; err.textContent = 'Faltan datos.'; return; }
