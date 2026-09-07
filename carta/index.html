@@ -93,6 +93,8 @@ button.principal:focus-visible{outline:2px solid var(--oro-claro);outline-offset
 @media (max-width:520px){.campos{grid-template-columns:1fr}.lectura{grid-template-columns:44px 1fr;gap:12px}.lectura .glifo{font-size:1.7rem}}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 </style>
+<script data-goatcounter="https://viajedelalma.goatcounter.com/count"
+        async src="//gc.zgo.at/count.js"></script>
 </head>
 <body>
 
@@ -982,7 +984,7 @@ async function apuntar(e) {
       headers: { apikey: SUPABASE_KEY, Authorization: `Bearer ${SUPABASE_KEY}`, 'Content-Type': 'application/json', Prefer: 'return=minimal' },
       body: JSON.stringify({ email, origen: 'cartanatal' }),
     });
-    if (r.ok || r.status === 409) { decir('Apuntada. Te escribo el día que se abra el informe.', 'ok'); input.value = ''; }
+    if (r.ok || r.status === 409) { cuenta('correo-cartanatal'); decir('Apuntada. Te escribo el día que se abra el informe.', 'ok'); input.value = ''; }
     else { decir('No he podido guardarlo. Prueba otra vez o escríbeme a @viajedelalma.app en Instagram.', 'err'); btn.disabled = false; }
   } catch (ex) {
     decir('Se ha cortado la conexión. Prueba otra vez en un momento.', 'err'); btn.disabled = false;
@@ -1039,7 +1041,16 @@ const EJEMPLO = { fecha: '1988-03-12', hora: '09:15', ciudad: 'Barcelona', nombr
   calcular(true);
 })();
 
+function cuenta(nombre) {
+  try {
+    if (window.goatcounter && window.goatcounter.count) {
+      window.goatcounter.count({ path: nombre, title: nombre, event: true });
+    }
+  } catch (e) { /* la medicion nunca puede romper la pagina */ }
+}
+
 function calcular(esEjemplo) {
+  if (!esEjemplo) cuenta('carta-calculada');
   const err = $('error');
   err.hidden = true;
   const fecha = $('f-fecha').value, hora = $('f-hora').value || '12:00';
