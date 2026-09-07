@@ -79,6 +79,11 @@ button.principal:focus-visible{outline:2px solid var(--oro-claro);outline-offset
 .indice ol{margin:0;padding-left:1.1rem;color:#D8D0E4}
 .indice li{margin-bottom:9px;line-height:1.5}
 .indice li b{color:var(--texto);font-weight:600}
+.muestra .foto{margin:22px 0 6px;text-align:center}
+.muestra .foto img{width:100%;max-width:420px;border-radius:3px}
+.muestra .foto figcaption{font-size:.78rem;color:var(--tenue);margin-top:8px;font-style:italic}
+.indice .magnitud{margin:0 0 16px;padding:14px 16px;background:rgba(201,168,76,.08);border-left:2px solid var(--oro);color:#D8D0E4;font-size:.95rem;line-height:1.65}
+.indice .magnitud b{color:var(--oro)}
 .indice .carta-entera{margin:18px 0 0;padding:16px 18px;background:rgba(123,107,171,.10);border-left:2px solid var(--oro);color:#D8D0E4;font-size:.95rem;line-height:1.65}
 .indice .carta-entera b{color:var(--oro)}
 .indice .tuyo{margin-top:14px;padding:14px 16px;border:1px solid var(--violeta-tenue);border-radius:2px;color:#D8D0E4;font-size:.95rem;line-height:1.6}
@@ -162,9 +167,15 @@ button.principal:focus-visible{outline:2px solid var(--oro-claro);outline-offset
         <p>Así que lo tapaste con modestia y trabajo impecable. Pero ese deseo no desaparece: se queda dentro, convertido en un resentimiento sordo cuando ves a otras atreverse.</p>
         <p>Cuando por fin te permites ser la protagonista de tu propia vida, descubres que tu fuerza no aplasta a nadie, sino que</p>
       </div>
-      <p class="nota">Fragmento real del informe. Este es de la carta de ejemplo, no de la tuya.</p>
+      <p class="nota">Esto es un trozo de uno de los siete capítulos, y ni siquiera el capítulo entero.
+      Está tomado de la carta de ejemplo, no de la tuya.</p>
+      <figure class="foto">
+        <img src="informe.jpg" alt="Tres páginas del informe de carta natal: la rueda, un capítulo de texto y las tablas de datos" loading="lazy">
+        <figcaption>Así es el cuaderno por dentro.</figcaption>
+      </figure>
       <div class="indice">
-        <p class="enc">El informe completo tiene siete capítulos:</p>
+        <p class="magnitud" id="magnitud"></p>
+        <p class="enc">Y esto es lo que trae, capítulo a capítulo:</p>
         <ol>
           <li><b>Quién eres</b> — tu Sol, tu Luna y tu Ascendente, con más hondura que aquí arriba.</li>
           <li><b>Tu cielo completo</b> — los ocho planetas, tu Medio Cielo, el regente de tu carta y tu Punto de la Fortuna.</li>
@@ -1196,6 +1207,13 @@ function pinta(carta, ctx) {
     const nn = busca('Nodo Norte'), li = busca('Lilith');
     const caja = $('indice-tuyo');
     if (!caja) return;
+    const mag = $('magnitud');
+    if (mag) {
+      mag.innerHTML = 'El informe entero es un cuaderno: tus <b>diez planetas</b> uno a uno, tus ' +
+        '<b>doce casas</b> —también las que están vacías—, <b>todos los aspectos</b> de tu carta ' +
+        'incluidos los que tocan tu Ascendente, tu <b>eje kármico</b> completo y los ' +
+        '<b>tránsitos de tu próximo año</b>, con sus fechas exactas.';
+    }
     if (nn && li) {
       caja.innerHTML = 'En el tuyo, tu <b>Nodo Norte en ' + escapa(nn.signo) +
         '</b> y tu <b>Lilith en ' + escapa(li.signo) +
