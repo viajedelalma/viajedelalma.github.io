@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://viajedelalma.github.io/sitemap.xml
+Sitemap: https://viajedelalma.app/sitemap.xml
