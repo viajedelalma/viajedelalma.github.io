@@ -1000,17 +1000,24 @@ const EJEMPLO = { fecha: '1988-03-12', hora: '09:15', ciudad: 'Barcelona', nombr
 
 (function arranque() {
   const sel = $('f-ciudad');
+  const vacia = document.createElement('option');
+  vacia.value = ''; vacia.textContent = 'Elige tu ciudad';
+  sel.appendChild(vacia);
   CIUDADES.forEach((c, i) => {
     const o = document.createElement('option');
     o.value = String(i); o.textContent = c[0];
     sel.appendChild(o);
   });
-  sel.value = String(CIUDADES.findIndex(c => c[0] === EJEMPLO.ciudad));
-  $('f-fecha').value = EJEMPLO.fecha;
-  $('f-hora').value = EJEMPLO.hora;
+  sel.value = '';
+  $('f-fecha').value = '';
+  $('f-hora').value = '';
   (function horaDoble() {
     const sh = $('f-h'), sm = $('f-m'), oculto = $('f-hora');
     const dos = n => String(n).padStart(2, '0');
+    [sh, sm].forEach(s => {
+      const v = document.createElement('option');
+      v.value = ''; v.textContent = '--'; s.appendChild(v);
+    });
     for (let i = 0; i < 24; i++) {
       const o = document.createElement('option');
       o.value = dos(i); o.textContent = dos(i); sh.appendChild(o);
@@ -1019,11 +1026,12 @@ const EJEMPLO = { fecha: '1988-03-12', hora: '09:15', ciudad: 'Barcelona', nombr
       const o = document.createElement('option');
       o.value = dos(i); o.textContent = dos(i); sm.appendChild(o);
     }
-    const sincronizar = () => { oculto.value = sh.value + ':' + sm.value; };
+    const sincronizar = () => {
+      oculto.value = (sh.value && sm.value) ? (sh.value + ':' + sm.value) : '';
+    };
     sh.addEventListener('change', sincronizar);
     sm.addEventListener('change', sincronizar);
-    const [hh, mm] = (oculto.value || '12:00').split(':');
-    sh.value = hh; sm.value = mm;
+    sh.value = ''; sm.value = '';
     sincronizar();
   })();
   $('f-sinhora').addEventListener('change', (e) => {
@@ -1032,7 +1040,8 @@ const EJEMPLO = { fecha: '1988-03-12', hora: '09:15', ciudad: 'Barcelona', nombr
     if (e.target.checked) {
       $('f-hora').value = '12:00';
     } else {
-      $('f-hora').value = $('f-h').value + ':' + $('f-m').value;
+      $('f-hora').value = ($('f-h').value && $('f-m').value)
+        ? ($('f-h').value + ':' + $('f-m').value) : '';
     }
   });
   $('formulario').addEventListener('submit', (e) => { e.preventDefault(); calcular(false); });
@@ -1050,13 +1059,22 @@ function cuenta(nombre) {
 }
 
 function calcular(esEjemplo) {
-  if (!esEjemplo) cuenta('carta-calculada');
   const err = $('error');
   err.hidden = true;
-  const fecha = $('f-fecha').value, hora = $('f-hora').value || '12:00';
-  const ciudad = CIUDADES[+$('f-ciudad').value];
-  const sinHora = $('f-sinhora').checked;
-  if (!fecha || !ciudad) { err.textContent = 'Falta la fecha o el lugar.'; err.hidden = false; return; }
+  const iCiudad = $('f-ciudad').value;
+  const fecha = esEjemplo ? EJEMPLO.fecha : $('f-fecha').value;
+  const sinHora = esEjemplo ? false : $('f-sinhora').checked;
+  const hora = esEjemplo ? EJEMPLO.hora : ($('f-hora').value || '12:00');
+  const ciudad = esEjemplo
+    ? CIUDADES[CIUDADES.findIndex(c => c[0] === EJEMPLO.ciudad)]
+    : (iCiudad === '' ? null : CIUDADES[+iCiudad]);
+  if (!esEjemplo) {
+    if (!fecha) { err.textContent = 'Falta tu fecha de nacimiento.'; err.hidden = false; return; }
+    if (!ciudad) { err.textContent = 'Elige tu ciudad de nacimiento: sin ella no se puede calcular tu Ascendente.'; err.hidden = false; return; }
+    if (!$('f-hora').value && !sinHora) { err.textContent = 'Falta la hora. Si no la sabes, marca «No sé mi hora exacta».'; err.hidden = false; return; }
+  }
+  if (!fecha || !ciudad) { err.hidden = false; err.textContent = 'Faltan datos.'; return; }
+  if (!esEjemplo) cuenta('carta-calculada');
   const [y, mes, d] = fecha.split('-').map(Number);
   const [h, mi] = hora.split(':').map(Number);
   if (y < 1900 || y > 2099) { err.textContent = 'De momento calculo entre 1900 y 2099.'; err.hidden = false; return; }
