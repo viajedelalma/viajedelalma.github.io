@@ -67,6 +67,22 @@ button.principal:focus-visible{outline:2px solid var(--oro-claro);outline-offset
 
 /* velo: dos frases reales y degradado, como en la app */
 .velo{position:relative;margin-top:6px}
+.muestra{border:1px solid var(--linea);border-top:0;padding:26px 22px 4px;background:linear-gradient(180deg,rgba(28,22,54,.35),transparent)}
+.muestra .rotulo{font-family:var(--cuerpo);font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;color:var(--oro);margin:0 0 16px}
+.muestra h4{font-family:var(--titulo);font-size:1.35rem;font-weight:400;margin:0 0 12px;color:var(--texto)}
+.muestra .parrafos{position:relative;max-height:470px;overflow:hidden}
+.muestra .parrafos p{color:#D8D0E4;margin:0 0 14px;line-height:1.65}
+.muestra .parrafos::after{content:'';position:absolute;left:0;right:0;bottom:0;height:120px;background:linear-gradient(180deg,transparent,var(--noche))}
+.muestra .nota{font-size:.8rem;color:var(--tenue);margin:14px 0 22px;font-style:italic}
+.indice{border-top:1px solid var(--linea);padding-top:20px}
+.indice p.enc{font-size:.95rem;color:var(--texto);margin:0 0 14px}
+.indice ol{margin:0;padding-left:1.1rem;color:#D8D0E4}
+.indice li{margin-bottom:9px;line-height:1.5}
+.indice li b{color:var(--texto);font-weight:600}
+.indice .carta-entera{margin:18px 0 0;padding:16px 18px;background:rgba(123,107,171,.10);border-left:2px solid var(--oro);color:#D8D0E4;font-size:.95rem;line-height:1.65}
+.indice .carta-entera b{color:var(--oro)}
+.indice .tuyo{margin-top:14px;padding:14px 16px;border:1px solid var(--violeta-tenue);border-radius:2px;color:#D8D0E4;font-size:.95rem;line-height:1.6}
+.indice .tuyo b{color:var(--oro)}
 .velo .contenido{filter:blur(5px);opacity:.6;user-select:none;pointer-events:none}
 .velo::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(11,8,24,0) 0%,rgba(11,8,24,.55) 45%,var(--noche) 100%)}
 .tabla{width:100%;border-collapse:collapse;font-size:.92rem;font-variant-numeric:tabular-nums}
@@ -135,6 +151,31 @@ button.principal:focus-visible{outline:2px solid var(--oro-claro);outline-offset
         <h3 style="font-size:1.5rem;padding-top:22px;border-top:1px solid var(--linea)">Tus doce casas y tus aspectos</h3>
         <p style="color:#D8D0E4">Las casas dicen dónde ocurre cada cosa en tu vida: el dinero, el hogar, el trabajo, los vínculos. Los aspectos dicen cómo se hablan entre sí tus planetas, dónde tienes facilidad y dónde tienes tensión que empuja.</p>
         <table class="tabla" id="tabla-velada"></table>
+      </div>
+    </div>
+
+    <div class="muestra">
+      <p class="rotulo">Así suena tu informe</p>
+      <h4>Lilith: lo que ansías y aprendiste a callar</h4>
+      <div class="parrafos">
+        <p>Hay un fuego en tu centro que aprendiste a sofocar muy pronto. Un deseo de ser mirada, de ocupar espacio, de crear solo por el gusto de brillar sin pedir disculpas. En algún momento entendiste que ese orgullo era demasiado, que llamar la atención resulta peligroso o que estaba mal visto disfrutar con descaro.</p>
+        <p>Así que lo tapaste con modestia y trabajo impecable. Pero ese deseo no desaparece: se queda dentro, convertido en un resentimiento sordo cuando ves a otras atreverse.</p>
+        <p>Cuando por fin te permites ser la protagonista de tu propia vida, descubres que tu fuerza no aplasta a nadie, sino que</p>
+      </div>
+      <p class="nota">Fragmento real del informe. Este es de la carta de ejemplo, no de la tuya.</p>
+      <div class="indice">
+        <p class="enc">El informe completo tiene siete capítulos:</p>
+        <ol>
+          <li><b>Quién eres</b> — tu Sol, tu Luna y tu Ascendente, con más hondura que aquí arriba.</li>
+          <li><b>Tu cielo completo</b> — los ocho planetas, tu Medio Cielo, el regente de tu carta y tu Punto de la Fortuna.</li>
+          <li><b>Dónde ocurre tu vida</b> — tus doce casas, una a una. También las que están vacías: que no haya un planeta dentro también dice algo.</li>
+          <li><b>Cómo se hablan tus planetas</b> — tus aspectos, ordenados por lo que de verdad pesa.</li>
+          <li><b>Tu eje kármico</b> — tu Nodo Norte, tu Nodo Sur, tu Lilith y tu Quirón.</li>
+          <li><b>Tu propósito</b> — la síntesis de todo lo anterior. El capítulo que cierra.</li>
+          <li><b>El año que viene</b> — qué se mueve y cuándo.</li>
+        </ol>
+        <p class="carta-entera">Y <b>tu carta natal completa</b>, para tenerla: la rueda a tamaño grande, los grados exactos de cada planeta, las doce cúspides y la lista entera de tus aspectos con su orbe. Calculada con efemérides reales, no con una tabla de revista.</p>
+        <p class="tuyo" id="indice-tuyo"></p>
       </div>
     </div>
 
@@ -1147,6 +1188,22 @@ function pinta(carta, ctx) {
     `<tr><td>${f.g}</td><td>${f.t}</td><td>casa ${f.c}</td></tr>`
   ).join('');
   $('tabla-velada').innerHTML = filas;
+
+  // El índice nombra los puntos que esta usuaria acaba de calcular. Coste cero:
+  // los datos ya están en pantalla, no hay ninguna llamada nueva.
+  (function indicePersonal() {
+    const busca = n => (carta.puntos || []).find(p => p.nombre === n);
+    const nn = busca('Nodo Norte'), li = busca('Lilith');
+    const caja = $('indice-tuyo');
+    if (!caja) return;
+    if (nn && li) {
+      caja.innerHTML = 'En el tuyo, tu <b>Nodo Norte en ' + escapa(nn.signo) +
+        '</b> y tu <b>Lilith en ' + escapa(li.signo) +
+        '</b> tienen un capítulo entero cada uno.';
+    } else {
+      caja.hidden = true;
+    }
+  })();
 
   $('resultado').hidden = false;
 }
