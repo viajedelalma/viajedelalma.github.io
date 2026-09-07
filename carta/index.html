@@ -38,6 +38,7 @@ h1 em{font-style:italic;color:var(--oro-claro)}
 .campo{display:flex;flex-direction:column;gap:6px}
 .campo.ancho{grid-column:1/-1}
 label{font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;color:var(--tenue)}
+.hora2{display:flex;align-items:center;gap:6px}.hora2 select{flex:1 1 0;min-width:0;text-align:center}.hora2-sep{color:var(--oro);font-size:1.1rem;line-height:1}
 input,select{font-family:var(--cuerpo);font-size:1rem;color:var(--texto);background:rgba(11,8,24,.7);border:1px solid var(--violeta-tenue);border-radius:2px;padding:11px 12px;width:100%}
 input:focus,select:focus{outline:2px solid var(--oro);outline-offset:1px;border-color:var(--oro)}
 select option{background:#14102A;color:#EDE7DC}
@@ -108,7 +109,7 @@ button.principal:focus-visible{outline:2px solid var(--oro-claro);outline-offset
     <div class="campos">
       <div class="campo ancho"><label for="f-nombre">Tu nombre (opcional)</label><input id="f-nombre" type="text" autocomplete="given-name" placeholder="Como quieras que te llame"></div>
       <div class="campo"><label for="f-fecha">Fecha de nacimiento</label><input id="f-fecha" type="date" required></div>
-      <div class="campo"><label for="f-hora">Hora</label><input id="f-hora" type="time" required></div>
+      <div class="campo"><label for="f-h">Hora</label><div class="hora2"><select id="f-h" aria-label="Hora de nacimiento"></select><span class="hora2-sep">:</span><select id="f-m" aria-label="Minutos de nacimiento"></select></div><input id="f-hora" type="hidden"></div>
       <div class="campo ancho"><label for="f-ciudad">Lugar de nacimiento</label><select id="f-ciudad"></select></div>
       <div class="check"><input type="checkbox" id="f-sinhora"><label for="f-sinhora" style="text-transform:none;letter-spacing:0;font-size:.88rem">No sé mi hora exacta</label></div>
     </div>
@@ -1005,9 +1006,32 @@ const EJEMPLO = { fecha: '1988-03-12', hora: '09:15', ciudad: 'Barcelona', nombr
   sel.value = String(CIUDADES.findIndex(c => c[0] === EJEMPLO.ciudad));
   $('f-fecha').value = EJEMPLO.fecha;
   $('f-hora').value = EJEMPLO.hora;
+  (function horaDoble() {
+    const sh = $('f-h'), sm = $('f-m'), oculto = $('f-hora');
+    const dos = n => String(n).padStart(2, '0');
+    for (let i = 0; i < 24; i++) {
+      const o = document.createElement('option');
+      o.value = dos(i); o.textContent = dos(i); sh.appendChild(o);
+    }
+    for (let i = 0; i < 60; i++) {
+      const o = document.createElement('option');
+      o.value = dos(i); o.textContent = dos(i); sm.appendChild(o);
+    }
+    const sincronizar = () => { oculto.value = sh.value + ':' + sm.value; };
+    sh.addEventListener('change', sincronizar);
+    sm.addEventListener('change', sincronizar);
+    const [hh, mm] = (oculto.value || '12:00').split(':');
+    sh.value = hh; sm.value = mm;
+    sincronizar();
+  })();
   $('f-sinhora').addEventListener('change', (e) => {
-    $('f-hora').disabled = e.target.checked;
-    if (e.target.checked) $('f-hora').value = '12:00';
+    $('f-h').disabled = e.target.checked;
+    $('f-m').disabled = e.target.checked;
+    if (e.target.checked) {
+      $('f-hora').value = '12:00';
+    } else {
+      $('f-hora').value = $('f-h').value + ':' + $('f-m').value;
+    }
   });
   $('formulario').addEventListener('submit', (e) => { e.preventDefault(); calcular(false); });
   $('cta-app').href = ENLACE_APP;
