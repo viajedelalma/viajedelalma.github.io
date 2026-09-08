@@ -1,0 +1,284 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Tus datos de nacimiento · Viaje del Alma</title>
+<link rel="icon" href="/favicon.png">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300&family=Karla:wght@300;400;500;700&display=swap">
+<style>
+:root{
+  --noche:#0B0818; --noche-2:#14102A; --noche-3:#1C1636;
+  --violeta:#7B6BAB; --oro:#C9A84C; --oro-claro:#E8D9A0;
+  --texto:#EDE7DC; --tenue:#A99CCB; --linea:rgba(201,168,76,.22);
+  --display:'Cormorant Garamond','Iowan Old Style',Georgia,serif;
+  --cuerpo:'Karla','Helvetica Neue',Arial,sans-serif;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--noche);color:var(--texto);font-family:var(--cuerpo);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased}
+.envoltura{max-width:640px;margin:0 auto;padding:40px 20px 72px}
+h1{font-family:var(--display);font-weight:300;font-size:clamp(2.1rem,7vw,3rem);line-height:1.05;margin:0 0 10px}
+.marca{font-size:.72rem;letter-spacing:.34em;color:var(--oro);text-transform:uppercase;margin-bottom:26px}
+.entradilla{color:var(--tenue);margin:0 0 30px}
+label{display:block;font-size:.7rem;letter-spacing:.19em;text-transform:uppercase;color:var(--oro);margin:22px 0 7px}
+input,select{width:100%;padding:13px 14px;background:var(--noche-2);color:var(--texto);
+  border:1px solid var(--linea);border-radius:9px;font-family:var(--cuerpo);font-size:16px}
+input:focus,select:focus{outline:none;border-color:var(--oro)}
+.fila{display:flex;gap:10px;align-items:center}
+.fila select{flex:1}
+.dos{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.nota{font-size:.85rem;color:var(--tenue);margin:7px 0 0}
+.casilla{display:flex;gap:10px;align-items:flex-start;margin-top:14px;color:var(--tenue);font-size:.92rem}
+.casilla input{width:auto;margin-top:4px}
+button{width:100%;margin-top:32px;padding:17px;border:0;border-radius:11px;cursor:pointer;
+  background:linear-gradient(180deg,var(--oro-claro),var(--oro));color:#2A2004;
+  font-family:var(--cuerpo);font-weight:700;font-size:1.02rem;letter-spacing:.02em}
+button:disabled{opacity:.5;cursor:default}
+.error{background:rgba(180,60,60,.16);border:1px solid rgba(220,120,120,.4);
+  border-radius:9px;padding:12px 14px;margin-top:18px;font-size:.92rem;display:none}
+.resumen{border:1px solid var(--linea);border-radius:11px;padding:18px;margin-top:30px;background:var(--noche-2)}
+.resumen b{color:var(--oro-claro);font-weight:500}
+details{margin-top:20px;border-top:1px solid var(--linea);padding-top:14px}
+summary{cursor:pointer;color:var(--oro);font-size:.92rem}
+details p{color:var(--tenue);font-size:.92rem}
+.pie{margin-top:38px;font-size:.8rem;color:var(--tenue);text-align:center;line-height:1.7}
+.pie a{color:var(--tenue)}
+</style>
+</head>
+<body>
+<div class="envoltura">
+
+  <div class="marca">Viaje del Alma</div>
+  <h1>Tus datos de nacimiento</h1>
+  <p class="entradilla">
+    Con esto se calcula tu carta. La hora y el lugar exactos son lo que separa
+    un informe tuyo de un horóscopo: cambian tu Ascendente y las doce casas.
+  </p>
+
+  <form id="f" novalidate>
+    <label for="nombre">Tu nombre</label>
+    <input id="nombre" name="nombre" type="text" maxlength="80" autocomplete="given-name"
+           placeholder="Como quieres que aparezca en la portada">
+
+    <label for="correo">Tu correo</label>
+    <input id="correo" name="correo" type="email" maxlength="120" autocomplete="email"
+           inputmode="email" placeholder="Aquí te llegará el PDF">
+
+    <label for="trato">Cómo prefieres que te hablemos</label>
+    <select id="trato" name="trato">
+      <option value="femenino">En femenino — «te sientes sola»</option>
+      <option value="masculino">En masculino — «te sientes solo»</option>
+      <option value="neutro">Sin género — «puede aparecer la soledad»</option>
+    </select>
+    <p class="nota">El informe son treinta páginas escritas para ti. Preferimos
+    preguntarlo a darlo por hecho.</p>
+
+    <label for="fecha">Fecha de nacimiento</label>
+    <input id="fecha" name="fecha" type="date" min="1900-01-01">
+
+    <label for="h">Hora de nacimiento</label>
+    <div class="fila">
+      <select id="h"></select><span>:</span><select id="m"></select>
+    </div>
+    <div class="casilla">
+      <input id="sinhora" type="checkbox">
+      <label for="sinhora" style="margin:0;text-transform:none;letter-spacing:0;color:var(--tenue);font-size:.92rem">
+        No sé a qué hora nací
+      </label>
+    </div>
+    <p class="nota" id="aviso-hora" hidden>
+      Sin hora se calcula todo menos el Ascendente y las casas. No se inventan:
+      el informe sale más corto y lo dice.
+    </p>
+
+    <details>
+      <summary>¿Dónde encuentro mi hora de nacimiento?</summary>
+      <p>En el libro de familia, si lo tienes a mano. Si no, en el Registro Civil
+      de donde naciste: se pide por internet, es gratis y llega en unos días.
+      También suele estar en la cartilla de la maternidad. Si aparece con minutos
+      redondeados, ponla igual: cinco minutos casi nunca cambian el Ascendente.</p>
+    </details>
+
+    <label for="pais">País de nacimiento</label>
+    <select id="pais"><option value="">Elige tu país</option></select>
+
+    <label for="ciudad">Localidad de nacimiento</label>
+    <input id="filtro" type="text" placeholder="Escribe para buscar" autocomplete="off" disabled>
+    <select id="ciudad" style="margin-top:8px" disabled><option value="">Elige antes el país</option></select>
+    <p class="nota">¿No aparece tu pueblo? Elige la localidad más cercana: a menos
+    de treinta kilómetros la carta no cambia.</p>
+
+    <div class="error" id="error"></div>
+
+    <div class="resumen" id="resumen" hidden></div>
+
+    <button id="enviar" type="submit">Continuar al pago · 24,99 €</button>
+    <p class="nota" style="text-align:center">
+      Pago seguro con Stripe. IVA incluido. Recibes el informe en menos de 48 horas.
+    </p>
+  </form>
+
+  <p class="pie">
+    Tus datos se usan solo para calcular y enviarte el informe.<br>
+    <a href="/privacidad.html">Privacidad</a> · <a href="/terminos.html">Términos</a> ·
+    <a href="/carta/">Volver a la carta gratis</a>
+  </p>
+</div>
+
+<script data-goatcounter="https://viajedelalma.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+<script>
+/* ═══════════════════════════════════════════════════════════════════════
+   Formulario de datos del informe.
+
+   Todo lo que se manda a Supabase está validado contra una lista cerrada:
+   la localidad no se teclea, se elige, y de ella salen la latitud, la
+   longitud y la zona horaria. Así no hay forma de que alguien escriba
+   "Santiago" y le toque el de Chile habiendo nacido en el de Compostela.
+
+   El id del pedido lo genera el navegador. Es a propósito: la clave anónima
+   solo tiene permiso de INSERT, no de SELECT, así que no podríamos leer el
+   id de vuelta. Generándolo aquí no hace falta.
+   ═══════════════════════════════════════════════════════════════════════ */
+
+const SUPABASE_URL  = 'https://orxyhxehapqmjwmqmqgv.supabase.co';
+const SUPABASE_ANON = 'sb_publishable_As7G8e_pyZwjApjgcC48ow_RDc4hZfN';   // clave publicable: es publica a proposito;
+                          // la seguridad la da RLS, que solo deja INSERT de filas sin pagar
+const PAGO          = 'https://buy.stripe.com/4gM14ob1G4aT1o7f32ew800';
+
+const PAISES = {"ES":"España","MX":"México","AR":"Argentina","CO":"Colombia","CL":"Chile","PE":"Perú","VE":"Venezuela","EC":"Ecuador","GT":"Guatemala","CU":"Cuba","BO":"Bolivia","DO":"República Dominicana","HN":"Honduras","PY":"Paraguay","SV":"El Salvador","NI":"Nicaragua","CR":"Costa Rica","PR":"Puerto Rico","UY":"Uruguay","PA":"Panamá","GQ":"Guinea Ecuatorial","PT":"Portugal","BR":"Brasil","US":"Estados Unidos","CA":"Canadá","FR":"Francia","DE":"Alemania","IT":"Italia","GB":"Reino Unido","CH":"Suiza","BE":"Bélgica","NL":"Países Bajos","AD":"Andorra","IE":"Irlanda","AT":"Austria","SE":"Suecia","NO":"Noruega","DK":"Dinamarca","PL":"Polonia","RO":"Rumanía","RU":"Rusia","MA":"Marruecos","DZ":"Argelia","SN":"Senegal","CN":"China","JP":"Japón","IN":"India","PH":"Filipinas","AU":"Australia","IL":"Israel","TR":"Turquía","GR":"Grecia","UA":"Ucrania","BG":"Bulgaria","CZ":"Chequia","HU":"Hungría","FI":"Finlandia","IS":"Islandia","LU":"Luxemburgo"};
+
+const $ = id => document.getElementById(id);
+let CIUDADES = [];
+
+/* ---------- desplegables ---------- */
+const opt = (v, t) => { const o = document.createElement('option'); o.value = v; o.textContent = t; return o; };
+for (let i = 0; i < 24; i++) $('h').appendChild(opt(i, String(i).padStart(2, '0')));
+for (let i = 0; i < 60; i++) $('m').appendChild(opt(i, String(i).padStart(2, '0')));
+$('h').prepend(opt('', '--')); $('m').prepend(opt('', '--'));
+$('h').value = ''; $('m').value = '';
+$('fecha').max = new Date().toISOString().slice(0, 10);
+for (const [c, n] of Object.entries(PAISES)) $('pais').appendChild(opt(c, n));
+
+/* ---------- localidades: se descargan solo al elegir país ---------- */
+const sinTildes = s => s.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
+
+$('pais').addEventListener('change', async () => {
+  const p = $('pais').value;
+  $('ciudad').innerHTML = ''; $('ciudad').disabled = true; $('filtro').disabled = true;
+  CIUDADES = [];
+  if (!p) return;
+  $('ciudad').appendChild(opt('', 'Cargando…'));
+  try {
+    CIUDADES = await (await fetch(`/carta/ciudades/${p}.json`)).json();
+  } catch (e) {
+    muestraError('No se ha podido cargar la lista de localidades. Prueba a recargar la página.');
+    return;
+  }
+  pintaCiudades('');
+  $('ciudad').disabled = false; $('filtro').disabled = false; $('filtro').value = '';
+});
+
+function pintaCiudades(filtro) {
+  const f = sinTildes(filtro.trim());
+  // se guarda el índice original: es lo que luego devuelve lat, lon y zona
+  const lista = CIUDADES.map((c, i) => [c, i])
+                        .filter(([c]) => !f || sinTildes(c[0]).includes(f));
+  $('ciudad').innerHTML = '';
+  $('ciudad').appendChild(opt('', lista.length ? `Elige tu localidad (${lista.length})` : 'Sin resultados'));
+  lista.slice(0, 1200).forEach(([c, i]) => $('ciudad').appendChild(opt(i, c[0])));
+}
+$('filtro').addEventListener('input', () => pintaCiudades($('filtro').value));
+
+/* ---------- sin hora ---------- */
+$('sinhora').addEventListener('change', () => {
+  const s = $('sinhora').checked;
+  $('h').disabled = $('m').disabled = s;
+  $('aviso-hora').hidden = !s;
+  if (s) { $('h').value = ''; $('m').value = ''; }
+  resumen();
+});
+
+/* ---------- resumen en vivo: que vea lo que va a mandar ---------- */
+function resumen() {
+  const c = CIUDADES[$('ciudad').value];
+  if (!$('fecha').value || !c) { $('resumen').hidden = true; return; }
+  const hora = $('sinhora').checked ? 'sin hora'
+             : ($('h').value !== '' && $('m').value !== ''
+                ? `${String($('h').value).padStart(2,'0')}:${String($('m').value).padStart(2,'0')}`
+                : '');
+  if (!hora) { $('resumen').hidden = true; return; }
+  const [a, m, d] = $('fecha').value.split('-');
+  $('resumen').hidden = false;
+  $('resumen').innerHTML =
+    `Se calculará tu carta para el <b>${+d}/${+m}/${a}</b>, <b>${hora}</b>,
+     en <b>${c[0]}</b> (${PAISES[$('pais').value]}).<br>
+     <span style="color:var(--tenue);font-size:.9rem">Zona horaria: ${c[3]}.
+     Compruébalo antes de pagar: rehacerlo después cuesta un correo.</span>`;
+}
+['fecha', 'h', 'm', 'ciudad'].forEach(id => $(id).addEventListener('change', resumen));
+
+/* ---------- envío ---------- */
+function muestraError(t) { $('error').textContent = t; $('error').style.display = 'block'; }
+
+$('f').addEventListener('submit', async ev => {
+  ev.preventDefault();
+  $('error').style.display = 'none';
+
+  const nombre = $('nombre').value.trim();
+  const correo = $('correo').value.trim();
+  const fecha  = $('fecha').value;
+  const c      = CIUDADES[$('ciudad').value];
+  const sinHora = $('sinhora').checked;
+
+  if (!nombre)                       return muestraError('Falta tu nombre.');
+  if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(correo))
+                                     return muestraError('Ese correo no parece válido. Ahí es donde llega el informe.');
+  if (!fecha)                        return muestraError('Falta la fecha de nacimiento.');
+  if (new Date(fecha) > new Date())  return muestraError('Esa fecha está en el futuro.');
+  if (!sinHora && ($('h').value === '' || $('m').value === ''))
+                                     return muestraError('Pon la hora, o marca «no sé a qué hora nací».');
+  if (!c)                            return muestraError('Elige tu localidad de nacimiento en la lista.');
+
+  const id = (crypto.randomUUID ? crypto.randomUUID()
+              : Date.now() + '-' + Math.random().toString(16).slice(2));
+
+  const pedido = {
+    id, nombre, correo,
+    nacimiento_fecha: fecha,
+    nacimiento_hora: sinHora ? null
+      : `${String($('h').value).padStart(2,'0')}:${String($('m').value).padStart(2,'0')}:00`,
+    pais: $('pais').value, localidad: c[0], lat: c[1], lon: c[2], zona: c[3],
+    trato: $('trato').value,
+    estado: 'nuevo', intentos: 0,
+  };
+
+  $('enviar').disabled = true; $('enviar').textContent = 'Guardando…';
+  try {
+    const r = await fetch(`${SUPABASE_URL}/rest/v1/pedidos`, {
+      method: 'POST',
+      headers: { apikey: SUPABASE_ANON, Authorization: `Bearer ${SUPABASE_ANON}`,
+                 'Content-Type': 'application/json', Prefer: 'return=minimal' },
+      body: JSON.stringify(pedido),
+    });
+    if (!r.ok) throw new Error(await r.text());
+  } catch (e) {
+    $('enviar').disabled = false; $('enviar').textContent = 'Continuar al pago · 24,99 €';
+    return muestraError('No se han podido guardar tus datos. Vuelve a intentarlo en un minuto; '
+                      + 'no se te ha cobrado nada.');
+  }
+
+  if (window.goatcounter && window.goatcounter.count) {
+    window.goatcounter.count({ path: 'carta-datos-enviados', title: 'carta-datos-enviados', event: true });
+  }
+
+  // client_reference_id es el hilo que une el pago con estos datos.
+  const url = new URL(PAGO);
+  url.searchParams.set('client_reference_id', id);
+  url.searchParams.set('prefilled_email', correo);
+  location.href = url.toString();
+});
+</script>
+</body>
+</html>
