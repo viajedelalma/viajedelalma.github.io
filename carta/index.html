@@ -110,7 +110,21 @@ button.principal:focus-visible{outline:2px solid var(--oro-claro);outline-offset
 .fila-correo .boton-b{white-space:nowrap;border:0;cursor:pointer;font-family:var(--cuerpo)}
 .aviso-correo{min-height:1.4em;margin:10px 0 0;font-size:.88rem;color:var(--tenue)}
 .aviso-correo.ok{color:var(--oro-claro)}
-.aviso-correo.err{color:#E7A6A6}
+.aviso-correo.err{color:#E7A6A6}.compra{max-width:520px;margin:0 auto}
+.precio{margin:0 0 16px;color:var(--texto)}
+.precio b{font-family:var(--display);font-size:2.4rem;color:var(--oro-claro);font-weight:400;line-height:1}
+.precio span{display:block;font-size:.78rem;letter-spacing:.14em;text-transform:uppercase;color:var(--tenue);margin-top:6px}
+.boton-b.grande{font-size:.86rem;padding:17px 34px}
+.entrega{margin:16px auto 0;font-size:.95rem;color:var(--texto);max-width:44ch}
+.garantias{list-style:none;margin:18px auto 0;padding:0;max-width:46ch;text-align:left}
+.garantias li{position:relative;padding-left:22px;margin-bottom:10px;font-size:.88rem;color:var(--tenue);line-height:1.55}
+.garantias li::before{content:'';position:absolute;left:4px;top:.62em;width:5px;height:5px;border-radius:50%;background:var(--oro)}
+.hora{margin:18px auto 0;max-width:46ch;text-align:left;border-top:1px solid var(--linea);padding-top:14px}
+.hora summary{cursor:pointer;font-size:.88rem;color:var(--oro-claro);list-style:none}
+.hora summary::-webkit-details-marker{display:none}
+.hora summary::before{content:'+ ';color:var(--oro)}
+.hora[open] summary::before{content:'– '}
+.hora p{margin:10px 0 0;font-size:.86rem;color:var(--tenue);max-width:none;line-height:1.6}
 .pie{margin-top:40px;font-size:.78rem;color:var(--violeta);text-align:center;line-height:1.8}
 .error{color:#E7A6A6;font-size:.9rem;margin-top:10px}
 @media (max-width:520px){.campos{grid-template-columns:1fr}.lectura{grid-template-columns:44px 1fr;gap:12px}.lectura .glifo{font-size:1.7rem}}
@@ -200,8 +214,28 @@ button.principal:focus-visible{outline:2px solid var(--oro-claro);outline-offset
     <div class="puerta">
       <h3>La carta entera, en un cuaderno para ti</h3>
       <p>Tus doce casas, todos tus aspectos, tus nodos y el año que viene, escrito para leerse de un tirón. En PDF, a tu correo.</p>
+      <div class="compra">
+        <p class="precio"><b>24,99 €</b> <span>Pago único · IVA incluido</span></p>
+        <div class="acciones">
+          <a class="boton-b lleno grande" id="cta-comprar" href="/carta/pedido.html">Quiero mi informe</a>
+        </div>
+        <p class="entrega">Primero tus datos de nacimiento, después el pago. Así ves exactamente qué se va a calcular antes de pagar nada.</p>
+        <ul class="garantias">
+          <li>Eliges tu localidad en una lista, no la escribes: de ahí salen tus coordenadas y tu huso horario reales, incluidos los cambios de hora históricos de tu país.</li>
+          <li>Lo recibes en tu correo en menos de 48 horas, en PDF, para leerlo despacio y guardarlo.</li>
+          <li>Si algún dato no es correcto, me respondes al correo y lo rehago sin coste.</li>
+          <li>Pago seguro con tarjeta, Apple Pay o Google Pay. Tus datos de pago no pasan por esta web.</li>
+        </ul>
+        <details class="hora">
+          <summary>¿No sabes tu hora exacta de nacimiento?</summary>
+          <p>Está en tu libro de familia, y si no la encuentras puedes pedirla en el Registro Civil del lugar donde naciste. Con la hora, tu informe incluye tu Ascendente y tus doce casas. Sin ella calculo todo lo demás y te lo digo con claridad: no me invento una hora para rellenar tu carta.</p>
+        </details>
+      </div>
+
+      <hr class="regla" style="margin:28px auto;max-width:520px">
+
       <form class="correo" id="form-correo" novalidate>
-        <label for="f-correo" class="rol-correo">El informe completo se abre en octubre (24,99 €). Déjame tu correo y te aviso el primer día.</label>
+        <label for="f-correo" class="rol-correo">¿Prefieres pensarlo? Déjame tu correo y te escribo de vez en cuando, con calma.</label>
         <div class="fila-correo">
           <input id="f-correo" type="email" inputmode="email" autocomplete="email" placeholder="nombre@correo.com" required>
           <button class="boton-b lleno" type="submit" id="btn-correo">Avísame</button>
@@ -1007,7 +1041,7 @@ async function apuntar(e) {
       headers: { apikey: SUPABASE_KEY, Authorization: `Bearer ${SUPABASE_KEY}`, 'Content-Type': 'application/json', Prefer: 'return=minimal' },
       body: JSON.stringify({ email, origen: 'cartanatal' }),
     });
-    if (r.ok || r.status === 409) { cuenta('correo-cartanatal'); decir('Apuntada. Te escribo el día que se abra el informe.', 'ok'); input.value = ''; }
+    if (r.ok || r.status === 409) { cuenta('correo-cartanatal'); decir('Apuntada. Te escribo con calma, sin agobiar.', 'ok'); input.value = ''; }
     else { decir('No he podido guardarlo. Prueba otra vez o escríbeme a @viajedelalma.app en Instagram.', 'err'); btn.disabled = false; }
   } catch (ex) {
     decir('Se ha cortado la conexión. Prueba otra vez en un momento.', 'err'); btn.disabled = false;
@@ -1263,7 +1297,12 @@ function pinta(carta, ctx) {
 function escapa(s) { return s.replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c])); }
 
 
-})();</script>
+})();
+  (function medirCompra() {
+    var b = document.getElementById('cta-comprar');
+    if (b) b.addEventListener('click', function () { cuenta('carta-comprar'); });
+  })();
+</script>
 
 </body>
 </html>
