@@ -127,6 +127,25 @@ button.principal:focus-visible{outline:2px solid var(--oro-claro);outline-offset
 .hora p{margin:10px 0 0;font-size:.86rem;color:var(--tenue);max-width:none;line-height:1.6}
 .pie{margin-top:40px;font-size:.78rem;color:var(--violeta);text-align:center;line-height:1.8}
 .error{color:#E7A6A6;font-size:.9rem;margin-top:10px}
+
+/* 1. aviso del informe bajo el formulario, visible desde el primer segundo */
+.aviso-informe{margin:18px 0 0;padding:14px 16px;border:1px solid var(--linea);border-radius:2px;background:rgba(201,168,76,.06);font-size:.92rem;color:var(--tenue);line-height:1.55;text-align:center}
+.aviso-informe b{color:var(--oro-claro);font-weight:500}
+.aviso-informe a{color:var(--oro-claro);text-decoration:underline;text-underline-offset:3px;white-space:nowrap}
+
+/* 3. botón de compra sobre la tabla velada */
+.velo-cta{position:absolute;left:0;right:0;bottom:18px;z-index:2;text-align:center;padding:0 12px}
+.velo-cta .boton-b{display:inline-block}
+.velo-cta p{margin:10px 0 0;font-size:.82rem;color:var(--tenue)}
+
+/* 2. barra fija tras calcular la carta */
+.barra{position:fixed;left:0;right:0;bottom:0;z-index:5;display:flex;align-items:center;justify-content:center;gap:14px;padding:10px 14px calc(10px + env(safe-area-inset-bottom));background:rgba(11,8,24,.94);border-top:1px solid var(--linea);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);transform:translateY(100%);transition:transform .25s ease}
+.barra.visible{transform:none}
+.barra .txt{font-size:.9rem;color:var(--texto);line-height:1.3}
+.barra .txt b{font-family:var(--display);font-size:1.35rem;color:var(--oro-claro);font-weight:400;margin-left:6px}
+.barra .boton-b{white-space:nowrap;padding:12px 18px}
+body.con-barra .envoltura{padding-bottom:140px}
+@media (max-width:420px){.barra{gap:10px}.barra .txt{font-size:.82rem}.barra .txt b{font-size:1.2rem}.barra .boton-b{padding:11px 14px;font-size:.7rem}}
 @media (max-width:520px){.campos{grid-template-columns:1fr}.lectura{grid-template-columns:44px 1fr;gap:12px}.lectura .glifo{font-size:1.7rem}}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 </style>
@@ -161,6 +180,8 @@ button.principal:focus-visible{outline:2px solid var(--oro-claro);outline-offset
     <p class="error" id="error" hidden></p>
   </form>
 
+  <p class="aviso-informe">¿Quieres la carta entera? <b>Informe completo: unas 25 páginas, 24,99 €</b>, en tu correo en unos minutos. Calcula tu carta gratis y verás qué incluye, o <a class="cta-compra" data-origen="arriba" href="/carta/pedido.html">pide tu informe ya</a>.</p>
+
   <div id="resultado" hidden>
     <hr class="regla">
     <div class="cabecera-carta">
@@ -177,6 +198,10 @@ button.principal:focus-visible{outline:2px solid var(--oro-claro);outline-offset
         <h3 style="font-size:1.5rem;padding-top:22px;border-top:1px solid var(--linea)">Tus doce casas y tus aspectos</h3>
         <p style="color:#D8D0E4">Las casas dicen dónde ocurre cada cosa en tu vida: el dinero, el hogar, el trabajo, los vínculos. Los aspectos dicen cómo se hablan entre sí tus planetas, dónde tienes facilidad y dónde tienes tensión que empuja.</p>
         <table class="tabla" id="tabla-velada"></table>
+      </div>
+      <div class="velo-cta">
+        <a class="boton-b lleno cta-compra" data-origen="velo" href="/carta/pedido.html">Ver mis casas y aspectos · 24,99 €</a>
+        <p>Están en el informe completo, con todo lo demás.</p>
       </div>
     </div>
 
@@ -211,18 +236,18 @@ button.principal:focus-visible{outline:2px solid var(--oro-claro);outline-offset
       </div>
     </div>
 
-    <div class="puerta">
+    <div class="puerta" id="puerta">
       <h3>La carta entera, en un cuaderno para ti</h3>
       <p>Tus doce casas, todos tus aspectos, tus nodos y el año que viene, escrito para leerse de un tirón. En PDF, a tu correo.</p>
       <div class="compra">
         <p class="precio"><b>24,99 €</b> <span>Pago único · IVA incluido</span></p>
         <div class="acciones">
-          <a class="boton-b lleno grande" id="cta-comprar" href="/carta/pedido.html">Quiero mi informe</a>
+          <a class="boton-b lleno grande cta-compra" data-origen="puerta" id="cta-comprar" href="/carta/pedido.html">Quiero mi informe</a>
         </div>
         <p class="entrega">Primero tus datos de nacimiento, después el pago. Así ves exactamente qué se va a calcular antes de pagar nada.</p>
         <ul class="garantias">
           <li>Eliges tu localidad en una lista, no la escribes: de ahí salen tus coordenadas y tu huso horario reales, incluidos los cambios de hora históricos de tu país.</li>
-          <li>Lo recibes en tu correo en menos de 48 horas, en PDF, para leerlo despacio y guardarlo.</li>
+          <li>Lo recibes en tu correo en unos minutos, en PDF, para leerlo despacio y guardarlo.</li>
           <li>Si algún dato no es correcto, me respondes al correo y lo rehago sin coste.</li>
           <li>Pago seguro con tarjeta, Apple Pay o Google Pay. Tus datos de pago no pasan por esta web.</li>
         </ul>
@@ -250,6 +275,11 @@ button.principal:focus-visible{outline:2px solid var(--oro-claro);outline-offset
 
     <p class="pie">Cálculo propio sobre efemérides astronómicas · zodiaco tropical · casas de Placidus<br>Precisión verificada contra Swiss Ephemeris: menos de medio minuto de arco.</p>
   </div>
+</div>
+
+<div class="barra" id="barra" aria-hidden="true">
+  <span class="txt">Informe completo<b>24,99 €</b></span>
+  <a class="boton-b lleno cta-compra" data-origen="barra" href="/carta/pedido.html">Quiero mi informe</a>
 </div>
 
 <script>/*
@@ -1211,7 +1241,11 @@ function calcular(esEjemplo) {
     err.hidden = false;
     return;
   }
-  document.getElementById('resultado').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  if (!esEjemplo) {
+    document.body.classList.add('carta-propia');
+    document.dispatchEvent(new Event('carta-propia'));
+    document.getElementById('resultado').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
 }
 
 function gm(p) { return p.grado + '\u00B0 ' + String(p.minuto).padStart(2, '0') + "'"; }
@@ -1299,8 +1333,26 @@ function escapa(s) { return s.replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt
 
 })();
   (function medirCompra() {
-    var b = document.getElementById('cta-comprar');
-    if (b) b.addEventListener('click', function () { cuenta('carta-comprar'); });
+    document.querySelectorAll('.cta-compra').forEach(function (b) {
+      b.addEventListener('click', function () {
+        cuenta('carta-comprar');
+        if (b.dataset.origen) cuenta('carta-comprar-' + b.dataset.origen);
+      });
+    });
+  })();
+  // Barra fija: aparece cuando la usuaria ha calculado SU carta (no con la de ejemplo) y el bloque de compra no está a la vista.
+  (function barraCompra() {
+    var barra = document.getElementById('barra'), puerta = document.getElementById('puerta');
+    if (!barra || !puerta || !('IntersectionObserver' in window)) return;
+    var puertaVisible = false;
+    function pinta() {
+      var mostrar = document.body.classList.contains('carta-propia') && !puertaVisible;
+      barra.classList.toggle('visible', mostrar);
+      barra.setAttribute('aria-hidden', mostrar ? 'false' : 'true');
+      document.body.classList.toggle('con-barra', mostrar);
+    }
+    new IntersectionObserver(function (es) { puertaVisible = es[0].isIntersecting; pinta(); }, { rootMargin: '0px 0px -40px 0px' }).observe(puerta);
+    document.addEventListener('carta-propia', pinta);
   })();
 </script>
 
