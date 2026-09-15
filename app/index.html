@@ -35,6 +35,10 @@ header span{font-family:var(--display);letter-spacing:.18em;font-size:15px;color
 h1{font-family:var(--serif);font-weight:500;font-size:34px;line-height:1.15;text-align:center;color:var(--oro-claro);margin:6px 0 8px}
 .sub{text-align:center;font-style:italic;color:var(--niebla);margin-bottom:22px}
 .video{display:block;width:100%;max-width:320px;aspect-ratio:9/16;margin:0 auto 22px;border-radius:26px;border:1.5px solid var(--linea);background:#000;box-shadow:0 0 40px rgba(196,154,60,.18)}
+.vbox{position:relative;width:100%;max-width:320px;margin:0 auto 22px}
+.vbox .video{margin:0}
+.sonido{position:absolute;right:12px;bottom:14px;font-family:var(--sans);font-weight:600;font-size:14px;letter-spacing:.03em;
+color:#140E28;background:rgba(232,206,140,.92);border:0;border-radius:20px;padding:8px 14px;cursor:pointer;box-shadow:0 2px 10px rgba(0,0,0,.35)}
 .cta{display:block;text-align:center;font-family:var(--sans);font-weight:600;font-size:19px;letter-spacing:.04em;
 background:var(--oro-claro);color:#140E28;text-decoration:none;padding:17px 20px;border-radius:40px;margin:0 auto;max-width:360px;box-shadow:0 6px 24px rgba(232,206,140,.25)}
 .cta:active{transform:scale(.98)}
@@ -63,7 +67,10 @@ footer a{color:var(--tenue)}
 <h1>No hace falta ser bruja.<br>Hacen falta tres minutos.</h1>
 <p class="sub">Tu práctica espiritual diaria, en español.</p>
 
-<video class="video" src="anuncio.mp4" poster="poster.jpg" autoplay muted loop playsinline preload="metadata" aria-label="Vídeo: lo que hay dentro de la app"></video>
+<div class="vbox">
+<video class="video" id="vid" src="anuncio.mp4" poster="poster.jpg" autoplay muted loop playsinline preload="metadata" aria-label="Vídeo: lo que hay dentro de la app"></video>
+<button type="button" class="sonido" id="sonido" aria-pressed="false">🔊 Activar sonido</button>
+</div>
 
 <a class="cta" id="cta1" href="https://play.google.com/store/apps/details?id=com.viajedelalma.app&amp;referrer=utm%5Fsource%3Dmeta%26utm%5Fmedium%3Dads%26utm%5Fcampaign%3Dapp%5Fsep26" rel="noopener">Descárgala gratis en Google Play</a>
 <p class="nota">Ritual diario siempre gratis · Premium con 7 días de prueba</p>
@@ -98,6 +105,13 @@ footer a{color:var(--tenue)}
 </footer>
 </main>
 <script>
+var v=document.getElementById('vid'),b=document.getElementById('sonido');
+if(v&&b){b.addEventListener('click',function(){
+  if(v.muted){v.muted=false;v.currentTime=0;var p=v.play();if(p&&p.catch)p.catch(function(){});
+    b.textContent='🔇 Silenciar';b.setAttribute('aria-pressed','true');
+    try{if(window.goatcounter&&window.goatcounter.count){window.goatcounter.count({path:'app-sonido-on',title:'Activa el sonido del vídeo en /app/',event:true});}}catch(e){}
+  }else{v.muted=true;b.textContent='🔊 Activar sonido';b.setAttribute('aria-pressed','false');}
+});}
 document.querySelectorAll('.cta').forEach(function(a){
   a.addEventListener('click',function(){
     try{ if(window.goatcounter && window.goatcounter.count){
