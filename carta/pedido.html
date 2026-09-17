@@ -17,6 +17,7 @@
   --cuerpo:'Karla','Helvetica Neue',Arial,sans-serif;
 }
 *{box-sizing:border-box}
+[hidden]{display:none!important}   /* si no, .casilla (flex) gana al atributo */
 body{margin:0;background:var(--noche);color:var(--texto);font-family:var(--cuerpo);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased}
 .envoltura{max-width:640px;margin:0 auto;padding:40px 20px 72px}
 h1{font-family:var(--display);font-weight:300;font-size:clamp(2.1rem,7vw,3rem);line-height:1.05;margin:0 0 10px}
@@ -43,6 +44,17 @@ button:disabled{opacity:.5;cursor:default}
 details{margin-top:20px;border-top:1px solid var(--linea);padding-top:14px}
 summary{cursor:pointer;color:var(--oro);font-size:.92rem}
 details p{color:var(--tenue);font-size:.92rem}
+.productos{display:grid;gap:10px;margin:0 0 8px}
+.producto{display:flex;gap:12px;align-items:flex-start;border:1px solid var(--linea);border-radius:11px;
+  padding:14px 16px;background:var(--noche-2);cursor:pointer;margin:0;text-transform:none;letter-spacing:0;
+  color:var(--texto);font-size:1rem}
+.producto input{width:auto;margin-top:5px;accent-color:var(--oro)}
+.producto:has(input:checked){border-color:var(--oro);background:var(--noche-3)}
+.producto b{font-weight:500}
+.producto .precio{margin-left:auto;color:var(--oro-claro);white-space:nowrap;font-weight:500}
+.producto small{display:block;color:var(--tenue);font-size:.86rem;line-height:1.45;margin-top:2px}
+.bloque-rs{margin-top:34px;padding-top:6px;border-top:1px solid var(--linea)}
+.bloque-rs h2{font-family:var(--display);font-weight:400;font-size:1.6rem;margin:22px 0 4px}
 .pie{margin-top:38px;font-size:.8rem;color:var(--tenue);text-align:center;line-height:1.7}
 .pie a{color:var(--tenue)}
 </style>
@@ -58,6 +70,21 @@ details p{color:var(--tenue);font-size:.92rem}
   </p>
 
   <form id="f" novalidate>
+    <div id="eleccion" hidden>
+      <label style="margin-top:0">Qué informe quieres</label>
+      <div class="productos">
+        <label class="producto"><input type="radio" name="producto" value="carta" checked>
+          <span><b>Tu carta natal</b><small>Quién eres: unas veinticinco páginas.</small></span>
+          <span class="precio">24,99 €</span></label>
+        <label class="producto"><input type="radio" name="producto" value="revolucion">
+          <span><b>Tu revolución solar</b><small>Tu año, de cumpleaños a cumpleaños: unas cuarenta páginas con fechas.</small></span>
+          <span class="precio">14,99 €</span></label>
+        <label class="producto"><input type="radio" name="producto" value="pack">
+          <span><b>Las dos</b><small>La carta natal y la revolución, en un solo correo.</small></span>
+          <span class="precio">34,99 €</span></label>
+      </div>
+    </div>
+
     <label for="nombre">Tu nombre</label>
     <input id="nombre" name="nombre" type="text" maxlength="80" autocomplete="given-name"
            placeholder="Como quieres que aparezca en la portada">
@@ -72,7 +99,7 @@ details p{color:var(--tenue);font-size:.92rem}
       <option value="masculino">En masculino — «te sientes solo»</option>
       <option value="neutro">Sin género — «puede aparecer la soledad»</option>
     </select>
-    <p class="nota">El informe son unas veinticinco páginas escritas para ti. Preferimos
+    <p class="nota"><span id="paginas">El informe son unas veinticinco páginas</span> escritas para ti. Preferimos
     preguntarlo a darlo por hecho.</p>
 
     <label for="fecha">Fecha de nacimiento</label>
@@ -82,12 +109,16 @@ details p{color:var(--tenue);font-size:.92rem}
     <div class="fila">
       <select id="h"></select><span>:</span><select id="m"></select>
     </div>
-    <div class="casilla">
+    <div class="casilla" id="casilla-sinhora">
       <input id="sinhora" type="checkbox">
       <label for="sinhora" style="margin:0;text-transform:none;letter-spacing:0;color:var(--tenue);font-size:.92rem">
         No sé a qué hora nací
       </label>
     </div>
+    <p class="nota" id="hora-rs" hidden>
+      La revolución solar necesita tu hora de nacimiento: sin ella no se puede
+      calcular. Si no la sabes, elige solo la carta natal.
+    </p>
     <p class="nota" id="aviso-hora" hidden>
       Sin hora se calcula todo menos el Ascendente y las casas. No se inventan:
       el informe sale más corto y lo dice.
@@ -110,13 +141,48 @@ details p{color:var(--tenue);font-size:.92rem}
     <p class="nota">¿No aparece tu pueblo? Elige la localidad más cercana: a menos
     de treinta kilómetros la carta no cambia.</p>
 
+    <div class="bloque-rs" id="bloque-rs" hidden>
+      <h2>Tu año</h2>
+      <p class="nota" style="margin-top:0">La revolución solar es la carta del momento exacto en que
+      el Sol vuelve a donde estaba cuando naciste. Se levanta para el sitio donde
+      pasas ese cumpleaños, así que eso también cuenta.</p>
+
+      <label for="anio">Qué año</label>
+      <select id="anio" disabled><option value="">Pon antes tu fecha de nacimiento</option></select>
+      <p class="nota">Cada revolución va de un cumpleaños al siguiente. «El actual» es el año
+      que estás viviendo; «el próximo» empieza en tu siguiente cumpleaños.</p>
+
+      <label for="pais-rs" id="etq-lugar-rs">Dónde pasas ese cumpleaños</label>
+      <div class="casilla" style="margin-top:0;margin-bottom:10px">
+        <input id="mismo-lugar" type="checkbox">
+        <label for="mismo-lugar" style="margin:0;text-transform:none;letter-spacing:0;color:var(--tenue);font-size:.92rem">
+          En el mismo sitio donde nací
+        </label>
+      </div>
+      <div id="lugar-rs">
+        <select id="pais-rs"><option value="">Elige el país</option></select>
+        <input id="filtro-rs" type="text" placeholder="Escribe para buscar" autocomplete="off" disabled style="margin-top:8px">
+        <select id="ciudad-rs" style="margin-top:8px" disabled><option value="">Elige antes el país</option></select>
+        <p class="nota">Si aún no sabes dónde estarás, pon donde vives. ¿No aparece? La localidad
+        más cercana sirve.</p>
+      </div>
+
+      <div class="casilla">
+        <input id="sin-ofertas" type="checkbox">
+        <label for="sin-ofertas" style="margin:0;text-transform:none;letter-spacing:0;color:var(--tenue);font-size:.92rem">
+          No quiero que me escribáis antes de mi próximo cumpleaños con la revolución
+          del año siguiente a precio de clienta (9,99 €).
+        </label>
+      </div>
+    </div>
+
     <div class="error" id="error"></div>
 
     <div class="resumen" id="resumen" hidden></div>
 
     <button id="enviar" type="submit">Continuar al pago · 24,99 €</button>
     <p class="nota" style="text-align:center">
-      Pago seguro con Stripe. IVA incluido. Recibes el informe en tu correo en menos de 24 horas.</p><p class="nota" style="text-align:center">Si al pulsar no pasa nada, suele ser el bloqueador de anuncios: prueba en una ventana de incógnito o desactívalo un momento. Tus datos siguen aquí.
+      Pago seguro con Stripe. IVA incluido. Recibes <span id="recibes">el informe</span> en tu correo en menos de 24 horas.</p><p class="nota" style="text-align:center">Si al pulsar no pasa nada, suele ser el bloqueador de anuncios: prueba en una ventana de incógnito o desactívalo un momento. Tus datos siguen aquí.
     </p>
   </form>
 
@@ -145,7 +211,22 @@ details p{color:var(--tenue);font-size:.92rem}
 const SUPABASE_URL  = 'https://orxyhxehapqmjwmqmqgv.supabase.co';
 const SUPABASE_ANON = 'sb_publishable_As7G8e_pyZwjApjgcC48ow_RDc4hZfN';   // clave publicable: es publica a proposito;
                           // la seguridad la da RLS, que solo deja INSERT de filas sin pagar
-const PAGO          = 'https://buy.stripe.com/4gM14ob1G4aT1o7f32ew800';
+/* Un enlace de pago por producto. El webhook sabe qué se ha cobrado por el
+   enlace, y el motor solo entrega lo cobrado: cambiar un enlace aquí sin
+   cambiarlo en supabase/functions/stripe-webhook deja el pedido retenido. */
+const PRODUCTOS = {
+  carta:      { pago: 'https://buy.stripe.com/4gM14ob1G4aT1o7f32ew800', precio: '24,99 €',
+                paginas: 'El informe son unas veinticinco páginas', recibes: 'el informe' },
+  revolucion: { pago: 'https://buy.stripe.com/cNidRaedSdLtd6P6wwew801', precio: '14,99 €',
+                paginas: 'La revolución son unas cuarenta páginas', recibes: 'el informe' },
+  pack:       { pago: 'https://buy.stripe.com/6oU6oIgm022L4AjbQQew802', precio: '34,99 €',
+                paginas: 'Son dos informes, unas sesenta y cinco páginas', recibes: 'los dos informes' },
+};
+
+/* La revolución solar no se enseña aún a todo el mundo: solo con
+   ?producto=revolucion o ?producto=pack en el enlace. El día del lanzamiento
+   se pone a true y la elección aparece siempre. */
+const REVOLUCION_A_LA_VENTA = false;
 
 /* Origen de la visita (utm_source, utm_medium, utm_campaign). Se guarda solo
    en esta pestaña (sessionStorage, sin cookies) y viaja con el pedido, para
@@ -177,6 +258,7 @@ const PAISES = {"ES":"España","MX":"México","AR":"Argentina","CO":"Colombia","
 
 const $ = id => document.getElementById(id);
 let CIUDADES = [];
+let CIUDADES_RS = [];
 
 /* ---------- desplegables ---------- */
 const opt = (v, t) => { const o = document.createElement('option'); o.value = v; o.textContent = t; return o; };
@@ -185,37 +267,153 @@ for (let i = 0; i < 60; i++) $('m').appendChild(opt(i, String(i).padStart(2, '0'
 $('h').prepend(opt('', '--')); $('m').prepend(opt('', '--'));
 $('h').value = ''; $('m').value = '';
 $('fecha').max = new Date().toISOString().slice(0, 10);
-for (const [c, n] of Object.entries(PAISES)) $('pais').appendChild(opt(c, n));
+for (const [c, n] of Object.entries(PAISES)) {
+  $('pais').appendChild(opt(c, n));
+  $('pais-rs').appendChild(opt(c, n));
+}
 
 /* ---------- localidades: se descargan solo al elegir país ---------- */
 const sinTildes = s => s.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
 
-$('pais').addEventListener('change', async () => {
-  const p = $('pais').value;
-  $('ciudad').innerHTML = ''; $('ciudad').disabled = true; $('filtro').disabled = true;
-  CIUDADES = [];
-  if (!p) return;
-  $('ciudad').appendChild(opt('', 'Cargando…'));
-  try {
-    CIUDADES = await (await fetch(`/carta/ciudades/${p}.json`)).json();
-  } catch (e) {
-    muestraError('No se ha podido cargar la lista de localidades. Prueba a recargar la página.');
+const LISTAS = {};                        // país → localidades, se baja una vez
+async function cargaLista(p) {
+  if (!LISTAS[p]) LISTAS[p] = await (await fetch(`/carta/ciudades/${p}.json`)).json();
+  return LISTAS[p];
+}
+
+// Dos juegos de campos con la misma mecánica: el lugar de nacimiento y el del
+// cumpleaños de la revolución.
+function selectorLugar(pais, filtro, ciudad, pon, alCambiar) {
+  $(pais).addEventListener('change', async () => {
+    const p = $(pais).value;
+    $(ciudad).innerHTML = ''; $(ciudad).disabled = true; $(filtro).disabled = true;
+    pon([]);
+    if (!p) { $(ciudad).appendChild(opt('', 'Elige antes el país')); alCambiar(); return; }
+    $(ciudad).appendChild(opt('', 'Cargando…'));
+    try {
+      pon(await cargaLista(p));
+    } catch (e) {
+      muestraError('No se ha podido cargar la lista de localidades. Prueba a recargar la página.');
+      return;
+    }
+    pinta('');
+    $(ciudad).disabled = false; $(filtro).disabled = false; $(filtro).value = '';
+    alCambiar();
+  });
+  function pinta(texto) {
+    const f = sinTildes(texto.trim());
+    const todas = pais === 'pais' ? CIUDADES : CIUDADES_RS;
+    // se guarda el índice original: es lo que luego devuelve lat, lon y zona
+    const lista = todas.map((c, i) => [c, i])
+                       .filter(([c]) => !f || sinTildes(c[0]).includes(f));
+    $(ciudad).innerHTML = '';
+    $(ciudad).appendChild(opt('', lista.length ? `Elige la localidad (${lista.length})` : 'Sin resultados'));
+    lista.slice(0, 1200).forEach(([c, i]) => $(ciudad).appendChild(opt(i, c[0])));
+  }
+  $(filtro).addEventListener('input', () => pinta($(filtro).value));
+  $(ciudad).addEventListener('change', alCambiar);
+}
+selectorLugar('pais', 'filtro', 'ciudad', l => { CIUDADES = l; }, () => resumen());
+selectorLugar('pais-rs', 'filtro-rs', 'ciudad-rs', l => { CIUDADES_RS = l; }, () => resumen());
+
+/* ---------- producto ---------- */
+const producto = () => (document.querySelector('input[name=producto]:checked') || {}).value || 'carta';
+const conRevolucion = () => producto() !== 'carta';
+
+(function eligeDeEntrada() {
+  let pedido = '';
+  try { pedido = new URLSearchParams(location.search).get('producto') || ''; } catch (e) {}
+  if (REVOLUCION_A_LA_VENTA || pedido === 'revolucion' || pedido === 'pack') {
+    $('eleccion').hidden = false;
+    const r = document.querySelector(`input[name=producto][value="${pedido}"]`);
+    if (r) r.checked = true;
+  }
+})();
+
+function alCambiarProducto() {
+  const p = PRODUCTOS[producto()];
+  const rs = conRevolucion();
+  $('enviar').textContent = `Continuar al pago · ${p.precio}`;
+  $('paginas').textContent = p.paginas;
+  $('recibes').textContent = p.recibes;
+  $('bloque-rs').hidden = !rs;
+  // Sin hora no hay revolución: la casilla desaparece y se explica por qué.
+  $('casilla-sinhora').hidden = rs;
+  $('hora-rs').hidden = !rs;
+  if (rs && $('sinhora').checked) {
+    $('sinhora').checked = false;
+    $('sinhora').dispatchEvent(new Event('change'));
+  }
+  $('aviso-hora').hidden = rs || !$('sinhora').checked;
+  resumen();
+}
+document.querySelectorAll('input[name=producto]').forEach(r => r.addEventListener('change', alCambiarProducto));
+
+/* ---------- el año de la revolución ---------- */
+const MESES = ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto',
+               'septiembre', 'octubre', 'noviembre', 'diciembre'];
+
+// Años que se pueden pedir: el que está en curso y el que empieza en el
+// próximo cumpleaños. (La base acepta hasta el año que viene.)
+function aniosPosibles(fecha) {
+  const [a, m, d] = fecha.split('-').map(Number);
+  const hoy = new Date();
+  const cumpleEsteAnio = new Date(hoy.getFullYear(), m - 1, d);
+  const enCurso = hoy >= cumpleEsteAnio ? hoy.getFullYear() : hoy.getFullYear() - 1;
+  const proximo = new Date(enCurso + 1, m - 1, d);
+  const dias = Math.round((proximo - hoy) / 864e5);
+  const lista = [];
+  // Textos cortos: en el móvil el desplegable corta a unos 35 caracteres.
+  const mes = MESES[m - 1][0].toUpperCase() + MESES[m - 1].slice(1);
+  const tramo = y => `${mes} ${y} – ${MESES[m - 1]} ${y + 1}`;
+  if (enCurso >= a) lista.push({ anio: enCurso, texto: `${tramo(enCurso)} (el actual)` });
+  if (enCurso + 1 >= a) lista.push({ anio: enCurso + 1, texto: `${tramo(enCurso + 1)} (el próximo)` });
+  // Si el cumpleaños está a menos de un mes, lo normal es querer el que viene.
+  const defecto = dias <= 30 ? enCurso + 1 : enCurso;
+  return { lista, defecto };
+}
+
+function pintaAnios() {
+  const fecha = $('fecha').value;
+  const antes = $('anio').value;
+  $('anio').innerHTML = '';
+  if (!fecha) {
+    $('anio').appendChild(opt('', 'Pon antes tu fecha de nacimiento'));
+    $('anio').disabled = true;
     return;
   }
-  pintaCiudades('');
-  $('ciudad').disabled = false; $('filtro').disabled = false; $('filtro').value = '';
+  const { lista, defecto } = aniosPosibles(fecha);
+  lista.forEach(x => $('anio').appendChild(opt(x.anio, x.texto)));
+  $('anio').disabled = false;
+  $('anio').value = lista.some(x => String(x.anio) === antes) ? antes : String(defecto);
+  etiquetaLugar();
+}
+
+function etiquetaLugar() {
+  const a = +$('anio').value;
+  if (!a) return;
+  const pasado = a < new Date().getFullYear() ||
+    (a === new Date().getFullYear() && $('fecha').value &&
+     new Date() >= new Date(a, +$('fecha').value.slice(5, 7) - 1, +$('fecha').value.slice(8, 10)));
+  $('etq-lugar-rs').textContent = pasado ? `Dónde pasaste tu cumpleaños de ${a}`
+                                         : `Dónde pasarás tu cumpleaños de ${a}`;
+}
+$('fecha').addEventListener('change', pintaAnios);
+$('anio').addEventListener('change', () => { etiquetaLugar(); resumen(); });
+
+$('mismo-lugar').addEventListener('change', () => {
+  $('lugar-rs').hidden = $('mismo-lugar').checked;
+  resumen();
 });
 
-function pintaCiudades(filtro) {
-  const f = sinTildes(filtro.trim());
-  // se guarda el índice original: es lo que luego devuelve lat, lon y zona
-  const lista = CIUDADES.map((c, i) => [c, i])
-                        .filter(([c]) => !f || sinTildes(c[0]).includes(f));
-  $('ciudad').innerHTML = '';
-  $('ciudad').appendChild(opt('', lista.length ? `Elige tu localidad (${lista.length})` : 'Sin resultados'));
-  lista.slice(0, 1200).forEach(([c, i]) => $('ciudad').appendChild(opt(i, c[0])));
+function lugarCumple() {
+  if ($('mismo-lugar').checked) {
+    const c = CIUDADES[$('ciudad').value];
+    return c ? { c, pais: $('pais').value } : null;
+  }
+  const c = CIUDADES_RS[$('ciudad-rs').value];
+  return c ? { c, pais: $('pais-rs').value } : null;
 }
-$('filtro').addEventListener('input', () => pintaCiudades($('filtro').value));
 
 /* ---------- sin hora ---------- */
 $('sinhora').addEventListener('change', () => {
@@ -230,23 +428,39 @@ $('sinhora').addEventListener('change', () => {
 function resumen() {
   const c = CIUDADES[$('ciudad').value];
   if (!$('fecha').value || !c) { $('resumen').hidden = true; return; }
+  const rs = conRevolucion();
   const hora = $('sinhora').checked ? 'sin hora'
              : ($('h').value !== '' && $('m').value !== ''
                 ? `${String($('h').value).padStart(2,'0')}:${String($('m').value).padStart(2,'0')}`
                 : '');
   if (!hora) { $('resumen').hidden = true; return; }
   const [a, m, d] = $('fecha').value.split('-');
+  const nacimiento = `el <b>${+d}/${+m}/${a}</b>, <b>${hora}</b>, en <b>${esc(c[0])}</b> (${PAISES[$('pais').value]})`;
+  let texto;
+  if (!rs) {
+    texto = `Se calculará tu carta para ${nacimiento}.<br>
+     <span style="color:var(--tenue);font-size:.9rem">Zona horaria: ${c[3]}.`;
+  } else {
+    const l = lugarCumple();
+    const anio = $('anio').value;
+    if (!l || !anio) { $('resumen').hidden = true; return; }
+    texto = (producto() === 'pack' ? 'Tu carta natal y tu revolución solar se calcularán'
+                                   : 'Tu revolución solar se calculará')
+      + ` con tu nacimiento ${nacimiento}.<br>
+     La revolución es la de tu cumpleaños de <b>${anio}</b>, en
+     <b>${esc(l.c[0])}</b> (${PAISES[l.pais]}).<br>
+     <span style="color:var(--tenue);font-size:.9rem">Zonas horarias: ${c[3]}${l.c[3] !== c[3] ? ' y ' + l.c[3] : ''}.`;
+  }
   $('resumen').hidden = false;
-  $('resumen').innerHTML =
-    `Se calculará tu carta para el <b>${+d}/${+m}/${a}</b>, <b>${hora}</b>,
-     en <b>${c[0]}</b> (${PAISES[$('pais').value]}).<br>
-     <span style="color:var(--tenue);font-size:.9rem">Zona horaria: ${c[3]}.
-     Compruébalo antes de pagar: rehacerlo después cuesta un correo.</span>`;
+  $('resumen').innerHTML = texto + ` Compruébalo antes de pagar: rehacerlo después cuesta un correo.</span>`;
 }
-['fecha', 'h', 'm', 'ciudad'].forEach(id => $(id).addEventListener('change', resumen));
+const esc = t => String(t).replace(/[&<>"]/g, x => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[x]);
+['fecha', 'h', 'm'].forEach(id => $(id).addEventListener('change', resumen));
 
 /* ---------- envío ---------- */
 function muestraError(t) { $('error').textContent = t; $('error').style.display = 'block'; }
+// En cuanto se corrige algo, el aviso viejo sobra.
+$('f').addEventListener('change', () => { $('error').style.display = 'none'; });
 
 $('f').addEventListener('submit', async ev => {
   ev.preventDefault();
@@ -264,8 +478,17 @@ $('f').addEventListener('submit', async ev => {
   if (!fecha)                        return muestraError('Falta la fecha de nacimiento.');
   if (new Date(fecha) > new Date())  return muestraError('Esa fecha está en el futuro.');
   if (!sinHora && ($('h').value === '' || $('m').value === ''))
-                                     return muestraError('Pon la hora, o marca «no sé a qué hora nací».');
+                                     return muestraError(conRevolucion()
+                                       ? 'Pon tu hora de nacimiento: la revolución solar la necesita.'
+                                       : 'Pon la hora, o marca «no sé a qué hora nací».');
   if (!c)                            return muestraError('Elige tu localidad de nacimiento en la lista.');
+
+  const prod = producto();
+  const rs = prod !== 'carta';
+  const l = rs ? lugarCumple() : null;
+  if (rs && sinHora)                 return muestraError('La revolución solar necesita tu hora de nacimiento.');
+  if (rs && !$('anio').value)        return muestraError('Elige qué año quieres.');
+  if (rs && !l)                      return muestraError('Elige dónde pasas ese cumpleaños.');
 
   const id = (crypto.randomUUID ? crypto.randomUUID()
               : Date.now() + '-' + Math.random().toString(16).slice(2));
@@ -278,8 +501,14 @@ $('f').addEventListener('submit', async ev => {
     pais: $('pais').value, localidad: c[0], lat: c[1], lon: c[2], zona: c[3],
     trato: $('trato').value,
     estado: 'nuevo', intentos: 0,
+    producto: prod,
     ...origen(),
   };
+  if (rs) {
+    pedido.anio_revolucion = +$('anio').value;
+    pedido.lugar_cumple = { nombre: l.c[0], pais: l.pais, lat: l.c[1], lon: l.c[2], zona: l.c[3] };
+    pedido.sin_ofertas = $('sin-ofertas').checked;
+  }
 
   $('enviar').disabled = true; $('enviar').textContent = 'Guardando…';
   const guarda = (datos) => fetch(`${SUPABASE_URL}/rest/v1/pedidos`, {
@@ -298,21 +527,23 @@ $('f').addEventListener('submit', async ev => {
     }
     if (!r.ok) throw new Error(await r.text());
   } catch (e) {
-    $('enviar').disabled = false; $('enviar').textContent = 'Continuar al pago · 24,99 €';
+    $('enviar').disabled = false; $('enviar').textContent = `Continuar al pago · ${PRODUCTOS[prod].precio}`;
     return muestraError('No se han podido guardar tus datos. Vuelve a intentarlo en un minuto; '
                       + 'no se te ha cobrado nada.');
   }
 
   if (window.goatcounter && window.goatcounter.count) {
-    window.goatcounter.count({ path: 'carta-datos-enviados', title: 'carta-datos-enviados', event: true });
+    const ev = prod === 'carta' ? 'carta-datos-enviados' : `${prod}-datos-enviados`;
+    window.goatcounter.count({ path: ev, title: ev, event: true });
   }
 
   // client_reference_id es el hilo que une el pago con estos datos.
-  const url = new URL(PAGO);
+  const url = new URL(PRODUCTOS[prod].pago);
   url.searchParams.set('client_reference_id', id);
   url.searchParams.set('prefilled_email', correo);
   location.href = url.toString();
 });
+alCambiarProducto();
 </script>
 </body>
 </html>
