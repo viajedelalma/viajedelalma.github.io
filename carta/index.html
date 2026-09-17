@@ -1119,6 +1119,16 @@ function pintaCiudades(filtro) {
     sel.appendChild(o);
   }
   sel.value = '';
+  // Si lo escrito deja una sola localidad, o coincide exacto con una, se elige sola:
+  // en el movil, escribir «Sevilla» y pulsar «Ver mi carta» tiene que funcionar.
+  if (f && n >= 1) {
+    let exacta = '';
+    for (let k = 1; k < sel.options.length; k++) {
+      if (sinTildes(sel.options[k].textContent) === f) { exacta = sel.options[k].value; break; }
+    }
+    if (exacta) sel.value = exacta;
+    else if (n === 1) sel.value = sel.options[1].value;
+  }
 }
 
 async function cargarPais(cc) {
@@ -1202,6 +1212,16 @@ async function cargarPais(cc) {
     }
   });
   $('formulario').addEventListener('submit', (e) => { e.preventDefault(); calcular(false); });
+  // Embudo: quien toca el formulario y quien llega a ver el precio
+  ['focusin', 'change'].forEach(ev => $('formulario').addEventListener(ev, () => cuentaUna('carta-empieza')));
+  (function vePrecio() {
+    const puerta = $('puerta');
+    if (!puerta || !('IntersectionObserver' in window)) return;
+    const io = new IntersectionObserver((ents) => {
+      if (ents.some(x => x.isIntersecting)) { cuentaUna('carta-ve-precio'); io.disconnect(); }
+    }, { threshold: 0.3 });
+    io.observe(puerta);
+  })();
   $('cta-app').href = ENLACE_APP;
   $('form-correo').addEventListener('submit', apuntar);
   calcular(true);
@@ -1215,6 +1235,13 @@ function cuenta(nombre) {
   } catch (e) { /* la medicion nunca puede romper la pagina */ }
 }
 
+var YA_CONTADO = {};
+function cuentaUna(nombre) {
+  if (YA_CONTADO[nombre]) return;
+  YA_CONTADO[nombre] = true;
+  cuenta(nombre);
+}
+
 function calcular(esEjemplo) {
   const err = $('error');
   err.hidden = true;
@@ -1226,10 +1253,16 @@ function calcular(esEjemplo) {
     ? CIUDAD_EJEMPLO
     : (iCiudad === '' ? null : CIUDADES[+iCiudad]);
   if (!esEjemplo) {
-    if (!fecha) { err.textContent = 'Falta tu fecha de nacimiento.'; err.hidden = false; return; }
-    if (!$('f-pais').value) { err.textContent = 'Elige tu país de nacimiento.'; err.hidden = false; return; }
-    if (!ciudad) { err.textContent = 'Elige tu localidad de nacimiento: sin ella no se puede calcular tu Ascendente.'; err.hidden = false; return; }
-    if (!$('f-hora').value && !sinHora) { err.textContent = 'Falta la hora. Si no la sabes, marca «No sé mi hora exacta».'; err.hidden = false; return; }
+    if (!fecha) { cuentaUna('carta-error-fecha'); err.textContent = 'Falta tu fecha de nacimiento.'; err.hidden = false; return; }
+    if (!$('f-pais').value) { cuentaUna('carta-error-pais'); err.textContent = 'Elige tu país de nacimiento.'; err.hidden = false; return; }
+    if (!ciudad) {
+      cuentaUna('carta-error-localidad');
+      err.textContent = $('f-filtro').value.trim()
+        ? 'Toca la lista de localidades y elige la tuya: sin ella no se puede calcular tu Ascendente.'
+        : 'Elige tu localidad de nacimiento: sin ella no se puede calcular tu Ascendente.';
+      err.hidden = false; return;
+    }
+    if (!$('f-hora').value && !sinHora) { cuentaUna('carta-error-hora'); err.textContent = 'Falta la hora. Si no la sabes, marca «No sé mi hora exacta».'; err.hidden = false; return; }
   }
   if (!fecha || !ciudad) { err.hidden = false; err.textContent = 'Faltan datos.'; return; }
   if (!esEjemplo) cuenta('carta-calculada');
