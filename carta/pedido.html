@@ -369,7 +369,9 @@ function aniosPosibles(fecha) {
   // Textos cortos: en el móvil el desplegable corta a unos 35 caracteres.
   const mes = MESES[m - 1][0].toUpperCase() + MESES[m - 1].slice(1);
   const tramo = y => `${mes} ${y} – ${MESES[m - 1]} ${y + 1}`;
-  if (enCurso >= a) lista.push({ anio: enCurso, texto: `${tramo(enCurso)} (el actual)` });
+  // Un año al que le queda menos de un mes no se vende: serían cuarenta
+  // páginas sobre algo que ya pasó (revisión de código, 17-sep).
+  if (enCurso >= a && dias > 30) lista.push({ anio: enCurso, texto: `${tramo(enCurso)} (el actual)` });
   if (enCurso + 1 >= a) lista.push({ anio: enCurso + 1, texto: `${tramo(enCurso + 1)} (el próximo)` });
   // Si el cumpleaños está a menos de un mes, lo normal es querer el que viene.
   const defecto = dias <= 30 ? enCurso + 1 : enCurso;
@@ -442,7 +444,7 @@ function resumen() {
   let texto;
   if (!rs) {
     texto = `Se calculará tu carta para ${nacimiento}.<br>
-     <span style="color:var(--tenue);font-size:.9rem">Zona horaria: ${c[3]}.`;
+     <span style="color:var(--tenue);font-size:.9rem">Zona horaria: ${esc(c[3])}.`;
   } else {
     const l = lugarCumple();
     const anio = $('anio').value;
@@ -452,7 +454,7 @@ function resumen() {
       + ` con tu nacimiento ${nacimiento}.<br>
      La revolución es la de tu cumpleaños de <b>${anio}</b>, en
      <b>${esc(l.c[0])}</b> (${PAISES[l.pais]}).<br>
-     <span style="color:var(--tenue);font-size:.9rem">Zonas horarias: ${c[3]}${l.c[3] !== c[3] ? ' y ' + l.c[3] : ''}.`;
+     <span style="color:var(--tenue);font-size:.9rem">Zonas horarias: ${esc(c[3])}${l.c[3] !== c[3] ? ' y ' + esc(l.c[3]) : ''}.`;
   }
   $('resumen').hidden = false;
   $('resumen').innerHTML = texto + ` Compruébalo antes de pagar: rehacerlo después cuesta un correo.</span>`;
@@ -524,7 +526,8 @@ $('f').addEventListener('submit', async ev => {
     let r = await guarda(pedido);
     // El origen es un extra: si por lo que sea la base lo rechaza, el pedido
     // se guarda sin él antes que perder la venta.
-    if (!r.ok && pedido.utm_source !== undefined) {
+    // Cualquiera de los tres, no solo utm_source (revisión de código, 17-sep).
+    if (!r.ok && ['utm_source', 'utm_medium', 'utm_campaign'].some(k => pedido[k] !== undefined)) {
       const { utm_source, utm_medium, utm_campaign, ...sinOrigen } = pedido;
       r = await guarda(sinOrigen);
     }
