@@ -1160,6 +1160,21 @@ async function cargarPais(cc) {
   $('pista-ciudad').hidden = false;
 }
 
+/* Origen de la visita (utm_source, utm_medium, utm_campaign). Se guarda solo
+   en esta pestaña (sessionStorage, sin cookies) y viaja con el pedido, para
+   saber qué red trae cada venta. */
+(function guardaOrigen() {
+  try {
+    const p = new URLSearchParams(location.search);
+    const o = {};
+    ['utm_source', 'utm_medium', 'utm_campaign'].forEach((k) => {
+      const v = (p.get(k) || '').trim().slice(0, 60);
+      if (v) o[k] = v;
+    });
+    if (Object.keys(o).length) sessionStorage.setItem('vda_origen', JSON.stringify(o));
+  } catch (e) { /* sin almacenamiento: el pedido sale igual, sin origen */ }
+})();
+
 (function arranque() {
   const selP = $('f-pais');
   const vaciaP = document.createElement('option');
