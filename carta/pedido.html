@@ -78,10 +78,10 @@ details p{color:var(--tenue);font-size:.92rem}
           <span class="precio">24,99 €</span></label>
         <label class="producto"><input type="radio" name="producto" value="revolucion">
           <span><b>Tu revolución solar</b><small>Tu año, de cumpleaños a cumpleaños: unas cuarenta páginas con fechas.</small></span>
-          <span class="precio">14,99 €</span></label>
+          <span class="precio">24,99 €</span></label>
         <label class="producto"><input type="radio" name="producto" value="pack">
-          <span><b>Las dos</b><small>La carta natal y la revolución, en un solo correo.</small></span>
-          <span class="precio">34,99 €</span></label>
+          <span><b>Las dos</b><small>La carta natal y la revolución, en un solo correo. Ahorras 10 €.</small></span>
+          <span class="precio">39,99 €</span></label>
       </div>
     </div>
 
@@ -167,13 +167,16 @@ details p{color:var(--tenue);font-size:.92rem}
         más cercana sirve.</p>
       </div>
 
-      <div class="casilla">
-        <input id="sin-ofertas" type="checkbox">
-        <label for="sin-ofertas" style="margin:0;text-transform:none;letter-spacing:0;color:var(--tenue);font-size:.92rem">
-          No quiero que me escribáis antes de mi próximo cumpleaños con la revolución
-          del año siguiente a precio de clienta (9,99 €).
-        </label>
-      </div>
+    </div>
+
+    <!-- Para todas las compras (PO, 17-sep): quien compra la carta también
+         recibe el código de la revolución. LSSI 21.2: se avisa al comprar. -->
+    <div class="casilla" style="margin-top:26px">
+      <input id="sin-ofertas" type="checkbox">
+      <label for="sin-ofertas" style="margin:0;text-transform:none;letter-spacing:0;color:var(--tenue);font-size:.92rem">
+        No quiero recibir, antes de mi cumpleaños, un código personal para la revolución
+        solar a precio de clienta (14,99 €).
+      </label>
     </div>
 
     <div class="error" id="error"></div>
@@ -217,9 +220,9 @@ const SUPABASE_ANON = 'sb_publishable_As7G8e_pyZwjApjgcC48ow_RDc4hZfN';   // cla
 const PRODUCTOS = {
   carta:      { pago: 'https://buy.stripe.com/4gM14ob1G4aT1o7f32ew800', precio: '24,99 €',
                 paginas: 'El informe son unas veinticinco páginas', recibes: 'el informe' },
-  revolucion: { pago: 'https://buy.stripe.com/cNidRaedSdLtd6P6wwew801', precio: '14,99 €',
+  revolucion: { pago: 'https://buy.stripe.com/cNidRaedSdLtd6P6wwew801', precio: '24,99 €',
                 paginas: 'La revolución son unas cuarenta páginas', recibes: 'el informe' },
-  pack:       { pago: 'https://buy.stripe.com/6oU6oIgm022L4AjbQQew802', precio: '34,99 €',
+  pack:       { pago: 'https://buy.stripe.com/6oU6oIgm022L4AjbQQew802', precio: '39,99 €',
                 paginas: 'Son dos informes, unas sesenta y cinco páginas', recibes: 'los dos informes' },
 };
 
@@ -502,12 +505,12 @@ $('f').addEventListener('submit', async ev => {
     trato: $('trato').value,
     estado: 'nuevo', intentos: 0,
     producto: prod,
+    sin_ofertas: $('sin-ofertas').checked,
     ...origen(),
   };
   if (rs) {
     pedido.anio_revolucion = +$('anio').value;
     pedido.lugar_cumple = { nombre: l.c[0], pais: l.pais, lat: l.c[1], lon: l.c[2], zona: l.c[3] };
-    pedido.sin_ofertas = $('sin-ofertas').checked;
   }
 
   $('enviar').disabled = true; $('enviar').textContent = 'Guardando…';
