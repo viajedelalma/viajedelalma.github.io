@@ -1099,7 +1099,8 @@ function sinTildes(s) {
 
 function pintaCiudades(filtro) {
   const sel = $('f-ciudad');
-  const f = filtro ? sinTildes(filtro) : '';
+  // trim: el teclado de Android añade un espacio al aceptar una sugerencia.
+  const f = filtro ? sinTildes(filtro.trim().replace(/\s+/g, ' ')) : '';
   sel.innerHTML = '';
   const vacia = document.createElement('option');
   vacia.value = '';
@@ -1124,7 +1125,7 @@ function pintaCiudades(filtro) {
   if (f && n >= 1) {
     let exacta = '';
     for (let k = 1; k < sel.options.length; k++) {
-      if (sinTildes(sel.options[k].textContent) === f) { exacta = sel.options[k].value; break; }
+      if (sinTildes(sel.options[k].textContent.trim()) === f) { exacta = sel.options[k].value; break; }
     }
     if (exacta) sel.value = exacta;
     else if (n === 1) sel.value = sel.options[1].value;
