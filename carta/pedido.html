@@ -121,7 +121,7 @@ details p{color:var(--tenue);font-size:.92rem}
   </form>
 
   <p class="pie">
-    Tus datos se usan solo para calcular y enviarte el informe.<br>
+    Tus datos se usan solo para calcular y enviarte el informe. Guardamos también desde qué red llegaste, sin cookies.<br>
     <a href="/privacidad.html">Privacidad</a> · <a href="/terminos.html">Términos</a> ·
     <a href="/carta/">Volver a la carta gratis</a>
   </p>
@@ -146,6 +146,32 @@ const SUPABASE_URL  = 'https://orxyhxehapqmjwmqmqgv.supabase.co';
 const SUPABASE_ANON = 'sb_publishable_As7G8e_pyZwjApjgcC48ow_RDc4hZfN';   // clave publicable: es publica a proposito;
                           // la seguridad la da RLS, que solo deja INSERT de filas sin pagar
 const PAGO          = 'https://buy.stripe.com/4gM14ob1G4aT1o7f32ew800';
+
+/* Origen de la visita (utm_source, utm_medium, utm_campaign). Se guarda solo
+   en esta pestaña (sessionStorage, sin cookies) y viaja con el pedido, para
+   saber qué red trae cada venta. */
+(function guardaOrigen() {
+  try {
+    const p = new URLSearchParams(location.search);
+    const o = {};
+    ['utm_source', 'utm_medium', 'utm_campaign'].forEach((k) => {
+      const v = (p.get(k) || '').trim().slice(0, 60);
+      if (v) o[k] = v;
+    });
+    if (Object.keys(o).length) sessionStorage.setItem('vda_origen', JSON.stringify(o));
+  } catch (e) { /* sin almacenamiento: el pedido sale igual, sin origen */ }
+})();
+
+function origen() {
+  try {
+    const o = JSON.parse(sessionStorage.getItem('vda_origen') || '{}');
+    const r = {};
+    ['utm_source', 'utm_medium', 'utm_campaign'].forEach((k) => {
+      if (typeof o[k] === 'string' && o[k]) r[k] = o[k].slice(0, 60);
+    });
+    return r;
+  } catch (e) { return {}; }
+}
 
 const PAISES = {"ES":"España","MX":"México","AR":"Argentina","CO":"Colombia","CL":"Chile","PE":"Perú","VE":"Venezuela","EC":"Ecuador","GT":"Guatemala","CU":"Cuba","BO":"Bolivia","DO":"República Dominicana","HN":"Honduras","PY":"Paraguay","SV":"El Salvador","NI":"Nicaragua","CR":"Costa Rica","PR":"Puerto Rico","UY":"Uruguay","PA":"Panamá","GQ":"Guinea Ecuatorial","PT":"Portugal","BR":"Brasil","US":"Estados Unidos","CA":"Canadá","FR":"Francia","DE":"Alemania","IT":"Italia","GB":"Reino Unido","CH":"Suiza","BE":"Bélgica","NL":"Países Bajos","AD":"Andorra","IE":"Irlanda","AT":"Austria","SE":"Suecia","NO":"Noruega","DK":"Dinamarca","PL":"Polonia","RO":"Rumanía","RU":"Rusia","MA":"Marruecos","DZ":"Argelia","SN":"Senegal","CN":"China","JP":"Japón","IN":"India","PH":"Filipinas","AU":"Australia","IL":"Israel","TR":"Turquía","GR":"Grecia","UA":"Ucrania","BG":"Bulgaria","CZ":"Chequia","HU":"Hungría","FI":"Finlandia","IS":"Islandia","LU":"Luxemburgo"};
 
@@ -252,16 +278,24 @@ $('f').addEventListener('submit', async ev => {
     pais: $('pais').value, localidad: c[0], lat: c[1], lon: c[2], zona: c[3],
     trato: $('trato').value,
     estado: 'nuevo', intentos: 0,
+    ...origen(),
   };
 
   $('enviar').disabled = true; $('enviar').textContent = 'Guardando…';
+  const guarda = (datos) => fetch(`${SUPABASE_URL}/rest/v1/pedidos`, {
+    method: 'POST',
+    headers: { apikey: SUPABASE_ANON, Authorization: `Bearer ${SUPABASE_ANON}`,
+               'Content-Type': 'application/json', Prefer: 'return=minimal' },
+    body: JSON.stringify(datos),
+  });
   try {
-    const r = await fetch(`${SUPABASE_URL}/rest/v1/pedidos`, {
-      method: 'POST',
-      headers: { apikey: SUPABASE_ANON, Authorization: `Bearer ${SUPABASE_ANON}`,
-                 'Content-Type': 'application/json', Prefer: 'return=minimal' },
-      body: JSON.stringify(pedido),
-    });
+    let r = await guarda(pedido);
+    // El origen es un extra: si por lo que sea la base lo rechaza, el pedido
+    // se guarda sin él antes que perder la venta.
+    if (!r.ok && pedido.utm_source !== undefined) {
+      const { utm_source, utm_medium, utm_campaign, ...sinOrigen } = pedido;
+      r = await guarda(sinOrigen);
+    }
     if (!r.ok) throw new Error(await r.text());
   } catch (e) {
     $('enviar').disabled = false; $('enviar').textContent = 'Continuar al pago · 24,99 €';
