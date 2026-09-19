@@ -132,6 +132,10 @@ button.principal:focus-visible{outline:2px solid var(--oro-claro);outline-offset
 .hora summary::-webkit-details-marker{display:none}
 .hora summary::before{content:'+ ';color:var(--oro)}
 .hora[open] summary::before{content:'– '}
+.afinar{grid-column:1/-1;margin:4px 0 0;max-width:none;border-top:0;padding:12px 14px;border:1px dashed var(--linea);border-radius:2px}
+.afinar .pista{margin-top:6px}
+.afinar summary{font-size:.92rem}
+.pista-inline{color:var(--tenue);font-size:.82rem}
 .hora p{margin:10px 0 0;font-size:.86rem;color:var(--tenue);max-width:none;line-height:1.6}
 .pie{margin-top:40px;font-size:.78rem;color:var(--violeta);text-align:center;line-height:1.8}
 .error{color:#E7A6A6;font-size:.9rem;margin-top:10px}
@@ -173,18 +177,24 @@ body.con-barra .envoltura{padding-bottom:140px}
 
   <form class="panel" id="formulario">
     <div class="campos">
+      <div class="campo ancho"><label for="f-fecha">Fecha de nacimiento</label><input id="f-fecha" type="date" required></div>
       <div class="campo ancho"><label for="f-nombre">Tu nombre (opcional)</label><input id="f-nombre" type="text" autocomplete="given-name" placeholder="Como quieras que te llame"></div>
-      <div class="campo"><label for="f-fecha">Fecha de nacimiento</label><input id="f-fecha" type="date" required></div>
-      <div class="campo"><label for="f-h">Hora</label><div class="hora2"><select id="f-h" aria-label="Hora de nacimiento"></select><span class="hora2-sep">:</span><select id="f-m" aria-label="Minutos de nacimiento"></select></div><input id="f-hora" type="hidden"></div>
-      <div class="campo ancho"><label for="f-pais">País de nacimiento</label><select id="f-pais"></select></div>
-      <div class="campo ancho"><label for="f-ciudad">Localidad de nacimiento</label>
-        <input id="f-filtro" type="search" placeholder="Escribe para buscar tu localidad" autocomplete="off" hidden>
-        <select id="f-ciudad" disabled></select>
-        <p class="pista" id="pista-ciudad" hidden>¿No aparece tu pueblo? Elige la localidad más cercana: a pocos kilómetros tu carta apenas cambia.</p>
-      </div>
-      <div class="check"><input type="checkbox" id="f-sinhora"><label for="f-sinhora" style="text-transform:none;letter-spacing:0;font-size:.88rem">No sé mi hora exacta</label></div>
+      <details class="hora afinar" id="afinar">
+        <summary>Afinar con tu hora y tu lugar de nacimiento <span class="pista-inline">(para el Ascendente y las casas)</span></summary>
+        <div class="campos" style="margin-top:14px">
+          <div class="campo"><label for="f-h">Hora</label><div class="hora2"><select id="f-h" aria-label="Hora de nacimiento"></select><span class="hora2-sep">:</span><select id="f-m" aria-label="Minutos de nacimiento"></select></div><input id="f-hora" type="hidden"></div>
+          <div class="check" style="grid-column:auto;align-self:end;padding-bottom:10px"><input type="checkbox" id="f-sinhora"><label for="f-sinhora" style="text-transform:none;letter-spacing:0;font-size:.88rem">No sé mi hora exacta</label></div>
+          <div class="campo ancho"><label for="f-pais">País de nacimiento</label><select id="f-pais"></select></div>
+          <div class="campo ancho"><label for="f-ciudad">Localidad de nacimiento</label>
+            <input id="f-filtro" type="search" placeholder="Escribe para buscar tu localidad" autocomplete="off" hidden>
+            <select id="f-ciudad" disabled></select>
+            <p class="pista" id="pista-ciudad" hidden>¿No aparece tu pueblo? Elige la localidad más cercana: a pocos kilómetros tu carta apenas cambia.</p>
+          </div>
+        </div>
+      </details>
     </div>
     <button class="principal" type="submit">Ver mi carta</button>
+    <p class="pista" style="text-align:center;margin-top:10px">Con solo la fecha ya ves tu Sol y tu Luna. Con hora y lugar, también tu Ascendente.</p>
     <p class="error" id="error" hidden></p>
   </form>
 
@@ -1263,28 +1273,56 @@ function calcular(esEjemplo) {
   err.hidden = true;
   const iCiudad = $('f-ciudad').value;
   const fecha = esEjemplo ? EJEMPLO.fecha : $('f-fecha').value;
-  const sinHora = esEjemplo ? false : $('f-sinhora').checked;
+  const pais = esEjemplo ? '' : $('f-pais').value;
+  // Sin hora puesta, la carta va sin hora: no hace falta marcar la casilla.
+  const sinHora = esEjemplo ? false : ($('f-sinhora').checked || !$('f-hora').value);
   const hora = esEjemplo ? EJEMPLO.hora : ($('f-hora').value || '12:00');
+  // Solo con la fecha (sin país) se calcula el Sol y la Luna del día entero.
+  const soloFecha = !esEjemplo && !pais;
   const ciudad = esEjemplo
     ? CIUDAD_EJEMPLO
     : (iCiudad === '' ? null : CIUDADES[+iCiudad]);
   if (!esEjemplo) {
     if (!fecha) { cuentaUna('carta-error-fecha'); err.textContent = 'Falta tu fecha de nacimiento.'; err.hidden = false; return; }
-    if (!$('f-pais').value) { cuentaUna('carta-error-pais'); err.textContent = 'Elige tu país de nacimiento.'; err.hidden = false; return; }
-    if (!ciudad) {
+    if (pais && !ciudad) {
       cuentaUna('carta-error-localidad');
       err.textContent = $('f-filtro').value.trim()
-        ? 'Toca la lista de localidades y elige la tuya: sin ella no se puede calcular tu Ascendente.'
-        : 'Elige tu localidad de nacimiento: sin ella no se puede calcular tu Ascendente.';
+        ? 'Toca la lista de localidades y elige la tuya (o deja el país en blanco y calculo solo con la fecha).'
+        : 'Elige tu localidad de nacimiento (o deja el país en blanco y calculo solo con la fecha).';
       err.hidden = false; return;
     }
-    if (!$('f-hora').value && !sinHora) { cuentaUna('carta-error-hora'); err.textContent = 'Falta la hora. Si no la sabes, marca «No sé mi hora exacta».'; err.hidden = false; return; }
   }
-  if (!fecha || !ciudad) { err.hidden = false; err.textContent = 'Faltan datos.'; return; }
-  if (!esEjemplo) cuenta('carta-calculada');
+  if (!fecha || (!ciudad && !soloFecha)) { err.hidden = false; err.textContent = 'Faltan datos.'; return; }
   const [y, mes, d] = fecha.split('-').map(Number);
   const [h, mi] = hora.split(':').map(Number);
   if (y < 1900 || y > 2099) { err.textContent = 'De momento calculo entre 1900 y 2099.'; err.hidden = false; return; }
+  if (!esEjemplo) { cuenta('carta-calculada'); if (soloFecha) cuenta('carta-calculada-solofecha'); }
+
+  if (soloFecha) {
+    // Sin lugar no hay zona horaria: se toma el día entero en UTC (00:00 a 23:59)
+    // y se avisa si el Sol o la Luna cambian de signo dentro de ese día.
+    try {
+      const inicio = new Date(Date.UTC(y, mes - 1, d, 0, 0, 0));
+      const fin = new Date(Date.UTC(y, mes - 1, d, 23, 59, 0));
+      const carta = cartaNatal(new Date(Date.UTC(y, mes - 1, d, 12, 0, 0)), 40.4, -3.7);
+      const cambios = {};
+      [['Sun', 'Sol'], ['Moon', 'Luna']].forEach(([en, es]) => {
+        const s1 = aSigno(longitud(en, inicio)).signo, s2 = aSigno(longitud(en, fin)).signo;
+        if (s1 !== s2) cambios[es] = { de: s1, a: s2, hora: horaDeCambio(en, inicio, fin) };
+      });
+      pinta(carta, { esEjemplo: false, sinHora: true, soloFecha: true, cambios, ciudad: null, fecha, hora: '', mes, d, offset: 0, nombre: $('f-nombre').value.trim() });
+    } catch (ex) {
+      err.textContent = 'No he podido dibujar la carta. Escríbeme por Instagram (@viajedelalma.app) con tu fecha y lo miro. Detalle: ' + ex.message;
+      err.hidden = false;
+      return;
+    }
+    guardaNatal({ nombre: $('f-nombre').value.trim(), fecha, hora: '', sinHora: true, pais: '', ciudad: '' });
+    $('afinar').open = true;
+    document.body.classList.add('carta-propia');
+    document.dispatchEvent(new Event('carta-propia'));
+    document.getElementById('resultado').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    return;
+  }
 
   let momento;
   try { momento = localAUTC(y, mes, d, h, mi, ciudad[3]); }
@@ -1299,10 +1337,29 @@ function calcular(esEjemplo) {
     return;
   }
   if (!esEjemplo) {
+    guardaNatal({ nombre: $('f-nombre').value.trim(), fecha, hora: sinHora ? '' : hora, sinHora, pais, ciudad: ciudad[0] });
     document.body.classList.add('carta-propia');
     document.dispatchEvent(new Event('carta-propia'));
     document.getElementById('resultado').scrollIntoView({ behavior: 'smooth', block: 'start' });
   }
+}
+
+// Momento (UTC) en que un cuerpo cambia de signo entre dos instantes: bisección.
+function horaDeCambio(en, a, b) {
+  let lo = a.getTime(), hi = b.getTime();
+  const s0 = aSigno(longitud(en, a)).signo;
+  for (let i = 0; i < 20; i++) {
+    const m = (lo + hi) / 2;
+    if (aSigno(longitud(en, new Date(m))).signo === s0) lo = m; else hi = m;
+  }
+  const t = new Date(hi);
+  return String(t.getUTCHours()).padStart(2, '0') + ':' + String(t.getUTCMinutes()).padStart(2, '0');
+}
+
+// Lo que acaba de calcular se guarda solo en esta pestaña (sessionStorage, sin
+// cookies) para que pedido.html no le haga escribirlo dos veces.
+function guardaNatal(datos) {
+  try { sessionStorage.setItem('vda_natal', JSON.stringify(datos)); } catch (e) { /* sin memoria no pasa nada */ }
 }
 
 function gm(p) { return p.grado + '\u00B0 ' + String(p.minuto).padStart(2, '0') + "'"; }
@@ -1315,19 +1372,30 @@ function pinta(carta, ctx) {
     : (ctx.nombre ? 'La carta de ' + escapa(ctx.nombre) : 'Tu carta'));
   const f = new Date(Date.UTC(+ctx.fecha.slice(0,4), ctx.mes-1, ctx.d));
   const dia = f.toLocaleDateString('es-ES', { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' });
-  $('datos-carta').textContent = dia + (ctx.sinHora ? '' : ' · ' + ctx.hora) + ' · ' + ctx.ciudad[0];
+  $('datos-carta').textContent = ctx.soloFecha ? dia + ' · solo con la fecha'
+    : dia + (ctx.sinHora ? '' : ' · ' + ctx.hora) + ' · ' + ctx.ciudad[0];
 
   $('tira').innerHTML = [
     'Naciste con <b>' + fase.nombre.toLowerCase() + '</b>',
     'Entre <b>' + entreSabbats(ctx.mes, ctx.d) + '</b>',
-    'Huso horario <b>UTC' + (ctx.offset >= 0 ? '+' : '') + ctx.offset + '</b>',
+    ctx.soloFecha ? 'Sin hora ni lugar <b>(afinable arriba)</b>'
+                  : 'Huso horario <b>UTC' + (ctx.offset >= 0 ? '+' : '') + ctx.offset + '</b>',
   ].map(t => '<span>' + t + '</span>').join('');
 
   $('rueda').innerHTML = ctx.sinHora ? '' : rueda(carta, 520);
 
+  const cambios = ctx.cambios || {};
+  const bloqueCambio = (rol, glifo, c, textos) => ({
+    rol, glifo, titulo: c.de + ' o ' + c.a, grado: '',
+    texto: 'Ese día ' + (rol === 'Tu Sol' ? 'el Sol' : 'la Luna') + ' pasó de ' + c.de + ' a ' + c.a +
+      ' (a las ' + c.hora + ' UTC). Si naciste antes es ' + c.de + '; si naciste después, ' + c.a +
+      '. Pon tu hora y tu lugar en «Afinar» y te digo cuál es la tuya.'
+  });
   const bloques = [
-    { rol: 'Tu Sol', glifo: GLIFO.Sol, titulo: sol.signo, grado: gm(sol), texto: TEXTOS.sol[sol.signo] },
-    { rol: 'Tu Luna', glifo: GLIFO.Luna, titulo: luna.signo, grado: gm(luna), texto: TEXTOS.luna[luna.signo] },
+    cambios.Sol ? bloqueCambio('Tu Sol', GLIFO.Sol, cambios.Sol, TEXTOS.sol)
+                : { rol: 'Tu Sol', glifo: GLIFO.Sol, titulo: sol.signo, grado: ctx.soloFecha ? '' : gm(sol), texto: TEXTOS.sol[sol.signo] },
+    cambios.Luna ? bloqueCambio('Tu Luna', GLIFO.Luna, cambios.Luna, TEXTOS.luna)
+                 : { rol: 'Tu Luna', glifo: GLIFO.Luna, titulo: luna.signo, grado: ctx.soloFecha ? '' : gm(luna), texto: TEXTOS.luna[luna.signo] },
   ];
   if (!ctx.sinHora) {
     bloques.push({ rol: 'Tu Ascendente', glifo: '\u2191', titulo: carta.asc.signo, grado: gm(carta.asc), texto: TEXTOS.asc[carta.asc.signo] });
@@ -1345,8 +1413,8 @@ function pinta(carta, ctx) {
       <div class="glifo">↑</div>
       <div>
         <p class="rol">Tu Ascendente</p>
-        <h3>Necesita tu hora</h3>
-        <p>El Ascendente cambia de signo cada dos horas: sin la hora de nacimiento no se puede calcular, y tampoco las casas. Búscala en tu libro de familia o en el registro civil, y vuelve.</p>
+        <h3>${ctx.soloFecha ? 'Necesita tu hora y tu lugar' : 'Necesita tu hora'}</h3>
+        <p>El Ascendente cambia de signo cada dos horas: sin la hora de nacimiento no se puede calcular, y tampoco las casas. ${ctx.soloFecha ? 'Si la sabes, ábrelo arriba en «Afinar con tu hora y tu lugar» y vuelve a pulsar «Ver mi carta».' : 'Búscala en tu libro de familia o en el registro civil, y vuelve.'}</p>
       </div>
     </div>` : '');
 
@@ -1357,7 +1425,7 @@ function pinta(carta, ctx) {
   })).concat(extras).map(f =>
     `<tr><td>${f.g}</td><td>${f.t}</td><td>casa ${f.c}</td></tr>`
   ).join('');
-  $('tabla-velada').innerHTML = filas;
+  $('tabla-velada').innerHTML = ctx.soloFecha ? filas.replace(/casa \d+/g, 'casa —') : filas;
 
   // El índice nombra los puntos que esta usuaria acaba de calcular. Coste cero:
   // los datos ya están en pantalla, no hay ninguna llamada nueva.

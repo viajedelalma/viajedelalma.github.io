@@ -23,6 +23,9 @@ body{margin:0;background:var(--noche);color:var(--texto);font-family:var(--cuerp
 h1{font-family:var(--display);font-weight:300;font-size:clamp(2.1rem,7vw,3rem);line-height:1.05;margin:0 0 10px}
 .marca{font-size:.72rem;letter-spacing:.34em;color:var(--oro);text-transform:uppercase;margin-bottom:26px}
 .entradilla{color:var(--tenue);margin:0 0 30px}
+.aviso-frio{margin:-14px 0 28px;padding:12px 14px;border:1px solid rgba(201,168,76,.22);border-radius:2px;background:rgba(201,168,76,.06);font-size:.92rem;color:var(--tenue);line-height:1.55}
+.aviso-frio a{color:var(--oro-claro,#e6cf7a);text-decoration:underline;text-underline-offset:3px}
+.aviso-frio b{color:var(--oro-claro,#e6cf7a);font-weight:500}
 label{display:block;font-size:.7rem;letter-spacing:.19em;text-transform:uppercase;color:var(--oro);margin:22px 0 7px}
 input,select{width:100%;padding:13px 14px;background:var(--noche-2);color:var(--texto);
   border:1px solid var(--linea);border-radius:9px;font-family:var(--cuerpo);font-size:16px}
@@ -67,6 +70,15 @@ details p{color:var(--tenue);font-size:.92rem}
   <p class="entradilla">
     Con esto se calcula tu carta. La hora y el lugar exactos son lo que separa
     un informe tuyo de un horóscopo: cambian tu Ascendente y las doce casas.
+  </p>
+  <p class="aviso-frio" id="aviso-gratis" hidden>
+    ¿Prefieres verla gratis primero? En un minuto tienes tu Sol, tu Luna y tu Ascendente,
+    sin registro y sin dejar tu correo: <a href="/carta/">calcula tu carta gratis</a>. Y si ya
+    lo tienes claro, sigue aquí: el informe completo son unas veinticinco páginas para ti.
+  </p>
+  <p class="aviso-frio" id="aviso-listo" hidden>
+    Tus datos de nacimiento ya están puestos desde tu carta gratis. Compruébalos y
+    <b>solo falta tu correo</b>: ahí te llega el informe.
   </p>
 
   <form id="f" novalidate>
@@ -550,6 +562,43 @@ $('f').addEventListener('submit', async ev => {
   location.href = url.toString();
 });
 alCambiarProducto();
+/* ---------- prellenado desde /carta/ ----------
+   Si acaba de calcular su carta gratis, sus datos están en esta pestaña
+   (sessionStorage 'vda_natal'). Se rellenan y solo le queda el correo.
+   Si llega en frío (anuncio directo), se le ofrece la carta gratis antes. */
+(async function prellena() {
+  let d = null;
+  try { d = JSON.parse(sessionStorage.getItem('vda_natal') || 'null'); } catch (e) {}
+  const mide = ev => { try { if (window.goatcounter && window.goatcounter.count) window.goatcounter.count({ path: ev, title: ev, event: true }); } catch (e) {} };
+  if (!d || !d.fecha) {
+    $('aviso-gratis').hidden = false;
+    mide('pedido-en-frio');
+    $('aviso-gratis').querySelector('a').addEventListener('click', () => mide('pedido-a-gratis'));
+    return;
+  }
+  $('aviso-listo').hidden = false;
+  mide('pedido-prellenado');
+  if (d.nombre) $('nombre').value = d.nombre;
+  $('fecha').value = d.fecha;
+  if (d.hora && !d.sinHora) {
+    const [h, m] = d.hora.split(':');
+    $('h').value = String(+h); $('m').value = String(+m);
+    if ($('h').value === '' || $('m').value === '') { $('h').value = h; $('m').value = m; }
+  } else if (d.sinHora) {
+    $('sinhora').checked = true;
+    $('sinhora').dispatchEvent(new Event('change'));
+  }
+  if (d.pais && d.ciudad && PAISES[d.pais]) {
+    $('pais').value = d.pais;
+    $('pais').dispatchEvent(new Event('change'));
+    // La lista se baja en segundo plano: se espera a que el selector se active.
+    for (let i = 0; i < 100 && $('ciudad').disabled; i++) await new Promise(r => setTimeout(r, 100));
+    const o = Array.from($('ciudad').options).find(x => x.textContent === d.ciudad);
+    if (o) { $('ciudad').value = o.value; $('ciudad').dispatchEvent(new Event('change')); }
+  }
+  resumen();
+  if (!$('correo').value) $('correo').focus({ preventScroll: true });
+})();
 </script>
 </body>
 </html>
