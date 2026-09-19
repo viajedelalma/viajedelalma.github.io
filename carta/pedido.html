@@ -191,6 +191,13 @@ details p{color:var(--tenue);font-size:.92rem}
       </label>
     </div>
 
+    <div class="aviso-frio" id="rescate-pago" hidden style="margin:18px 0 0">
+      <b>Te llevamos al pago seguro de Stripe.</b> Si allí el botón «Completar pedido» no responde,
+      suele ser el bloqueador de anuncios o alguna extensión del navegador: abre
+      <a id="rescate-enlace" href="#" target="_blank" rel="noopener">este mismo enlace de pago</a>
+      en una <b>ventana de incógnito</b> (Ctrl + Mayús + N en el ordenador; en el móvil, «pestaña de incógnito»).
+      Tus datos ya están guardados: no hace falta volver a escribirlos.
+    </div>
     <div class="error" id="error"></div>
 
     <div class="resumen" id="resumen" hidden></div>
@@ -559,7 +566,14 @@ $('f').addEventListener('submit', async ev => {
   const url = new URL(PRODUCTOS[prod].pago);
   url.searchParams.set('client_reference_id', id);
   url.searchParams.set('prefilled_email', correo);
-  location.href = url.toString();
+  // Si en Stripe el botón no responde (bloqueadores, extensiones), quien vuelve
+  // atrás encuentra aquí el mismo enlace de pago de SU pedido y la salida:
+  // ventana de incógnito. Los datos ya están guardados; no hay que repetirlos.
+  const pagoUrl = url.toString();
+  $('rescate-pago').hidden = false;
+  $('rescate-enlace').href = pagoUrl;
+  $('rescate-pago').scrollIntoView({ block: 'nearest' });
+  location.href = pagoUrl;
 });
 alCambiarProducto();
 /* ---------- prellenado desde /carta/ ----------
