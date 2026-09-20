@@ -83,6 +83,14 @@ a:hover{border-bottom-color:var(--oro)}
 </style>
 <script data-goatcounter="https://viajedelalma.goatcounter.com/count"
         async src="//gc.zgo.at/count.js"></script>
+<script src="/meta.js" defer></script>   <!-- píxel de Meta, solo con consentimiento -->
+<script>
+/* Compra confirmada: Stripe vuelve a esta página tras el pago. Sin importe exacto
+   (la página no sabe qué producto fue), se manda el de la carta. */
+document.addEventListener('DOMContentLoaded', function () {
+  try { window.vdaMeta && vdaMeta.track('Purchase', { value: 24.99, currency: 'EUR' }); } catch (e) {}
+});
+</script>
 </head>
 <body>
 <div class="cielo" id="cielo" aria-hidden="true"></div>
