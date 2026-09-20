@@ -60,25 +60,69 @@ details p{color:var(--tenue);font-size:.92rem}
 .bloque-rs h2{font-family:var(--display);font-weight:400;font-size:1.6rem;margin:22px 0 4px}
 .pie{margin-top:38px;font-size:.8rem;color:var(--tenue);text-align:center;line-height:1.7}
 .pie a{color:var(--tenue)}
+
+/* ---- Cabecera de producto (20-sep): lo que compra, cuánto cuesta y qué le
+   llega, ANTES del formulario. De 126 llegadas a esta página en una semana,
+   3 enviaron el formulario: la cabecera anterior no decía ni qué era ni cuánto. */
+.producto-cab{display:grid;grid-template-columns:1fr 132px;gap:14px 18px;align-items:start;margin:0 0 26px}
+.producto-cab h1{font-size:clamp(1.9rem,6.4vw,2.7rem);margin:0 0 8px}
+.producto-cab .imagen{grid-column:2;grid-row:1/span 2;margin:0}
+.producto-cab .imagen img{display:block;width:100%;height:auto;border-radius:4px;
+  box-shadow:0 10px 30px rgba(0,0,0,.45)}
+.precio-cab{font-family:var(--display);font-size:1.55rem;color:var(--oro-claro);line-height:1.2;margin:0}
+.precio-cab small{display:block;font-family:var(--cuerpo);font-size:.82rem;color:var(--tenue);margin-top:3px;letter-spacing:.01em}
+.te-llega{grid-column:1/-1;margin:4px 0 0;padding:0;list-style:none;display:grid;gap:7px;font-size:.95rem;color:var(--texto)}
+.te-llega li{padding-left:22px;position:relative;line-height:1.5}
+.te-llega li::before{content:'✦';position:absolute;left:0;top:0;color:var(--oro);font-size:.8rem}
+.te-llega li b{color:var(--oro-claro);font-weight:500}
+.te-llega li.regalo{color:var(--oro-claro)}
+h2.datos{font-family:var(--display);font-weight:400;font-size:1.55rem;margin:0 0 4px;padding-top:18px;border-top:1px solid var(--linea)}
+@media (max-width:420px){
+  .producto-cab{grid-template-columns:1fr 104px;gap:10px 14px}
+  .te-llega{font-size:.9rem}
+}
 </style>
 </head>
 <body>
 <div class="envoltura">
 
   <div class="marca">Viaje del Alma</div>
-  <h1>Tus datos de nacimiento</h1>
-  <p class="entradilla">
-    Con esto se calcula tu carta. La hora y el lugar exactos son lo que separa
-    un informe tuyo de un horóscopo: cambian tu Ascendente y las doce casas.
-  </p>
+
+  <!-- Cabecera de producto: qué es, cuánto cuesta y qué llega, antes de pedir nada. -->
+  <header class="producto-cab">
+    <div>
+      <h1 id="cab-titulo">Tu carta natal, escrita para ti</h1>
+      <p class="precio-cab"><span id="cab-precio">24,99 €</span>
+        <small id="cab-condiciones">Pago único · PDF en tu correo en menos de 24 horas</small></p>
+    </div>
+    <figure class="imagen">
+      <img src="/carta/informe.jpg" width="1004" height="936"
+           alt="Tres páginas del informe: la rueda de tu cielo, un capítulo de texto y las tablas de datos">
+    </figure>
+    <ul class="te-llega" id="te-llega">
+      <li><b><span id="cab-paginas">Unas veinticinco páginas</span></b> calculadas con efemérides
+        astronómicas para el día, la hora y el lugar en que naciste. No predice: explica.</li>
+      <li>Tus <b>10 planetas</b> por signo y casa, tus <b>12 casas</b>, tus aspectos, tu eje kármico
+        y <b>los tránsitos de tus próximos 12 meses, con la fecha de cada uno</b>.</li>
+      <li class="regalo" id="cab-regalo" hidden>De regalo: la <b>guía de primera lectura</b>, un audio de
+        cinco minutos y una hoja de notas para saber por dónde empezar.</li>
+    </ul>
+  </header>
+
   <p class="aviso-frio" id="aviso-gratis" hidden>
     ¿Prefieres verla gratis primero? En un minuto tienes tu Sol, tu Luna y tu Ascendente,
     sin registro y sin dejar tu correo: <a href="/carta/">calcula tu carta gratis</a>. Y si ya
-    lo tienes claro, sigue aquí: el informe completo son unas veinticinco páginas para ti.
+    lo tienes claro, sigue aquí.
   </p>
   <p class="aviso-frio" id="aviso-listo" hidden>
     Tus datos de nacimiento ya están puestos desde tu carta gratis. Compruébalos y
     <b>solo falta tu correo</b>: ahí te llega el informe.
+  </p>
+
+  <h2 class="datos">Tus datos de nacimiento</h2>
+  <p class="entradilla" style="margin-bottom:6px">
+    La hora y el lugar exactos son lo que separa un informe tuyo de un horóscopo:
+    cambian tu Ascendente y las doce casas.
   </p>
 
   <form id="f" novalidate>
@@ -216,6 +260,7 @@ details p{color:var(--tenue);font-size:.92rem}
 </div>
 
 <script data-goatcounter="https://viajedelalma.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+<script src="/meta.js" defer></script>   <!-- píxel de Meta, solo con consentimiento -->
 <script>
 /* ═══════════════════════════════════════════════════════════════════════
    Formulario de datos del informe.
@@ -238,12 +283,20 @@ const SUPABASE_ANON = 'sb_publishable_As7G8e_pyZwjApjgcC48ow_RDc4hZfN';   // cla
    cambiarlo en supabase/functions/stripe-webhook deja el pedido retenido. */
 const PRODUCTOS = {
   carta:      { pago: 'https://buy.stripe.com/4gM14ob1G4aT1o7f32ew800', precio: '24,99 €',
-                paginas: 'El informe son unas veinticinco páginas', recibes: 'el informe' },
+                paginas: 'El informe son unas veinticinco páginas', recibes: 'el informe',
+                titulo: 'Tu carta natal, escrita para ti', cabPaginas: 'Unas veinticinco páginas' },
   revolucion: { pago: 'https://buy.stripe.com/cNidRaedSdLtd6P6wwew801', precio: '24,99 €',
-                paginas: 'La revolución son unas cuarenta páginas', recibes: 'el informe' },
+                paginas: 'La revolución son unas cuarenta páginas', recibes: 'el informe',
+                titulo: 'Tu revolución solar, escrita para ti', cabPaginas: 'Unas cuarenta páginas' },
   pack:       { pago: 'https://buy.stripe.com/6oU6oIgm022L4AjbQQew802', precio: '39,99 €',
-                paginas: 'Son dos informes, unas sesenta y cinco páginas', recibes: 'los dos informes' },
+                paginas: 'Son dos informes, unas sesenta y cinco páginas', recibes: 'los dos informes',
+                titulo: 'Tu carta natal y tu revolución solar', cabPaginas: 'Dos informes, unas sesenta y cinco páginas' },
 };
+
+/* La guía de primera lectura (audio de 5 min + hoja de notas) se anuncia solo
+   cuando el correo de entrega ya la adjunta. Hasta entonces, false: no se
+   promete nada que no llegue. */
+const GUIA_DE_REGALO = false;
 
 /* La revolución solar no se enseña aún a todo el mundo: solo con
    ?producto=revolucion o ?producto=pack en el enlace. El día del lanzamiento
@@ -358,6 +411,10 @@ function alCambiarProducto() {
   $('enviar').textContent = `Continuar al pago · ${p.precio}`;
   $('paginas').textContent = p.paginas;
   $('recibes').textContent = p.recibes;
+  $('cab-titulo').textContent = p.titulo;
+  $('cab-precio').textContent = p.precio;
+  $('cab-paginas').textContent = p.cabPaginas;
+  $('cab-regalo').hidden = !GUIA_DE_REGALO;
   $('bloque-rs').hidden = !rs;
   // Sin hora no hay revolución: la casilla desaparece y se explica por qué.
   $('casilla-sinhora').hidden = rs;
@@ -562,6 +619,8 @@ $('f').addEventListener('submit', async ev => {
     window.goatcounter.count({ path: ev, title: ev, event: true });
   }
 
+  try { window.vdaMeta && vdaMeta.track('InitiateCheckout', { content_name: prod, value: parseFloat(PRODUCTOS[prod].precio.replace(',', '.')), currency: 'EUR' }); } catch (e) {}
+
   // client_reference_id es el hilo que une el pago con estos datos.
   const url = new URL(PRODUCTOS[prod].pago);
   url.searchParams.set('client_reference_id', id);
@@ -595,6 +654,21 @@ alCambiarProducto();
     if (s) s.addEventListener('load', envia, { once: true });
     else window.addEventListener('load', () => setTimeout(envia, 500), { once: true });
   };
+  // Dónde se pierde la gente: llega al formulario (lo ve) y empieza a rellenarlo.
+  // Con «llegadas» y «enviados» solos no se sabe si el problema es la cabecera
+  // o los campos. Cada uno se cuenta una vez por visita.
+  (function midePasos() {
+    let visto = false, empezado = false;
+    if ('IntersectionObserver' in window) {
+      const io = new IntersectionObserver(ents => {
+        if (!visto && ents.some(x => x.isIntersecting)) { visto = true; mide('pedido-ve-formulario'); io.disconnect(); }
+      }, { threshold: 0.4 });
+      io.observe($('nombre'));
+    }
+    $('f').addEventListener('focusin', () => {
+      if (!empezado) { empezado = true; mide('pedido-empieza'); }
+    }, { once: true });
+  })();
   if (!d || !d.fecha) {
     $('aviso-gratis').hidden = false;
     mide('pedido-en-frio');

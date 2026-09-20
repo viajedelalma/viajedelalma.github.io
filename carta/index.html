@@ -163,6 +163,7 @@ body.con-barra .envoltura{padding-bottom:140px}
 </style>
 <script data-goatcounter="https://viajedelalma.goatcounter.com/count"
         async src="//gc.zgo.at/count.js"></script>
+<script src="/meta.js" defer></script>   <!-- píxel de Meta, solo con consentimiento -->
 </head>
 <body>
 
@@ -1296,7 +1297,8 @@ function calcular(esEjemplo) {
   const [y, mes, d] = fecha.split('-').map(Number);
   const [h, mi] = hora.split(':').map(Number);
   if (y < 1900 || y > 2099) { err.textContent = 'De momento calculo entre 1900 y 2099.'; err.hidden = false; return; }
-  if (!esEjemplo) { cuenta('carta-calculada'); if (soloFecha) cuenta('carta-calculada-solofecha'); }
+  if (!esEjemplo) { cuenta('carta-calculada'); if (soloFecha) cuenta('carta-calculada-solofecha');
+    try { window.vdaMeta && vdaMeta.track('ViewContent', { content_name: 'carta natal', content_type: 'product', value: 24.99, currency: 'EUR' }); } catch (e) {} }
 
   if (soloFecha) {
     // Sin lugar no hay zona horaria: se toma el día entero en UTC (00:00 a 23:59)
