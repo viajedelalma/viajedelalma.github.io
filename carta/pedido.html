@@ -583,7 +583,18 @@ alCambiarProducto();
 (async function prellena() {
   let d = null;
   try { d = JSON.parse(sessionStorage.getItem('vda_natal') || 'null'); } catch (e) {}
-  const mide = ev => { try { if (window.goatcounter && window.goatcounter.count) window.goatcounter.count({ path: ev, title: ev, event: true }); } catch (e) {} };
+  // Este código corre en cuanto se lee la página, y count.js va con `async`:
+  // casi siempre llega DESPUÉS. Con «si existe goatcounter, cuenta» los dos
+  // eventos de carga (en-frío y prellenado) se perdían en silencio: 31 visitas
+  // el 20-sep, cero eventos. Los de clic sí llegaban porque para entonces el
+  // script ya estaba. Si aún no está, se espera a que cargue y se envía.
+  const mide = ev => {
+    const envia = () => { try { window.goatcounter.count({ path: ev, title: ev, event: true }); } catch (e) {} };
+    if (window.goatcounter && window.goatcounter.count) return envia();
+    const s = document.querySelector('script[data-goatcounter]');
+    if (s) s.addEventListener('load', envia, { once: true });
+    else window.addEventListener('load', () => setTimeout(envia, 500), { once: true });
+  };
   if (!d || !d.fecha) {
     $('aviso-gratis').hidden = false;
     mide('pedido-en-frio');
