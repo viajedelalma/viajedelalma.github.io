@@ -160,6 +160,18 @@ body.con-barra .envoltura{padding-bottom:140px}
 @media (max-width:420px){.barra{gap:10px}.barra .txt{font-size:.82rem}.barra .txt b{font-size:1.2rem}.barra .boton-b{padding:11px 14px;font-size:.7rem}}
 @media (max-width:520px){.campos{grid-template-columns:1fr}.lectura{grid-template-columns:44px 1fr;gap:12px}.lectura .glifo{font-size:1.7rem}}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+/* 22-sep-2026: subir la llamada principal en móvil. El botón estaba a 661 px del
+   borde superior y quedaba detrás de la barra de cookies en los navegadores que
+   viven dentro de una app, cuyo alto útil real es de 700-750 px, no 844. */
+@media (max-width:520px){
+.envoltura{padding:24px 20px 72px}
+h1{font-size:clamp(2.1rem,7vw,4rem)}
+.entradilla{margin-top:10px}
+.regla{margin:18px 0}
+.panel{padding:16px}
+.campos{gap:12px}
+.afinar{padding:10px 12px}
+}
 </style>
 <script data-goatcounter="https://viajedelalma.goatcounter.com/count"
         async src="//gc.zgo.at/count.js"></script>
@@ -172,7 +184,7 @@ body.con-barra .envoltura{padding-bottom:140px}
 <div class="envoltura">
   <p class="eyebrow">Viaje del Alma</p>
   <h1>El cielo del<br><em>día que naciste</em></h1>
-  <p class="entradilla">Tu Sol, tu Luna y tu Ascendente calculados con efemérides reales, no con una tabla de revista. Gratis, sin registro y sin que nadie se quede tu fecha de nacimiento: el cálculo ocurre en tu móvil.</p>
+<p class="entradilla">Tu Sol, tu Luna y tu Ascendente, calculados con efemérides reales. Gratis, sin registro y sin que nadie se quede tu fecha de nacimiento.</p>
 
   <hr class="regla">
 
