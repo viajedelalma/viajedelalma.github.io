@@ -100,9 +100,9 @@ h2.datos{font-family:var(--display);font-weight:400;font-size:1.55rem;margin:0 0
            alt="Tres páginas del informe: la rueda de tu cielo, un capítulo de texto y las tablas de datos">
     </figure>
     <ul class="te-llega" id="te-llega">
-      <li><b><span id="cab-paginas">Unas veinticinco páginas</span></b> calculadas con efemérides
-        astronómicas para el día, la hora y el lugar en que naciste. No predice: explica.</li>
-      <li>Tus <b>10 planetas</b> por signo y casa, tus <b>12 casas</b>, tus aspectos, tu eje kármico
+      <li><b><span id="cab-paginas">Unas veinticinco páginas</span></b> <span id="cab-calculo">calculadas con efemérides
+        astronómicas para el día, la hora y el lugar en que naciste</span>. <span id="cab-lema">No predice: explica.</span></li>
+      <li id="cab-detalle">Tus <b>10 planetas</b> por signo y casa, tus <b>12 casas</b>, tus aspectos, tu eje kármico
         y <b>los tránsitos de tus próximos 12 meses, con la fecha de cada uno</b>.</li>
       <li class="regalo" id="cab-regalo" hidden>De regalo: la <b>guía de primera lectura</b>, un audio de
         cinco minutos y una hoja de notas para saber por dónde empezar.</li>
@@ -281,16 +281,31 @@ const SUPABASE_ANON = 'sb_publishable_As7G8e_pyZwjApjgcC48ow_RDc4hZfN';   // cla
 /* Un enlace de pago por producto. El webhook sabe qué se ha cobrado por el
    enlace, y el motor solo entrega lo cobrado: cambiar un enlace aquí sin
    cambiarlo en supabase/functions/stripe-webhook deja el pedido retenido. */
+/* Los dos puntos de la cabecera también cambian por producto. Hasta el 22-sep
+   eran HTML fijo con el texto de la carta natal, así que a quien compraba la
+   revolución se le decía que sus cuarenta páginas se calculaban «para el día,
+   la hora y el lugar en que naciste» (eso es la carta) y se cerraba con «No
+   predice: explica.», que por decisión del 17-sep es el lema de la carta. El
+   de la revolución es «No adivina. Te prepara.» */
 const PRODUCTOS = {
   carta:      { pago: 'https://buy.stripe.com/4gM14ob1G4aT1o7f32ew800', precio: '24,99 €',
                 paginas: 'El informe son unas veinticinco páginas', recibes: 'el informe',
-                titulo: 'Tu carta natal, escrita para ti', cabPaginas: 'Unas veinticinco páginas' },
+                titulo: 'Tu carta natal, escrita para ti', cabPaginas: 'Unas veinticinco páginas',
+                cabCalculo: 'calculadas con efemérides astronómicas para el día, la hora y el lugar en que naciste',
+                cabLema: 'No predice: explica.',
+                cabDetalle: 'Tus <b>10 planetas</b> por signo y casa, tus <b>12 casas</b>, tus aspectos, tu eje kármico y <b>los tránsitos de tus próximos 12 meses, con la fecha de cada uno</b>.' },
   revolucion: { pago: 'https://buy.stripe.com/cNidRaedSdLtd6P6wwew801', precio: '24,99 €',
                 paginas: 'La revolución son unas cuarenta páginas', recibes: 'el informe',
-                titulo: 'Tu revolución solar, escrita para ti', cabPaginas: 'Unas cuarenta páginas' },
+                titulo: 'Tu revolución solar, escrita para ti', cabPaginas: 'Unas cuarenta páginas',
+                cabCalculo: 'calculadas con efemérides astronómicas para el instante exacto en que el Sol vuelve al grado en que estaba cuando naciste, visto desde el lugar donde pasas ese cumpleaños. Por eso vale de un cumpleaños al siguiente, y cambia cada año',
+                cabLema: 'No adivina. Te prepara.',
+                cabDetalle: 'La carta de tu año dibujada, el <b>tema que la domina</b>, lo que pide cada área de tu vida <b>trimestre a trimestre</b>, y <b>los tránsitos, progresiones y eclipses del año con la fecha en que se hacen exactos</b>.' },
   pack:       { pago: 'https://buy.stripe.com/6oU6oIgm022L4AjbQQew802', precio: '39,99 €',
                 paginas: 'Son dos informes, unas sesenta y cinco páginas', recibes: 'los dos informes',
-                titulo: 'Tu carta natal y tu revolución solar', cabPaginas: 'Dos informes, unas sesenta y cinco páginas' },
+                titulo: 'Tu carta natal y tu revolución solar', cabPaginas: 'Dos informes, unas sesenta y cinco páginas',
+                cabCalculo: 'calculadas con efemérides astronómicas: tu carta natal, para el día, la hora y el lugar en que naciste; y tu revolución, para el instante en que el Sol vuelve a ese mismo grado y el lugar donde pasas tu cumpleaños',
+                cabLema: 'No predice: explica. No adivina: te prepara.',
+                cabDetalle: 'Quién eres —tus <b>10 planetas</b>, tus <b>12 casas</b>, tus aspectos y tu eje kármico— y <b>de qué va tu año</b>, con el calendario de tránsitos, progresiones y eclipses <b>y la fecha de cada uno</b>.' },
 };
 
 /* La guía de primera lectura (audio de 5 min + hoja de notas) se anuncia solo
@@ -414,6 +429,11 @@ function alCambiarProducto() {
   $('cab-titulo').textContent = p.titulo;
   $('cab-precio').textContent = p.precio;
   $('cab-paginas').textContent = p.cabPaginas;
+  $('cab-calculo').textContent = p.cabCalculo;
+  $('cab-lema').textContent    = p.cabLema;
+  // innerHTML con constantes de este mismo archivo (llevan <b>), sin nada que
+  // venga de la usuaria: no hay por dónde inyectar.
+  $('cab-detalle').innerHTML   = p.cabDetalle;
   $('cab-regalo').hidden = !GUIA_DE_REGALO;
   $('bloque-rs').hidden = !rs;
   // Sin hora no hay revolución: la casilla desaparece y se explica por qué.
