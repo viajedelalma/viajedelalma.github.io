@@ -80,27 +80,155 @@ a{color:var(--oro-claro);text-decoration:none;border-bottom:1px solid var(--line
 a:hover{border-bottom-color:var(--oro)}
 .letra-chica{font-size:1.05rem;color:var(--tenue);margin-top:22px}
 .volver{margin-top:34px;font-size:1rem}
+/* Pasos de la compra (22-sep). Solo se ven con ?producto= en la URL. */
+.pasos{list-style:none;text-align:left;max-width:30em;margin:0 auto;
+display:grid;gap:13px;font-size:1.05rem;color:var(--niebla)}
+.pasos li{position:relative;padding-left:26px;line-height:1.55}
+.pasos li::before{content:"✦";position:absolute;left:0;top:.15em;color:var(--oro);font-size:.78rem}
+.pasos b{color:var(--oro-claro);font-weight:500}
 </style>
 <script data-goatcounter="https://viajedelalma.goatcounter.com/count"
         async src="//gc.zgo.at/count.js"></script>
 <script src="/meta.js" defer></script>   <!-- píxel de Meta, solo con consentimiento -->
 <script>
-/* Compra confirmada: Stripe vuelve a esta página tras el pago. Sin importe exacto
-   (la página no sabe qué producto fue), se manda el de la carta. */
-document.addEventListener('DOMContentLoaded', function () {
-  try { window.vdaMeta && vdaMeta.track('Purchase', { value: 24.99, currency: 'EUR' }); } catch (e) {}
-});
+/* ═══════════════════════════════════════════════════════════════════════
+   Quién llega a esta página, y qué se le cuenta a Meta.
+
+   Con ?producto=… viene de Stripe, de pagar. El importe sale del producto,
+   no de un valor fijo: un pack son 39,99 €, no 24,99 €.
+
+   Sin parámetro NO es una compra: es el alta en la lista de correo desde la
+   portada (index.html, único sitio que trae aquí sin parámetro). Hasta hoy
+   esta página mandaba Purchase 24,99 € también en ese caso, así que cada
+   suscriptora habría contado como venta. Ahora se manda Lead.
+
+   Deuda conocida (22-sep): el importe es el de tarifa. Si la clienta usa el
+   cupón de −10 € y paga 14,99 €, aquí se reportan 24,99 € igual, porque el
+   parámetro es estático. Lo correcto es mandar Purchase desde el webhook con
+   la API de conversiones, leyendo el importe real de la sesión de Stripe. No
+   se monta hoy: con cero ventas y cero canjes del cupón no se justifica.
+   ═══════════════════════════════════════════════════════════════════════ */
+(function () {
+  var IMPORTES = { carta: 24.99, revolucion: 24.99, pack: 39.99 };
+
+  /* Esta página nació para el alta en la lista de correo. Con ?producto= la
+     usa también quien acaba de pagar, y entonces el titular, la entradilla y
+     el primer bloque son los de la compra. Sin parámetro no cambia nada.
+     No se menciona la guía de primera lectura: GUIA_DE_REGALO sigue en false
+     en pedido.html y aquí no se promete lo que todavía no se envía. */
+  var TEXTOS = {
+    carta: {
+      corto: 'tu carta natal',
+      entrega: '<b>Tu carta natal</b> te llega en PDF a tu correo, <b>en menos de 24 horas</b>.' },
+    revolucion: {
+      corto: 'tu revolución solar',
+      entrega: '<b>Tu revolución solar</b> te llega en PDF a tu correo, <b>en menos de 24 horas</b>.' },
+    pack: {
+      corto: 'tus dos informes',
+      entrega: '<b>Tus dos informes</b>, la carta natal y la revolución solar, te llegan en PDF '
+             + 'a tu correo y en el mismo envío, <b>en menos de 24 horas</b>.' },
+  };
+
+  var prod = '', sesion = '';
+  try {
+    var q = new URLSearchParams(location.search);
+    prod = q.get('producto') || '';
+    sesion = (q.get('session_id') || '').trim();
+    // Si Stripe no sustituye {CHECKOUT_SESSION_ID}, llega la plantilla literal
+    // y sería la MISMA para todas: solo se contaría la primera compra de la
+    // historia y las demás se perderían en silencio. Mejor sin identificador.
+    if (sesion.indexOf('{') !== -1 || sesion.length > 200) sesion = '';
+  } catch (e) {}
+  var valor = IMPORTES[prod];
+
+  /* Una recarga de esta página no puede volver a contar la misma compra. Se
+     guardan en el navegador los session_id de Stripe ya contados.
+
+     Dos límites que conviene tener escritos:
+     - Es dedupe LOCAL. Solo protege de recargas en ese mismo navegador. Si
+       abre el enlace en otro dispositivo, se cuenta otra vez.
+     - No protege del doble conteo el día que el Purchase se mande también
+       desde el servidor: para eso Meta usa `eventID`, que va como TERCER
+       argumento de fbq y `vdaMeta.track()` hoy solo acepta dos. Cuando se
+       monte la API de conversiones hay que ampliar meta.js para pasarlo, con
+       el session_id como eventID en los dos lados. */
+  var CLAVE_CONTADAS = 'vda_compras_contadas';
+  function yaContada(id) {
+    if (!id) return false;                       // sin identificador no hay forma de saberlo
+    try {
+      var v = JSON.parse(localStorage.getItem(CLAVE_CONTADAS) || '[]');
+      if (!Array.isArray(v)) v = [];
+      if (v.indexOf(id) !== -1) return true;
+      v.push(id);
+      localStorage.setItem(CLAVE_CONTADAS, JSON.stringify(v.slice(-20)));  // la lista no crece sin fin
+    } catch (e) { return false; }                // sin almacenamiento: antes contar de más que perder la venta
+    return false;
+  }
+
+  // count.js va con `async` y casi siempre carga DESPUÉS de este bloque. Con
+  // «si existe goatcounter, cuenta» el evento se perdía en silencio (lección
+  // de pedido.html, 21-sep). Si aún no está, se espera a que cargue.
+  function cuenta(ev) {
+    var envia = function () {
+      try { window.goatcounter.count({ path: ev, title: ev, event: true }); } catch (e) {}
+    };
+    if (window.goatcounter && window.goatcounter.count) return envia();
+    var s = document.querySelector('script[data-goatcounter]');
+    if (s) s.addEventListener('load', envia, { once: true });
+    else window.addEventListener('load', function () { setTimeout(envia, 500); }, { once: true });
+  }
+
+  document.addEventListener('DOMContentLoaded', function () {
+    if (valor) {
+      var t = TEXTOS[prod];
+      document.getElementById('titular').textContent = 'Tu pago está hecho';
+      document.getElementById('sub').textContent = 'Gracias por confiar. Ahora me pongo con ' + t.corto + '.';
+      document.getElementById('paso-entrega').innerHTML = t.entrega;
+      document.getElementById('compra').hidden = false;
+      // El calendario deja de ser «el regalo» de la página y pasa a ser lo que
+      // es para quien ha comprado: un extra de bienvenida.
+      document.getElementById('rotulo-regalo').textContent = 'Regalo de bienvenida';
+
+      // La página se ve siempre; lo que no se repite es el conteo.
+      if (!yaContada(sesion)) {
+        // GoatCounter no pide consentimiento: es la única cuenta de compras
+        // confirmadas que no depende de que acepte cookies.
+        cuenta('compra-confirmada');
+        cuenta('compra-confirmada-' + prod);
+        try {
+          window.vdaMeta && vdaMeta.track('Purchase',
+            { content_name: prod, content_type: 'product', value: valor, currency: 'EUR' });
+        } catch (e) {}
+      }
+    } else {
+      cuenta('lista-alta');
+      try { window.vdaMeta && vdaMeta.track('Lead', { content_name: 'lista de correo' }); } catch (e) {}
+    }
+  });
+})();
 </script>
 </head>
 <body>
 <div class="cielo" id="cielo" aria-hidden="true"></div>
 <main>
 <div class="luna" aria-hidden="true">☾</div>
-<h1>Ya estás en la lista</h1>
-<p class="sub">Te escribiré cuando haya luna nueva, cuando llegue un sabbat y cuando pase algo que merezca la pena contarte. Sin prisa y sin ruido. Mientras tanto, la luna sigue su ciclo — y este regalo es para que lo camines con ella.</p>
+<h1 id="titular">Ya estás en la lista</h1>
+<p class="sub" id="sub">Te escribiré cuando haya luna nueva, cuando llegue un sabbat y cuando pase algo que merezca la pena contarte. Sin prisa y sin ruido. Mientras tanto, la luna sigue su ciclo — y este regalo es para que lo camines con ella.</p>
+
+<!-- Solo con ?producto= en la URL: quien viene de pagar. Oculto por defecto,
+     así que para quien se apunta a la lista esta página no cambia nada. -->
+<div class="marco" id="compra" hidden><span class="e3"></span>
+<p class="eyebrow">Lo que pasa ahora</p>
+<ul class="pasos">
+<li id="paso-entrega">Tu informe te llega en PDF a tu correo, <b>en menos de 24 horas</b>.</li>
+<li>Míralo también en <b>spam</b> o en promociones: llega de un remitente que aún no conoces.</li>
+<li>Si algún dato de nacimiento no era correcto, <b>respóndeme a ese mismo correo</b> y lo rehago sin coste.</li>
+<li>El <b>recibo del pago</b> te lo envía la pasarela en un correo aparte. No lo busques en el mío.</li>
+</ul>
+</div>
 
 <div class="marco"><span class="e3"></span>
-<p class="eyebrow">Tu regalo</p>
+<p class="eyebrow" id="rotulo-regalo">Tu regalo</p>
 <h2>Calendario Lunar · Otoño–Invierno 2026</h2>
 <p>Las lunas de septiembre a diciembre con su día y su hora, un ritual de cinco
 minutos para cada luna nueva y llena, y los tres sabbats que cierran el año:
