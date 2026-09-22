@@ -137,6 +137,9 @@ display:grid;gap:13px;font-size:1.05rem;color:var(--niebla)}
              + 'a tu correo y en el mismo envío, <b>en menos de 24 horas</b>.' },
   };
 
+  var PURCHASE_ACTIVO = false;  // 22-sep, petición de marketing: apagado mientras
+                                // el importe salga de la URL. Se enciende el 24-sep,
+                                // cuando el valor lo acredite el servidor.
   var prod = '', sesion = '';
   try {
     var q = new URLSearchParams(window.__vdaQS !== undefined ? window.__vdaQS : location.search);
@@ -204,7 +207,7 @@ display:grid;gap:13px;font-size:1.05rem;color:var(--niebla)}
         cuenta('compra-confirmada');
         cuenta('compra-confirmada-' + prod);
         try {
-          window.vdaMeta && vdaMeta.track('Purchase',
+          PURCHASE_ACTIVO && window.vdaMeta && vdaMeta.track('Purchase',
             { content_name: prod, content_type: 'product', value: valor, currency: 'EUR' });
         } catch (e) {}
       }
