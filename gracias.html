@@ -88,6 +88,13 @@ display:grid;gap:13px;font-size:1.05rem;color:var(--niebla)}
 .pasos li::before{content:"✦";position:absolute;left:0;top:.15em;color:var(--oro);font-size:.78rem}
 .pasos b{color:var(--oro-claro);font-weight:500}
 </style>
+<script>
+  // El identificador de pago de Stripe no debe llegar a ninguna analítica:
+  // se guarda en memoria y se borra de la URL ANTES de cargar GoatCounter
+  // y meta.js (22-sep). Lo de abajo lee __vdaQS, no location.search.
+  window.__vdaQS = location.search;
+  try { history.replaceState(null, '', location.pathname + location.hash); } catch (e) {}
+</script>
 <script data-goatcounter="https://viajedelalma.goatcounter.com/count"
         async src="//gc.zgo.at/count.js"></script>
 <script src="/meta.js" defer></script>   <!-- píxel de Meta, solo con consentimiento -->
@@ -132,7 +139,7 @@ display:grid;gap:13px;font-size:1.05rem;color:var(--niebla)}
 
   var prod = '', sesion = '';
   try {
-    var q = new URLSearchParams(location.search);
+    var q = new URLSearchParams(window.__vdaQS !== undefined ? window.__vdaQS : location.search);
     prod = q.get('producto') || '';
     sesion = (q.get('session_id') || '').trim();
     // Si Stripe no sustituye {CHECKOUT_SESSION_ID}, llega la plantilla literal
