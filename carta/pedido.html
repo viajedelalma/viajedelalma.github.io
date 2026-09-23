@@ -396,9 +396,24 @@ function selectorLugar(pais, filtro, ciudad, pon, alCambiar) {
     // se guarda el índice original: es lo que luego devuelve lat, lon y zona
     const lista = todas.map((c, i) => [c, i])
                        .filter(([c]) => !f || sinTildes(c[0]).includes(f));
+    /* 770 nombres se repiten dentro de su pais y 302 tienen ZONA HORARIA distinta
+       («Cuauhtemoc» es Ciudad de Mexico y tambien Chihuahua; «San Isidro» es Madrid y
+       tambien Tenerife). Con solo el nombre se elige el primero y se lleva una hora de
+       diferencia: cambia el Ascendente y las doce casas, que es lo que se paga.
+       Solo se desambigua lo ambiguo: los nombres unicos se siguen viendo limpios. */
+    const veces = {};
+    todas.forEach((c) => { veces[c[0]] = (veces[c[0]] || 0) + 1; });
+    const etiqueta = (c) => (veces[c[0]] > 1
+      ? `${c[0]} — ${String(c[3]).split('/').pop().replace(/_/g, ' ')} (${Number(c[1]).toFixed(1)}, ${Number(c[2]).toFixed(1)})`
+      : c[0]);
     $(ciudad).innerHTML = '';
-    $(ciudad).appendChild(opt('', lista.length ? `Elige la localidad (${lista.length})` : 'Sin resultados'));
-    lista.slice(0, 1200).forEach(([c, i]) => $(ciudad).appendChild(opt(i, c[0])));
+    $(ciudad).appendChild(opt('', lista.length
+      ? `Elige la localidad (${lista.length}${lista.length > 1200 ? ', se muestran 1200' : ''})`
+      : 'Sin resultados'));
+    lista.slice(0, 1200).forEach(([c, i]) => $(ciudad).appendChild(opt(i, etiqueta(c))));
+    if (lista.length > 1200) {
+      $(ciudad).appendChild(opt('', `… y ${lista.length - 1200} más: escribe arriba para encontrarlas`));
+    }
   }
   $(filtro).addEventListener('input', () => pinta($(filtro).value));
   $(ciudad).addEventListener('change', alCambiar);
@@ -712,8 +727,14 @@ alCambiarProducto();
     $('pais').dispatchEvent(new Event('change'));
     // La lista se baja en segundo plano: se espera a que el selector se active.
     for (let i = 0; i < 100 && $('ciudad').disabled; i++) await new Promise(r => setTimeout(r, 100));
-    const o = Array.from($('ciudad').options).find(x => x.textContent === d.ciudad);
-    if (o) { $('ciudad').value = o.value; $('ciudad').dispatchEvent(new Event('change')); }
+    // /carta/ solo pasa el nombre. Si ese nombre es unico en el pais, se elige solo;
+    // si se repite (p. ej. «San Isidro»: Madrid y Tenerife) NO se adivina: se deja
+    // sin elegir para que la clienta escoja la buena, que ya lleva su referencia.
+    const iguales = CIUDADES.map((c, i) => [c, i]).filter(([c]) => c[0] === d.ciudad);
+    if (iguales.length === 1) {
+      $('ciudad').value = String(iguales[0][1]);
+      $('ciudad').dispatchEvent(new Event('change'));
+    }
   }
   resumen();
   if (!$('correo').value) $('correo').focus({ preventScroll: true });
