@@ -142,13 +142,34 @@ display:grid;gap:13px;font-size:1.05rem;color:var(--niebla)}
                                 // servidor (estado-pedido), no la URL.
   var ENDPOINT = 'https://orxyhxehapqmjwmqmqgv.supabase.co/functions/v1/estado-pedido';
 
+  /* Lee una cookie (las de Meta: _fbp y _fbc). '' si no está. */
+  function galleta(n) {
+    try {
+      var m = document.cookie.match(new RegExp('(?:^|; )' + n + '=([^;]*)'));
+      return m ? decodeURIComponent(m[1]) : '';
+    } catch (e) { return ''; }
+  }
+
   /* Pregunta al servidor y, solo si confirma el pago, manda Purchase. */
   function mideCompra(id) {
     if (!PURCHASE_ACTIVO || !id || !window.fetch || !window.vdaMeta) return;
-    if (!vdaMeta.consentimiento || vdaMeta.consentimiento() !== 'si') return;
+    // 24-sep noche: solo se descarta el «no» explícito. Con el consentimiento sin
+    // contestar (null) se pregunta igual al servidor: vdaMeta.track() encola el
+    // Purchase y lo suelta si acepta después. El aviso a Meta DESDE EL SERVIDOR
+    // (estado-pedido v3) solo sale con «si», y por eso el consentimiento viaja en
+    // la llamada. Los identificadores de la cookie de Meta (_fbp, _fbc) solo se
+    // mandan con «si».
+    var consent = vdaMeta.consentimiento ? vdaMeta.consentimiento() : null;
+    if (!vdaMeta.consentimiento || consent === 'no') return;
+    var extra = '&consentimiento=' + (consent === 'si' ? 'si' : 'pendiente');
+    if (consent === 'si') {
+      var fbp = galleta('_fbp'), fbc = galleta('_fbc');
+      if (fbp) extra += '&fbp=' + encodeURIComponent(fbp);
+      if (fbc) extra += '&fbc=' + encodeURIComponent(fbc);
+    }
     var ctrl = window.AbortController ? new AbortController() : null;
     var reloj = setTimeout(function () { if (ctrl) ctrl.abort(); }, 8000);
-    fetch(ENDPOINT + '?session_id=' + encodeURIComponent(id),
+    fetch(ENDPOINT + '?session_id=' + encodeURIComponent(id) + extra,
           { credentials: 'omit', cache: 'no-store', signal: ctrl ? ctrl.signal : undefined })
       .then(function (r) { return r.ok ? r.json() : { pagado: false }; })
       .then(function (d) {
@@ -162,7 +183,10 @@ display:grid;gap:13px;font-size:1.05rem;color:var(--niebla)}
           value: v,
           currency: String(d.moneda || 'eur').toUpperCase(),
         }, { eventID: id });
-        cuenta('compra-medida-meta');   // para comprobar en GoatCounter que salió
+        // Una sola vez por compra en este navegador (la página se puede recargar),
+        // y solo cuando el Purchase sale de verdad (con «si»; con «pendiente»
+        // queda en la cola de meta.js).
+        if (consent === 'si' && !yaContada(id, 'vda_compras_medidas')) cuenta('compra-medida-meta');
       })
       .catch(function () { clearTimeout(reloj); });   // el silencio es el estado seguro
   }
@@ -189,14 +213,14 @@ display:grid;gap:13px;font-size:1.05rem;color:var(--niebla)}
        manda también desde el servidor (API de conversiones), usar el mismo
        session_id como event_id allí. */
   var CLAVE_CONTADAS = 'vda_compras_contadas';
-  function yaContada(id) {
+  function yaContada(id, clave) {
     if (!id) return false;                       // sin identificador no hay forma de saberlo
     try {
-      var v = JSON.parse(localStorage.getItem(CLAVE_CONTADAS) || '[]');
+      var v = JSON.parse(localStorage.getItem(clave || CLAVE_CONTADAS) || '[]');
       if (!Array.isArray(v)) v = [];
       if (v.indexOf(id) !== -1) return true;
       v.push(id);
-      localStorage.setItem(CLAVE_CONTADAS, JSON.stringify(v.slice(-20)));  // la lista no crece sin fin
+      localStorage.setItem(clave || CLAVE_CONTADAS, JSON.stringify(v.slice(-20)));  // la lista no crece sin fin
     } catch (e) { return false; }                // sin almacenamiento: antes contar de más que perder la venta
     return false;
   }
@@ -231,8 +255,11 @@ display:grid;gap:13px;font-size:1.05rem;color:var(--niebla)}
         // confirmadas que no depende de que acepte cookies.
         cuenta('compra-confirmada');
         cuenta('compra-confirmada-' + prod);
-        try { mideCompra(sesion); } catch (e) {}
       }
+      // Fuera del dedupe: si la primera visita llegó sin contestar a las cookies
+      // y acepta en una recarga, el Purchase sale entonces. No se duplica: Meta
+      // descarta el repetido por eventID (= session_id).
+      try { mideCompra(sesion); } catch (e) {}
     } else {
       cuenta('lista-alta');
       try { window.vdaMeta && vdaMeta.track('Lead', { content_name: 'lista de correo' }); } catch (e) {}
