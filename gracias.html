@@ -110,11 +110,12 @@ display:grid;gap:13px;font-size:1.05rem;color:var(--niebla)}
    esta página mandaba Purchase 24,99 € también en ese caso, así que cada
    suscriptora habría contado como venta. Ahora se manda Lead.
 
-   Deuda conocida (22-sep): el importe es el de tarifa. Si la clienta usa el
-   cupón de −10 € y paga 14,99 €, aquí se reportan 24,99 € igual, porque el
-   parámetro es estático. Lo correcto es mandar Purchase desde el webhook con
-   la API de conversiones, leyendo el importe real de la sesión de Stripe. No
-   se monta hoy: con cero ventas y cero canjes del cupón no se justifica.
+   24-sep: el Purchase ya NO sale de la URL. La página pregunta a la Edge
+   Function estado-pedido, que pregunta a Stripe. Solo si Stripe dice
+   «pagado», con importe > 0 y de hace menos de 72 h, se manda Purchase con
+   el importe COBRADO (cupón incluido) y el session_id como eventID. Si el
+   endpoint dice que no, falla o tarda más de 8 s: no se manda nada. Y solo
+   con las cookies aceptadas: sin aceptación ni siquiera se pregunta.
    ═══════════════════════════════════════════════════════════════════════ */
 (function () {
   var IMPORTES = { carta: 24.99, revolucion: 24.99, pack: 39.99 };
@@ -137,9 +138,34 @@ display:grid;gap:13px;font-size:1.05rem;color:var(--niebla)}
              + 'a tu correo y en el mismo envío, <b>en menos de 24 horas</b>.' },
   };
 
-  var PURCHASE_ACTIVO = false;  // 22-sep, petición de marketing: apagado mientras
-                                // el importe salga de la URL. Se enciende el 24-sep,
-                                // cuando el valor lo acredite el servidor.
+  var PURCHASE_ACTIVO = true;   // 24-sep: encendido. El importe lo acredita el
+                                // servidor (estado-pedido), no la URL.
+  var ENDPOINT = 'https://orxyhxehapqmjwmqmqgv.supabase.co/functions/v1/estado-pedido';
+
+  /* Pregunta al servidor y, solo si confirma el pago, manda Purchase. */
+  function mideCompra(id) {
+    if (!PURCHASE_ACTIVO || !id || !window.fetch || !window.vdaMeta) return;
+    if (!vdaMeta.consentimiento || vdaMeta.consentimiento() !== 'si') return;
+    var ctrl = window.AbortController ? new AbortController() : null;
+    var reloj = setTimeout(function () { if (ctrl) ctrl.abort(); }, 8000);
+    fetch(ENDPOINT + '?session_id=' + encodeURIComponent(id),
+          { credentials: 'omit', cache: 'no-store', signal: ctrl ? ctrl.signal : undefined })
+      .then(function (r) { return r.ok ? r.json() : { pagado: false }; })
+      .then(function (d) {
+        clearTimeout(reloj);
+        if (!d || d.pagado !== true) return;
+        var v = Math.round(d.importe_centimos) / 100;
+        if (!(v > 0)) return;
+        vdaMeta.track('Purchase', {
+          content_name: (d.producto && d.producto !== 'desconocido') ? d.producto : prod,
+          content_type: 'product',
+          value: v,
+          currency: String(d.moneda || 'eur').toUpperCase(),
+        }, { eventID: id });
+        cuenta('compra-medida-meta');   // para comprobar en GoatCounter que salió
+      })
+      .catch(function () { clearTimeout(reloj); });   // el silencio es el estado seguro
+  }
   var prod = '', sesion = '';
   try {
     var q = new URLSearchParams(window.__vdaQS !== undefined ? window.__vdaQS : location.search);
@@ -158,11 +184,10 @@ display:grid;gap:13px;font-size:1.05rem;color:var(--niebla)}
      Dos límites que conviene tener escritos:
      - Es dedupe LOCAL. Solo protege de recargas en ese mismo navegador. Si
        abre el enlace en otro dispositivo, se cuenta otra vez.
-     - No protege del doble conteo el día que el Purchase se mande también
-       desde el servidor: para eso Meta usa `eventID`, que va como TERCER
-       argumento de fbq y `vdaMeta.track()` hoy solo acepta dos. Cuando se
-       monte la API de conversiones hay que ampliar meta.js para pasarlo, con
-       el session_id como eventID en los dos lados. */
+     - Entre dispositivos protege Meta: desde el 24-sep el Purchase lleva el
+       session_id como eventID, y Meta descarta el repetido. Si algún día se
+       manda también desde el servidor (API de conversiones), usar el mismo
+       session_id como event_id allí. */
   var CLAVE_CONTADAS = 'vda_compras_contadas';
   function yaContada(id) {
     if (!id) return false;                       // sin identificador no hay forma de saberlo
@@ -206,10 +231,7 @@ display:grid;gap:13px;font-size:1.05rem;color:var(--niebla)}
         // confirmadas que no depende de que acepte cookies.
         cuenta('compra-confirmada');
         cuenta('compra-confirmada-' + prod);
-        try {
-          PURCHASE_ACTIVO && window.vdaMeta && vdaMeta.track('Purchase',
-            { content_name: prod, content_type: 'product', value: valor, currency: 'EUR' });
-        } catch (e) {}
+        try { mideCompra(sesion); } catch (e) {}
       }
     } else {
       cuenta('lista-alta');

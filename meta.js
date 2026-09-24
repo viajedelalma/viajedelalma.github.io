@@ -26,6 +26,7 @@
    Uso en una página:
    <script src="/meta.js" defer></script>
    ... vdaMeta.track('InitiateCheckout', { value: 24.99, currency: 'EUR' });
+   ... vdaMeta.track('Purchase', { value: 1, currency: 'EUR' }, { eventID: 'cs_live_…' });
 
    El ID del píxel se pega abajo en PIXEL_ID (Administrador de eventos de
    Meta › Conjuntos de datos). Mientras esté vacío, la barra no aparece y no
@@ -54,11 +55,17 @@
 
   window.vdaMeta = {
     /* Eventos estándar de Meta: ViewContent, InitiateCheckout, Purchase, Lead… */
-    track(evento, datos) {
+    track(evento, datos, opciones) {
       if (!PIXEL_ID || estado === 'no') return;
-      if (estado === 'si' && window.fbq) window.fbq('track', evento, datos || {});
-      else cola.push(['track', evento, datos || {}]); // se manda si acepta después
+      /* opciones (24-sep): { eventID: '…' }. Meta lo usa para no contar dos
+         veces el mismo evento. Va como tercer argumento de fbq. */
+      const args = opciones ? ['track', evento, datos || {}, opciones] : ['track', evento, datos || {}];
+      if (estado === 'si' && window.fbq) window.fbq.apply(null, args);
+      else cola.push(args); // se manda si acepta después
     },
+    /* 24-sep: 'si' | 'no' | null (aún no ha contestado). Para que una página
+       decida si merece la pena preparar un evento. */
+    consentimiento() { return estado; },
     acepta() { estado = 'si'; guarda(); quitaBarra(); cargaPixel(); },
     rechaza() { estado = 'no'; guarda(); quitaBarra(); cola.length = 0; },
     /* Para el enlace «Cambiar mis cookies» de la política de privacidad. */
