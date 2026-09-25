@@ -219,6 +219,23 @@ section.wrap{padding:80px 26px 50px}
 .capa{grid-template-columns:46px 1fr;gap:14px}
 .glifo-capa{width:44px;height:44px;font-size:1.1rem}
 }
+/* 25-sep · Los tres productos, arriba del todo. Se abren al tocar (details/summary, sin JS). */
+.productos{margin-top:8px}
+.producto{position:relative;margin:0 0 14px;background:linear-gradient(168deg,var(--noche-2),var(--noche-3));border:1px solid var(--linea);border-radius:3px}
+.producto[open]{border-color:rgba(196,154,60,.55);box-shadow:0 0 24px rgba(196,154,60,.12)}
+.producto summary{list-style:none;cursor:pointer;display:flex;align-items:baseline;justify-content:space-between;gap:14px;padding:20px 22px}
+.producto summary::-webkit-details-marker{display:none}
+.producto summary:focus-visible{outline:2px solid var(--oro);outline-offset:3px}
+.p-nombre{font-family:var(--display);font-size:1.12rem;letter-spacing:.08em;color:var(--oro-claro)}
+.p-nombre::before{content:'✦';display:inline-block;margin-right:12px;color:var(--oro);font-size:.8em;transition:transform .25s ease}
+.producto[open] .p-nombre::before{transform:rotate(45deg)}
+.p-precio{font-size:.98rem;color:var(--tenue);white-space:nowrap}
+.p-cuerpo{padding:0 22px 22px}
+.p-cuerpo p{margin:0 0 12px}
+.p-cuerpo .descarga{margin-top:6px}
+.p-mas{font-size:1rem}
+.p-mas a{color:var(--oro-claro)}
+@media (max-width:520px){.producto summary{flex-direction:column;gap:4px;padding:18px}.p-cuerpo{padding:0 18px 18px}}
 </style>
 <script data-goatcounter="https://viajedelalma.goatcounter.com/count"
         async src="//gc.zgo.at/count.js"></script>
@@ -243,11 +260,43 @@ section.wrap{padding:80px 26px 50px}
 Una práctica espiritual diaria en español: rituales breves, tarot,
 plantas y minerales, y un diario que solo lees tú.
 </p>
-<p class="descarga-hero"><a class="descarga" href="https://play.google.com/store/apps/details?id=com.viajedelalma.app&amp;referrer=utm%5Fsource%3Dlanding%26utm%5Fmedium%3Dweb%26utm%5Fcampaign%3Dlanzamiento" rel="noopener">Descárgala en Google Play</a></p>
-<p class="descarga-nota">Ya disponible · Android · el ritual diario es gratis, siempre</p>
 </header>
 
 <main>
+
+<section class="wrap fade productos" aria-labelledby="tituloProductos">
+<span class="eyebrow">Lo que te ofrecemos</span>
+<h2 id="tituloProductos">Elige por dónde empezar</h2>
+
+<details class="producto" open>
+<summary data-goatcounter-click="portada-producto-app"><span class="p-nombre">La app</span><span class="p-precio">Gratis · Premium 4,99 €/mes</span></summary>
+<div class="p-cuerpo">
+<p>Tu práctica espiritual diaria, en español: un ritual guiado de tres minutos, gratis para siempre, y además tarot, luna, horóscopo, tu planta y tu mineral de cada mes, meditaciones y un diario que solo lees tú.</p>
+<p>Premium desbloquea todo por 4,99 € al mes o 49,99 € al año, con siete días de prueba gratis.</p>
+<p><a class="descarga" href="https://play.google.com/store/apps/details?id=com.viajedelalma.app&amp;referrer=utm%5Fsource%3Dlanding%26utm%5Fmedium%3Dweb%26utm%5Fcampaign%3Dlanzamiento" rel="noopener" data-goatcounter-click="portada-play">Descárgala en Google Play</a></p>
+<p class="p-mas"><a href="/app/">Ver todo lo que incluye</a> · Android</p>
+</div>
+</details>
+
+<details class="producto">
+<summary data-goatcounter-click="portada-producto-carta"><span class="p-nombre">Tu carta natal</span><span class="p-precio">Cálculo gratis · informe 24,99 €</span></summary>
+<div class="p-cuerpo">
+<p>El cielo del día en que naciste. Calcula gratis tu Sol, tu Luna y tu Ascendente con efemérides reales, sin registro: el cálculo ocurre en tu móvil.</p>
+<p>Si quieres la carta entera, el informe completo: unas 25 páginas escritas para ti, en tu correo en menos de 24 horas.</p>
+<p><a class="descarga" href="/carta/" data-goatcounter-click="portada-carta">Calcula tu carta gratis</a></p>
+</div>
+</details>
+
+<details class="producto">
+<summary data-goatcounter-click="portada-producto-revolucion"><span class="p-nombre">Tu revolución solar</span><span class="p-precio">24,99 €</span></summary>
+<div class="p-cuerpo">
+<p>Tu año, de cumpleaños a cumpleaños, con fechas: la revolución solar calculada con efemérides reales y escrita para ti. Unas cuarenta páginas en tu correo en menos de 24 horas.</p>
+<p>Necesita tu hora de nacimiento. Con tu carta natal, las dos juntas por 39,99 € (ahorras 10 €).</p>
+<p><a class="descarga" href="/revolucion/" data-goatcounter-click="portada-revolucion">Descubre tu año</a></p>
+</div>
+</details>
+</section>
+
 
 <section class="wrap fade">
 <span class="eyebrow">El ritual de hoy · gratis, siempre</span>
