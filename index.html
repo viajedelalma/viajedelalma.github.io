@@ -220,10 +220,11 @@ section.wrap{padding:80px 26px 50px}
 .glifo-capa{width:44px;height:44px;font-size:1.1rem}
 }
 /* 25-sep · Los tres productos, arriba del todo. Se abren al tocar (details/summary, sin JS). */
-.productos{margin-top:8px}
-.producto{position:relative;margin:0 0 14px;background:linear-gradient(168deg,var(--noche-2),var(--noche-3));border:1px solid var(--linea);border-radius:3px}
+main section.wrap.productos{margin-top:0;padding-top:20px}
+.productos h2{margin:6px 0 14px}
+.producto{position:relative;margin:0 0 10px;background:linear-gradient(168deg,var(--noche-2),var(--noche-3));border:1px solid var(--linea);border-radius:3px}
 .producto[open]{border-color:rgba(196,154,60,.55);box-shadow:0 0 24px rgba(196,154,60,.12)}
-.producto summary{list-style:none;cursor:pointer;display:flex;align-items:baseline;justify-content:space-between;gap:14px;padding:20px 22px}
+.producto summary{list-style:none;cursor:pointer;display:flex;align-items:baseline;justify-content:space-between;flex-wrap:wrap;gap:2px 14px;padding:15px 20px}
 .producto summary::-webkit-details-marker{display:none}
 .producto summary:focus-visible{outline:2px solid var(--oro);outline-offset:3px}
 .p-nombre{font-family:var(--display);font-size:1.12rem;letter-spacing:.08em;color:var(--oro-claro)}
@@ -235,12 +236,12 @@ section.wrap{padding:80px 26px 50px}
 .p-cuerpo .descarga{margin-top:6px}
 .p-mas{font-size:1rem}
 .p-mas a{color:var(--oro-claro)}
-@media (max-width:520px){.producto summary{flex-direction:column;gap:4px;padding:18px}.p-cuerpo{padding:0 18px 18px}}
+@media (max-width:520px){.producto summary{padding:13px 16px}.p-cuerpo{padding:0 16px 16px}.productos h2{display:none}.productos .eyebrow{margin-bottom:12px}}
 /* Portada más compacta para que los productos se vean sin bajar. */
 header.hero.wrap{padding-top:36px;padding-bottom:8px}
 header.hero .dial{width:min(170px,44vw);margin-bottom:18px}
 header.hero .sello{margin:16px auto}
-@media (max-width:520px){header.hero .dial{width:120px;margin-bottom:12px}header.hero .sello,header.hero .sub{display:none}}
+@media (max-width:520px){header.hero.wrap{padding-top:20px}header.hero .dial{width:96px;margin-bottom:10px}header.hero .sello,header.hero .sub{display:none}}
 </style>
 <script data-goatcounter="https://viajedelalma.goatcounter.com/count"
         async src="//gc.zgo.at/count.js"></script>
