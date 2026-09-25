@@ -248,6 +248,12 @@ display:grid;gap:13px;font-size:1.05rem;color:var(--niebla)}
       // El calendario deja de ser «el regalo» de la página y pasa a ser lo que
       // es para quien ha comprado: un extra de bienvenida.
       document.getElementById('rotulo-regalo').textContent = 'Regalo de bienvenida';
+      // 25-sep: a quien acaba de comprar la carta natal se le enseña su revolución
+      // solar (a quien compró el pack no: ya la tiene).
+      if (prod === 'carta') {
+        var up = document.getElementById('upsell-revolucion');
+        if (up) up.hidden = false;
+      }
 
       // La página se ve siempre; lo que no se repite es el conteo.
       if (!yaContada(sesion)) {
@@ -296,6 +302,15 @@ Mabon, Samhain y Yule.</p>
 <a class="boton" href="calendario-lunar.pdf" download="ViajeDelAlma_CalendarioLunar.pdf">Descargar el calendario ✦</a>
 <p class="letra-chica">Es un PDF pensado para el móvil, y bonito también impreso.
 Si el botón no descarga, <a href="calendario-lunar.pdf">ábrelo aquí</a> y guárdalo.</p>
+</div>
+
+<!-- 25-sep: solo para quien acaba de comprar la carta natal (se enseña desde el script). -->
+<div class="marco" id="upsell-revolucion" hidden><span class="e3"></span>
+<p class="eyebrow">Y ahora, tu año</p>
+<h2>Tu revolución solar</h2>
+<p>Tu carta natal cuenta quién eres. La revolución solar cuenta qué te trae el año, de cumpleaños a cumpleaños y con fechas: unas cuarenta páginas escritas para ti.</p>
+<p>Como ya eres clienta, unas semanas antes de tu cumpleaños te llegará un código personal para pedirla a <b>14,99 €</b>. Si la quieres ya, la tienes aquí por 24,99 €.</p>
+<a class="boton" href="/revolucion/" data-goatcounter-click="gracias-upsell-revolucion">Ver mi revolución solar ✦</a>
 </div>
 
 <div class="marco"><span class="e3"></span>
