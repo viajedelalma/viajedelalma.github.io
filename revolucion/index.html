@@ -127,7 +127,26 @@ details p{margin:10px 0 0;color:var(--tenue);font-size:.95rem}
     ['utm_source', 'utm_medium', 'utm_campaign'].forEach(function (k) { if (q.get(k)) o[k] = q.get(k); });
     if (Object.keys(o).length) sessionStorage.setItem('vda_origen', JSON.stringify(o));
   } catch (e) {}
-  function cuenta(n) { try { if (window.goatcounter && window.goatcounter.count) window.goatcounter.count({ path: n, title: n, event: true }); } catch (e) {} }
+  // ViewContent de la revolución, igual que /carta/ manda el de la carta natal:
+  // sin él no hay público de reimpacto ni señal para optimizar esta página.
+  // meta.js va con `defer`: si aún no existe vdaMeta, se espera al load.
+  function mideVista() {
+    try {
+      window.vdaMeta && vdaMeta.track('ViewContent', {
+        content_name: 'revolucion solar', content_type: 'product', value: 24.99, currency: 'EUR',
+      });
+    } catch (e) {}
+  }
+  if (window.vdaMeta) mideVista(); else addEventListener('load', mideVista, { once: true });
+  function cuenta(n) {
+    // count.js va con `async` y suele cargar DESPUÉS de este bloque: si aún no
+    // está, se espera a que cargue en vez de perder el evento (lección 20-sep).
+    var envia = function () { try { window.goatcounter.count({ path: n, title: n, event: true }); } catch (e) {} };
+    if (window.goatcounter && window.goatcounter.count) return envia();
+    var s = document.querySelector('script[data-goatcounter]');
+    if (s) s.addEventListener('load', envia, { once: true });
+    else addEventListener('load', function () { setTimeout(envia, 500); }, { once: true });
+  }
   document.querySelectorAll('.cta-rs').forEach(function (b) {
     b.addEventListener('click', function () { cuenta('rs-comprar'); if (b.dataset.origen) cuenta('rs-comprar-' + b.dataset.origen); });
   });
