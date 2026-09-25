@@ -226,6 +226,18 @@ main section.wrap.productos{margin-top:0;padding-top:20px}
 .producto[open]{border-color:rgba(196,154,60,.55);box-shadow:0 0 24px rgba(196,154,60,.12)}
 .producto summary{list-style:none;cursor:pointer;display:flex;align-items:baseline;justify-content:space-between;flex-wrap:wrap;gap:2px 14px;padding:15px 20px}
 .producto summary::-webkit-details-marker{display:none}
+/* 25-sep · Miniatura de cada producto, logo en la esquina y música opcional. */
+.producto summary{align-items:center;justify-content:flex-start;flex-wrap:nowrap;gap:14px;padding-top:11px;padding-bottom:11px}
+.p-txt{display:flex;flex:1;align-items:baseline;justify-content:space-between;flex-wrap:wrap;gap:2px 14px;min-width:0}
+.p-mini{width:48px;height:48px;flex:none;border-radius:50%;object-fit:cover;display:block}
+img.p-mini{border:1px solid var(--linea)}
+.marca{position:absolute;top:14px;left:16px;z-index:5;border:0;line-height:0}
+.marca img{width:46px;height:46px;border-radius:50%;display:block}
+.marca:hover{border:0}
+.musica{position:fixed;top:14px;right:16px;z-index:20;font-family:var(--display);font-size:.72rem;letter-spacing:.14em;color:var(--oro-claro);background:rgba(8,6,20,.72);border:1px solid var(--linea);border-radius:999px;padding:8px 14px;cursor:pointer;-webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px)}
+.musica:hover{border-color:var(--oro);color:var(--oro-brillo)}
+.musica.sonando{border-color:var(--oro);box-shadow:0 0 14px rgba(196,154,60,.25)}
+@media (max-width:520px){.p-mini{width:40px;height:40px}.producto summary{gap:12px;padding-top:9px;padding-bottom:9px}.marca{top:10px;left:12px}.marca img{width:38px;height:38px}.musica{top:10px;right:12px;padding:7px 11px;font-size:.66rem}}
 .producto summary:focus-visible{outline:2px solid var(--oro);outline-offset:3px}
 .p-nombre{font-family:var(--display);font-size:1.12rem;letter-spacing:.08em;color:var(--oro-claro)}
 .p-nombre::before{content:'✦';display:inline-block;margin-right:12px;color:var(--oro);font-size:.8em;transition:transform .25s ease}
@@ -252,6 +264,9 @@ header.hero .sello{margin:16px auto}
 
 <div class="cielo" id="cielo" aria-hidden="true"></div>
 
+<a class="marca" href="/" aria-label="Viaje del Alma, inicio"><img src="/logo.png" width="46" height="46" alt="Viaje del Alma"></a>
+<button type="button" class="musica" id="musica" aria-pressed="false" data-goatcounter-click="portada-musica">♪ Música</button>
+
 <header class="hero wrap">
 <svg class="dial" viewBox="0 0 200 200" role="img" aria-labelledby="dialTitulo">
 <title id="dialTitulo">Rueda del ciclo lunar con el día de hoy señalado y la luna en su fase actual</title>
@@ -276,7 +291,7 @@ plantas y minerales, y un diario que solo lees tú.
 <h2 id="tituloProductos">Elige por dónde empezar</h2>
 
 <details class="producto">
-<summary data-goatcounter-click="portada-producto-app"><span class="p-nombre">La app</span><span class="p-precio">Gratis · Premium 4,99 €/mes</span></summary>
+<summary data-goatcounter-click="portada-producto-app"><img class="p-mini" src="/app/amatista.webp" width="48" height="48" alt=""><span class="p-txt"><span class="p-nombre">La app</span><span class="p-precio">Gratis · Premium 4,99 €/mes</span></span></summary>
 <div class="p-cuerpo">
 <p>Tu práctica espiritual diaria, en español: un ritual guiado de tres minutos, gratis para siempre, y además tarot, luna, horóscopo, tu planta y tu mineral de cada mes, meditaciones y un diario que solo lees tú.</p>
 <p>Premium desbloquea todo por 4,99 € al mes o 49,99 € al año, con siete días de prueba gratis.</p>
@@ -286,7 +301,7 @@ plantas y minerales, y un diario que solo lees tú.
 </details>
 
 <details class="producto">
-<summary data-goatcounter-click="portada-producto-carta"><span class="p-nombre">Tu carta natal</span><span class="p-precio">Cálculo gratis · informe 24,99 €</span></summary>
+<summary data-goatcounter-click="portada-producto-carta"><img class="p-mini" src="/carta/informe.jpg" width="48" height="48" alt=""><span class="p-txt"><span class="p-nombre">Tu carta natal</span><span class="p-precio">Cálculo gratis · informe 24,99 €</span></span></summary>
 <div class="p-cuerpo">
 <p>El cielo del día en que naciste. Calcula gratis tu Sol, tu Luna y tu Ascendente con efemérides reales, sin registro: el cálculo ocurre en tu móvil.</p>
 <p>Si quieres la carta entera, el informe completo: unas 25 páginas escritas para ti, en tu correo en menos de 24 horas.</p>
@@ -295,7 +310,7 @@ plantas y minerales, y un diario que solo lees tú.
 </details>
 
 <details class="producto">
-<summary data-goatcounter-click="portada-producto-revolucion"><span class="p-nombre">Tu revolución solar</span><span class="p-precio">24,99 €</span></summary>
+<summary data-goatcounter-click="portada-producto-revolucion"><svg class="p-mini" viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="24" r="23.5" fill="#160F2E" stroke="rgba(196,154,60,.45)"/><circle cx="24" cy="24" r="18.5" fill="none" stroke="#C49A3C" stroke-width=".8" stroke-dasharray="2 2.6"/><g stroke="#E8CE8C" stroke-width="1.5" stroke-linecap="round"><path d="M34 24h4M14 24h-4M24 34v4M24 14v-4M31.1 31.1l2.8 2.8M16.9 31.1l-2.8 2.8M16.9 16.9l-2.8-2.8M31.1 16.9l2.8-2.8"/></g><circle cx="24" cy="24" r="7" fill="#C49A3C"/><circle cx="24" cy="5.5" r="2.2" fill="#F6E3AE"/></svg><span class="p-txt"><span class="p-nombre">Tu revolución solar</span><span class="p-precio">24,99 €</span></span></summary>
 <div class="p-cuerpo">
 <p>Tu año, de cumpleaños a cumpleaños, con fechas: la revolución solar calculada con efemérides reales y escrita para ti. Unas cuarenta páginas en tu correo en menos de 24 horas.</p>
 <p>Necesita tu hora de nacimiento. Con tu carta natal, las dos juntas por 39,99 € (ahorras 10 €).</p>
@@ -627,6 +642,16 @@ es.forEach(e => { if (e.isIntersecting){ e.target.classList.add("vis"); io.unobs
 }, { threshold:.12 });
 document.querySelectorAll(".fade").forEach(el => io.observe(el));
 }
+</script>
+<script>
+/* Música de fondo: solo si la persona la activa (los navegadores no dejan que suene sola). */
+(function(){var b=document.getElementById("musica");if(!b)return;var a=null;
+function fundido(to,cb){clearInterval(a._f);var n=0;a._f=setInterval(function(){n++;var v=a.volume+(to>a.volume?.03:-.03);if(n>=20||Math.abs(to-v)<.03){try{a.volume=to}catch(e){}clearInterval(a._f);if(cb)cb();}else{try{a.volume=Math.max(0,Math.min(1,v))}catch(e){}}},70);}
+function enciende(){if(!a){a=new Audio("/musica-fondo.mp3");a.loop=true;try{a.volume=0}catch(e){}}
+a.play().then(function(){fundido(.45);b.setAttribute("aria-pressed","true");b.classList.add("sonando");b.textContent="♪ Música · pausar";}).catch(function(){b.hidden=true;});}
+function apaga(){b.setAttribute("aria-pressed","false");b.classList.remove("sonando");b.textContent="♪ Música";if(a)fundido(0,function(){a.pause();});}
+b.addEventListener("click",function(){if(b.getAttribute("aria-pressed")==="true")apaga();else enciende();});
+})();
 </script>
 </body>
 </html>
