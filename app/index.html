@@ -157,7 +157,9 @@ document.querySelectorAll('.cta').forEach(function(a){
     try{ if(window.goatcounter && window.goatcounter.count){
       window.goatcounter.count({path:'app-clic-play-'+a.id,title:'Clic a Play desde /app/ ('+a.id+')',event:true});
     }}catch(e){}
-    try{ window.vdaMeta && vdaMeta.track('Lead',{content_name:'clic a Google Play'}); }catch(e){}
+    // No es un Lead: no deja correo. Lead se reserva para el alta en la lista
+    // (gracias.html), que es lo que Meta debe optimizar.
+    try{ window.vdaMeta && vdaMeta.track('ViewContent',{content_name:'clic a Google Play',content_type:'product'}); }catch(e){}
   });
 });
 </script>
