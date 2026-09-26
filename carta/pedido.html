@@ -246,6 +246,17 @@ h2.datos{font-family:var(--display);font-weight:400;font-size:1.55rem;margin:0 0
 
     <div class="resumen" id="resumen" hidden></div>
 
+    <!-- Art. 103.m TRLGDCU (hallazgo 3, 26-sep): consentimiento expreso y renuncia
+    al desistimiento antes de pagar. Desmarcada por defecto y obligatoria. -->
+    <div class="casilla" style="margin-top:18px">
+      <input id="desistimiento" type="checkbox">
+      <label for="desistimiento" style="margin:0;text-transform:none;letter-spacing:0;font-size:.92rem">
+      Quiero recibir mi informe ya: acepto que empecéis a prepararlo en cuanto pague y sé que,
+      al ser contenido digital personalizado, una vez iniciado pierdo el derecho de desistimiento
+      de 14 días (<a href="/terminos.html#informes" target="_blank" rel="noopener">términos</a>).
+      </label>
+    </div>
+
     <button id="enviar" type="submit">Continuar al pago · 24,99 €</button>
     <p class="nota" style="text-align:center">
       Pago seguro con Stripe. IVA incluido. Recibes <span id="recibes">el informe</span> en tu correo en menos de 24 horas.</p><p class="nota" style="text-align:center">Si al pulsar no pasa nada, suele ser el bloqueador de anuncios: prueba en una ventana de incógnito o desactívalo un momento. Tus datos siguen aquí.
@@ -594,6 +605,7 @@ $('f').addEventListener('submit', async ev => {
                                      return muestraError('Ese correo no parece válido. Ahí es donde llega el informe.');
   if (!fecha)                        return muestraError('Falta la fecha de nacimiento.');
   if (new Date(fecha) > new Date())  return muestraError('Esa fecha está en el futuro.');
+  if (!$('desistimiento').checked)   return muestraError('Para continuar, marca la casilla sobre el inicio inmediato de tu informe.');
   if (!sinHora && ($('h').value === '' || $('m').value === ''))
                                      return muestraError(conRevolucion()
                                        ? 'Pon tu hora de nacimiento: la revolución solar la necesita.'
