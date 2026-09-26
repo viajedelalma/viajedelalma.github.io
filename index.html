@@ -259,6 +259,21 @@ header.hero .dial{width:min(170px,44vw);margin-bottom:18px}
 header.hero .sello{margin:16px auto}
 @media (max-width:520px){header.hero.wrap{padding-top:20px}header.hero .dial{width:96px;margin-bottom:10px}header.hero .sello,header.hero .sub{display:none}}
 @media (max-width:400px){header.hero h1{font-size:1.75rem;letter-spacing:.08em}header.hero .claim{margin-top:10px}.producto summary{padding:11px 14px}}
+/* 26-sep · Con la tarjeta de temporada son 4: en portátil se compacta la cabecera para que se vean sin bajar. */
+@media (max-height:900px) and (min-width:521px){header.hero .dial{width:110px;margin-bottom:6px}header.hero .sub{display:none}header.hero.wrap{padding-top:24px}}
+@media (max-width:520px) and (max-height:700px){header.hero .dial{display:none}header.hero.wrap{padding-top:58px}}
+/* 26-sep · Tarjeta de temporada (Samhain): se retira sola el 3-nov. */
+.temporada{display:block;border-color:rgba(233,133,58,.55);background:linear-gradient(168deg,#2a130a,#140a14);box-shadow:0 0 26px rgba(233,133,58,.16);color:inherit}
+.temporada:hover{border-color:#e9853a;border-bottom-color:#e9853a;color:inherit}
+.t-etiqueta{position:absolute;top:-9px;left:18px;background:#e9853a;color:#140a08;font-family:var(--display);font-size:.62rem;letter-spacing:.16em;text-transform:uppercase;padding:2px 9px;border-radius:2px}
+.t-fila{display:flex;align-items:center;gap:14px;padding:13px 20px 11px}
+.temporada .p-mini{border:1px solid rgba(233,133,58,.6);object-position:50% 30%}
+.temporada .p-nombre::before{content:'🔥';font-size:.75em}
+.t-ir{flex:none;white-space:nowrap;font-family:var(--display);font-size:.72rem;letter-spacing:.1em;color:var(--oro-brillo);border:1px solid rgba(233,133,58,.7);border-radius:999px;padding:5px 11px}
+.temporada:hover .t-ir{background:rgba(233,133,58,.18)}
+.productos .temporada{margin-top:14px}
+@media (max-width:400px){.temporada .p-nombre{font-size:.9rem!important}.t-ir{padding:3px 7px!important;font-size:.6rem!important;letter-spacing:.04em}.t-fila{gap:10px!important}}
+@media (max-width:520px){.t-fila{gap:12px;padding:12px 14px 10px}.t-ir{padding:4px 9px;font-size:.66rem}.temporada .p-txt{flex-direction:column;align-items:flex-start}.temporada .p-nombre{font-size:1rem;letter-spacing:.05em;white-space:nowrap}.temporada .p-nombre::before{margin-right:6px}}
 </style>
 <script data-goatcounter="https://viajedelalma.goatcounter.com/count"
         async src="//gc.zgo.at/count.js"></script>
@@ -293,6 +308,9 @@ plantas y minerales, y un diario que solo lees tú.
 <section class="wrap productos" aria-labelledby="tituloProductos">
 <span class="eyebrow">Lo que te ofrecemos</span>
 <h2 id="tituloProductos">Elige por dónde empezar</h2>
+
+<a class="producto temporada" id="temporadaSamhain" href="/samhain/?utm_source=web&amp;utm_medium=portada&amp;utm_campaign=samhain" data-goatcounter-click="portada-samhain"><span class="t-etiqueta">Solo esta temporada</span><span class="t-fila"><img class="p-mini" src="/samhain/guia.jpg" width="48" height="48" alt=""><span class="p-txt"><span class="p-nombre">Guía de Samhain</span><span class="p-precio" id="temporadaPrecio">Llega el 1 de octubre</span></span><span class="t-ir" id="temporadaIr">Avísame →</span></span></a>
+<script>(function(){var n=Date.now(),L=Date.parse('2026-10-01T20:00:00+02:00'),F=Date.parse('2026-11-03T00:00:00+01:00'),c=document.getElementById('temporadaSamhain');if(n>=F){c.parentNode.removeChild(c);return;}if(n>=L){document.getElementById('temporadaPrecio').textContent='Siete noches · 6,99 €';document.getElementById('temporadaIr').textContent='Verla →';}})();</script>
 
 <details class="producto">
 <summary data-goatcounter-click="portada-producto-app"><img class="p-mini" src="/app/amatista.webp" width="48" height="48" alt=""><span class="p-txt"><span class="p-nombre">La app</span><span class="p-precio">Gratis · Premium 4,99 €/mes</span></span></summary>
