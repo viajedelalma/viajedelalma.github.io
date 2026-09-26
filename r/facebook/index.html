@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Viaje del Alma en Facebook</title>
+<meta http-equiv="refresh" content="3;url=https://www.facebook.com/profile.php?id=61593699406994">
+<style>body{margin:0;min-height:100vh;display:flex;align-items:center;justify-content:center;background:#0B0818;color:#E8D9A0;font-family:Georgia,serif;text-align:center;padding:16px}a{color:#E8D9A0}</style>
+</head>
+<body>
+<!-- Redirección medida (H-B, 26-sep): cuenta el clic desde los correos en GoatCounter,
+     sin cookies y sin identificar a nadie, y lleva al perfil. -->
+<p>Te llevamos a Facebook…<br><a href="https://www.facebook.com/profile.php?id=61593699406994">Si no se abre, pulsa aquí</a></p>
+<script>
+(function () {
+  var DESTINO = "https://www.facebook.com/profile.php?id=61593699406994", RED = "facebook";
+  var m = location.search.match(/[?&]de=(entrega|oferta)(&|$)/);
+  var de = m ? m[1] : "correo";
+  var hecho = false;
+  function ir() { if (!hecho) { hecho = true; location.replace(DESTINO); } }
+  function cuenta() {
+    try { window.goatcounter.count({ path: "correo-" + de + "-redes-" + RED, title: "Redes desde correo", event: true }); } catch (e) {}
+    setTimeout(ir, 350);
+  }
+  var s = document.createElement("script");
+  s.async = true;
+  s.src = "//gc.zgo.at/count.js";
+  s.setAttribute("data-goatcounter", "https://viajedelalma.goatcounter.com/count");
+  s.setAttribute("data-goatcounter-settings", '{"no_onload": true}');
+  s.onload = cuenta;
+  s.onerror = ir;
+  document.head.appendChild(s);
+  setTimeout(ir, 1500);
+})();
+</script>
+</body>
+</html>
