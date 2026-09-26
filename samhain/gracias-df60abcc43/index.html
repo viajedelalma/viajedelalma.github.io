@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Tu guía de Samhain · Viaje del Alma</title>
+<link rel="icon" href="/favicon.png">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300&family=Karla:wght@300;400;500;700&display=swap">
+<style>
+:root{
+  --noche:#0B0818; --noche-2:#14102A; --noche-3:#1C1636;
+  --violeta:#7B6BAB; --oro:#C9A84C; --oro-claro:#E8D9A0;
+  --texto:#EDE7DC; --tenue:#A99CCB; --linea:rgba(201,168,76,.22);
+  --display:'Cormorant Garamond','Iowan Old Style',Georgia,serif;
+  --cuerpo:'Karla','Helvetica Neue',Arial,sans-serif;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--noche);color:var(--texto);font-family:var(--cuerpo);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased}
+.envoltura{max-width:640px;margin:0 auto;padding:36px 20px 70px}
+.marca{font-size:.72rem;letter-spacing:.34em;color:var(--oro);text-transform:uppercase;margin-bottom:26px}
+.marca a{color:inherit;text-decoration:none}
+h1{font-family:var(--display);font-weight:300;font-size:clamp(2.2rem,7.5vw,3.2rem);line-height:1.05;margin:0 0 12px}
+h2{font-family:var(--display);font-weight:400;font-size:1.55rem;line-height:1.2;margin:44px 0 12px}
+p{margin:0 0 14px}
+.entradilla{color:var(--tenue);font-size:1.05rem;max-width:52ch}
+.regla{height:1px;background:linear-gradient(90deg,transparent,var(--linea),transparent);margin:30px 0;border:0}
+.eje{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:22px 0}
+.eje div{padding:16px;border:1px solid var(--linea);border-radius:2px;background:rgba(20,16,42,.55)}
+.eje .rol{font-size:.68rem;letter-spacing:.2em;text-transform:uppercase;color:var(--oro);margin:0 0 6px}
+.eje p{margin:0;font-size:.95rem;color:var(--tenue)}
+.eje b{color:var(--texto);font-weight:500}
+ul.lista{list-style:none;padding:0;margin:14px 0 0}
+ul.lista li{position:relative;padding-left:22px;margin-bottom:10px;color:var(--tenue)}
+ul.lista li::before{content:'';position:absolute;left:4px;top:.65em;width:5px;height:5px;border-radius:50%;background:var(--oro)}
+ul.lista b{color:var(--texto);font-weight:500}
+.precio{margin:30px 0 0;padding:22px;border:1px solid var(--linea);border-radius:2px;background:linear-gradient(180deg,var(--noche-2),rgba(20,16,42,.55));text-align:center}
+.precio .cifra{font-family:var(--display);font-size:2.6rem;line-height:1;color:var(--oro-claro);margin:6px 0 4px}
+.precio small{display:block;color:var(--tenue);font-size:.9rem}
+.boton{display:inline-block;margin-top:16px;padding:15px 26px;border-radius:999px;background:linear-gradient(135deg,var(--oro-claro),var(--oro));color:#1a1408;font-weight:700;letter-spacing:.14em;text-transform:uppercase;font-size:.82rem;text-decoration:none}
+.boton.secundario{background:none;border:1px solid var(--oro);color:var(--oro-claro);font-weight:500}
+.pack{margin-top:14px;font-size:.92rem;color:var(--tenue)}
+.pack a{color:var(--oro-claro);text-decoration:underline;text-underline-offset:3px}
+details{border-top:1px solid var(--linea);padding:14px 0}
+details:last-of-type{border-bottom:1px solid var(--linea)}
+summary{cursor:pointer;list-style:none;font-weight:500;color:var(--texto)}
+summary::-webkit-details-marker{display:none}
+summary::before{content:'+ ';color:var(--oro)}
+details[open] summary::before{content:'– '}
+details p{margin:10px 0 0;color:var(--tenue);font-size:.95rem}
+.pie{margin-top:40px;font-size:.8rem;color:var(--tenue);text-align:center}
+.pie a{color:var(--tenue)}
+.barra{visibility:hidden;pointer-events:none;position:fixed;left:0;right:0;bottom:0;padding:10px 16px;background:rgba(11,8,24,.92);backdrop-filter:blur(8px);border-top:1px solid var(--linea);display:flex;justify-content:center;gap:12px;align-items:center;transform:translateY(110%);transition:transform .3s}
+.barra.visible{transform:none;visibility:visible;pointer-events:auto}
+.barra .boton{margin:0;padding:12px 20px}
+.barra span{font-size:.9rem;color:var(--tenue)}
+@media (max-width:520px){.eje{grid-template-columns:1fr}.barra span{display:none}}
+</style>
+</head>
+<body>
+<div class="envoltura" style="text-align:center">
+  <div class="marca"><a href="/" style="display:inline-flex;align-items:center;gap:10px"><img src="/samhain/logo.png" width="34" height="34" alt="" style="border-radius:50%;border:1px solid var(--oro)">Viaje del Alma</a></div>
+  <h1>Gracias. Tu guía ya es tuya.</h1>
+  <p class="entradilla" style="margin:0 auto 10px">Guárdala en el móvil o imprímela. La primera noche es el domingo 25 de octubre, y la madrugada de ese día se atrasan los relojes: empiezas con una hora de regalo.</p>
+  <a class="boton" id="descarga" href="Samhain_SieteNoches_ViajeDelAlma.pdf" download="Samhain_SieteNoches_ViajeDelAlma.pdf">Descargar la guía ✦</a>
+  <p style="margin-top:14px;font-size:.9rem;color:var(--tenue)">Si el botón no descarga, <a href="Samhain_SieteNoches_ViajeDelAlma.pdf" style="color:var(--oro-claro)">ábrela aquí</a> y guárdala. Te llega también el recibo de Stripe a tu correo: si algún día pierdes el PDF, responde a <b>viajedelalma.app@gmail.com</b> y te lo enviamos.</p>
+  <div id="meditacion" style="margin-top:34px;padding:22px;border:1px solid var(--linea);border-radius:2px;background:rgba(20,16,42,.55)">
+    <p class="marca" style="margin-bottom:8px">Solo para ti</p>
+    <h2 style="margin-top:0">El umbral de los ancestros</h2>
+    <p style="color:var(--tenue)">Tu meditación guiada para la noche del 31, unos diez minutos junto al fuego.</p>
+    <audio id="audio" controls preload="none" style="width:100%;margin-top:6px"><source src="umbral-ancestros.mp3" type="audio/mpeg"></audio>
+    <p style="margin-top:10px"><a id="bajaaudio" href="umbral-ancestros.mp3" download style="color:var(--oro-claro)">Descargarla para escucharla sin conexión</a></p>
+    <p id="noaudio" style="display:none;color:var(--oro-claro)">La estamos terminando de grabar: estará aquí antes del 24 de octubre. Guarda esta página o usa el código QR de la guía.</p>
+  </div>
+  <p style="margin-top:22px"><a class="boton secundario" id="musica" href="https://open.spotify.com/playlist/5dPU2UGDkf6gVF4wtn10eh" target="_blank" rel="noopener">La música de Samhain en Spotify ♪</a></p>
+  <p style="font-size:.85rem;color:var(--tenue)">Una lista hecha para esta guía: primero el altar, después el ritual, al final el silencio. El enlace también está dentro del PDF.</p>
+  <hr class="regla">
+  <h2 style="margin-top:10px">Mientras llega el 25</h2>
+  <p style="color:var(--tenue)">El ritual de cada día, marcado por la luna real, está gratis en la app Viaje del Alma.</p>
+  <a class="boton secundario" href="https://play.google.com/store/apps/details?id=com.viajedelalma.app&utm_source=web&utm_medium=gracias&utm_campaign=samhain">Abrir en Google Play</a>
+  <p class="pie">Viaje del Alma · <a href="/privacidad.html">Privacidad</a> · <a href="/terminos.html">Términos</a></p>
+</div>
+<script data-goatcounter="https://viajedelalma.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+<script>
+(function () {
+  function cuenta(n) {
+    var envia = function () { try { window.goatcounter.count({ path: n, title: n, event: true }); } catch (e) {} };
+    if (window.goatcounter && window.goatcounter.count) return envia();
+    var s = document.querySelector('script[data-goatcounter]');
+    if (s) s.addEventListener('load', envia, { once: true });
+  }
+  // Solo cuenta como pago la llegada desde Stripe (el QR de la guía también trae aquí)
+  // Stripe redirige con ?session_id=…: eso marca el pago. Se borra de la URL antes de nada.
+  var q = new URLSearchParams(location.search);
+  if (q.get('session_id')) { cuenta('sh-pagado'); try { history.replaceState(null, '', location.pathname + location.hash); } catch (e) {} }
+  else cuenta('sh-vuelve');
+  // Si el audio aún no está subido, se avisa en lugar de mostrar un reproductor roto
+  fetch('umbral-ancestros.mp3', { method: 'HEAD' }).then(function (r) {
+    if (!r.ok) { document.getElementById('audio').style.display = 'none'; document.getElementById('bajaaudio').parentNode.style.display = 'none'; document.getElementById('noaudio').style.display = 'block'; }
+  }).catch(function () {});
+  document.getElementById('audio').addEventListener('play', function () { cuenta('sh-meditacion'); }, { once: true });
+  document.getElementById('descarga').addEventListener('click', function () { cuenta('sh-descarga'); });
+  document.getElementById('musica').addEventListener('click', function () { cuenta('sh-spotify'); });
+})();
+</script>
+</body>
+</html>
