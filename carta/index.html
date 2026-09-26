@@ -1270,11 +1270,16 @@ async function cargarPais(cc) {
 })();
 
 function cuenta(nombre) {
-  try {
-    if (window.goatcounter && window.goatcounter.count) {
-      window.goatcounter.count({ path: nombre, title: nombre, event: true });
-    }
-  } catch (e) { /* la medicion nunca puede romper la pagina */ }
+  // count.js va con `async` y puede cargar DESPUÉS de este bloque: si aún no
+  // está, se espera a que cargue en vez de perder el evento (lección 20-sep).
+  var envia = function () {
+    try { window.goatcounter.count({ path: nombre, title: nombre, event: true }); }
+    catch (e) { /* la medicion nunca puede romper la pagina */ }
+  };
+  if (window.goatcounter && window.goatcounter.count) return envia();
+  var s = document.querySelector('script[data-goatcounter]');
+  if (s) s.addEventListener('load', envia, { once: true });
+  else addEventListener('load', function () { setTimeout(envia, 500); }, { once: true });
 }
 
 var YA_CONTADO = {};
@@ -1473,7 +1478,6 @@ function pinta(carta, ctx) {
 function escapa(s) { return s.replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c])); }
 
 
-})();
   (function medirCompra() {
     document.querySelectorAll('.cta-compra').forEach(function (b) {
       b.addEventListener('click', function () {
@@ -1496,6 +1500,7 @@ function escapa(s) { return s.replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt
     new IntersectionObserver(function (es) { puertaVisible = es[0].isIntersecting; pinta(); }, { rootMargin: '0px 0px -40px 0px' }).observe(puerta);
     document.addEventListener('carta-propia', pinta);
   })();
+})();
 </script>
 
 </body>
