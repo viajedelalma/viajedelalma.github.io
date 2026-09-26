@@ -1,0 +1,267 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Samhain · Siete noches y una mañana · Viaje del Alma</title>
+<meta name="description" content="Una guía en PDF para vivir Samhain del 25 de octubre al 1 de noviembre: un ritual cada noche, una meditación guiada exclusiva, un oráculo para imprimir y la versión del hemisferio sur. 6,99 €.">
+<link rel="icon" href="/favicon.png">
+<link rel="canonical" href="https://viajedelalma.app/samhain/">
+<meta property="og:title" content="Samhain · Siete noches y una mañana">
+<meta property="og:description" content="Un ritual sencillo cada noche hasta el año nuevo celta. Guía en PDF, 6,99 €.">
+<meta property="og:image" content="https://viajedelalma.app/samhain/guia.jpg">
+<meta property="og:url" content="https://viajedelalma.app/samhain/">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300&family=Karla:wght@300;400;500;700&display=swap">
+<style>
+:root{
+  --noche:#0B0818; --noche-2:#14102A; --noche-3:#1C1636;
+  --violeta:#7B6BAB; --oro:#C9A84C; --oro-claro:#E8D9A0;
+  --texto:#EDE7DC; --tenue:#A99CCB; --linea:rgba(201,168,76,.22);
+  --display:'Cormorant Garamond','Iowan Old Style',Georgia,serif;
+  --cuerpo:'Karla','Helvetica Neue',Arial,sans-serif;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--noche);color:var(--texto);font-family:var(--cuerpo);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased}
+.envoltura{max-width:640px;margin:0 auto;padding:36px 20px 70px}
+.marca{font-size:.72rem;letter-spacing:.34em;color:var(--oro);text-transform:uppercase;margin-bottom:26px}
+.marca a{color:inherit;text-decoration:none}
+h1{font-family:var(--display);font-weight:300;font-size:clamp(2.2rem,7.5vw,3.2rem);line-height:1.05;margin:0 0 12px}
+h2{font-family:var(--display);font-weight:400;font-size:1.55rem;line-height:1.2;margin:44px 0 12px}
+p{margin:0 0 14px}
+.entradilla{color:var(--tenue);font-size:1.05rem;max-width:52ch}
+.regla{height:1px;background:linear-gradient(90deg,transparent,var(--linea),transparent);margin:30px 0;border:0}
+.eje{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:22px 0}
+.eje div{padding:16px;border:1px solid var(--linea);border-radius:2px;background:rgba(20,16,42,.55)}
+.eje .rol{font-size:.68rem;letter-spacing:.2em;text-transform:uppercase;color:var(--oro);margin:0 0 6px}
+.eje p{margin:0;font-size:.95rem;color:var(--tenue)}
+.eje b{color:var(--texto);font-weight:500}
+ul.lista{list-style:none;padding:0;margin:14px 0 0}
+ul.lista li{position:relative;padding-left:22px;margin-bottom:10px;color:var(--tenue)}
+ul.lista li::before{content:'';position:absolute;left:4px;top:.65em;width:5px;height:5px;border-radius:50%;background:var(--oro)}
+ul.lista b{color:var(--texto);font-weight:500}
+.precio{margin:30px 0 0;padding:22px;border:1px solid var(--linea);border-radius:2px;background:linear-gradient(180deg,var(--noche-2),rgba(20,16,42,.55));text-align:center}
+.precio .cifra{font-family:var(--display);font-size:2.6rem;line-height:1;color:var(--oro-claro);margin:6px 0 4px}
+.precio small{display:block;color:var(--tenue);font-size:.9rem}
+.boton{display:inline-block;margin-top:16px;padding:15px 26px;border-radius:999px;background:linear-gradient(135deg,var(--oro-claro),var(--oro));color:#1a1408;font-weight:700;letter-spacing:.14em;text-transform:uppercase;font-size:.82rem;text-decoration:none}
+.boton.secundario{background:none;border:1px solid var(--oro);color:var(--oro-claro);font-weight:500}
+.pack{margin-top:14px;font-size:.92rem;color:var(--tenue)}
+.pack a{color:var(--oro-claro);text-decoration:underline;text-underline-offset:3px}
+details{border-top:1px solid var(--linea);padding:14px 0}
+details:last-of-type{border-bottom:1px solid var(--linea)}
+summary{cursor:pointer;list-style:none;font-weight:500;color:var(--texto)}
+summary::-webkit-details-marker{display:none}
+summary::before{content:'+ ';color:var(--oro)}
+details[open] summary::before{content:'– '}
+details p{margin:10px 0 0;color:var(--tenue);font-size:.95rem}
+.pie{margin-top:40px;font-size:.8rem;color:var(--tenue);text-align:center}
+.pie a{color:var(--tenue)}
+.barra{visibility:hidden;pointer-events:none;position:fixed;left:0;right:0;bottom:0;padding:10px 16px;background:rgba(11,8,24,.92);backdrop-filter:blur(8px);border-top:1px solid var(--linea);display:flex;justify-content:center;gap:12px;align-items:center;transform:translateY(110%);transition:transform .3s}
+.barra.visible{transform:none;visibility:visible;pointer-events:auto}
+.barra .boton{margin:0;padding:12px 20px}
+.barra span{font-size:.9rem;color:var(--tenue)}
+@media (max-width:520px){.eje{grid-template-columns:1fr}.barra span{display:none}}
+</style>
+<style>
+.muestra{margin:26px -20px 6px;display:block;width:calc(100% + 40px);height:auto}
+.noches{list-style:none;padding:0;margin:14px 0 0;border-top:1px solid var(--linea)}
+.noches li{display:flex;gap:14px;padding:10px 0;border-bottom:1px solid var(--linea);color:var(--tenue);font-size:.95rem}
+.noches li b{color:var(--oro);font-weight:500;min-width:58px;font-size:.72rem;letter-spacing:.16em;padding-top:4px}
+.acepto{display:flex;gap:10px;align-items:flex-start;text-align:left;margin:18px 0 0;font-size:.85rem;color:var(--tenue);cursor:pointer}
+.acepto input{margin-top:4px;accent-color:var(--oro);width:18px;height:18px;flex:none}
+.acepto a{color:var(--oro-claro)}
+.boton[aria-disabled="true"]{opacity:.45}
+.aviso{display:none;color:var(--oro-claro);font-size:.85rem;margin-top:10px}
+.fase-despues,.barra-despues{display:none}
+body.lanzado .fase-antes,body.lanzado .barra-antes{display:none}
+body.lanzado .fase-despues{display:block}
+body.lanzado .barra-despues{display:inline-block}
+.reloj{display:flex;justify-content:center;gap:10px;margin:16px 0 14px}
+.reloj div{min-width:64px;padding:10px 6px;border:1px solid var(--linea);border-radius:2px;background:rgba(11,8,24,.6)}
+.reloj b{display:block;font-family:var(--display);font-weight:400;font-size:2.1rem;line-height:1;color:var(--oro-claro)}
+.reloj span{font-size:.68rem;letter-spacing:.18em;text-transform:uppercase;color:var(--tenue)}
+.lead-oferta{color:var(--texto);font-size:.98rem;margin:6px 0 14px}
+.form{display:flex;flex-direction:column;gap:10px;max-width:380px;margin:0 auto}
+.form input{padding:14px 16px;border-radius:999px;border:1px solid var(--linea);background:rgba(11,8,24,.8);color:var(--texto);font:inherit;text-align:center}
+.form .boton{margin-top:0;border:0;cursor:pointer}
+.aviso-f{min-height:1.2em;margin:10px 0 0;font-size:.9rem;color:var(--oro-claro)}
+.legal{font-size:.78rem;color:var(--tenue);margin:10px 0 0}
+.legal a{color:var(--tenue)}
+.codigo{font-size:.88rem;color:var(--tenue);margin:12px 0 0}
+.codigo b{color:var(--oro-claro)}
+</style>
+</head>
+<body>
+<div class="envoltura">
+
+  <div class="marca"><a href="/" style="display:inline-flex;align-items:center;gap:10px"><img src="/samhain/logo.png" width="34" height="34" alt="" style="border-radius:50%;border:1px solid var(--oro)">Viaje del Alma</a></div>
+  <h1>Samhain: siete noches y una mañana</h1>
+  <p class="entradilla">Una guía para cruzar el umbral del año sin prisa. Del domingo 25 de octubre al domingo 1 de noviembre, un gesto sencillo cada noche: de cinco a quince minutos, una vela y tu diario.</p>
+
+  <img class="muestra" src="guia.jpg" width="1200" height="750" alt="Tres páginas de la guía de Samhain: la portada con una luna dorada, la tirada del velo y la noche del 31.">
+
+  <!-- ANTES DEL LANZAMIENTO: cuenta atrás + lista de espera -->
+  <div class="precio fase-antes" id="espera">
+    <small>La puerta se abre el jueves 1 de octubre a las 20:00 (hora de España)</small>
+    <div class="reloj" id="reloj" aria-live="polite">
+      <div><b id="r-d">–</b><span>días</span></div><div><b id="r-h">–</b><span>horas</span></div><div><b id="r-m">–</b><span>min</span></div><div><b id="r-s">–</b><span>seg</span></div>
+    </div>
+    <p class="lead-oferta"><b>Apúntate a la lista de espera</b> y el día del lanzamiento te llega a tu correo un <b>precio de estreno de 4,99 €</b> (en lugar de 6,99 €) durante 48 horas.</p>
+    <div class="form">
+      <input type="email" id="email" placeholder="Tu correo" autocomplete="email" inputmode="email" aria-label="Tu correo">
+      <button class="boton" id="apuntar" type="button">Quiero el precio de estreno</button>
+    </div>
+    <p class="aviso-f" id="aviso-f"></p>
+    <p class="legal">Te escribiré para avisarte del lanzamiento y, de vez en cuando, con las lunas y las novedades de Viaje del Alma. Te borras cuando quieras respondiendo a cualquier correo. <a href="/privacidad.html">Privacidad</a>.</p>
+  </div>
+
+  <!-- DESPUÉS DEL LANZAMIENTO: venta -->
+  <div class="precio fase-despues" id="precio">
+    <small>Guía de Samhain · PDF de 23 páginas + meditación</small>
+    <div class="cifra">6,99 €</div>
+    <small>IVA incluido · la descargas en cuanto pagas</small>
+    <p class="codigo" id="codigo-estreno">¿Estás en la lista de espera? Usa el código de tu correo en el pago y te queda en <b>4,99 €</b> hasta el sábado 3 de octubre a las 20:00.</p>
+    <label class="acepto"><input type="checkbox" class="consiento"> <span>Acepto los <a href="/terminos.html" target="_blank">términos</a> y quiero la descarga ya: sé que, al ser contenido digital que recibo al momento, pierdo el derecho de desistimiento.</span></label>
+    <a class="boton cta-sh" data-origen="precio" href="#" aria-disabled="true">Quiero mi guía</a>
+    <p class="aviso">Marca la casilla para continuar.</p>
+  </div>
+
+  <h2>Qué hay dentro</h2>
+  <ul class="noches">
+    <li><b>DOM 25</b>Barrer el umbral: preparar la casa para el año nuevo</li>
+    <li><b>LUN 26</b>La Luna llena del Cazador, en Tauro: lo que ya has cosechado</li>
+    <li><b>MAR 27</b>El hilo de la memoria: reunir los nombres que quieres honrar</li>
+    <li><b>MIÉ 28</b>Lo que no cruza al año nuevo</li>
+    <li><b>JUE 29</b>Levantar el altar de los ancestros, paso a paso</li>
+    <li><b>VIE 30</b>La tirada del velo: cinco cartas para el año que empieza</li>
+    <li><b>SÁB 31</b>Noche de Samhain: la vela en la ventana y la cena muda</li>
+    <li><b>DOM 1</b>La mañana del año nuevo: la semilla oscura</li>
+  </ul>
+  <h2>Solo en esta guía</h2>
+  <ul class="lista">
+    <li><b>«El umbral de los ancestros»</b>, una meditación guiada de unos diez minutos para la noche del 31, grabada para esta guía junto al fuego. No está en ninguna otra parte.</li>
+    <li><b>El oráculo de las siete noches</b>: ocho cartas originales para imprimir, recortar y poner en tu altar. Una para cada noche, y una tirada especial para el 31.</li>
+    <li><b>Si vives en el hemisferio sur</b>, tu versión de primavera: las siete noches como camino hacia Beltane, el ritual de la noche del 31 y las horas de la luna en México, Colombia, Argentina y Chile.</li>
+  </ul>
+  <h2>Y además</h2>
+  <ul class="lista" style="margin-top:14px">
+    <li><b>Una pregunta de diario cada noche</b>, con espacio para escribir.</li>
+    <li><b>Plantas y piedras de Samhain</b> para tu altar: romero, castaña, granada, azabache, obsidiana…</li>
+    <li><b>La receta de las manzanas asadas de ánimas</b>, para la noche del 31.</li>
+    <li><b>La lista de música «Samhain · Viaje del Alma» en Spotify</b>: 70 minutos en tres tiempos, del altar al silencio, con Loreena McKennitt, Wardruna, Luar na Lubre y Dead Can Dance.</li>
+    <li>Con las fases reales de la luna de esos días y las raíces hispanas de la fiesta: el Samaín gallego, el magosto, la castañada y el Día de Muertos.</li>
+  </ul>
+
+  <h2>Para quién es</h2>
+  <p>Para quien siente que el otoño le pide cerrar algo y no sabe por dónde empezar. No necesitas experiencia, ni una baraja de tarot, ni un altar comprado: una vela y tu voz bastan para cualquiera de las siete noches.</p>
+
+  <h2>Preguntas</h2>
+  <details><summary>¿Cómo la recibo?</summary><p>Al terminar el pago vuelves a esta web y la descargas en el momento. Guárdala en el móvil o imprímela. Si algo falla, escríbenos a viajedelalma.app@gmail.com con el correo del pago y te la enviamos.</p></details>
+  <details><summary>¿Y si ya ha pasado el 25?</summary><p>Empieza por la noche del día en que estés. Cada noche se sostiene sola, y el altar se puede levantar en cualquier momento antes del 31.</p></details>
+  <details><summary>Vivo en el hemisferio sur</summary><p>La guía trae tu versión: allí estas noches son Beltane, la fiesta de la primavera, y tienes cada gesto adaptado, el ritual de la noche del 31 y las horas de la luna en tu país. Y si prefieres seguir la fecha de Todos los Santos, los rituales de memoria te sirven tal cual.</p></details>
+  <details><summary>¿Cómo se paga?</summary><p>Con tarjeta, Apple Pay o Google Pay, en la página de pago segura de Stripe. No guardamos tus datos de pago.</p></details>
+
+  <p class="pie">Viaje del Alma · <a href="/privacidad.html">Privacidad</a> · <a href="/terminos.html">Términos</a> · <a href="/carta/">Carta natal gratis</a></p>
+</div>
+
+<div class="barra" id="barra" aria-hidden="true">
+  <span class="barra-antes">Se abre el 1 de octubre · precio de estreno</span>
+  <span class="barra-despues">Siete noches de Samhain · 6,99 €</span>
+  <a class="boton secundario barra-antes" href="#espera">Apuntarme</a>
+  <a class="boton secundario barra-despues" href="#precio">Ver la guía</a>
+</div>
+
+<script data-goatcounter="https://viajedelalma.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+<script src="/meta.js" defer></script>
+<script>
+(function () {
+  // Enlace de pago de Stripe (Payment Link de 6,99 €). Lo crea la PO y se pega aquí.
+  var ENLACE_PAGO = 'PEGAR_AQUI_EL_PAYMENT_LINK';
+  // Lanzamiento: jueves 1-oct-2026, 20:00 hora de España (UTC+2). Antes: cuenta atrás y lista de espera.
+  var LANZAMIENTO = Date.parse('2026-10-01T20:00:00+02:00');
+  var FIN_ESTRENO = Date.parse('2026-10-03T20:00:00+02:00');
+  var q0 = new URLSearchParams(location.search);
+  function lanzado() { return Date.now() >= LANZAMIENTO || q0.get('ver') === 'venta'; }
+  if (lanzado()) document.body.classList.add('lanzado');
+  if (Date.now() >= FIN_ESTRENO) { var ce = document.getElementById('codigo-estreno'); if (ce) ce.style.display = 'none'; }
+  (function reloj() {
+    if (lanzado()) return;
+    var dos = function (n) { return (n < 10 ? '0' : '') + n; };
+    function pinta() {
+      var t = Math.max(0, LANZAMIENTO - Date.now());
+      if (t === 0) { location.reload(); return; }
+      document.getElementById('r-d').textContent = Math.floor(t / 864e5);
+      document.getElementById('r-h').textContent = dos(Math.floor(t / 36e5) % 24);
+      document.getElementById('r-m').textContent = dos(Math.floor(t / 6e4) % 60);
+      document.getElementById('r-s').textContent = dos(Math.floor(t / 1e3) % 60);
+    }
+    pinta(); setInterval(pinta, 1000);
+  })();
+  // Lista de espera: misma tabla que /app/ (lista_correo), con origen 'samhain'
+  (function espera() {
+    var btn = document.getElementById('apuntar'), inp = document.getElementById('email'), av = document.getElementById('aviso-f');
+    if (!btn) return;
+    var URL_SB = 'https://orxyhxehapqmjwmqmqgv.supabase.co', KEY = 'sb_publishable_As7G8e_pyZwjApjgcC48ow_RDc4hZfN'; // clave publicable, la protege la RLS
+    btn.addEventListener('click', function () {
+      var email = inp.value.trim().toLowerCase();
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) { av.textContent = 'Ese correo no parece completo. Revísalo.'; inp.focus(); return; }
+      btn.disabled = true; av.textContent = 'Apuntando…'; cuenta('sh-espera-empieza');
+      fetch(URL_SB + '/rest/v1/lista_correo', {
+        method: 'POST',
+        headers: { apikey: KEY, Authorization: 'Bearer ' + KEY, 'Content-Type': 'application/json', Prefer: 'return=minimal' },
+        body: JSON.stringify({ email: email, origen: 'samhain' })
+      }).then(function (r) {
+        if (r.ok || r.status === 409) {
+          cuenta('sh-espera-ok');
+          try { window.vdaMeta && vdaMeta.track('Lead', { content_name: 'lista espera samhain' }); } catch (e) {}
+          av.textContent = '¡Dentro! El 1 de octubre a las 20:00 te llega tu precio de estreno. Mira también en «Promociones» por si acaso.';
+          inp.value = '';
+        } else { av.textContent = 'No he podido guardarlo. Prueba otra vez o escribe a viajedelalma.app@gmail.com.'; btn.disabled = false; }
+      }).catch(function () { av.textContent = 'Se ha cortado la conexión. Prueba otra vez.'; btn.disabled = false; });
+    });
+    inp.addEventListener('keydown', function (e) { if (e.key === 'Enter') btn.click(); });
+  })();
+  try {
+    var q = new URLSearchParams(location.search), o = {};
+    ['utm_source', 'utm_medium', 'utm_campaign'].forEach(function (k) { if (q.get(k)) o[k] = q.get(k); });
+    if (Object.keys(o).length) sessionStorage.setItem('vda_origen', JSON.stringify(o));
+  } catch (e) {}
+  function cuenta(n) {
+    var envia = function () { try { window.goatcounter.count({ path: n, title: n, event: true }); } catch (e) {} };
+    if (window.goatcounter && window.goatcounter.count) return envia();
+    var s = document.querySelector('script[data-goatcounter]');
+    if (s) s.addEventListener('load', envia, { once: true });
+    else addEventListener('load', function () { setTimeout(envia, 500); }, { once: true });
+  }
+  function mideVista() { try { window.vdaMeta && vdaMeta.track('ViewContent', { content_name: 'guia samhain', content_type: 'product', value: 6.99, currency: 'EUR' }); } catch (e) {} }
+  if (window.vdaMeta) mideVista(); else addEventListener('load', mideVista, { once: true });
+
+  var casilla = document.querySelector('.consiento'), boton = document.querySelector('.cta-sh'), aviso = document.querySelector('.aviso');
+  function actualiza() {
+    var ok = casilla.checked;
+    boton.setAttribute('aria-disabled', ok ? 'false' : 'true');
+    boton.href = ok ? ENLACE_PAGO : '#';
+    if (ok) aviso.style.display = 'none';
+  }
+  casilla.addEventListener('change', function () { if (casilla.checked) cuenta('sh-acepta'); actualiza(); });
+  boton.addEventListener('click', function (e) {
+    if (!casilla.checked) { e.preventDefault(); aviso.style.display = 'block'; return; }
+    { cuenta('sh-comprar'); try { window.vdaMeta && vdaMeta.track('InitiateCheckout', { value: 6.99, currency: 'EUR' }); } catch (e) {} } });
+  actualiza();
+
+  var precio = document.getElementById(lanzado() ? 'precio' : 'espera'), visto = false;
+  if ('IntersectionObserver' in window) {
+    new IntersectionObserver(function (es) { if (!visto && es.some(function (x) { return x.isIntersecting; })) { visto = true; cuenta(lanzado() ? 'sh-ve-precio' : 'sh-ve-espera'); } }, { threshold: 0.3 }).observe(precio);
+  }
+  var barra = document.getElementById('barra');
+  function pinta() {
+    var r = precio.getBoundingClientRect();
+    var mostrar = !(r.top < innerHeight && r.bottom > 0) && scrollY > 300;
+    barra.classList.toggle('visible', mostrar); barra.setAttribute('aria-hidden', mostrar ? 'false' : 'true');
+  }
+  addEventListener('scroll', pinta, { passive: true }); addEventListener('resize', pinta); pinta();
+})();
+</script>
+</body>
+</html>
