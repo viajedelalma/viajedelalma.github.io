@@ -172,18 +172,62 @@ const SUPABASE_URL = "https://orxyhxehapqmjwmqmqgv.supabase.co";
 const SUPABASE_KEY = "sb_publishable_As7G8e_pyZwjApjgcC48ow_RDc4hZfN"; // clave publicable: segura en público, la protege la RLS
 const TABLA_CORREO = "lista_correo";
 const CORREO_APOYO = "viajedelalma.app@gmail.com";
-/* ── Día del ciclo lunar ───────────────────────── */
+/* ── Día del ciclo lunar ─────────────────────────── */
+/* Anclado a las fases reales, con el MISMO cálculo que la app
+   (expo/data/calendar.ts · getLunarDay): luna nueva = 1, cuarto creciente = 8,
+   luna llena = 15, cuarto menguante = 22; los días intermedios se reparten.
+   Tablas UTC 2025-2028 copiadas de la app (AAMMDDhhmm), verificadas contra
+   efemérides el 26-sep-2026 (error máximo 1 minuto). Fuera de las tablas se
+   vuelve a la lunación media. Hallazgo 2, 26-sep. */
 const SINODICO = 29.530588853;
 const LUNA_NUEVA_REF = Date.UTC(2000, 0, 6, 18, 14);
+const FASES_UTC = {
+  1:  "2412302226 2501291235 2502280044 2503291057 2504271931 2505270302 2506251031 2507241911 2508230606 2509211954 2510211225 2511200647 2512200143 2601181951 2602171201 2603190123 2604171151 2605162000 2606150254 2607140943 2608121736 2609110326 2610101550 2611090702 2612090051 2701072024 2702061556 2703080929 2704062351 2705061058 2706041940 2707040301 2708021005 2708311741 2709300235 2710291336 2711280324 2712272012 2801261512 2802251037 2803260431 2804241946 2805240816 2806221827 2807220301 2808201043 2809181823 2810180256 2811161317 2812160206",
+  8:  "2501062356 2502050802 2503061631 2504050214 2505041351 2506030340 2507021930 2508011241 2508310625 2509292353 2510291620 2511280658 2512271909 2601260447 2602241227 2603251917 2604240231 2605231110 2606212155 2607211105 2608200246 2609182043 2610181612 2611171147 2612170542 2701152034 2702140758 2703151625 2704132256 2705130443 2706111056 2707101838 2708090454 2709071831 2710071147 2711060759 2712060522 2801050140 2802031910 2803040902 2804021915 2805020225 2805310736 2806291210 2807281740 2808270135 2809251309 2810250453 2811240014 2812232144",
+  15: "2501132226 2502121353 2503140654 2504130022 2505121655 2506110743 2507102036 2508090754 2509071808 2510070347 2511051319 2512042314 2601031002 2602012209 2603031137 2604020211 2605011723 2605310845 2606292356 2607291435 2608280418 2609261648 2610260411 2611241453 2612240128 2701221217 2702202323 2703221043 2704202227 2705201058 2706190044 2707181544 2708170728 2709152303 2710151346 2711140325 2712131608 2801120402 2802101503 2803110105 2804091026 2805081948 2806070608 2807061810 2808050809 2809032347 2810031624 2811020917 2812020140 2812311648",
+  22: "2412222218 2501212030 2502201732 2503221129 2504210135 2505201158 2506181919 2507180037 2508160512 2509141032 2510131812 2511120528 2512112051 2601101548 2602091243 2603110938 2604100451 2605092110 2606081000 2607071928 2608060221 2609040751 2610031324 2611012028 2612010608 2612301859 2701291055 2702280516 2703300053 2704282017 2705281357 2706270454 2707261654 2708250227 2709231020 2710221729 2711210048 2712200910 2801181925 2802170807 2803172322 2804161636 2805161043 2806150427 2807142056 2808131145 2809120045 2810111156 2811092125 2812090538"
+};
 
 function edadLunar(fecha = new Date()){
-const dias = (fecha.getTime() - LUNA_NUEVA_REF) / 86400000;
-let e = dias % SINODICO;
-if (e < 0) e += SINODICO;
-return e;
+  const dias = (fecha.getTime() - LUNA_NUEVA_REF) / 86400000;
+  let e = dias % SINODICO;
+  if (e < 0) e += SINODICO;
+  return e;
 }
+function ymdLocal(d){
+  return d.getFullYear() + "-" + String(d.getMonth() + 1).padStart(2, "0") + "-" + String(d.getDate()).padStart(2, "0");
+}
+function fechaDe(s){ const p = s.split("-"); return new Date(+p[0], p[1] - 1, +p[2]); }
+function diasEntre(a, b){
+  return Math.round((new Date(b.getFullYear(), b.getMonth(), b.getDate()) - new Date(a.getFullYear(), a.getMonth(), a.getDate())) / 86400000);
+}
+const EVENTOS_LUNA = (function(){
+  const ev = [];
+  for (const dia of [1, 8, 15, 22]) {
+    for (const s of FASES_UTC[dia].split(" ")) {
+      const d = new Date(Date.UTC(2000 + +s.slice(0, 2), +s.slice(2, 4) - 1, +s.slice(4, 6), +s.slice(6, 8), +s.slice(8, 10)));
+      ev.push({ f: ymdLocal(d), dia: dia });
+    }
+  }
+  return ev.sort((a, b) => (a.f < b.f ? -1 : a.f > b.f ? 1 : 0));
+})();
 function diaDelCiclo(fecha = new Date()){
-return Math.min(30, Math.floor(edadLunar(fecha)) + 1);
+  const hoy = ymdLocal(fecha);
+  let i = -1;
+  for (let j = 0; j < EVENTOS_LUNA.length; j++) {
+    if (EVENTOS_LUNA[j].f <= hoy) i = j; else break;
+  }
+  if (i >= 0 && i + 1 < EVENTOS_LUNA.length) {
+    const a = EVENTOS_LUNA[i], b = EVENTOS_LUNA[i + 1];
+    const hasta = b.dia === 1 ? 31 : b.dia;
+    const span = diasEntre(fechaDe(a.f), fechaDe(b.f));
+    const edad = diasEntre(fechaDe(a.f), fecha);
+    if (hasta > a.dia && span > 0 && edad >= 0) {
+      const d = a.dia + Math.round((edad * (hasta - a.dia)) / span);
+      return Math.min(30, Math.max(a.dia, Math.min(hasta - 1, d)));
+    }
+  }
+  return Math.min(30, Math.floor(edadLunar(fecha)) + 1); // respaldo: lunación media
 }
 function nombreFase(edad){
 if (edad < 1.2) return "Luna nueva";
