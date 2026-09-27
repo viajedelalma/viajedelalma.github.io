@@ -6,13 +6,16 @@
   var ahora = Date.now();
   var LANZAMIENTO = Date.parse('2026-10-01T20:00:00+02:00');
   var FIN = Date.parse('2026-11-03T00:00:00+01:00');
+  var FIN_LANZ = Date.parse('2026-10-24T23:59:59+02:00');   // 1 € hasta aquí; después, 6,99 €
   if (ahora >= FIN || /^\/samhain\//.test(location.pathname)) return;
 
   var pagina = (location.pathname.replace(/^\/|\/$|\.html$/g, '') || 'portada').replace(/\//g, '-');
   var antes = ahora < LANZAMIENTO;
   var texto = antes
-    ? '<b>Samhain · 31 de octubre</b><span class="vda-cs-sep"> · </span><span class="vda-cs-sub">La guía de las siete noches llega el 1 de octubre</span>'
-    : '<b>Guía de Samhain · 6,99 €</b><span class="vda-cs-sep"> · </span><span class="vda-cs-sub">Siete noches hacia el año nuevo celta</span>';
+    ? '<b>Samhain · 31 de octubre</b><span class="vda-cs-sep"> · </span><span class="vda-cs-sub">La guía de las siete noches llega el 1 de octubre, a 1 €</span>'
+    : ahora < FIN_LANZ
+      ? '<b>Guía de Samhain · 1 €</b><span class="vda-cs-sep"> · </span><span class="vda-cs-sub">Precio de lanzamiento hasta el 24 de octubre</span>'
+      : '<b>Guía de Samhain · 6,99 €</b><span class="vda-cs-sep"> · </span><span class="vda-cs-sub">Siete noches hacia el año nuevo celta</span>';
 
   var css = '.vda-cinta{display:flex;align-items:center;justify-content:center;gap:10px;flex-wrap:wrap;' +
     'padding:9px 16px;background:linear-gradient(90deg,#1a0f08,#3a1c0c 50%,#1a0f08);' +
