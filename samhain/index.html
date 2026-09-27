@@ -8,10 +8,10 @@
 <link rel="icon" href="/favicon.png">
 <link rel="canonical" href="https://viajedelalma.app/samhain/">
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"Product","name":"Guía de Samhain 2026 · Siete noches y una mañana","description":"Guía en PDF para celebrar Samhain del 25 de octubre al 1 de noviembre: un ritual sencillo cada noche, una meditación guiada exclusiva, un oráculo para imprimir y la versión del hemisferio sur.","image":"https://viajedelalma.app/samhain/guia.jpg","brand":{"@type":"Brand","name":"Viaje del Alma"},"offers":{"@type":"Offer","price":"6.99","priceCurrency":"EUR","url":"https://viajedelalma.app/samhain/"}}
+{"@context":"https://schema.org","@type":"Product","name":"Guía de Samhain 2026 · Siete noches y una mañana","description":"Guía en PDF para celebrar Samhain del 25 de octubre al 1 de noviembre: un ritual sencillo cada noche, una meditación guiada exclusiva, un oráculo para imprimir y la versión del hemisferio sur.","image":"https://viajedelalma.app/samhain/guia.jpg","brand":{"@type":"Brand","name":"Viaje del Alma"},"offers":{"@type":"Offer","price":"1.00","priceCurrency":"EUR","priceValidUntil":"2026-10-24","url":"https://viajedelalma.app/samhain/"}}
 </script>
 <meta property="og:title" content="Samhain · Siete noches y una mañana">
-<meta property="og:description" content="Un ritual sencillo cada noche hasta el año nuevo celta. Guía en PDF, 6,99 €.">
+<meta property="og:description" content="Un ritual sencillo cada noche hasta el año nuevo celta. Guía en PDF: 1 € hasta el 24 de octubre.">
 <meta property="og:image" content="https://viajedelalma.app/samhain/guia.jpg">
 <meta property="og:url" content="https://viajedelalma.app/samhain/">
 <meta name="twitter:card" content="summary_large_image">
@@ -110,10 +110,10 @@ body.lanzado .barra-despues{display:inline-block}
     <div class="reloj" id="reloj" aria-live="polite">
       <div><b id="r-d">–</b><span>días</span></div><div><b id="r-h">–</b><span>horas</span></div><div><b id="r-m">–</b><span>min</span></div><div><b id="r-s">–</b><span>seg</span></div>
     </div>
-    <p class="lead-oferta"><b>Apúntate a la lista de espera</b> y el día del lanzamiento te llega a tu correo un <b>precio de estreno de 4,99 €</b> (en lugar de 6,99 €) durante 48 horas.</p>
+    <p class="lead-oferta"><b>Apúntate a la lista de espera</b> y el 1 de octubre a las 20:00 te aviso por correo. La guía sale a <b>1 € como precio de lanzamiento</b> hasta el sábado 24 de octubre; después costará 6,99 €.</p>
     <div class="form">
       <input type="email" id="email" placeholder="Tu correo" autocomplete="email" inputmode="email" aria-label="Tu correo">
-      <button class="boton" id="apuntar" type="button">Quiero el precio de estreno</button>
+      <button class="boton" id="apuntar" type="button">Avísame el 1 de octubre</button>
     </div>
     <p class="aviso-f" id="aviso-f"></p>
     <p class="legal">Te escribiré para avisarte del lanzamiento y, de vez en cuando, con las lunas y las novedades de Viaje del Alma. Te borras cuando quieras respondiendo a cualquier correo. <a href="/privacidad.html">Privacidad</a>.</p>
@@ -122,9 +122,9 @@ body.lanzado .barra-despues{display:inline-block}
   <!-- DESPUÉS DEL LANZAMIENTO: venta -->
   <div class="precio fase-despues" id="precio">
     <small>Guía de Samhain · PDF de 23 páginas + meditación</small>
-    <div class="cifra">6,99 €</div>
+    <div class="cifra" id="cifra">1 €</div>
     <small>IVA incluido · la descargas en cuanto pagas</small>
-    <p class="codigo" id="codigo-estreno">¿Estás en la lista de espera? Usa el código de tu correo en el pago y te queda en <b>4,99 €</b> hasta el sábado 3 de octubre a las 20:00.</p>
+    <p class="codigo" id="nota-lanzamiento">Precio de lanzamiento hasta el sábado 24 de octubre a las 23:59. Después, 6,99 €.</p>
     <label class="acepto"><input type="checkbox" class="consiento"> <span>Acepto los <a href="/terminos.html#guias" target="_blank">términos</a> y quiero la descarga ya: sé que, al ser contenido digital que recibo al momento, pierdo el derecho de desistimiento.</span></label>
     <a class="boton cta-sh" data-origen="precio" href="#" aria-disabled="true">Quiero mi guía</a>
     <p class="aviso">Marca la casilla para continuar.</p>
@@ -170,8 +170,8 @@ body.lanzado .barra-despues{display:inline-block}
 </div>
 
 <div class="barra" id="barra" aria-hidden="true">
-  <span class="barra-antes">Se abre el 1 de octubre · precio de estreno</span>
-  <span class="barra-despues">Siete noches de Samhain · 6,99 €</span>
+  <span class="barra-antes">Se abre el 1 de octubre · a 1 €</span>
+  <span class="barra-despues" id="barra-precio">Siete noches de Samhain · 1 €</span>
   <a class="boton secundario barra-antes" href="#espera">Apuntarme</a>
   <a class="boton secundario barra-despues" href="#precio">Ver la guía</a>
 </div>
@@ -180,15 +180,24 @@ body.lanzado .barra-despues{display:inline-block}
 <script src="/meta.js" defer></script>
 <script>
 (function () {
-  // Enlace de pago de Stripe (Payment Link de 6,99 €). Lo crea la PO y se pega aquí.
-  var ENLACE_PAGO = 'https://buy.stripe.com/8x23cw2vadLt1o74ooew803';
+  // Precio de lanzamiento (decisión de la PO, 27-sep): 1 € del jue 1-oct 20:00 al sáb 24-oct 23:59;
+  // desde el dom 25-oct (la primera noche), 6,99 €. Cada precio tiene su propio Payment Link de Stripe.
+  var ENLACE_699 = 'https://buy.stripe.com/8x23cw2vadLt1o74ooew803';
+  var ENLACE_1EUR = '';   // Payment Link de 1 € (sin códigos). Vacío = el botón no lleva a ningún pago.
+  var FIN_LANZ = Date.parse('2026-10-24T23:59:59+02:00');
+  var enLanzamiento = Date.now() < FIN_LANZ && new URLSearchParams(location.search).get('ver') !== 'despues';
+  var ENLACE_PAGO = enLanzamiento ? ENLACE_1EUR : ENLACE_699;
+  var PRECIO = enLanzamiento ? 1 : 6.99;
+  if (!enLanzamiento) {
+    document.getElementById('cifra').textContent = '6,99 €';
+    var nl = document.getElementById('nota-lanzamiento'); if (nl) nl.style.display = 'none';
+    document.getElementById('barra-precio').textContent = 'Siete noches de Samhain · 6,99 €';
+  }
   // Lanzamiento: jueves 1-oct-2026, 20:00 hora de España (UTC+2). Antes: cuenta atrás y lista de espera.
   var LANZAMIENTO = Date.parse('2026-10-01T20:00:00+02:00');
-  var FIN_ESTRENO = Date.parse('2026-10-03T20:00:00+02:00');
   var q0 = new URLSearchParams(location.search);
   function lanzado() { return Date.now() >= LANZAMIENTO || q0.get('ver') === 'venta'; }
   if (lanzado()) document.body.classList.add('lanzado');
-  if (Date.now() >= FIN_ESTRENO) { var ce = document.getElementById('codigo-estreno'); if (ce) ce.style.display = 'none'; }
   (function reloj() {
     if (lanzado()) return;
     var dos = function (n) { return (n < 10 ? '0' : '') + n; };
@@ -219,7 +228,7 @@ body.lanzado .barra-despues{display:inline-block}
         if (r.ok || r.status === 409) {
           cuenta('sh-espera-ok');
           try { window.vdaMeta && vdaMeta.track('Lead', { content_name: 'lista espera samhain' }); } catch (e) {}
-          av.textContent = '¡Dentro! El 1 de octubre a las 20:00 te llega tu precio de estreno. Mira también en «Promociones» por si acaso.';
+          av.textContent = '¡Dentro! El 1 de octubre a las 20:00 te aviso por correo y la tienes a 1 €. Mira también en «Promociones» por si acaso.';
           inp.value = '';
         } else { av.textContent = 'No he podido guardarlo. Prueba otra vez o escribe a viajedelalma.app@gmail.com.'; btn.disabled = false; }
       }).catch(function () { av.textContent = 'Se ha cortado la conexión. Prueba otra vez.'; btn.disabled = false; });
@@ -238,7 +247,7 @@ body.lanzado .barra-despues{display:inline-block}
     if (s) s.addEventListener('load', envia, { once: true });
     else addEventListener('load', function () { setTimeout(envia, 500); }, { once: true });
   }
-  function mideVista() { try { window.vdaMeta && vdaMeta.track('ViewContent', { content_name: 'guia samhain', content_type: 'product', value: 6.99, currency: 'EUR' }); } catch (e) {} }
+  function mideVista() { try { window.vdaMeta && vdaMeta.track('ViewContent', { content_name: 'guia samhain', content_type: 'product', value: PRECIO, currency: 'EUR' }); } catch (e) {} }
   if (window.vdaMeta) mideVista(); else addEventListener('load', mideVista, { once: true });
 
   var casilla = document.querySelector('.consiento'), boton = document.querySelector('.cta-sh'), aviso = document.querySelector('.aviso');
@@ -251,7 +260,8 @@ body.lanzado .barra-despues{display:inline-block}
   casilla.addEventListener('change', function () { if (casilla.checked) cuenta('sh-acepta'); actualiza(); });
   boton.addEventListener('click', function (e) {
     if (!casilla.checked) { e.preventDefault(); aviso.style.display = 'block'; return; }
-    { cuenta('sh-comprar'); try { window.vdaMeta && vdaMeta.track('InitiateCheckout', { value: 6.99, currency: 'EUR' }); } catch (e) {} } });
+    if (!ENLACE_PAGO) { e.preventDefault(); aviso.textContent = 'Estamos abriendo la puerta: vuelve a probar en unos minutos.'; aviso.style.display = 'block'; return; }
+    { cuenta('sh-comprar'); try { window.vdaMeta && vdaMeta.track('InitiateCheckout', { value: PRECIO, currency: 'EUR' }); } catch (e) {} } });
   actualiza();
 
   var precio = document.getElementById(lanzado() ? 'precio' : 'espera'), visto = false;
