@@ -183,7 +183,7 @@ body.lanzado .barra-despues{display:inline-block}
   // Precio de lanzamiento (decisión de la PO, 27-sep): 1 € del jue 1-oct 20:00 al sáb 24-oct 23:59;
   // desde el dom 25-oct (la primera noche), 6,99 €. Cada precio tiene su propio Payment Link de Stripe.
   var ENLACE_699 = 'https://buy.stripe.com/8x23cw2vadLt1o74ooew803';
-  var ENLACE_1EUR = '';   // Payment Link de 1 € (sin códigos). Vacío = el botón no lleva a ningún pago.
+  var ENLACE_1EUR = 'https://buy.stripe.com/fZu4gA9XCbDl4Ajf32ew804';   // Payment Link de 1 € (sin códigos), creado el 27-sep
   var FIN_LANZ = Date.parse('2026-10-24T23:59:59+02:00');
   var enLanzamiento = Date.now() < FIN_LANZ && new URLSearchParams(location.search).get('ver') !== 'despues';
   var ENLACE_PAGO = enLanzamiento ? ENLACE_1EUR : ENLACE_699;
