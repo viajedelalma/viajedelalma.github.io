@@ -26,7 +26,7 @@
   --cuerpo:'Karla','Helvetica Neue',Arial,sans-serif;
 }
 *{box-sizing:border-box}
-body{margin:0;background:var(--noche);color:var(--texto);font-family:var(--cuerpo);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased}
+body{margin:0;background:var(--noche);color:var(--texto);font-family:var(--cuerpo);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased;font-variant-numeric:lining-nums}
 .envoltura{max-width:640px;margin:0 auto;padding:36px 20px 70px}
 .marca{font-size:.72rem;letter-spacing:.34em;color:var(--oro);text-transform:uppercase;margin-bottom:26px}
 .marca a{color:inherit;text-decoration:none}
@@ -110,7 +110,7 @@ body.lanzado .barra-despues{display:inline-block}
     <div class="reloj" id="reloj" aria-live="polite">
       <div><b id="r-d">–</b><span>días</span></div><div><b id="r-h">–</b><span>horas</span></div><div><b id="r-m">–</b><span>min</span></div><div><b id="r-s">–</b><span>seg</span></div>
     </div>
-    <p class="lead-oferta"><b>Apúntate a la lista de espera</b> y el 1 de octubre a las 20:00 te aviso por correo. La guía sale a <b>1 € como precio de lanzamiento</b> hasta el sábado 24 de octubre; después costará 6,99 €.</p>
+    <p class="lead-oferta"><b>Apúntate a la lista de espera</b> y el 1 de octubre a las 20:00 te aviso por correo. La guía sale a <b>1&nbsp;€ como precio de lanzamiento</b> hasta el sábado 24 de octubre; después costará 6,99 €.</p>
     <div class="form">
       <input type="email" id="email" placeholder="Tu correo" autocomplete="email" inputmode="email" aria-label="Tu correo">
       <button class="boton" id="apuntar" type="button">Avísame el 1 de octubre</button>
@@ -228,7 +228,7 @@ body.lanzado .barra-despues{display:inline-block}
         if (r.ok || r.status === 409) {
           cuenta('sh-espera-ok');
           try { window.vdaMeta && vdaMeta.track('Lead', { content_name: 'lista espera samhain' }); } catch (e) {}
-          av.textContent = '¡Dentro! El 1 de octubre a las 20:00 te aviso por correo y la tienes a 1 €. Mira también en «Promociones» por si acaso.';
+          av.textContent = '¡Dentro! El 1 de octubre a las 20:00 te aviso por correo y la tienes a 1\u00a0€. Mira también en «Promociones» por si acaso.';
           inp.value = '';
         } else { av.textContent = 'No he podido guardarlo. Prueba otra vez o escribe a viajedelalma.app@gmail.com.'; btn.disabled = false; }
       }).catch(function () { av.textContent = 'Se ha cortado la conexión. Prueba otra vez.'; btn.disabled = false; });
