@@ -62,9 +62,9 @@ details p{margin:10px 0 0;color:var(--tenue);font-size:.95rem}
 .pie a{color:var(--tenue)}
 .barra{visibility:hidden;pointer-events:none;position:fixed;left:0;right:0;bottom:0;padding:10px 16px;background:rgba(11,8,24,.92);backdrop-filter:blur(8px);border-top:1px solid var(--linea);display:flex;justify-content:center;gap:12px;align-items:center;transform:translateY(110%);transition:transform .3s}
 .barra.visible{transform:none;visibility:visible;pointer-events:auto}
-.barra .boton{margin:0;padding:12px 20px}
+.barra .boton{margin:0;padding:12px 20px;white-space:nowrap}
 .barra span{font-size:.9rem;color:var(--tenue)}
-@media (max-width:520px){.eje{grid-template-columns:1fr}.barra span{display:none}}
+@media (max-width:520px){.eje{grid-template-columns:1fr}.barra span,body.lanzado .barra span{display:none}}
 </style>
 <style>
 .muestra{margin:26px -20px 6px;display:block;width:calc(100% + 40px);height:auto}
@@ -172,8 +172,8 @@ body.lanzado .barra-despues{display:inline-block}
 <div class="barra" id="barra" aria-hidden="true">
   <span class="barra-antes">Se abre el 1 de octubre · a 1 €</span>
   <span class="barra-despues" id="barra-precio">Siete noches de Samhain · 1 €</span>
-  <a class="boton secundario barra-antes" href="#espera">Apuntarme</a>
-  <a class="boton secundario barra-despues" href="#precio">Ver la guía</a>
+  <a class="boton secundario barra-antes" id="barra-apuntar" href="#espera">Apuntarme</a>
+  <a class="boton barra-despues" id="barra-cta" href="#precio">Quiero mi guía · 1&nbsp;€</a>
 </div>
 
 <script data-goatcounter="https://viajedelalma.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
@@ -192,6 +192,7 @@ body.lanzado .barra-despues{display:inline-block}
     document.getElementById('cifra').textContent = '6,99 €';
     var nl = document.getElementById('nota-lanzamiento'); if (nl) nl.style.display = 'none';
     document.getElementById('barra-precio').textContent = 'Siete noches de Samhain · 6,99 €';
+    document.getElementById('barra-cta').textContent = 'Quiero mi guía · 6,99\u00a0€';
   }
   // Lanzamiento: jueves 1-oct-2026, 20:00 hora de España (UTC+2). Antes: cuenta atrás y lista de espera.
   var LANZAMIENTO = Date.parse('2026-10-01T20:00:00+02:00');
@@ -269,9 +270,12 @@ body.lanzado .barra-despues{display:inline-block}
     new IntersectionObserver(function (es) { if (!visto && es.some(function (x) { return x.isIntersecting; })) { visto = true; cuenta(lanzado() ? 'sh-ve-precio' : 'sh-ve-espera'); } }, { threshold: 0.3 }).observe(precio);
   }
   var barra = document.getElementById('barra');
+  // La barra se ve desde el primer segundo mientras el botón del bloque (comprar o apuntarse) no está en pantalla
+  var ancla = lanzado() ? boton : document.getElementById('apuntar');
+  ['barra-cta', 'barra-apuntar'].forEach(function (id) { document.getElementById(id).addEventListener('click', function () { cuenta('sh-barra'); }); });
   function pinta() {
-    var r = precio.getBoundingClientRect();
-    var mostrar = !(r.top < innerHeight && r.bottom > 0) && scrollY > 300;
+    var r = ancla.getBoundingClientRect();
+    var mostrar = !(r.top < innerHeight - barra.offsetHeight && r.bottom > 0);
     barra.classList.toggle('visible', mostrar); barra.setAttribute('aria-hidden', mostrar ? 'false' : 'true');
   }
   addEventListener('scroll', pinta, { passive: true }); addEventListener('resize', pinta); pinta();
