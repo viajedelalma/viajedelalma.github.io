@@ -124,6 +124,7 @@ button.principal:focus-visible{outline:2px solid var(--oro-claro);outline-offset
 .precio span{display:block;font-size:.78rem;letter-spacing:.14em;text-transform:uppercase;color:var(--tenue);margin-top:6px}
 .boton-b.grande{font-size:.86rem;padding:17px 34px}
 .entrega{margin:16px auto 0;font-size:.95rem;color:var(--texto);max-width:44ch}
+.entrega a{color:var(--oro-claro);text-decoration:underline;text-underline-offset:3px}
 .garantias{list-style:none;margin:18px auto 0;padding:0;max-width:46ch;text-align:left}
 .garantias li{position:relative;padding-left:22px;margin-bottom:10px;font-size:.88rem;color:var(--tenue);line-height:1.55}
 .garantias li::before{content:'';position:absolute;left:4px;top:.62em;width:5px;height:5px;border-radius:50%;background:var(--oro)}
@@ -212,7 +213,7 @@ h1{font-size:clamp(2.1rem,7vw,4rem)}
     <p class="error" id="error" hidden></p>
   </form>
 
-  <p class="aviso-informe">¿Quieres la carta entera? <b>Informe completo: unas 25 páginas, 24,99 €</b>, en tu correo en menos de 24 horas. Calcula tu carta gratis y verás qué incluye, o <a class="cta-compra" data-origen="arriba" href="/carta/pedido.html">pide tu informe ya</a>.</p>
+  <p class="aviso-informe">¿Quieres la carta entera? <b>Informe completo: unas 25 páginas, 24,99 €</b>, en tu correo en menos de 24 horas. Calcula tu carta gratis y verás qué incluye, o <a class="cta-compra" data-origen="arriba" href="/carta/pedido.html">pide tu informe ya</a>. ¿Quieres ver uno entero antes? <a href="/carta/muestra-lorca.pdf" target="_blank" rel="noopener" data-goatcounter-click="carta-ejemplo-arriba">Mira el de Federico García Lorca</a> (PDF).</p>
 
   <div id="resultado" hidden>
     <hr class="regla">
@@ -277,6 +278,7 @@ h1{font-size:clamp(2.1rem,7vw,4rem)}
           <a class="boton-b lleno grande cta-compra" data-origen="puerta" id="cta-comprar" href="/carta/pedido.html">Quiero mi informe</a>
         </div>
         <p class="entrega">Primero tus datos de nacimiento, después el pago. Así ves exactamente qué se va a calcular antes de pagar nada.</p>
+        <p class="entrega">¿Quieres ver cómo es el cuaderno entero? <a href="/carta/muestra-lorca.pdf" target="_blank" rel="noopener" data-goatcounter-click="carta-ejemplo-puerta">Abre el informe de Federico García Lorca</a> (PDF). El tuyo es igual, con tu carta.</p>
         <p class="entrega">¿Prefieres saber qué te trae el año? <a href="/revolucion/" data-goatcounter-click="carta-a-revolucion">Tu revolución solar, 24,99 €</a>, o las dos juntas por 39,99 €.</p>
         <ul class="garantias">
           <li>Eliges tu localidad en una lista, no la escribes: de ahí salen tus coordenadas y tu huso horario reales, incluidos los cambios de hora históricos de tu país.</li>
