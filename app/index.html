@@ -229,6 +229,23 @@ function diaDelCiclo(fecha = new Date()){
   }
   return Math.min(30, Math.floor(edadLunar(fecha)) + 1); // respaldo: lunación media
 }
+/* Nombre de la fase con la MISMA regla que la app (getMoonPhase de expo/data/calendar.ts
+   y PHASE_LABELS de hoy.tsx): luna nueva, cuartos y luna llena solo el día exacto del
+   evento; el resto de días, la fase que sigue al último evento. Usa los mismos
+   EVENTOS_LUNA que el número del día, así nombre y número no se contradicen.
+   Fuera de las tablas, lunación media. Decisión 7, 1-oct-2026. */
+function nombreFaseHoy(fecha = new Date()){
+  const hoy = ymdLocal(fecha);
+  const EN_EL_DIA = { 1: "Luna nueva", 8: "Cuarto creciente", 15: "Luna llena", 22: "Cuarto menguante" };
+  const DESPUES = { 1: "Luna creciente", 8: "Luna creciente", 15: "Luna menguante", 22: "Luna menguante" };
+  let i = -1;
+  for (let j = 0; j < EVENTOS_LUNA.length; j++) {
+    if (EVENTOS_LUNA[j].f === hoy) return EN_EL_DIA[EVENTOS_LUNA[j].dia];
+    if (EVENTOS_LUNA[j].f < hoy) i = j; else break;
+  }
+  if (i < 0 || i + 1 >= EVENTOS_LUNA.length) return nombreFase(edadLunar(fecha));
+  return DESPUES[EVENTOS_LUNA[i].dia];
+}
 function nombreFase(edad){
 if (edad < 1.2) return "Luna nueva";
 if (edad < 6.4) return "Creciente";
@@ -280,7 +297,7 @@ const edad = edadLunar();
 const dia = diaDelCiclo();
 const [titulo, texto] = CICLO[dia - 1];
 document.getElementById("numDia").textContent = dia;
-document.getElementById("nomFase").textContent = nombreFase(edad);
+document.getElementById("nomFase").textContent = nombreFaseHoy();
 document.getElementById("tituloRitual").textContent = titulo;
 document.getElementById("textoRitual").textContent = texto;
 
