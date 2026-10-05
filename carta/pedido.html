@@ -745,7 +745,9 @@ alCambiarProducto();
       if (empezado || !e.isTrusted) return;
       empezado = true; mide('pedido-empieza');
     };
-    ['input', 'change', 'pointerdown'].forEach(t => $('f').addEventListener(t, empieza));
+    // (5-oct, W-2) Sin «pointerdown»: en el móvil saltaba al apoyar el dedo para desplazar
+    // la página, y contaba como «empieza» a quien solo bajaba por el formulario.
+    ['input', 'change'].forEach(t => $('f').addEventListener(t, empieza));
   })();
   if (!d || !d.fecha) {
     $('aviso-gratis').hidden = false;
@@ -756,6 +758,7 @@ alCambiarProducto();
   mide('pedido-prellenado');
   if (d.nombre) $('nombre').value = d.nombre;
   $('fecha').value = d.fecha;
+  pintaAnios();   // (5-oct, W-1) asignar .value no lanza «change»: sin esto, revolución y pack se quedaban sin año
   if (d.hora && !d.sinHora) {
     const [h, m] = d.hora.split(':');
     $('h').value = String(+h); $('m').value = String(+m);
@@ -793,7 +796,7 @@ alCambiarProducto();
     $('aviso-listo').innerHTML = 'Hemos traído lo que pusiste en tu carta gratis. Para que el informe sea '
       + 'de verdad tuyo, ' + (falta.length > 1 ? 'te faltan ' : 'te falta ')
       + '<b>' + lista + ' de nacimiento</b>'
-      + (sinHoraPuesta ? ' (si no sabes la hora, marca «No sé a qué hora nací»)' : '')
+      + (sinHoraPuesta && !conRevolucion() ? ' (si no sabes la hora, marca «No sé a qué hora nací»)' : '')
       + ', además de tu correo: ahí te llega el informe.';
   }
   $('aviso-listo').hidden = false;
