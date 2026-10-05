@@ -586,12 +586,36 @@ const esc = t => String(t).replace(/[&<>"]/g, x => ({ '&': '&amp;', '<': '&lt;',
 ['fecha', 'h', 'm'].forEach(id => $(id).addEventListener('change', resumen));
 
 /* ---------- envío ---------- */
-function muestraError(t) { $('error').textContent = t; $('error').style.display = 'block'; }
+/* (5-oct) Qué frena a quien intenta pagar. Hasta hoy no se medía: 9 personas de
+   Google Hispanoamérica llegaron aquí del 2 al 5-oct, ninguna envió el formulario
+   y no se sabía si llegaron a pulsar «Continuar al pago» ni qué error vieron.
+   Cada evento se cuenta una vez por visita. */
+const MOTIVOS = [[/^Falta tu nombre/, 'nombre'], [/^Ese correo/, 'correo'], [/^Falta la fecha/, 'fecha'],
+  [/^Esa fecha/, 'fecha-futura'], [/^Para continuar, marca/, 'casilla'], [/^Pon (la|tu) hora/, 'hora'],
+  [/^Elige tu localidad/, 'localidad'], [/^La revolución solar necesita/, 'hora-rs'],
+  [/^Elige qué año/, 'anio'], [/^Elige dónde pasas/, 'lugar-rs'],
+  [/^No se han podido guardar/, 'guardar'], [/^No se ha podido cargar/, 'lista']];
+const YA_MEDIDO = {};
+function mideUna(ev) {
+  if (YA_MEDIDO[ev]) return;
+  YA_MEDIDO[ev] = true;
+  const envia = () => { try { window.goatcounter.count({ path: ev, title: ev, event: true }); } catch (e) {} };
+  if (window.goatcounter && window.goatcounter.count) return envia();
+  const s = document.querySelector('script[data-goatcounter]');
+  if (s) s.addEventListener('load', envia, { once: true });
+  else window.addEventListener('load', () => setTimeout(envia, 500), { once: true });
+}
+function muestraError(t) {
+  $('error').textContent = t; $('error').style.display = 'block';
+  const m = MOTIVOS.find(([r]) => r.test(t));
+  mideUna('pedido-error-' + (m ? m[1] : 'otro'));
+}
 // En cuanto se corrige algo, el aviso viejo sobra.
 $('f').addEventListener('change', () => { $('error').style.display = 'none'; });
 
 $('f').addEventListener('submit', async ev => {
   ev.preventDefault();
+  mideUna('pedido-intenta-pagar');
   $('error').style.display = 'none';
 
   const nombre = $('nombre').value.trim();
@@ -713,9 +737,15 @@ alCambiarProducto();
       }, { threshold: 0.4 });
       io.observe($('nombre'));
     }
-    $('f').addEventListener('focusin', () => {
-      if (!empezado) { empezado = true; mide('pedido-empieza'); }
-    }, { once: true });
+    // (5-oct) Antes se contaba con «focusin», y el foco que este mismo código pone en
+    // el correo lo disparaba solo: quien llegaba con los datos puestos contaba como
+    // «empieza» sin tocar nada. Ahora cuenta solo un gesto real (isTrusted): escribir,
+    // elegir o tocar el formulario. Los change que lanza el prellenado no cuentan.
+    const empieza = e => {
+      if (empezado || !e.isTrusted) return;
+      empezado = true; mide('pedido-empieza');
+    };
+    ['input', 'change', 'pointerdown'].forEach(t => $('f').addEventListener(t, empieza));
   })();
   if (!d || !d.fecha) {
     $('aviso-gratis').hidden = false;
@@ -723,7 +753,6 @@ alCambiarProducto();
     $('aviso-gratis').querySelector('a').addEventListener('click', () => mide('pedido-a-gratis'));
     return;
   }
-  $('aviso-listo').hidden = false;
   mide('pedido-prellenado');
   if (d.nombre) $('nombre').value = d.nombre;
   $('fecha').value = d.fecha;
@@ -731,10 +760,10 @@ alCambiarProducto();
     const [h, m] = d.hora.split(':');
     $('h').value = String(+h); $('m').value = String(+m);
     if ($('h').value === '' || $('m').value === '') { $('h').value = h; $('m').value = m; }
-  } else if (d.sinHora) {
-    $('sinhora').checked = true;
-    $('sinhora').dispatchEvent(new Event('change'));
   }
+  // (5-oct) Sin hora ya NO se marca sola «No sé a qué hora nací»: en /carta/ la hora es
+  // opcional, y dejarla en blanco no es lo mismo que no saberla. Marcada de oficio, se
+  // podía comprar el informe sin Ascendente ni casas sin darse cuenta. Lo decide ella.
   if (d.pais && d.ciudad && PAISES[d.pais]) {
     $('pais').value = d.pais;
     $('pais').dispatchEvent(new Event('change'));
@@ -750,6 +779,24 @@ alCambiarProducto();
     }
   }
   resumen();
+  // (5-oct) «Solo falta tu correo» solo si de verdad solo falta el correo. Con la carta
+  // calculada solo con la fecha (la mitad de las de Google Hispanoamérica) faltaban la
+  // hora, el país y la localidad, y el error salía al pulsar «Continuar al pago».
+  const sinHoraPuesta = $('h').value === '' || $('m').value === '';
+  const falta = [];
+  if (sinHoraPuesta) falta.push('tu hora');
+  if (!$('pais').value) falta.push('tu país');
+  if ($('ciudad').value === '') falta.push('tu localidad');
+  if (falta.length) {
+    // Solo textos fijos de este archivo: nada que escriba la usuaria entra en innerHTML.
+    const lista = falta.length > 1 ? falta.slice(0, -1).join(', ') + ' y ' + falta[falta.length - 1] : falta[0];
+    $('aviso-listo').innerHTML = 'Hemos traído lo que pusiste en tu carta gratis. Para que el informe sea '
+      + 'de verdad tuyo, ' + (falta.length > 1 ? 'te faltan ' : 'te falta ')
+      + '<b>' + lista + ' de nacimiento</b>'
+      + (sinHoraPuesta ? ' (si no sabes la hora, marca «No sé a qué hora nací»)' : '')
+      + ', además de tu correo: ahí te llega el informe.';
+  }
+  $('aviso-listo').hidden = false;
   if (!$('correo').value) $('correo').focus({ preventScroll: true });
 })();
 </script>
