@@ -15,7 +15,7 @@
 <script>
 (function () {
   var DESTINO = "https://www.instagram.com/viajedelalma.app/", RED = "instagram";
-  var m = location.search.match(/[?&]de=(entrega|oferta)(&|$)/);
+  var m = location.search.match(/[?&]de=(entrega|oferta|bienvenida|luna|lista)(&|$)/);
   var de = m ? m[1] : "correo";
   var hecho = false;
   function ir() { if (!hecho) { hecho = true; location.replace(DESTINO); } }
