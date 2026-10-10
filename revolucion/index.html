@@ -103,7 +103,7 @@ details p{margin:10px 0 0;color:var(--tenue);font-size:.95rem}
     <div class="cifra">24,99 €</div>
     <small>IVA incluido · en tu correo en menos de 24 horas</small>
     <a class="boton cta-rs" data-origen="precio" href="/carta/pedido.html?producto=revolucion">Quiero mi revolución</a>
-    <p class="pack">¿Todavía no tienes tu carta natal? <a class="cta-rs" data-origen="pack" href="/carta/pedido.html?producto=pack">Las dos juntas, 39,99 €</a> (ahorras 10 €).</p>
+    <p class="pack">¿Todavía no tienes tu carta natal? <a class="cta-rs" data-origen="pack" href="/carta/pedido.html?producto=pack">Las dos juntas, <span data-precio="pack">39,99 €</span></a> (ahorras <span data-precio="ahorro_pack">10 €</span>).</p>
   </div>
   <h2>Preguntas</h2>
   <details><summary>¿Necesito saber dónde voy a pasar mi cumpleaños?</summary><p>Sí: la carta se levanta para ese lugar. Si aún no lo sabes, pon donde vives; es lo que se hace habitualmente y la diferencia con un viaje corto es pequeña.</p></details>
@@ -123,6 +123,7 @@ details p{margin:10px 0 0;color:var(--tenue);font-size:.95rem}
 
 <script data-goatcounter="https://viajedelalma.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 <script src="/samhain/cinta.js" defer></script>   <!-- cinta de temporada Samhain, se retira sola el 3-nov -->
+<script src="/precios.js"></script>   <!-- prueba de precio 13–26 oct: carta 14,99 € y pack 28,99 €; vuelve sola -->
 <script src="/meta.js" defer></script>   <!-- píxel de Meta, solo con consentimiento -->
 <script>
 (function () {

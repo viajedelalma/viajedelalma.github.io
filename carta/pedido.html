@@ -131,13 +131,13 @@ h2.datos{font-family:var(--display);font-weight:400;font-size:1.55rem;margin:0 0
       <div class="productos">
         <label class="producto"><input type="radio" name="producto" value="carta" checked>
           <span><b>Tu carta natal</b><small>Quién eres: unas veinticinco páginas.</small></span>
-          <span class="precio">24,99 €</span></label>
+          <span class="precio" data-precio="carta">24,99 €</span></label>
         <label class="producto"><input type="radio" name="producto" value="revolucion">
           <span><b>Tu revolución solar</b><small>Tu año, de cumpleaños a cumpleaños: unas cuarenta páginas con fechas.</small></span>
           <span class="precio">24,99 €</span></label>
         <label class="producto"><input type="radio" name="producto" value="pack">
-          <span><b>Las dos</b><small>La carta natal y la revolución, en un solo correo. Ahorras 10 €.</small></span>
-          <span class="precio">39,99 €</span></label>
+          <span><b>Las dos</b><small>La carta natal y la revolución, en un solo correo. Ahorras <span data-precio="ahorro_pack">10 €</span>.</small></span>
+          <span class="precio" data-precio="pack">39,99 €</span></label>
       </div>
     </div>
 
@@ -272,6 +272,7 @@ h2.datos{font-family:var(--display);font-weight:400;font-size:1.55rem;margin:0 0
 </div>
 
 <script data-goatcounter="https://viajedelalma.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+<script src="/precios.js"></script>   <!-- prueba de precio 13–26 oct: carta 14,99 € y pack 28,99 €; vuelve sola -->
 <script src="/meta.js" defer></script>   <!-- píxel de Meta, solo con consentimiento -->
 <script>
 /* ═══════════════════════════════════════════════════════════════════════
@@ -300,7 +301,7 @@ const SUPABASE_ANON = 'sb_publishable_As7G8e_pyZwjApjgcC48ow_RDc4hZfN';   // cla
    predice: explica.», que por decisión del 17-sep es el lema de la carta. El
    de la revolución es «No adivina. Te prepara.» */
 const PRODUCTOS = {
-  carta:      { pago: 'https://buy.stripe.com/4gM14ob1G4aT1o7f32ew800', precio: '24,99 €',
+  carta:      { pago: 'https://buy.stripe.com/4gM14ob1G4aT1o7f32ew800', precio: (window.VDA_PRECIOS && VDA_PRECIOS.carta) || '24,99 €',
                 paginas: 'El informe son unas veinticinco páginas', recibes: 'el informe',
                 titulo: 'Tu carta natal, escrita para ti', cabPaginas: 'Unas veinticinco páginas',
                 cabCalculo: 'calculadas con efemérides astronómicas para el día, la hora y el lugar en que naciste',
@@ -312,7 +313,7 @@ const PRODUCTOS = {
                 cabCalculo: 'calculadas con efemérides astronómicas para el instante exacto en que el Sol vuelve al grado en que estaba cuando naciste, visto desde el lugar donde pasas ese cumpleaños. Por eso vale de un cumpleaños al siguiente, y cambia cada año',
                 cabLema: 'No adivina. Te prepara.',
                 cabDetalle: 'La carta de tu año dibujada, el <b>tema que la domina</b>, lo que pide cada área de tu vida <b>trimestre a trimestre</b>, y <b>los tránsitos, progresiones y eclipses del año con la fecha en que se hacen exactos</b>.' },
-  pack:       { pago: 'https://buy.stripe.com/6oU6oIgm022L4AjbQQew802', precio: '39,99 €',
+  pack:       { pago: 'https://buy.stripe.com/6oU6oIgm022L4AjbQQew802', precio: (window.VDA_PRECIOS && VDA_PRECIOS.pack) || '39,99 €',
                 paginas: 'Son dos informes, unas sesenta y cinco páginas', recibes: 'los dos informes',
                 titulo: 'Tu carta natal y tu revolución solar', cabPaginas: 'Dos informes, unas sesenta y cinco páginas',
                 cabCalculo: 'calculadas con efemérides astronómicas: tu carta natal, para el día, la hora y el lugar en que naciste; y tu revolución, para el instante en que el Sol vuelve a ese mismo grado y el lugar donde pasas tu cumpleaños',
@@ -697,6 +698,9 @@ $('f').addEventListener('submit', async ev => {
   const url = new URL(PRODUCTOS[prod].pago);
   url.searchParams.set('client_reference_id', id);
   url.searchParams.set('prefilled_email', correo);
+  // Prueba de precio 13–26 oct (precios.js): el código de Stripe va ya puesto; fuera de fechas no hay código.
+  const codigoPrueba = window.VDA_PRECIOS && VDA_PRECIOS.codigo && VDA_PRECIOS.codigo[prod];
+  if (codigoPrueba) url.searchParams.set('prefilled_promo_code', codigoPrueba);
   // Si en Stripe el botón no responde (bloqueadores, extensiones), quien vuelve
   // atrás encuentra aquí el mismo enlace de pago de SU pedido y la salida:
   // ventana de incógnito. Los datos ya están guardados; no hay que repetirlos.
