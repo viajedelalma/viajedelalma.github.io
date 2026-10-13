@@ -74,8 +74,9 @@ details p{margin:10px 0 0;color:var(--tenue);font-size:.95rem}
 .acepto{display:flex;gap:10px;align-items:flex-start;text-align:left;margin:18px 0 0;font-size:.85rem;color:var(--tenue);cursor:pointer}
 .acepto input{margin-top:4px;accent-color:var(--oro);width:18px;height:18px;flex:none}
 .acepto a{color:var(--oro-claro)}
-.boton[aria-disabled="true"]{opacity:.45}
-.aviso{display:none;color:var(--oro-claro);font-size:.85rem;margin-top:10px}
+.acepto.resalta{outline:1px solid var(--oro-claro);outline-offset:6px;border-radius:2px;color:var(--texto);animation:resalta 1.2s ease-out 1}
+@keyframes resalta{0%{outline-color:transparent}30%{outline-color:var(--oro-claro)}100%{outline-color:var(--oro-claro)}}
+.aviso{display:none;color:var(--oro-claro);font-size:.9rem;margin-top:10px}
 .fase-despues,.barra-despues{display:none}
 body.lanzado .fase-antes,body.lanzado .barra-antes{display:none}
 body.lanzado .fase-despues{display:block}
@@ -126,7 +127,7 @@ body.lanzado .barra-despues{display:inline-block}
     <small>IVA incluido · la descargas en cuanto pagas</small>
     <p class="codigo" id="nota-lanzamiento">Precio de lanzamiento hasta el sábado 24 de octubre a las 23:59. Después, 6,99 €.</p>
     <label class="acepto"><input type="checkbox" class="consiento"> <span>Acepto los <a href="/terminos.html#guias" target="_blank">términos</a> y quiero la descarga ya: sé que, al ser contenido digital que recibo al momento, pierdo el derecho de desistimiento.</span></label>
-    <a class="boton cta-sh" data-origen="precio" href="#" aria-disabled="true">Quiero mi guía</a>
+    <a class="boton cta-sh" data-origen="precio" href="#">Quiero mi guía</a>
     <p class="aviso">Marca la casilla para continuar.</p>
   </div>
 
@@ -254,15 +255,24 @@ body.lanzado .barra-despues{display:inline-block}
   if (window.vdaMeta) mideVista(); else addEventListener('load', mideVista, { once: true });
 
   var casilla = document.querySelector('.consiento'), boton = document.querySelector('.cta-sh'), aviso = document.querySelector('.aviso');
+  var etiquetaCasilla = casilla.closest('.acepto');
+  // 13-oct: el botón ya no se ve apagado (parecía que no funcionaba). Sin la casilla no se paga:
+  // se avisa, se resalta la casilla y se cuenta cada intento para saber cuántas lo intentan.
   function actualiza() {
     var ok = casilla.checked;
-    boton.setAttribute('aria-disabled', ok ? 'false' : 'true');
     boton.href = ok ? ENLACE_PAGO : '#';
-    if (ok) aviso.style.display = 'none';
+    if (ok) { aviso.style.display = 'none'; etiquetaCasilla.classList.remove('resalta'); }
   }
   casilla.addEventListener('change', function () { if (casilla.checked) cuenta('sh-acepta'); actualiza(); });
   boton.addEventListener('click', function (e) {
-    if (!casilla.checked) { e.preventDefault(); aviso.style.display = 'block'; return; }
+    if (!casilla.checked) {
+      e.preventDefault();
+      cuenta('sh-comprar-sin-casilla');
+      aviso.style.display = 'block';
+      etiquetaCasilla.classList.remove('resalta'); void etiquetaCasilla.offsetWidth; etiquetaCasilla.classList.add('resalta');
+      try { etiquetaCasilla.scrollIntoView({ behavior: 'smooth', block: 'center' }); } catch (x) {}
+      return;
+    }
     if (!ENLACE_PAGO) { e.preventDefault(); aviso.textContent = 'Estamos abriendo la puerta: vuelve a probar en unos minutos.'; aviso.style.display = 'block'; return; }
     { cuenta('sh-comprar'); try { window.vdaMeta && vdaMeta.track('InitiateCheckout', { value: PRECIO, currency: 'EUR' }); } catch (e) {} } });
   actualiza();
