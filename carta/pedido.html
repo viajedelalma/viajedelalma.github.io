@@ -77,6 +77,23 @@ details p{color:var(--tenue);font-size:.92rem}
 .te-llega li b{color:var(--oro-claro);font-weight:500}
 .te-llega li.regalo{color:var(--oro-claro)}
 h2.datos{font-family:var(--display);font-weight:400;font-size:1.55rem;margin:0 0 4px;padding-top:18px;border-top:1px solid var(--linea)}
+
+/* ---- Pago exprés (14-oct): quien llega con su carta gratis ya calculada (y con
+   fecha, hora y localidad) ve arriba su resumen, su correo, las dos casillas y el
+   botón. Del 1 al 14-oct llegaron así 23 personas y 0 pulsaron «Continuar al pago»:
+   el botón estaba a casi tres pantallas, debajo de todos sus datos otra vez.
+   El formulario entero sigue ahí: «Cambiar mis datos» lo devuelve tal cual. */
+.modo-expres h2.datos,.modo-expres h2.datos + .entradilla,.modo-expres #aviso-listo{display:none}
+.modo-expres #f > :not(#expres){display:none}
+#expres .resumen{margin-top:0;padding:14px 16px}
+#expres label{margin-top:16px}
+#expres .casilla{margin-top:16px}
+#expres #enviar{margin-top:20px}
+#expres .te-llega{margin-top:26px;padding-top:18px;border-top:1px solid var(--linea)}
+.enlace-boton{display:inline-block;width:auto;margin:10px 0 0;padding:0;background:none;border:0;border-radius:0;
+  color:var(--oro-claro);font-family:var(--cuerpo);font-weight:500;font-size:.92rem;letter-spacing:0;
+  text-decoration:underline;text-underline-offset:3px;cursor:pointer}
+.expres-enlaces{display:flex;flex-wrap:wrap;gap:4px 18px}
 @media (max-width:420px){
   .producto-cab{grid-template-columns:1fr 104px;gap:10px 14px}
   .te-llega{font-size:.9rem}
@@ -610,6 +627,13 @@ function muestraError(t) {
   $('error').textContent = t; $('error').style.display = 'block';
   const m = MOTIVOS.find(([r]) => r.test(t));
   mideUna('pedido-error-' + (m ? m[1] : 'otro'));
+  // En el pago exprés solo están a la vista el nombre (si faltaba), el correo y las
+  // casillas. Si el fallo es de un dato plegado, se despliega todo para que lo vea.
+  if (document.body.classList.contains('modo-expres') &&
+      !/^(Falta tu nombre|Ese correo|Para continuar, marca|No se han podido guardar)/.test(t)) {
+    desactivaExpres();
+    $('error').scrollIntoView({ block: 'center' });
+  }
 }
 // En cuanto se corrige algo, el aviso viejo sobra.
 $('f').addEventListener('change', () => { $('error').style.display = 'none'; });
@@ -711,6 +735,85 @@ $('f').addEventListener('submit', async ev => {
   location.href = pagoUrl;
 });
 alCambiarProducto();
+
+/* ---------- pago exprés (14-oct) ----------
+   No hay campos nuevos ni otro envío: se MUEVEN los de siempre (mismos id, mismo
+   submit, mismas validaciones) a una caja arriba del formulario, y lo demás se
+   pliega con CSS. Cada nodo deja una marca donde estaba; «Cambiar mis datos»
+   los devuelve a su sitio y la página queda exactamente como antes. */
+const MOVIDOS = [];
+function mueve(nodo, destino) {
+  if (!nodo) return;
+  const marca = document.createComment('pago-expres');
+  nodo.parentNode.insertBefore(marca, nodo);
+  MOVIDOS.push([nodo, marca]);
+  destino.appendChild(nodo);
+}
+const etiquetaDe = id => document.querySelector(`label[for="${id}"]`);
+
+function activaExpres() {
+  const caja = document.createElement('div');
+  caja.id = 'expres';
+  $('f').prepend(caja);
+  mueve($('resumen'), caja);
+  const enlaces = document.createElement('div');
+  enlaces.className = 'expres-enlaces';
+  const cambiar = document.createElement('button');
+  cambiar.type = 'button';                       // type=button: nunca envía el formulario
+  cambiar.className = 'enlace-boton';
+  cambiar.textContent = 'Cambiar mis datos';
+  cambiar.addEventListener('click', () => desactivaExpres(true));
+  enlaces.appendChild(cambiar);
+  // Las dos (carta + revolución): la opción sigue a mano. La revolución pide año y
+  // lugar del cumpleaños, así que elegirla despliega el formulario completo.
+  if (REVOLUCION_A_LA_VENTA && document.querySelector('input[name=producto][value="pack"]')) {
+    const dos = document.createElement('button');
+    dos.type = 'button';
+    dos.className = 'enlace-boton';
+    dos.textContent = `Prefiero las dos: carta y revolución · ${PRODUCTOS.pack.precio}`;
+    dos.addEventListener('click', () => {
+      mideUna('pedido-expres-pack');
+      document.querySelector('input[name=producto][value="pack"]').checked = true;
+      alCambiarProducto();
+      desactivaExpres(false);
+      $('bloque-rs').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+    enlaces.appendChild(dos);
+  }
+  caja.appendChild(enlaces);
+  // El nombre es obligatorio: en /carta/ es opcional, así que solo sube si falta.
+  if (!$('nombre').value.trim()) { mueve(etiquetaDe('nombre'), caja); mueve($('nombre'), caja); }
+  mueve(etiquetaDe('correo'), caja); mueve($('correo'), caja);
+  // El género decide cómo se escribe el informe: siempre a la vista.
+  mueve(etiquetaDe('trato'), caja); mueve($('trato'), caja);
+  // Las dos casillas, con su texto legal de siempre y sin marcar (LSSI 21.2 y art. 103.m).
+  mueve($('sin-ofertas').closest('.casilla'), caja);
+  mueve($('rescate-pago'), caja);
+  mueve($('error'), caja);
+  mueve($('desistimiento').closest('.casilla'), caja);
+  const notas = [];
+  for (let n = $('enviar').nextElementSibling; n && n.matches('p.nota'); n = n.nextElementSibling) notas.push(n);
+  mueve($('enviar'), caja);
+  notas.forEach(n => mueve(n, caja));
+  // Lo que incluye el informe, debajo del botón: ya lo vio en /carta/.
+  mueve($('te-llega'), caja);
+  document.body.classList.add('modo-expres');
+  mideUna('pedido-expres');
+}
+
+function desactivaExpres(porClic) {
+  if (!document.body.classList.contains('modo-expres')) return;
+  MOVIDOS.forEach(([n, m]) => { m.parentNode.insertBefore(n, m); m.remove(); });
+  MOVIDOS.length = 0;
+  const caja = $('expres');
+  if (caja) caja.remove();
+  document.body.classList.remove('modo-expres');
+  if (porClic) {
+    mideUna('pedido-expres-cambiar');
+    document.querySelector('h2.datos').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+}
+
 /* ---------- prellenado desde /carta/ ----------
    Si acaba de calcular su carta gratis, sus datos están en esta pestaña
    (sessionStorage 'vda_natal'). Se rellenan y solo le queda el correo.
@@ -740,6 +843,7 @@ alCambiarProducto();
         if (!visto && ents.some(x => x.isIntersecting)) { visto = true; mide('pedido-ve-formulario'); io.disconnect(); }
       }, { threshold: 0.4 });
       io.observe($('nombre'));
+      io.observe($('correo'));   // (14-oct) en el pago exprés el nombre puede ir plegado
     }
     // (5-oct) Antes se contaba con «focusin», y el foco que este mismo código pone en
     // el correo lo disparaba solo: quien llegaba con los datos puestos contaba como
@@ -804,6 +908,9 @@ alCambiarProducto();
       + ', además de tu correo: ahí te llega el informe.';
   }
   $('aviso-listo').hidden = false;
+  // (14-oct) Pago exprés: solo la carta y solo si no falta ningún dato de nacimiento
+  // (el resumen solo sale con fecha, hora y localidad válidas).
+  if (!falta.length && producto() === 'carta' && !$('resumen').hidden) activaExpres();
   if (!$('correo').value) $('correo').focus({ preventScroll: true });
 })();
 </script>
