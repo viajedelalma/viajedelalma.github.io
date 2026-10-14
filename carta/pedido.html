@@ -637,6 +637,10 @@ function muestraError(t) {
 }
 // En cuanto se corrige algo, el aviso viejo sobra.
 $('f').addEventListener('change', () => { $('error').style.display = 'none'; });
+// (14-oct) Y al escribir, no solo al salir del campo. En un texto, «change» llega al
+// perder el foco, es decir, al tocar «Continuar al pago»: el aviso desaparecía en ese
+// instante, el botón subía y el toque caía fuera, así que había que pulsar dos veces.
+$('f').addEventListener('input', () => { $('error').style.display = 'none'; });
 
 $('f').addEventListener('submit', async ev => {
   ev.preventDefault();
