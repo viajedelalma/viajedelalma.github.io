@@ -146,6 +146,13 @@ button.principal:focus-visible{outline:2px solid var(--oro-claro);outline-offset
 .aviso-informe b{color:var(--oro-claro);font-weight:500}
 .aviso-informe a{color:var(--oro-claro);text-decoration:underline;text-underline-offset:3px;white-space:nowrap}
 
+/* 0. (14-oct) botón «Comprar» arriba del todo: quien llega del anuncio ve
+   primero qué se vende y cómo comprarlo, antes de la carta gratis. */
+.compra-arriba{margin:18px 0 0;text-align:center}
+.compra-arriba .boton-b{display:inline-block}
+.compra-arriba p{margin:10px auto 0;font-size:.9rem;color:var(--tenue);max-width:46ch;line-height:1.5}
+@media (max-width:520px){.compra-arriba .boton-b{display:block}}
+
 /* 3. botón de compra sobre la tabla velada */
 .velo-cta{position:absolute;left:0;right:0;bottom:18px;z-index:2;text-align:center;padding:0 12px}
 .velo-cta .boton-b{display:inline-block}
@@ -188,6 +195,11 @@ h1{font-size:clamp(2.1rem,7vw,4rem)}
   <p class="eyebrow">Viaje del Alma</p>
   <h1>El cielo del<br><em>día que naciste</em></h1>
 <p class="entradilla">Tu Sol, tu Luna y tu Ascendente, calculados con efemérides reales. Gratis, sin registro y sin que nadie se quede tu fecha de nacimiento.</p>
+
+  <div class="compra-arriba">
+    <a class="boton-b lleno grande cta-compra" data-origen="boton-arriba" href="/carta/pedido.html">Comprar mi informe · <span data-precio="carta">24,99 €</span></a>
+    <p>Tu carta natal completa en PDF, unas 25 páginas, en tu correo en menos de 24 horas.<br>O, si prefieres, mira gratis tu Sol, tu Luna y tu Ascendente aquí debajo.</p>
+  </div>
 
   <hr class="regla">
 
