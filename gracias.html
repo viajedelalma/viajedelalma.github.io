@@ -305,6 +305,22 @@ Mabon, Samhain y Yule.</p>
 Si el botón no descarga, <a href="calendario-lunar.pdf">ábrelo aquí</a> y guárdalo.</p>
 </div>
 
+<!-- 16-oct: el regalo sigue en 2027 (enero a abril, sacado del Calendario lunar 2027). Desde el 1-ene-2027 el de otoño se oculta solo. -->
+<div class="marco" id="regalo-2027"><span class="e3"></span>
+<p class="eyebrow" id="rotulo-2027">Y para empezar 2027</p>
+<h2>Calendario Lunar · Enero–Abril 2027</h2>
+<p>Los cuatro primeros meses del año, luna a luna: cada fase con su día y su hora, el signo
+de cada luna nueva y llena, las fiestas de la rueda que caen en esos meses, los eclipses de febrero y un ritual sencillo
+para cada luna nueva, cada luna llena y cada sabbat.</p>
+<a class="boton" href="/calendario-2027/regalo/ViajeDelAlma_CalendarioLunar_2027_EneroAbril.pdf" download data-goatcounter-click="gracias-regalo-2027-norte">Descargar enero–abril ✦</a>
+<p class="letra-chica">¿Vives en el hemisferio sur? <a href="/calendario-2027/regalo/ViajeDelAlma_CalendarioLunar_2027_EneroAbril_HemisferioSur.pdf" download data-goatcounter-click="gracias-regalo-2027-sur">Aquí tienes tu edición</a>, con las horas de tu país.
+¿Quieres el año entero? <a href="/calendario-2027/?utm_source=web&amp;utm_medium=gracias&amp;utm_campaign=calendario2027" data-goatcounter-click="gracias-calendario-completo">El Calendario lunar 2027 completo</a>.</p>
+</div>
+<script>
+// Desde el 1 de enero de 2027 (hora de Madrid) el calendario de otoño–invierno 2026 ya no se ofrece.
+(function () { if (Date.now() >= Date.parse('2027-01-01T00:00:00+01:00')) { var m = document.querySelector('a[href="calendario-lunar.pdf"]'); m = m && m.closest('.marco'); if (m) m.hidden = true; var r = document.getElementById('rotulo-2027'); if (r) r.textContent = 'Tu regalo'; } })();
+</script>
+
 <!-- 25-sep: solo para quien acaba de comprar la carta natal (se enseña desde el script). -->
 <div class="marco" id="upsell-revolucion" hidden><span class="e3"></span>
 <p class="eyebrow">Y ahora, tu año</p>
