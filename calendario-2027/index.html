@@ -1,0 +1,358 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Calendario lunar 2027 en PDF · Viaje del Alma</title>
+<meta name="description" content="Calendario lunar 2027 en español: cada fase de la Luna con su día y su hora, la rueda del año, los eclipses y un ritual para cada luna. Norte y sur. 7,99 €.">
+<link rel="icon" href="/favicon.png">
+<link rel="canonical" href="https://viajedelalma.app/calendario-2027/">
+<meta property="og:title" content="Calendario lunar 2027 · Viaje del Alma">
+<meta property="og:description" content="Las 49 fases de la Luna de 2027 con su día y su hora, la rueda del año y un ritual para cada luna nueva y llena. Norte y sur.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Viaje del Alma">
+<meta property="og:url" content="https://viajedelalma.app/calendario-2027/">
+<meta property="og:image" content="https://viajedelalma.app/calendario-2027/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="es_ES">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#0B0818">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"Product","name":"Calendario lunar 2027","sku":"VDA-CAL-2027","description":"Calendario lunar 2027 en español, en PDF: las 49 fases de la Luna con su día y su hora, el signo de cada luna nueva y llena, las ocho fiestas de la rueda del año, los cinco eclipses y un ritual sencillo para cada luna nueva, cada luna llena y cada sabbat. Edición para el hemisferio norte y para el hemisferio sur.","image":"https://viajedelalma.app/calendario-2027/og.jpg","brand":{"@type":"Brand","name":"Viaje del Alma"},"offers":{"@type":"Offer","price":"7.99","priceCurrency":"EUR","priceValidUntil":"2027-12-31","availability":"https://schema.org/InStock","url":"https://viajedelalma.app/calendario-2027/"}}
+</script>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300&family=Karla:wght@300;400;500;700&display=swap">
+<style>
+:root{
+  --noche:#0B0818; --noche-2:#14102A; --noche-3:#1C1636;
+  --violeta:#7B6BAB; --oro:#C9A84C; --oro-claro:#E8D9A0;
+  --texto:#EDE7DC; --tenue:#A99CCB; --linea:rgba(201,168,76,.22);
+  --display:'Cormorant Garamond','Iowan Old Style',Georgia,serif;
+  --cuerpo:'Karla','Helvetica Neue',Arial,sans-serif;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--noche);color:var(--texto);font-family:var(--cuerpo);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased;font-variant-numeric:lining-nums;
+  background-image:radial-gradient(ellipse 80% 40% at 50% 0%,rgba(107,78,158,.28),transparent 70%)}
+.envoltura{max-width:640px;margin:0 auto;padding:36px 20px 90px}
+.marca{font-size:.72rem;letter-spacing:.34em;color:var(--oro);text-transform:uppercase;margin-bottom:26px}
+.marca a{color:inherit;text-decoration:none;display:inline-flex;align-items:center;gap:10px}
+.marca img{border-radius:50%;border:1px solid var(--oro)}
+h1{font-family:var(--display);font-weight:300;font-size:clamp(2.3rem,8vw,3.3rem);line-height:1.05;margin:0 0 12px}
+h2{font-family:var(--display);font-weight:400;font-size:1.6rem;line-height:1.2;margin:46px 0 12px}
+p{margin:0 0 14px}
+a{color:var(--oro-claro)}
+.entradilla{color:var(--tenue);font-size:1.06rem;max-width:54ch}
+.regla{height:1px;background:linear-gradient(90deg,transparent,var(--linea),transparent);margin:30px 0;border:0}
+.hemis{display:flex;gap:8px;margin:22px 0 0;padding:4px;border:1px solid var(--linea);border-radius:999px;background:rgba(11,8,24,.6)}
+.hemis button{flex:1;padding:11px 10px;border:0;border-radius:999px;background:none;color:var(--tenue);font:500 .78rem/1.2 var(--cuerpo);letter-spacing:.14em;text-transform:uppercase;cursor:pointer}
+.hemis button[aria-pressed="true"]{background:linear-gradient(135deg,var(--oro-claro),var(--oro));color:#1a1408;font-weight:700}
+.hemis button:focus-visible{outline:2px solid var(--oro-claro);outline-offset:2px}
+.nota-hemis{font-size:.86rem;color:var(--tenue);margin:8px 0 0;text-align:center}
+body.ed-norte [data-ed="sur"],body.ed-sur [data-ed="norte"]{display:none!important}
+.muestra{margin:22px -20px 0;display:block;width:calc(100% + 40px);height:auto;aspect-ratio:4/3}
+.galeria{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:18px 0 0}
+.galeria img{width:100%;height:auto;aspect-ratio:4/3;display:block;border:1px solid var(--linea);border-radius:2px}
+ul.lista{list-style:none;padding:0;margin:14px 0 0}
+ul.lista li{position:relative;padding-left:22px;margin-bottom:10px;color:var(--tenue)}
+ul.lista li::before{content:'';position:absolute;left:4px;top:.65em;width:5px;height:5px;border-radius:50%;background:var(--oro)}
+ul.lista b{color:var(--texto);font-weight:500}
+.precio{margin:26px 0 0;padding:22px;border:1px solid var(--linea);border-radius:2px;background:linear-gradient(180deg,var(--noche-2),rgba(20,16,42,.55));text-align:center}
+.precio .cifra{font-family:var(--display);font-size:2.7rem;line-height:1;color:var(--oro-claro);margin:6px 0 4px}
+.precio small{display:block;color:var(--tenue);font-size:.9rem}
+.precio .nombre{font-family:var(--display);font-size:1.3rem;color:var(--texto);margin:0 0 2px}
+.boton{display:inline-block;margin-top:16px;padding:15px 26px;border-radius:999px;background:linear-gradient(135deg,var(--oro-claro),var(--oro));color:#1a1408;font-weight:700;letter-spacing:.14em;text-transform:uppercase;font-size:.82rem;text-decoration:none;border:0;cursor:pointer;font-family:var(--cuerpo)}
+.boton.secundario{background:none;border:1px solid var(--oro);color:var(--oro-claro);font-weight:500}
+.acepto{display:flex;gap:10px;align-items:flex-start;text-align:left;margin:18px 0 0;font-size:.85rem;color:var(--tenue);cursor:pointer}
+.acepto input{margin-top:4px;accent-color:var(--oro);width:18px;height:18px;flex:none}
+.acepto.resalta{outline:1px solid var(--oro-claro);outline-offset:6px;border-radius:2px;color:var(--texto)}
+.aviso{display:none;color:var(--oro-claro);font-size:.9rem;margin-top:10px}
+.etsy{font-size:.88rem;color:var(--tenue);margin:14px 0 0}
+.regalo{margin:40px 0 0;padding:22px;border:1px dashed rgba(201,168,76,.45);border-radius:2px;text-align:center;background:radial-gradient(circle at 50% 0%,rgba(201,168,76,.08),transparent 75%)}
+.regalo h2{margin:0 0 8px;font-size:1.45rem}
+.regalo p{color:var(--tenue)}
+.form{display:flex;flex-direction:column;gap:10px;max-width:380px;margin:0 auto}
+.form input{padding:14px 16px;border-radius:999px;border:1px solid var(--linea);background:rgba(11,8,24,.8);color:var(--texto);font:inherit;text-align:center}
+.form .boton{margin-top:0}
+.aviso-f{min-height:1.2em;margin:10px 0 0;font-size:.92rem;color:var(--oro-claro)}
+.legal{font-size:.78rem;color:var(--tenue);margin:10px 0 0}
+.legal a{color:var(--tenue)}
+#descarga-regalo{display:none;margin-top:6px}
+[hidden]{display:none!important}
+table.lunas{width:100%;border-collapse:collapse;margin:14px 0 6px;font-size:.95rem}
+table.lunas th,table.lunas td{padding:9px 6px;border-bottom:1px solid var(--linea);text-align:left;vertical-align:top}
+table.lunas thead th{font-size:.68rem;letter-spacing:.2em;text-transform:uppercase;color:var(--oro);font-weight:500}
+table.lunas tbody th{font-family:var(--display);font-weight:400;font-size:1.08rem;color:var(--texto)}
+table.lunas td{color:var(--tenue);white-space:nowrap}
+.fuente{font-size:.8rem;color:var(--tenue)}
+ul.fiestas{list-style:none;padding:0;margin:14px 0 0;border-top:1px solid var(--linea)}
+ul.fiestas li{display:flex;gap:14px;padding:10px 0;border-bottom:1px solid var(--linea);color:var(--tenue);font-size:.95rem}
+ul.fiestas li b{color:var(--oro);font-weight:500;min-width:118px;font-size:.74rem;letter-spacing:.16em;text-transform:uppercase;padding-top:3px}
+details{border-top:1px solid var(--linea);padding:14px 0}
+details:last-of-type{border-bottom:1px solid var(--linea)}
+summary{cursor:pointer;list-style:none;font-weight:500;color:var(--texto)}
+summary::-webkit-details-marker{display:none}
+summary::before{content:'+ ';color:var(--oro)}
+details[open] summary::before{content:'– '}
+details p{margin:10px 0 0;color:var(--tenue);font-size:.95rem}
+.pie{margin-top:40px;font-size:.8rem;color:var(--tenue);text-align:center}
+.pie a{color:var(--tenue)}
+.barra{visibility:hidden;pointer-events:none;position:fixed;left:0;right:0;bottom:0;padding:10px 16px;background:rgba(11,8,24,.92);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border-top:1px solid var(--linea);display:flex;justify-content:center;gap:12px;align-items:center;transform:translateY(110%);transition:transform .3s}
+.barra.visible{transform:none;visibility:visible;pointer-events:auto}
+.barra .boton{margin:0;padding:12px 20px;white-space:nowrap}
+.barra span{font-size:.9rem;color:var(--tenue)}
+@media (max-width:520px){.barra span{display:none}.galeria{grid-template-columns:1fr}table.lunas{font-size:.88rem}ul.fiestas li b{min-width:106px}}
+</style>
+<script data-goatcounter="https://viajedelalma.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+<script src="/meta.js" defer></script>
+</head>
+<body class="ed-norte">
+<div class="envoltura">
+
+  <div class="marca"><a href="/"><img src="/logo.png" width="34" height="34" alt="">Viaje del Alma</a></div>
+  <h1>Calendario lunar 2027</h1>
+  <p class="entradilla">Las 49 fases de la Luna de 2027 con su día y su hora, el signo de cada luna nueva y llena, la rueda del año y un gesto sencillo para cada luna nueva, cada luna llena y cada sabbat. En PDF, para leer en el móvil y para imprimir.</p>
+
+  <div class="hemis" role="group" aria-label="Elige tu hemisferio">
+    <button type="button" data-elige="norte" aria-pressed="true">Hemisferio norte</button>
+    <button type="button" data-elige="sur" aria-pressed="false">Hemisferio sur</button>
+  </div>
+  <p class="nota-hemis" data-ed="norte">España y el resto del hemisferio norte · horas de España</p>
+  <p class="nota-hemis" data-ed="sur">Argentina, Uruguay, Paraguay, Chile, Bolivia, Perú y Ecuador · horas de cada país</p>
+
+  <img class="muestra" data-ed="norte" src="img/norte_01_portada.webp" width="1200" height="900" alt="Portada del Calendario lunar 2027 de Viaje del Alma, con el logo y las fases de la Luna, junto a páginas interiores.">
+  <img class="muestra" data-ed="sur" src="img/sur_01_portada.webp" width="1200" height="900" alt="Portada del Calendario lunar 2027 para el hemisferio sur, junto a páginas interiores." loading="lazy">
+
+  <div class="precio" id="precio">
+    <p class="nombre" data-ed="norte">Edición hemisferio norte</p>
+    <p class="nombre" data-ed="sur">Edición hemisferio sur</p>
+    <small data-ed="norte">PDF de 29 páginas · versión pantalla y versión para imprimir</small>
+    <small data-ed="sur">PDF de 31 páginas · versión pantalla y versión para imprimir</small>
+    <div class="cifra">7,99 €</div>
+    <small data-ed="norte">IVA incluido · lo descargas en cuanto pagas</small>
+    <small data-ed="sur">Impuestos incluidos · lo descargas en cuanto pagas. Stripe puede ofrecerte pagar en tu moneda; tu banco puede aplicar sus propios cargos.</small>
+    <label class="acepto"><input type="checkbox" class="consiento"> <span>Acepto los <a href="/terminos.html#guias" target="_blank">términos</a> y quiero la descarga ya: sé que, al ser contenido digital que recibo al momento, pierdo el derecho de desistimiento.</span></label>
+    <a class="boton cta-cal" href="#">Quiero mi calendario</a>
+    <p class="aviso">Marca la casilla para continuar.</p>
+    <p class="etsy">¿Prefieres Etsy? También está en <a data-ed="norte" href="https://www.etsy.com/es/listing/4596584862" target="_blank" rel="noopener" data-goatcounter-click="cal-etsy-norte">nuestra tienda de Etsy</a><a data-ed="sur" href="https://www.etsy.com/es/listing/4596597788" target="_blank" rel="noopener" data-goatcounter-click="cal-etsy-sur">nuestra tienda de Etsy</a>.</p>
+  </div>
+
+  <h2>Qué incluye</h2>
+  <ul class="lista" data-ed="norte">
+    <li><b>Las 49 fases de la Luna de 2027</b>, con día y hora, y el signo de cada luna nueva y cada luna llena, en hora peninsular española y con el cambio de hora ya incluido. En Canarias, una hora menos.</li>
+    <li><b>Las 8 fiestas de la rueda del año</b>, de Imbolc a Yule, con la hora exacta de los equinoccios y los solsticios.</li>
+    <li><b>Los 5 eclipses de 2027</b>, entre ellos el eclipse total de Sol del 2 de agosto, que se verá en el sur de España.</li>
+    <li><b>12 meses con dos páginas cada uno</b>: rituales sencillos para cada luna nueva, cada luna llena y cada sabbat, ideas para tu altar (color, planta y piedra) y tu mes luna a luna, con espacio para escribir tu intención, lo que sueltas y lo que agradeces.</li>
+    <li><b>2027 de un vistazo y la rueda del año</b>, cada uno en una página, y un primer ritual de cinco minutos para empezar.</li>
+    <li><b>Dos versiones en la descarga</b>: una para leer en el móvil y otra con fondo blanco, pensada para imprimir en casa en A4 con muy poca tinta.</li>
+  </ul>
+  <ul class="lista" data-ed="sur">
+    <li><b>Las 49 fases de la Luna de 2027</b>, con día y hora, y el signo de cada luna nueva y cada luna llena, en hora de Argentina, Uruguay y Paraguay.</li>
+    <li><b>Una tabla con todas las fases en hora de Chile, Bolivia, Perú y Ecuador</b>: a veces cambia hasta el día.</li>
+    <li><b>Las 8 fiestas de la rueda del año del sur</b>, con Samhain en abril, Yule en junio y Beltane en noviembre, y la hora exacta de los equinoccios y los solsticios.</li>
+    <li><b>Los 5 eclipses de 2027</b>, entre ellos el anillo de fuego del 6 de febrero, que cruza el sur de Chile, la Patagonia, el sur de Buenos Aires y la costa de Uruguay.</li>
+    <li><b>12 meses con dos páginas cada uno</b>: rituales sencillos para cada luna nueva, cada luna llena y cada sabbat, ideas para tu altar (color, planta y piedra) y tu mes luna a luna, con espacio para escribir.</li>
+    <li><b>La Luna dibujada como se ve desde el sur</b>: la creciente se ilumina por la izquierda.</li>
+    <li><b>Dos versiones en la descarga</b>: una para leer en el móvil y otra con fondo blanco, pensada para imprimir en casa en A4 con muy poca tinta.</li>
+  </ul>
+
+  <div class="galeria" data-ed="norte">
+    <img src="img/norte_03_un_mes.webp" width="1200" height="900" loading="lazy" alt="Las dos páginas de un mes: rituales de luna nueva y luna llena, el altar del mes y el mes luna a luna.">
+    <img src="img/norte_04_rueda.webp" width="1200" height="900" loading="lazy" alt="La rueda del año 2027 con las ocho fiestas y sus fechas.">
+    <img src="img/norte_05_fechas.webp" width="1200" height="900" loading="lazy" alt="Fechas de la Agenda Astronómica del Instituto Geográfico Nacional, en hora peninsular.">
+    <img src="img/norte_06_imprimir.webp" width="1200" height="900" loading="lazy" alt="La versión para imprimir, con fondo blanco.">
+  </div>
+  <div class="galeria" data-ed="sur">
+    <img src="img/sur_03_un_mes.webp" width="1200" height="900" loading="lazy" alt="Las dos páginas de un mes en la edición del hemisferio sur.">
+    <img src="img/sur_04_rueda.webp" width="1200" height="900" loading="lazy" alt="La rueda del año del hemisferio sur, con Samhain en abril y Yule en junio.">
+    <img src="img/sur_05_tu_hora.webp" width="1200" height="900" loading="lazy" alt="La tabla con las fases en hora de Argentina, Chile, Bolivia y Perú.">
+    <img src="img/sur_06_imprimir.webp" width="1200" height="900" loading="lazy" alt="La versión para imprimir, con fondo blanco.">
+  </div>
+
+  <div class="regalo" id="regalo">
+    <h2 data-ed="norte" data-hasta="2026-12-31">Pruébalo antes: lo que queda de 2026 y enero a abril de 2027, gratis</h2>
+    <h2 data-ed="norte" data-desde="2027-01-01" hidden>Pruébalo antes: enero a abril de 2027, gratis</h2>
+    <h2 data-ed="sur">Pruébalo antes: enero a abril de 2027, gratis</h2>
+    <p data-ed="norte" data-hasta="2026-12-31">Déjanos tu correo y descarga ahora lo que queda de 2026 y los cuatro primeros meses de 2027, con sus rituales. Después te escribiremos en cada luna nueva y cada luna llena.</p>
+    <p data-ed="norte" data-desde="2027-01-01" hidden>Déjanos tu correo y descarga ahora los cuatro primeros meses de 2027, con sus rituales. Después te escribiremos en cada luna nueva y cada luna llena.</p>
+    <p data-ed="sur">Déjanos tu correo y descarga ahora los cuatro primeros meses de 2027, con sus rituales. Después te escribiremos en cada luna nueva y cada luna llena.</p>
+    <div class="form">
+      <input type="email" id="email" placeholder="Tu correo" autocomplete="email" inputmode="email" aria-label="Tu correo">
+      <button class="boton" id="apuntar" type="button">Quiero mi adelanto gratis</button>
+    </div>
+    <p class="aviso-f" id="aviso-f" aria-live="polite"></p>
+    <div id="descarga-regalo">
+      <a class="boton secundario" data-ed="norte" data-hasta="2026-12-31" href="/calendario-lunar.pdf" download="ViajeDelAlma_CalendarioLunar_OtonoInvierno2026.pdf" data-goatcounter-click="cal-regalo-descarga-otono">Descargar otoño–invierno 2026</a>
+      <a class="boton secundario" data-ed="norte" href="regalo/ViajeDelAlma_CalendarioLunar_2027_EneroAbril.pdf" download data-goatcounter-click="cal-regalo-descarga-norte">Descargar enero a abril de 2027</a>
+      <a class="boton secundario" data-ed="sur" href="regalo/ViajeDelAlma_CalendarioLunar_2027_EneroAbril_HemisferioSur.pdf" download data-goatcounter-click="cal-regalo-descarga-sur">Descargar enero a abril de 2027</a>
+    </div>
+    <p class="legal">Te escribiremos con las lunas y las novedades de Viaje del Alma, a veces con alguna oferta. Te borras cuando quieras respondiendo «baja» a cualquier correo. <a href="/privacidad.html">Privacidad</a>.</p>
+  </div>
+
+  <h2 id="fases">Fases lunares 2027: lunas nuevas y lunas llenas</h2>
+  <p data-ed="norte">Hora oficial peninsular española, con el cambio de hora incluido (28 de marzo y 31 de octubre). En Canarias, una hora menos.</p>
+  <p data-ed="sur">Hora de Argentina, Uruguay y Paraguay. En el calendario tienes también Chile, Bolivia, Perú y Ecuador, y los cuartos crecientes y menguantes.</p>
+  <table class="lunas" data-ed="norte">
+    <thead><tr><th scope="col">Mes</th><th scope="col">Luna nueva</th><th scope="col">Luna llena</th></tr></thead>
+    <tbody><tr><th scope="row">Enero</th><td>jue 7 · 21:24</td><td>vie 22 · 13:17</td></tr><tr><th scope="row">Febrero</th><td>sáb 6 · 16:56</td><td>dom 21 · 00:23</td></tr><tr><th scope="row">Marzo</th><td>lun 8 · 10:29</td><td>lun 22 · 11:44</td></tr><tr><th scope="row">Abril</th><td>mié 7 · 01:51</td><td>mié 21 · 00:27</td></tr><tr><th scope="row">Mayo</th><td>jue 6 · 12:58</td><td>jue 20 · 12:59</td></tr><tr><th scope="row">Junio</th><td>vie 4 · 21:40</td><td>sáb 19 · 02:44</td></tr><tr><th scope="row">Julio</th><td>dom 4 · 05:02</td><td>dom 18 · 17:45</td></tr><tr><th scope="row">Agosto</th><td>lun 2 · 12:05<br>mar 31 · 19:41</td><td>mar 17 · 09:28</td></tr><tr><th scope="row">Septiembre</th><td>jue 30 · 04:36</td><td>jue 16 · 01:03</td></tr><tr><th scope="row">Octubre</th><td>vie 29 · 15:36</td><td>vie 15 · 15:47</td></tr><tr><th scope="row">Noviembre</th><td>dom 28 · 04:24</td><td>dom 14 · 04:25</td></tr><tr><th scope="row">Diciembre</th><td>lun 27 · 21:12</td><td>lun 13 · 17:08</td></tr></tbody>
+  </table>
+  <table class="lunas" data-ed="sur">
+    <thead><tr><th scope="col">Mes</th><th scope="col">Luna nueva</th><th scope="col">Luna llena</th></tr></thead>
+    <tbody><tr><th scope="row">Enero</th><td>jue 7 · 17:24</td><td>vie 22 · 09:17</td></tr><tr><th scope="row">Febrero</th><td>sáb 6 · 12:56</td><td>sáb 20 · 20:23</td></tr><tr><th scope="row">Marzo</th><td>lun 8 · 06:29</td><td>lun 22 · 07:44</td></tr><tr><th scope="row">Abril</th><td>mar 6 · 20:51</td><td>mar 20 · 19:27</td></tr><tr><th scope="row">Mayo</th><td>jue 6 · 07:58</td><td>jue 20 · 07:59</td></tr><tr><th scope="row">Junio</th><td>vie 4 · 16:40</td><td>vie 18 · 21:44</td></tr><tr><th scope="row">Julio</th><td>dom 4 · 00:02</td><td>dom 18 · 12:45</td></tr><tr><th scope="row">Agosto</th><td>lun 2 · 07:05<br>mar 31 · 14:41</td><td>mar 17 · 04:28</td></tr><tr><th scope="row">Septiembre</th><td>mié 29 · 23:36</td><td>mié 15 · 20:03</td></tr><tr><th scope="row">Octubre</th><td>vie 29 · 10:36</td><td>vie 15 · 10:47</td></tr><tr><th scope="row">Noviembre</th><td>dom 28 · 00:24</td><td>dom 14 · 00:25</td></tr><tr><th scope="row">Diciembre</th><td>lun 27 · 17:12</td><td>lun 13 · 13:08</td></tr></tbody>
+  </table>
+  <p class="fuente">Fuente: Agenda Astronómica 2027 del Instituto Geográfico Nacional (Observatorio Astronómico Nacional), comprobada con dos cálculos astronómicos propios.</p>
+
+  <h2>La rueda del año 2027</h2>
+  <ul class="fiestas" data-ed="norte"><li><b>Imbolc</b><span>lunes 1 de febrero</span></li><li><b>Ostara</b><span>sábado 20 de marzo, 21:24 · equinoccio de primavera</span></li><li><b>Beltane</b><span>sábado 1 de mayo</span></li><li><b>Litha</b><span>lunes 21 de junio, 16:11 · solsticio de verano</span></li><li><b>Lughnasadh</b><span>domingo 1 de agosto</span></li><li><b>Mabon</b><span>jueves 23 de septiembre, 08:01 · equinoccio de otoño</span></li><li><b>Samhain</b><span>domingo 31 de octubre</span></li><li><b>Yule</b><span>miércoles 22 de diciembre, 03:42 · solsticio de invierno</span></li></ul>
+  <ul class="fiestas" data-ed="sur"><li><b>Lughnasadh</b><span>lunes 1 de febrero</span></li><li><b>Mabon</b><span>sábado 20 de marzo, 17:24 · equinoccio de otoño</span></li><li><b>Samhain</b><span>viernes 30 de abril</span></li><li><b>Yule</b><span>lunes 21 de junio, 11:11 · solsticio de invierno</span></li><li><b>Imbolc</b><span>domingo 1 de agosto</span></li><li><b>Ostara</b><span>jueves 23 de septiembre, 03:01 · equinoccio de primavera</span></li><li><b>Beltane</b><span>lunes 1 de noviembre</span></li><li><b>Litha</b><span>martes 21 de diciembre, 23:42 · solsticio de verano</span></li></ul>
+
+  <h2>Los eclipses de 2027</h2>
+  <ul class="lista" data-ed="norte">
+    <li><b>Sábado 6 de febrero · eclipse anular de Sol.</b> Un anillo de fuego sobre Sudamérica y el oeste de África; desde casi toda la península no se verá, y en Canarias, como mucho, un pequeño mordisco al Sol al final de la tarde.</li>
+    <li><b>Noche del sábado 20 al domingo 21 de febrero · eclipse penumbral de Luna.</b> Hacia la medianoche, con la Luna alta, uno de sus bordes se verá algo más apagado.</li>
+    <li><b>Domingo 18 de julio · eclipse penumbral de Luna</b>, tan leve que desde España no se verá.</li>
+    <li><b>Lunes 2 de agosto · eclipse total de Sol.</b> Total en casi toda la provincia de Cádiz, parte de la de Málaga, el sur de Granada y Almería, Ceuta y Melilla, hacia las 10:45–10:50. En el resto de España, parcial, con más del 70 % del Sol cubierto. Nunca lo mires sin gafas homologadas para eclipses.</li>
+    <li><b>Martes 17 de agosto · eclipse penumbral de Luna</b>, que desde España no se verá.</li>
+  </ul>
+  <ul class="lista" data-ed="sur">
+    <li><b>Sábado 6 de febrero · el anillo de fuego.</b> Entre las 11:50 y las 12:45 (hora de Argentina y de Chile), la Luna deja el Sol como un anillo en una franja que cruza el sur de Chile (Chiloé, Futaleufú), la Patagonia (Esquel, Viedma), el sur de Buenos Aires (Bahía Blanca, Mar del Plata) y la costa de Uruguay (Punta del Este). En Buenos Aires y Montevideo, parcial, con más del 80 % del Sol cubierto. Nunca lo mires sin gafas homologadas para eclipses.</li>
+    <li><b>Sábado 20 de febrero · eclipse penumbral de Luna.</b> Al anochecer, la Luna llena sale ya en la sombra suave de la Tierra; se ve mejor desde Argentina, Uruguay y Paraguay.</li>
+    <li><b>Domingo 18 de julio · eclipse penumbral de Luna</b>, que no se verá.</li>
+    <li><b>Lunes 2 de agosto · eclipse total de Sol</b> en el sur de España, al otro lado del mundo: desde Sudamérica no se ve.</li>
+    <li><b>Martes 17 de agosto · eclipse penumbral de Luna</b>, muy leve.</li>
+  </ul>
+
+  <h2>Fechas en las que puedes confiar</h2>
+  <p data-ed="norte">Las horas de las fases, los equinoccios y los solsticios son las de la Agenda Astronómica 2027 del Instituto Geográfico Nacional. Además, las hemos comprobado con dos cálculos astronómicos propios, y un programa ha repasado cada fecha y cada hora del PDF ya terminado.</p>
+  <p data-ed="sur">Son los instantes de la Agenda Astronómica 2027 del Instituto Geográfico Nacional de España, pasados a la hora de cada país, con el cambio de hora de Chile incluido. Además, los hemos comprobado con dos cálculos astronómicos propios, y un programa ha repasado cada fecha y cada hora del PDF ya terminado.</p>
+  <p>Los textos se han redactado con ayuda de inteligencia artificial y los hemos revisado antes de publicarlos.</p>
+
+  <h2>Preguntas</h2>
+  <details><summary>¿Cómo lo recibo?</summary><p>Al terminar el pago vuelves a esta web y descargas los dos PDF en el momento: el de pantalla y el de imprimir. Guarda esa página. Si algo falla, escríbenos a viajedelalma.app@gmail.com con el correo del pago y te lo enviamos.</p></details>
+  <details><summary>¿Cuál elijo, el del norte o el del sur?</summary><p>El del hemisferio donde vives. La Luna es la misma para todas, pero la rueda del año va al revés (cuando aquí es Samhain, allí es Beltane) y la luna creciente se ilumina por el otro lado. Si vives en México, Centroamérica, Colombia o Venezuela, tu rueda es la del norte, pero ten en cuenta que sus horas son las de España: en México, por ejemplo, son 7 horas menos en invierno y 8 en verano, y a veces cambia hasta el día.</p></details>
+  <details><summary>¿Puedo imprimirlo?</summary><p>Sí. La descarga trae una versión con fondo blanco, pensada para imprimir en casa en A4 con muy poca tinta. Puedes imprimirla para ti tantas veces como quieras.</p></details>
+  <details><summary>¿Cómo se paga?</summary><p>Pagas en la página de pago segura de Stripe, con los métodos que te muestre como disponibles. Nosotros no guardamos tus datos de pago.</p></details>
+  <details><summary>¿Puedo regalarlo?</summary><p>Es para uso personal: no se puede revender ni compartir el archivo. Si quieres regalarlo, cómpralo para esa persona y envíale tú la descarga. El regalo gratuito de la lista sí puedes compartirlo tal cual.</p></details>
+
+  <div id="app-android" hidden style="text-align:center;margin:34px auto 0;max-width:520px"><hr class="regla"><p style="margin:0 0 8px;font-size:.74rem;letter-spacing:.24em;text-transform:uppercase;color:var(--oro)">✦ Y cada día ✦</p><p style="margin:0">El ritual de cada día, marcado por la luna real, gratis en la app Viaje del Alma para Android.</p><a class="boton secundario" id="cal-app" href="/app/?o=calendario">Ver la app</a></div>
+  <div style="text-align:center;margin:34px auto 26px;max-width:520px"><p style="margin:0 0 10px;font-size:.74rem;letter-spacing:.24em;text-transform:uppercase;color:var(--oro)">✦ Síguenos en redes ✦</p><p style="margin:0;font-size:1.05rem;line-height:2"><a href="https://www.instagram.com/viajedelalma.app/" target="_blank" rel="noopener" data-goatcounter-click="cal-redes-instagram" style="margin:0 7px">Instagram</a> <span style="color:var(--oro)">·</span> <a href="https://www.tiktok.com/@viajedelalma.app" target="_blank" rel="noopener" data-goatcounter-click="cal-redes-tiktok" style="margin:0 7px">TikTok</a> <span style="color:var(--oro)">·</span> <a href="https://www.pinterest.com/viajedelalmaapp/" target="_blank" rel="noopener" data-goatcounter-click="cal-redes-pinterest" style="margin:0 7px">Pinterest</a> <span style="color:var(--oro)">·</span> <a href="https://www.facebook.com/profile.php?id=61593699406994" target="_blank" rel="noopener" data-goatcounter-click="cal-redes-facebook" style="margin:0 7px">Facebook</a></p></div>
+  <p class="pie">Viaje del Alma · <a href="/privacidad.html">Privacidad</a> · <a href="/terminos.html">Términos</a> · <a href="/carta/">Carta natal gratis</a> · <a href="/">Inicio</a></p>
+</div>
+
+<div class="barra" id="barra" aria-hidden="true">
+  <span>Calendario lunar 2027 · 7,99 €</span>
+  <a class="boton" id="barra-cta" href="#precio">Lo quiero</a>
+</div>
+
+<script>
+(function () {
+  // Enlaces de pago de Stripe (uno por edición). Cada uno vuelve a su página de descarga.
+  var ENLACE = {
+    norte: 'https://buy.stripe.com/fZudRa4Di7n53wf1ccew807',
+    sur: 'https://buy.stripe.com/fZueVe5Hm7n51o77AAew808'
+  };
+  var PRECIO = 7.99;
+  var SUR_TZ = /^America\/(Argentina\/|Buenos_Aires|Cordoba|Mendoza|Montevideo|Asuncion|Santiago|Punta_Arenas|Coyhaique|La_Paz|Lima|Guayaquil)/;
+
+  function cuenta(n) {
+    var envia = function () { try { window.goatcounter.count({ path: n, title: n, event: true }); } catch (e) {} };
+    if (window.goatcounter && window.goatcounter.count) return envia();
+    var s = document.querySelector('script[data-goatcounter]');
+    if (s) s.addEventListener('load', envia, { once: true });
+    else addEventListener('load', function () { setTimeout(envia, 500); }, { once: true });
+  }
+
+  // ── Hemisferio: ?ed=sur, o la zona horaria del móvil; si no, norte ──
+  var q = new URLSearchParams(location.search), ed = q.get('ed');
+  if (ed !== 'norte' && ed !== 'sur') {
+    ed = 'norte';
+    try { if (SUR_TZ.test(Intl.DateTimeFormat().resolvedOptions().timeZone || '')) ed = 'sur'; } catch (e) {}
+  }
+  var casilla = document.querySelector('.consiento'), boton = document.querySelector('.cta-cal'), aviso = document.querySelector('.aviso');
+  var etiqueta = casilla.closest('.acepto');
+  function pon(nueva, contar) {
+    ed = nueva;
+    document.body.classList.remove('ed-norte', 'ed-sur');
+    document.body.classList.add('ed-' + ed);
+    document.querySelectorAll('[data-elige]').forEach(function (b) { b.setAttribute('aria-pressed', b.getAttribute('data-elige') === ed ? 'true' : 'false'); });
+    actualiza();
+    if (contar) {
+      cuenta('cal-elige-' + ed);
+      try { var u = new URL(location.href); u.searchParams.set('ed', ed); history.replaceState(null, '', u); } catch (e) {}
+    }
+  }
+  document.querySelectorAll('[data-elige]').forEach(function (b) {
+    b.addEventListener('click', function () { pon(b.getAttribute('data-elige'), true); });
+  });
+
+  // ── Compra: sin la casilla no se paga ──
+  function actualiza() {
+    boton.href = casilla.checked && ENLACE[ed] ? ENLACE[ed] : '#';
+    if (casilla.checked) { aviso.style.display = 'none'; etiqueta.classList.remove('resalta'); }
+  }
+  casilla.addEventListener('change', function () { if (casilla.checked) cuenta('cal-acepta'); actualiza(); });
+  boton.addEventListener('click', function (e) {
+    if (!casilla.checked) {
+      e.preventDefault(); cuenta('cal-comprar-sin-casilla');
+      aviso.textContent = 'Marca la casilla para continuar.'; aviso.style.display = 'block';
+      etiqueta.classList.add('resalta');
+      try { etiqueta.scrollIntoView({ behavior: 'smooth', block: 'center' }); } catch (x) {}
+      return;
+    }
+    if (!ENLACE[ed] || ENLACE[ed].indexOf('https://buy.stripe.com/') !== 0) {
+      e.preventDefault(); aviso.textContent = 'Estamos abriendo la puerta: vuelve a probar en unos minutos.'; aviso.style.display = 'block'; return;
+    }
+    cuenta('cal-comprar-' + ed);
+    try { window.vdaMeta && vdaMeta.track('InitiateCheckout', { value: PRECIO, currency: 'EUR', content_name: 'calendario 2027 ' + ed }); } catch (x) {}
+  });
+  pon(ed, false);
+  cuenta('cal-ve-' + ed);
+  function mideVista() { try { window.vdaMeta && vdaMeta.track('ViewContent', { content_name: 'calendario 2027', content_type: 'product', value: PRECIO, currency: 'EUR' }); } catch (e) {} }
+  if (window.vdaMeta) mideVista(); else addEventListener('load', mideVista, { once: true });
+
+  // ── Regalo: enero a abril a cambio del correo (lista_correo, origen 'web': recibe la bienvenida automática) ──
+  var btn = document.getElementById('apuntar'), inp = document.getElementById('email'), av = document.getElementById('aviso-f');
+  var URL_SB = 'https://orxyhxehapqmjwmqmqgv.supabase.co', KEY = 'sb_publishable_As7G8e_pyZwjApjgcC48ow_RDc4hZfN'; // clave publicable, la protege la RLS
+  btn.addEventListener('click', function () {
+    var email = inp.value.trim().toLowerCase();
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) { av.textContent = 'Ese correo no parece completo. Revísalo.'; inp.focus(); return; }
+    btn.disabled = true; av.textContent = 'Un momento…'; cuenta('cal-regalo-empieza');
+    fetch(URL_SB + '/rest/v1/lista_correo', {
+      method: 'POST',
+      headers: { apikey: KEY, Authorization: 'Bearer ' + KEY, 'Content-Type': 'application/json', Prefer: 'return=minimal' },
+      body: JSON.stringify({ email: email, origen: 'web' })
+    }).then(function (r) {
+      if (r.ok || r.status === 409) {
+        cuenta('cal-regalo-ok');
+        try { window.vdaMeta && vdaMeta.track('Lead', { content_name: 'regalo calendario 2027' }); } catch (e) {}
+        av.textContent = '¡Dentro! Aquí tienes tu regalo. En unos minutos te llega un correo de bienvenida (mira también en «Promociones»).';
+        document.getElementById('descarga-regalo').style.display = 'block';
+        inp.value = '';
+      } else { av.textContent = 'No hemos podido guardarlo. Prueba otra vez o escribe a viajedelalma.app@gmail.com.'; btn.disabled = false; }
+    }).catch(function () { av.textContent = 'Se ha cortado la conexión. Prueba otra vez.'; btn.disabled = false; });
+  });
+  inp.addEventListener('keydown', function (e) { if (e.key === 'Enter') btn.click(); });
+
+  // ── Textos con fecha: [data-hasta] se oculta pasado ese día; [data-desde] se ve desde ese día (hora de Madrid) ──
+  (function () {
+    var ahora = Date.now();
+    document.querySelectorAll('[data-hasta]').forEach(function (e) { if (ahora >= Date.parse(e.getAttribute('data-hasta') + 'T23:59:59+01:00') + 1000) e.hidden = true; });
+    document.querySelectorAll('[data-desde]').forEach(function (e) { if (ahora >= Date.parse(e.getAttribute('data-desde') + 'T00:00:00+01:00')) e.hidden = false; });
+  })();
+
+  // ── La app, solo en Android ──
+  if (/Android/i.test(navigator.userAgent)) { var ba = document.getElementById('app-android'); ba.hidden = false; document.getElementById('cal-app').addEventListener('click', function () { cuenta('cal-app'); }); }
+
+  // ── Barra fija: se ve mientras el bloque de compra no está en pantalla ──
+  var barra = document.getElementById('barra'), caja = document.getElementById('precio');
+  document.getElementById('barra-cta').addEventListener('click', function () { cuenta('cal-barra'); });
+  function pinta() {
+    var r = caja.getBoundingClientRect();
+    var mostrar = r.bottom < 0 && scrollY > 400;
+    barra.classList.toggle('visible', mostrar); barra.setAttribute('aria-hidden', mostrar ? 'false' : 'true');
+  }
+  addEventListener('scroll', pinta, { passive: true }); addEventListener('resize', pinta); pinta();
+})();
+</script>
+</body>
+</html>
