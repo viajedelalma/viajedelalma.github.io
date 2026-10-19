@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Viaje del Alma, la app: tarot, luna y ritual diario gratis</title>
+<meta name="description" content="Tu planta y tu mineral de cada mes, tarot, luna, horóscopo y meditación. Y un ritual diario de tres minutos, gratis para siempre.">
+<link rel="canonical" href="https://viajedelalma.app/app/">
+<meta property="og:title" content="Viaje del Alma · Gratis en Google Play">
+<meta property="og:description" content="No hace falta ser bruja. Hacen falta tres minutos.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Viaje del Alma">
+<meta property="og:url" content="https://viajedelalma.app/app/">
+<meta property="og:image" content="https://viajedelalma.app/og-image.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="es_ES">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#080614">
+<link rel="icon" type="image/png" href="/favicon.png">
+<link rel="apple-touch-icon" href="/logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600&family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=Karla:wght@600&display=swap" rel="stylesheet">
+<style>
+:root{--noche:#080614;--noche-2:#120C28;--oro:#C49A3C;--oro-claro:#E8CE8C;--niebla:#D6CFE6;--tenue:#978DB4;--linea:rgba(196,154,60,.28);
+--serif:"Cormorant Garamond",Georgia,serif;--display:"Cinzel",Georgia,serif;--sans:"Karla",system-ui,sans-serif}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--noche);color:var(--niebla);font-family:var(--serif);font-size:21px;line-height:1.55;-webkit-font-smoothing:antialiased;
+background-image:radial-gradient(ellipse 80% 45% at 50% 0%,rgba(107,78,158,.35),transparent 70%)}
+.wrap{max-width:560px;margin:0 auto;padding:28px 20px 40px}
+header{display:flex;align-items:center;gap:12px;justify-content:center;margin-bottom:18px}
+header img{width:44px;height:44px;border-radius:11px}
+header span{font-family:var(--display);letter-spacing:.18em;font-size:15px;color:var(--oro-claro)}
+h1{font-family:var(--serif);font-weight:500;font-size:34px;line-height:1.15;text-align:center;color:var(--oro-claro);margin:6px 0 8px}
+.sub{text-align:center;font-style:italic;color:var(--niebla);margin-bottom:22px}
+.video{display:block;width:100%;max-width:320px;aspect-ratio:9/16;margin:0 auto 22px;border-radius:26px;border:1.5px solid var(--linea);background:#000;box-shadow:0 0 40px rgba(196,154,60,.18)}
+.vbox{position:relative;width:100%;max-width:320px;margin:0 auto 22px}
+.vbox .video{margin:0}
+.sonido{position:absolute;right:12px;bottom:14px;font-family:var(--sans);font-weight:600;font-size:14px;letter-spacing:.03em;
+color:#140E28;background:rgba(232,206,140,.92);border:0;border-radius:20px;padding:8px 14px;cursor:pointer;box-shadow:0 2px 10px rgba(0,0,0,.35)}
+.cta{display:block;text-align:center;font-family:var(--sans);font-weight:600;font-size:19px;letter-spacing:.04em;
+background:var(--oro-claro);color:#140E28;text-decoration:none;padding:17px 20px;border-radius:40px;margin:0 auto;max-width:360px;box-shadow:0 6px 24px rgba(232,206,140,.25)}
+.cta:active{transform:scale(.98)}
+.nota{text-align:center;font-size:16px;color:var(--tenue);margin:10px 0 30px;font-style:italic}
+h2{font-family:var(--display);font-weight:500;font-size:15px;letter-spacing:.24em;text-transform:uppercase;color:var(--oro);text-align:center;margin:34px 0 14px}
+.fotos{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:10px}
+.fotos figure{position:relative}
+.fotos img{width:100%;aspect-ratio:36/44;object-fit:cover;border-radius:12px;display:block}
+.fotos figcaption{font-size:14px;text-align:center;margin-top:4px;color:var(--niebla)}
+.pm{text-align:center;margin-bottom:6px}
+ul{list-style:none;border-top:1px solid var(--linea)}
+li{display:flex;gap:14px;align-items:baseline;padding:12px 2px;border-bottom:1px solid var(--linea)}
+li b{font-family:var(--serif);font-weight:500;color:var(--oro-claro);font-size:26px;min-width:92px;text-align:right;white-space:nowrap;font-variant-numeric:lining-nums}
+li small{display:inline-block;font-family:var(--sans);font-size:11px;letter-spacing:.08em;color:var(--tenue);border:1px solid rgba(151,141,180,.5);border-radius:10px;padding:1px 7px;margin-left:6px;vertical-align:2px}
+.final{margin-top:34px}
+footer{text-align:center;font-size:14px;color:var(--tenue);margin-top:34px}
+footer a{color:var(--tenue)}
+/* 25-sep · El ritual de hoy y la lista de correo, traídos desde la portada. */
+.ritual{border:1px solid var(--linea);border-radius:14px;padding:20px 20px 16px;background:linear-gradient(168deg,var(--noche-2),#160F2E);text-align:center}
+.ritual .meta{display:flex;justify-content:center;align-items:baseline;gap:12px;margin-bottom:6px}
+.ritual .dia{font-family:var(--display);font-size:30px;color:var(--oro-claro)}
+.ritual .fase{font-family:var(--display);font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--oro)}
+.ritual h3{font-family:var(--serif);font-weight:500;font-size:26px;color:var(--oro-claro);margin:4px 0 6px}
+.ritual .texto{margin-bottom:8px}
+.letra-chica{font-size:15px;color:var(--tenue);font-style:italic;text-align:center;margin-top:10px}
+.correo{margin-top:34px;border:1px solid var(--linea);border-radius:14px;padding:20px;font-size:18px}
+.correo p{margin-bottom:10px}
+.correo .regalo{color:var(--oro-claro)}
+.campo{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-top:12px}
+.campo label{width:100%;text-align:left}
+.campo input{flex:1 1 200px;min-width:0;font:inherit;font-size:17px;padding:11px 14px;border-radius:30px;border:1px solid var(--linea);background:#0E0A20;color:var(--niebla)}
+.campo button{flex:1 1 auto;font-family:var(--sans);font-weight:600;font-size:16px;padding:12px 18px;border:0;border-radius:30px;background:var(--oro-claro);color:#140E28;cursor:pointer}
+.campo button:disabled{opacity:.6}
+.aviso{font-size:16px;min-height:1em;margin-top:8px;text-align:center}
+.aviso.err{color:#E8A08C}
+</style>
+<script data-goatcounter="https://viajedelalma.goatcounter.com/count"
+        async src="//gc.zgo.at/count.js"></script>
+<script src="/samhain/cinta.js" defer></script>   <!-- cinta de temporada Samhain, se retira sola el 3-nov -->
+<script src="/meta.js" defer></script>   <!-- píxel de Meta, solo con consentimiento -->
+</head>
+<body>
+<main class="wrap">
+<header><img src="/logo.png" alt="" width="44" height="44"><span>VIAJE DEL ALMA</span></header>
+
+<h1>No hace falta ser bruja.<br>Hacen falta tres minutos.</h1>
+<p class="sub">Tu práctica espiritual diaria, en español.</p>
+
+<div class="vbox">
+<video class="video" id="vid" src="anuncio.mp4" poster="poster.jpg" autoplay muted loop playsinline preload="metadata" aria-label="Vídeo: lo que hay dentro de la app"></video>
+<button type="button" class="sonido" id="sonido" aria-pressed="false">🔊 Activar sonido</button>
+</div>
+
+<a class="cta" id="cta1" href="https://play.google.com/store/apps/details?id=com.viajedelalma.app&amp;referrer=utm%5Fsource%3Dweb%26utm%5Fmedium%3Dapp%26utm%5Fcampaign%3Dsin%5Fcampana" rel="noopener">Descárgala gratis en Google Play</a>
+<p class="nota">Ritual diario siempre gratis · Premium con 7 días de prueba</p>
+
+<h2>Tu planta y tu mineral del mes</h2>
+<p class="pm">Cada mes, una planta y un mineral con su historia, su energía y un mini-ritual.</p>
+<div class="fotos">
+<figure><img src="manzanilla.webp" alt="Manzanilla" loading="lazy"><figcaption>Manzanilla</figcaption></figure>
+<figure><img src="lapislazuli.webp" alt="Lapislázuli" loading="lazy"><figcaption>Lapislázuli</figcaption></figure>
+<figure><img src="lavanda.webp" alt="Lavanda" loading="lazy"><figcaption>Lavanda</figcaption></figure>
+<figure><img src="amatista.webp" alt="Amatista" loading="lazy"><figcaption>Amatista</figcaption></figure>
+</div>
+
+<h2>Todo lo que hay dentro</h2>
+<ul>
+<li><b>1</b><span>ritual guiado cada día, de tres minutos <small>GRATIS</small></span></li>
+<li><b>12 + 12</b><span>plantas y minerales, uno por mes</span></li>
+<li><b>78</b><span>cartas del tarot con su lectura <small>PREMIUM</small> · y tu carta del día <small>GRATIS</small></span></li>
+<li><b>1.728</b><span>horóscopos, por tu signo y tu luna · el tuyo cada día <small>GRATIS</small></span></li>
+<li><b>60</b><span>rituales para cada momento <small>PREMIUM</small></span></li>
+<li><b>30</b><span>sesiones de yoga mental <small>PREMIUM</small></span></li>
+<li><b>☾</b><span>calendario lunar con la luna real, y un oráculo para tus preguntas</span></li>
+</ul>
+
+<h2>El ritual de hoy · gratis, siempre</h2>
+<div class="ritual">
+<div class="meta"><span class="dia" id="numDia">—</span><span class="fase" id="nomFase">cargando</span></div>
+<h3 id="tituloRitual">&nbsp;</h3>
+<p class="texto" id="textoRitual">&nbsp;</p>
+<p class="letra-chica" style="margin-top:0">Tres minutos. Sin materiales que haya que comprar.</p>
+</div>
+<p class="letra-chica">El ciclo tiene treinta días y vuelve a empezar con cada luna nueva. Mañana habrá otro.</p>
+<div class="final">
+<a class="cta" id="cta2" href="https://play.google.com/store/apps/details?id=com.viajedelalma.app&amp;referrer=utm%5Fsource%3Dweb%26utm%5Fmedium%3Dapp%26utm%5Fcampaign%3Dsin%5Fcampana" rel="noopener">Descárgala gratis en Google Play</a>
+<p class="nota">Para Android · Sin anuncios · Tu diario solo lo lees tú</p>
+</div>
+
+<div class="correo">
+<p>¿Prefieres que te escriba de vez en cuando? Déjame tu correo y te cuento las lunas, los sabbats y lo nuevo de la app, sin prisa y sin anuncios.</p>
+<p class="regalo" id="regaloApp">✦ Al apuntarte te llevas de regalo el <strong>Calendario Lunar</strong> en PDF:
+las lunas de lo que queda de 2026 y de enero a abril de 2027, con su día y su hora,
+y un ritual sencillo para cada luna y cada sabbat.</p>
+<script>if(Date.now()>=Date.parse('2027-01-01T00:00:00+01:00')){document.getElementById('regaloApp').innerHTML='✦ Al apuntarte te llevas de regalo el <strong>Calendario Lunar</strong> en PDF: las lunas de enero a abril de 2027, con su día y su hora, y un ritual sencillo para cada luna y cada sabbat.';}</script>
+<div class="campo">
+<label for="email" class="letra-chica" style="margin:0">Tu correo</label>
+<input type="email" id="email" placeholder="nombre@correo.com" autocomplete="email" required>
+<button id="enviar" type="button">Quiero recibirlo</button>
+</div>
+<p class="aviso" id="aviso" role="status" aria-live="polite"></p>
+<p class="letra-chica">Pocos correos y con calma. Te borras cuando quieras y no comparto tu dirección con nadie.</p>
+</div>
+<footer>
+<a href="/">viajedelalma.app</a> · <a href="/privacidad.html">Privacidad</a> · <a href="/terminos.html">Términos</a>
+<p class="redes" style="margin-top:10px">Síguenos en <a href="https://www.instagram.com/viajedelalma.app/" target="_blank" rel="noopener" data-goatcounter-click="app-redes-instagram">Instagram</a> · <a href="https://www.tiktok.com/@viajedelalma.app" target="_blank" rel="noopener" data-goatcounter-click="app-redes-tiktok">TikTok</a> · <a href="https://www.pinterest.com/viajedelalmaapp/" target="_blank" rel="noopener" data-goatcounter-click="app-redes-pinterest">Pinterest</a> · <a href="https://www.facebook.com/profile.php?id=61593699406994" target="_blank" rel="noopener" data-goatcounter-click="app-redes-facebook">Facebook</a></p>
+</footer>
+</main>
+<script>
+var v=document.getElementById('vid'),b=document.getElementById('sonido');
+if(v&&b){b.addEventListener('click',function(){
+  if(v.muted){v.muted=false;v.currentTime=0;var p=v.play();if(p&&p.catch)p.catch(function(){});
+    b.textContent='🔇 Silenciar';b.setAttribute('aria-pressed','true');
+    try{if(window.goatcounter&&window.goatcounter.count){window.goatcounter.count({path:'app-sonido-on',title:'Activa el sonido del vídeo en /app/',event:true});}}catch(e){}
+  }else{v.muted=true;b.textContent='🔊 Activar sonido';b.setAttribute('aria-pressed','false');}
+});}
+document.querySelectorAll('.cta').forEach(function(a){
+  a.addEventListener('click',function(){
+    try{ if(window.goatcounter && window.goatcounter.count){
+      window.goatcounter.count({path:'app-clic-play-'+a.id,title:'Clic a Play desde /app/ ('+a.id+')',event:true});
+    }}catch(e){}
+    // No es un Lead: no deja correo. Lead se reserva para el alta en la lista
+    // (gracias.html), que es lo que Meta debe optimizar.
+    try{ window.vdaMeta && vdaMeta.track('ViewContent',{content_name:'clic a Google Play',content_type:'product'}); }catch(e){}
+  });
+});
+</script>
+<script>
+/* 25-sep · Ritual de hoy y lista de correo (antes en la portada). */
+(function(){
+const SUPABASE_URL = "https://orxyhxehapqmjwmqmqgv.supabase.co";
+const SUPABASE_KEY = "sb_publishable_As7G8e_pyZwjApjgcC48ow_RDc4hZfN"; // clave publicable: segura en público, la protege la RLS
+const TABLA_CORREO = "lista_correo";
+const CORREO_APOYO = "viajedelalma.app@gmail.com";
+/* ── Día del ciclo lunar ─────────────────────────── */
+/* Anclado a las fases reales, con el MISMO cálculo que la app
+   (expo/data/calendar.ts · getLunarDay): luna nueva = 1, cuarto creciente = 8,
+   luna llena = 15, cuarto menguante = 22; los días intermedios se reparten.
+   Tablas UTC 2025-2028 copiadas de la app (AAMMDDhhmm), verificadas contra
+   efemérides el 26-sep-2026 (error máximo 1 minuto). Fuera de las tablas se
+   vuelve a la lunación media. Hallazgo 2, 26-sep. */
+const SINODICO = 29.530588853;
+const LUNA_NUEVA_REF = Date.UTC(2000, 0, 6, 18, 14);
+const FASES_UTC = {
+  1:  "2412302226 2501291235 2502280044 2503291057 2504271931 2505270302 2506251031 2507241911 2508230606 2509211954 2510211225 2511200647 2512200143 2601181951 2602171201 2603190123 2604171151 2605162000 2606150254 2607140943 2608121736 2609110326 2610101550 2611090702 2612090051 2701072024 2702061556 2703080929 2704062351 2705061058 2706041940 2707040302 2708021005 2708311741 2709300236 2710291336 2711280324 2712272012 2801261512 2802251037 2803260431 2804241946 2805240816 2806221827 2807220301 2808201043 2809181823 2810180256 2811161317 2812160206",
+  8:  "2501062356 2502050802 2503061631 2504050214 2505041351 2506030340 2507021930 2508011241 2508310625 2509292353 2510291620 2511280658 2512271909 2601260447 2602241227 2603251917 2604240231 2605231110 2606212155 2607211105 2608200246 2609182043 2610181612 2611171147 2612170542 2701152034 2702140758 2703151625 2704132256 2705130443 2706111056 2707101838 2708090454 2709071831 2710071147 2711060759 2712060522 2801050140 2802031910 2803040902 2804021915 2805020225 2805310736 2806291210 2807281740 2808270135 2809251309 2810250453 2811240014 2812232144",
+  15: "2501132226 2502121353 2503140654 2504130022 2505121655 2506110743 2507102036 2508090754 2509071808 2510070347 2511051319 2512042314 2601031002 2602012209 2603031137 2604020211 2605011723 2605310845 2606292356 2607291435 2608280418 2609261648 2610260411 2611241453 2612240128 2701221217 2702202323 2703221044 2704202227 2705201059 2706190044 2707181545 2708170728 2709152303 2710151347 2711140325 2712131608 2801120402 2802101503 2803110105 2804091026 2805081948 2806070608 2807061810 2808050809 2809032347 2810031624 2811020917 2812020140 2812311648",
+  22: "2412222218 2501212030 2502201732 2503221129 2504210135 2505201158 2506181919 2507180037 2508160512 2509141032 2510131812 2511120528 2512112051 2601101548 2602091243 2603110938 2604100451 2605092110 2606081000 2607071928 2608060221 2609040751 2610031324 2611012028 2612010608 2612301859 2701291055 2702280516 2703300053 2704282017 2705281357 2706270454 2707261654 2708250227 2709231020 2710221729 2711210048 2712200910 2801181925 2802170807 2803172322 2804161636 2805161043 2806150427 2807142056 2808131145 2809120045 2810111156 2811092125 2812090538"
+};
+
+function edadLunar(fecha = new Date()){
+  const dias = (fecha.getTime() - LUNA_NUEVA_REF) / 86400000;
+  let e = dias % SINODICO;
+  if (e < 0) e += SINODICO;
+  return e;
+}
+function ymdLocal(d){
+  return d.getFullYear() + "-" + String(d.getMonth() + 1).padStart(2, "0") + "-" + String(d.getDate()).padStart(2, "0");
+}
+function fechaDe(s){ const p = s.split("-"); return new Date(+p[0], p[1] - 1, +p[2]); }
+function diasEntre(a, b){
+  return Math.round((new Date(b.getFullYear(), b.getMonth(), b.getDate()) - new Date(a.getFullYear(), a.getMonth(), a.getDate())) / 86400000);
+}
+const EVENTOS_LUNA = (function(){
+  const ev = [];
+  for (const dia of [1, 8, 15, 22]) {
+    for (const s of FASES_UTC[dia].split(" ")) {
+      const d = new Date(Date.UTC(2000 + +s.slice(0, 2), +s.slice(2, 4) - 1, +s.slice(4, 6), +s.slice(6, 8), +s.slice(8, 10)));
+      ev.push({ f: ymdLocal(d), dia: dia });
+    }
+  }
+  return ev.sort((a, b) => (a.f < b.f ? -1 : a.f > b.f ? 1 : 0));
+})();
+function diaDelCiclo(fecha = new Date()){
+  const hoy = ymdLocal(fecha);
+  let i = -1;
+  for (let j = 0; j < EVENTOS_LUNA.length; j++) {
+    if (EVENTOS_LUNA[j].f <= hoy) i = j; else break;
+  }
+  if (i >= 0 && i + 1 < EVENTOS_LUNA.length) {
+    const a = EVENTOS_LUNA[i], b = EVENTOS_LUNA[i + 1];
+    const hasta = b.dia === 1 ? 31 : b.dia;
+    const span = diasEntre(fechaDe(a.f), fechaDe(b.f));
+    const edad = diasEntre(fechaDe(a.f), fecha);
+    if (hasta > a.dia && span > 0 && edad >= 0) {
+      const d = a.dia + Math.round((edad * (hasta - a.dia)) / span);
+      return Math.min(30, Math.max(a.dia, Math.min(hasta - 1, d)));
+    }
+  }
+  return Math.min(30, Math.floor(edadLunar(fecha)) + 1); // respaldo: lunación media
+}
+/* Nombre de la fase con la MISMA regla que la app (getMoonPhase de expo/data/calendar.ts
+   y PHASE_LABELS de hoy.tsx): luna nueva, cuartos y luna llena solo el día exacto del
+   evento; el resto de días, la fase que sigue al último evento. Usa los mismos
+   EVENTOS_LUNA que el número del día, así nombre y número no se contradicen.
+   Fuera de las tablas, lunación media. Decisión 7, 1-oct-2026. */
+function nombreFaseHoy(fecha = new Date()){
+  const hoy = ymdLocal(fecha);
+  const EN_EL_DIA = { 1: "Luna nueva", 8: "Cuarto creciente", 15: "Luna llena", 22: "Cuarto menguante" };
+  const DESPUES = { 1: "Luna creciente", 8: "Luna creciente", 15: "Luna menguante", 22: "Luna menguante" };
+  let i = -1;
+  for (let j = 0; j < EVENTOS_LUNA.length; j++) {
+    if (EVENTOS_LUNA[j].f === hoy) return EN_EL_DIA[EVENTOS_LUNA[j].dia];
+    if (EVENTOS_LUNA[j].f < hoy) i = j; else break;
+  }
+  if (i < 0 || i + 1 >= EVENTOS_LUNA.length) return nombreFase(edadLunar(fecha));
+  return DESPUES[EVENTOS_LUNA[i].dia];
+}
+function nombreFase(edad){
+if (edad < 1.2) return "Luna nueva";
+if (edad < 6.4) return "Creciente";
+if (edad < 8.4) return "Cuarto creciente";
+if (edad < 13.8) return "Gibosa creciente";
+if (edad < 15.8) return "Luna llena";
+if (edad < 21.1) return "Gibosa menguante";
+if (edad < 23.1) return "Cuarto menguante";
+if (edad < 28.5) return "Menguante";
+return "Luna oscura";
+}
+
+/* ── Los treinta gestos ────────────────────────── */
+const CICLO = [
+["La página en blanco","Escribe una sola intención para este ciclo, en presente y concreta. Debajo, un gesto de esta semana para regarla. Enciende una vela mientras la lees en voz baja."],
+["El nombre exacto","Vuelve a tu intención de ayer y quítale una palabra de más. Lo que sobra en una frase suele sobrar también en la vida."],
+["Dos minutos","Elige el primer paso de tu intención y hazlo hoy en dos minutos. No el mejor paso: el más pequeño que exista."],
+["El terreno","Mira dónde va a vivir tu intención: una hora del día, un rincón de la casa. Lo que no tiene sitio no crece."],
+["El agua justa","Nombra una cosa que te sobra esta semana y déjala fuera. Sembrar también es hacer hueco."],
+["La aliada","Piensa en alguien que sabe de esto más que tú. Escríbele hoy, aunque sea una línea. Pedir pronto ahorra meses."],
+["La primera raíz","Repasa la semana: qué ha agarrado y qué sigue en el aire. Sin juicio — solo inventario."],
+["La subida","La luna ya empuja. Coge la tarea que venías aplazando y ponle hora en el calendario, no en la cabeza."],
+["La voz","Di tu intención en voz alta una vez, a solas. Escucha cómo suena cuando sale del cuerpo y no de la cabeza."],
+["Las manos","Haz despacio una tarea manual pequeña: amasar, ordenar un cajón, trocear verdura. Toda la atención en el tacto. Las manos piensan de otra manera."],
+["El fuego pequeño","Escribe la excusa exacta con la que esquivas lo importante. Quémala con cuidado o córtala en tiras. La tarea sigue ahí, pero ya sin guardaespaldas."],
+["La marea alta","Pon una canción que te encienda y muévete sin espejo. Al acabar, quédate quieta y di tu intención una vez: el cuerpo la oye distinto cuando está despierto."],
+["La antesala","Falta poco para la llena. Escribe qué quieres ver con claridad cuando llegue. Preguntar bien es media respuesta."],
+["La víspera","Hoy no añadas nada. Ordena lo que ya hay y acuéstate temprano: mañana la luz lo enseña todo."],
+["La luna llena","Sal a mirarla, aunque sea desde la ventana. Nombra en voz baja una cosa que ya está cumplida de lo que sembraste."],
+["La carta","Escríbele una carta a la mujer que cerrará este ciclo el día treinta. Cuéntale cómo estás hoy. Ciérrala y no la releas hasta entonces."],
+["El espejo honesto","Nombra una cosa tuya que no te gusta ver a plena luz. Solo nombrarla. Hoy no se arregla nada."],
+["Lo que pesa","Haz una lista de lo que cargas y marca lo que no es tuyo. La llena enseña también el peso ajeno."],
+["La gratitud concreta","Tres cosas, con nombre y apellido. Nada de «mi salud»: el vaso de agua, la llamada de ayer, el sol de las cuatro."],
+["El desorden útil","Elige un cajón, una carpeta, un archivo. Vacíalo entero y vuelve a meter solo lo que defenderías."],
+["La media vuelta","La luz empieza a bajar. Pregúntate qué te llevas de esta mitad del ciclo y qué se queda aquí."],
+["Repartir","Da hoy algo que te sobre: tiempo, una respuesta, un objeto, una recomendación. Sin esperar vuelta."],
+["La palabra dicha","Dile a alguien algo bueno que piensas de ella y nunca has dicho en voz alta. Hoy, no cuando toque."],
+["El límite","Di un no que llevabas debiendo. Sin explicación larga: los noes largos se negocian."],
+["La mesa compartida","Come con alguien sin pantallas, aunque sean veinte minutos. Repartir también es estar."],
+["La cosecha pequeña","Apunta tres cosas que este ciclo te ha dado y no esperabas. Suelen ser las que cuentan."],
+["La poda","Mira tu lista de pendientes y tacha, sin hacerla, una cosa que ya no significa nada. Podar es decidir."],
+["El descanso","Hoy el ritual es no hacer. Media hora sin móvil, sin objetivo, sin ganarte nada. La tierra también descansa."],
+["La semilla","De todo el ciclo, elige una sola cosa para guardar: «del ciclo que muere, guardo…». Escríbela y guárdala donde la encuentres."],
+["El umbral","Reúne lo escrito estos días y léelo una vez. Di la verdad en una frase sobre tu intención: creció, cambió de forma, no era su momento, o floreció entera. Todas son finales dignos."]
+];
+
+/* ── Pintar el ritual ──────────────────────────── */
+const edad = edadLunar();
+const dia = diaDelCiclo();
+const [titulo, texto] = CICLO[dia - 1];
+document.getElementById("numDia").textContent = dia;
+document.getElementById("nomFase").textContent = nombreFaseHoy();
+document.getElementById("tituloRitual").textContent = titulo;
+document.getElementById("textoRitual").textContent = texto;
+
+/* ── Captura de correo ─────────────────────────── */
+const btn = document.getElementById("enviar");
+const input = document.getElementById("email");
+const aviso = document.getElementById("aviso");
+
+function decir(msg, tipo){ aviso.textContent = msg; aviso.className = "aviso " + tipo; }
+
+btn.addEventListener("click", async () => {
+const email = input.value.trim().toLowerCase();
+if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)){
+decir("Ese correo no parece completo. Revísalo y vuelve a intentarlo.", "err");
+input.focus(); return;
+}
+btn.disabled = true; decir("Apuntando…", "");
+try{
+const r = await fetch(`${SUPABASE_URL}/rest/v1/${TABLA_CORREO}`, {
+method:"POST",
+headers:{
+"apikey": SUPABASE_KEY,
+"Authorization": `Bearer ${SUPABASE_KEY}`,
+"Content-Type": "application/json",
+"Prefer": "return=minimal"
+},
+body: JSON.stringify({ email, origen: "web" })
+});
+if (r.ok || r.status === 409){
+location.href = "/gracias.html";
+} else {
+decir(`No he podido guardarlo. Prueba otra vez o escríbeme a ${CORREO_APOYO}.`, "err");
+btn.disabled = false;
+}
+} catch {
+decir(`Se ha cortado la conexión. Prueba otra vez o escríbeme a ${CORREO_APOYO}.`, "err");
+btn.disabled = false;
+}
+});
+input.addEventListener("keydown", e => { if (e.key === "Enter") btn.click(); });
+
+/* Quien llega desde la portada (?o=web) no viene de los anuncios: su clic a Play se atribuye a la web. */
+/* R06-20261011-07: el clic a Play lleva la campaña con la que llegó la visita (lista cerrada).
+   Desde la portada (?o=web), como antes. Sin campaña, el enlace del HTML. */
+(function(){ try{
+  var q=new URLSearchParams(location.search), ref=null;
+  if(q.get("o")==="web"){ ref="utm_source=landing&utm_medium=web&utm_campaign=lanzamiento"; }
+  else if(q.get("utm_campaign")){
+    var p=[]; ["utm_source","utm_medium","utm_campaign","utm_content"].forEach(function(k){
+      var v=(q.get(k)||"").replace(/[^A-Za-z0-9_.\-]/g,"").slice(0,60); if(v) p.push(k+"="+v); });
+    ref=p.join("&");
+  }
+  if(ref){ document.querySelectorAll("a.cta").forEach(function(a){
+    a.href="https://play.google.com/store/apps/details?id=com.viajedelalma.app&referrer="+encodeURIComponent(ref); }); }
+}catch(e){} })();
+})();
+</script>
+</body>
+</html>

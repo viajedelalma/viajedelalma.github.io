@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Gracias — Viaje del Alma</title>
+<meta name="description" content="Ya estás en la lista. Tu Calendario Lunar te espera.">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#080614">
+<link rel="icon" type="image/png" href="favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&display=swap" rel="stylesheet">
+<style>
+:root{
+--noche:#080614; --noche-2:#0E0A20; --noche-3:#160F2E;
+--oro:#C49A3C; --oro-claro:#E8CE8C; --oro-brillo:#F6E3AE;
+--violeta-niebla:rgba(107,78,158,.32);
+--niebla:#D6CFE6; --tenue:#978DB4; --linea:rgba(196,154,60,.28);
+--serif:"Cormorant Garamond",Georgia,serif;
+--display:"Cinzel",Georgia,serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{font-size:17.5px}
+body{
+background:var(--noche);color:var(--niebla);font-family:var(--serif);
+font-size:23px;line-height:1.7;font-weight:300;
+-webkit-font-smoothing:antialiased;overflow-x:hidden;
+min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;
+text-align:center;padding:40px 26px;
+}
+.cielo{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+.cielo::before{content:"";position:absolute;inset:0;background:
+radial-gradient(ellipse 75% 55% at 50% -8%,var(--violeta-niebla),transparent 68%),
+radial-gradient(ellipse 55% 40% at 88% 84%,rgba(196,154,60,.08),transparent 70%);}
+.estrella{position:absolute;border-radius:50%;background:#EFE6CE}
+@media (prefers-reduced-motion:no-preference){
+.estrella{animation:titilar var(--t,4s) ease-in-out var(--d,0s) infinite}
+@keyframes titilar{0%,100%{opacity:var(--o,.5)}50%{opacity:.08}}
+}
+main{position:relative;z-index:1;max-width:620px}
+.luna{font-size:2.6rem;color:var(--oro-claro);text-shadow:0 0 30px rgba(232,206,140,.5);line-height:1}
+.logo{display:block;margin:0 auto 20px;width:92px;height:92px;border-radius:24%;box-shadow:0 0 34px rgba(232,206,140,.28)}
+h1{
+font-family:var(--display);font-weight:400;font-size:clamp(1.6rem,6vw,2.1rem);
+letter-spacing:.14em;margin:26px 0 14px;text-transform:uppercase;
+background:linear-gradient(180deg,#F8F3E4 20%,var(--oro-claro) 85%);
+-webkit-background-clip:text;background-clip:text;color:transparent;
+}
+p.sub{color:var(--tenue);font-size:1.12rem;max-width:30em;margin:0 auto}
+.marco{
+position:relative;margin:38px auto 0;padding:34px 30px;
+background:linear-gradient(168deg,var(--noche-2),var(--noche-3));
+border:1px solid var(--linea);border-radius:3px;
+}
+.marco::before,.marco::after,.e3::before,.e3::after{
+content:"";position:absolute;width:22px;height:22px;
+border-color:var(--oro);border-style:solid;opacity:.85;
+}
+.marco::before{top:-1px;left:-1px;border-width:1.5px 0 0 1.5px;border-radius:3px 0 0 0}
+.marco::after{top:-1px;right:-1px;border-width:1.5px 1.5px 0 0;border-radius:0 3px 0 0}
+.e3::before{bottom:-1px;left:-1px;border-width:0 0 1.5px 1.5px;border-radius:0 0 0 3px}
+.e3::after{bottom:-1px;right:-1px;border-width:0 1.5px 1.5px 0;border-radius:0 0 3px 0}
+.eyebrow{
+font-family:var(--display);font-size:.84rem;letter-spacing:.32em;
+text-transform:uppercase;color:var(--oro);font-weight:500;margin-bottom:14px;
+}
+.marco h2{font-family:var(--display);font-weight:400;font-size:1.3rem;letter-spacing:.06em;color:var(--oro-claro);margin-bottom:10px}
+.marco p{font-size:1.08rem;color:var(--niebla)}
+.boton{
+display:inline-block;margin-top:24px;
+background:linear-gradient(180deg,var(--oro-claro),var(--oro));
+color:#0A0716;border-radius:2px;border-bottom:none;
+font-family:var(--display);font-size:.88rem;letter-spacing:.22em;
+text-transform:uppercase;font-weight:600;padding:16px 30px;
+box-shadow:0 0 24px rgba(196,154,60,.28);
+transition:box-shadow .25s ease,transform .15s ease;
+}
+.boton:hover{box-shadow:0 0 34px rgba(232,206,140,.5);transform:translateY(-1px);color:#0A0716}
+a{color:var(--oro-claro);text-decoration:none;border-bottom:1px solid var(--linea)}
+a:hover{border-bottom-color:var(--oro)}
+.letra-chica{font-size:1.05rem;color:var(--tenue);margin-top:22px}
+.volver{margin-top:34px;font-size:1rem}
+/* Pasos de la compra (22-sep). Solo se ven con ?producto= en la URL. */
+.pasos{list-style:none;text-align:left;max-width:30em;margin:0 auto;
+display:grid;gap:13px;font-size:1.05rem;color:var(--niebla)}
+.pasos li{position:relative;padding-left:26px;line-height:1.55}
+.pasos li::before{content:"✦";position:absolute;left:0;top:.15em;color:var(--oro);font-size:.78rem}
+.pasos b{color:var(--oro-claro);font-weight:500}
+</style>
+<script>
+  // El identificador de pago de Stripe no debe llegar a ninguna analítica:
+  // se guarda en memoria y se borra de la URL ANTES de cargar GoatCounter
+  // y meta.js (22-sep). Lo de abajo lee __vdaQS, no location.search.
+  window.__vdaQS = location.search;
+  try { history.replaceState(null, '', location.pathname + location.hash); } catch (e) {}
+</script>
+<script data-goatcounter="https://viajedelalma.goatcounter.com/count"
+        async src="//gc.zgo.at/count.js"></script>
+<script src="/samhain/cinta.js" defer></script>   <!-- cinta de temporada Samhain, se retira sola el 3-nov -->
+<script src="/meta.js" defer></script>   <!-- píxel de Meta, solo con consentimiento -->
+<script>
+/* ═══════════════════════════════════════════════════════════════════════
+   Quién llega a esta página, y qué se le cuenta a Meta.
+
+   Con ?producto=… viene de Stripe, de pagar. El importe sale del producto,
+   no de un valor fijo: un pack son 39,99 €, no 24,99 €.
+
+   Sin parámetro NO es una compra: es el alta en la lista de correo desde la
+   página /app/ (app/index.html, único sitio que trae aquí sin parámetro desde el 25-sep). Hasta hoy
+   esta página mandaba Purchase 24,99 € también en ese caso, así que cada
+   suscriptora habría contado como venta. Ahora se manda Lead.
+
+   24-sep: el Purchase ya NO sale de la URL. La página pregunta a la Edge
+   Function estado-pedido, que pregunta a Stripe. Solo si Stripe dice
+   «pagado», con importe > 0 y de hace menos de 72 h, se manda Purchase con
+   el importe COBRADO (cupón incluido) y el session_id como eventID. Si el
+   endpoint dice que no, falla o tarda más de 8 s: no se manda nada. Y solo
+   con las cookies aceptadas: sin aceptación ni siquiera se pregunta.
+   ═══════════════════════════════════════════════════════════════════════ */
+(function () {
+  var IMPORTES = { carta: 24.99, revolucion: 24.99, pack: 39.99, sinastria: 19.99 };
+
+  /* Esta página nació para el alta en la lista de correo. Con ?producto= la
+     usa también quien acaba de pagar, y entonces el titular, la entradilla y
+     el primer bloque son los de la compra. Sin parámetro no cambia nada.
+     No se menciona la guía de primera lectura: GUIA_DE_REGALO sigue en false
+     en pedido.html y aquí no se promete lo que todavía no se envía. */
+  var TEXTOS = {
+    carta: {
+      corto: 'tu carta natal',
+      entrega: '<b>Tu carta natal</b> te llega en PDF a tu correo, <b>en menos de 24 horas</b>.' },
+    revolucion: {
+      corto: 'tu revolución solar',
+      entrega: '<b>Tu revolución solar</b> te llega en PDF a tu correo, <b>en menos de 24 horas</b>.' },
+    sinastria: {
+      corto: 'vuestra sinastría',
+      entrega: '<b>Vuestra sinastría</b> llega en PDF al correo que pusiste, <b>en menos de 24 horas</b>.' },
+    pack: {
+      corto: 'tus dos informes',
+      entrega: '<b>Tus dos informes</b>, la carta natal y la revolución solar, te llegan en PDF '
+             + 'a tu correo y en el mismo envío, <b>en menos de 24 horas</b>.' },
+  };
+
+  var PURCHASE_ACTIVO = true;   // 24-sep: encendido. El importe lo acredita el
+                                // servidor (estado-pedido), no la URL.
+  var ENDPOINT = 'https://orxyhxehapqmjwmqmqgv.supabase.co/functions/v1/estado-pedido';
+
+  /* Lee una cookie (las de Meta: _fbp y _fbc). '' si no está. */
+  function galleta(n) {
+    try {
+      var m = document.cookie.match(new RegExp('(?:^|; )' + n + '=([^;]*)'));
+      return m ? decodeURIComponent(m[1]) : '';
+    } catch (e) { return ''; }
+  }
+
+  /* Pregunta al servidor y, solo si confirma el pago, manda Purchase. */
+  function mideCompra(id) {
+    if (!PURCHASE_ACTIVO || !id || !window.fetch || !window.vdaMeta) return;
+    // 24-sep noche: solo se descarta el «no» explícito. Con el consentimiento sin
+    // contestar (null) se pregunta igual al servidor: vdaMeta.track() encola el
+    // Purchase y lo suelta si acepta después. El aviso a Meta DESDE EL SERVIDOR
+    // (estado-pedido v3) solo sale con «si», y por eso el consentimiento viaja en
+    // la llamada. Los identificadores de la cookie de Meta (_fbp, _fbc) solo se
+    // mandan con «si».
+    var consent = vdaMeta.consentimiento ? vdaMeta.consentimiento() : null;
+    if (!vdaMeta.consentimiento || consent === 'no') return;
+    var extra = '&consentimiento=' + (consent === 'si' ? 'si' : 'pendiente');
+    if (consent === 'si') {
+      var fbp = galleta('_fbp'), fbc = galleta('_fbc');
+      if (fbp) extra += '&fbp=' + encodeURIComponent(fbp);
+      if (fbc) extra += '&fbc=' + encodeURIComponent(fbc);
+    }
+    var ctrl = window.AbortController ? new AbortController() : null;
+    var reloj = setTimeout(function () { if (ctrl) ctrl.abort(); }, 8000);
+    fetch(ENDPOINT + '?session_id=' + encodeURIComponent(id) + extra,
+          { credentials: 'omit', cache: 'no-store', signal: ctrl ? ctrl.signal : undefined })
+      .then(function (r) { return r.ok ? r.json() : { pagado: false }; })
+      .then(function (d) {
+        clearTimeout(reloj);
+        if (!d || d.pagado !== true) return;
+        var v = Math.round(d.importe_centimos) / 100;
+        if (!(v > 0)) return;
+        vdaMeta.track('Purchase', {
+          content_name: (d.producto && d.producto !== 'desconocido') ? d.producto : prod,
+          content_type: 'product',
+          value: v,
+          currency: String(d.moneda || 'eur').toUpperCase(),
+        }, { eventID: id });
+        // Una sola vez por compra en este navegador (la página se puede recargar),
+        // y solo cuando el Purchase sale de verdad (con «si»; con «pendiente»
+        // queda en la cola de meta.js).
+        if (consent === 'si' && !yaContada(id, 'vda_compras_medidas')) cuenta('compra-medida-meta');
+      })
+      .catch(function () { clearTimeout(reloj); });   // el silencio es el estado seguro
+  }
+  var prod = '', sesion = '';
+  try {
+    var q = new URLSearchParams(window.__vdaQS !== undefined ? window.__vdaQS : location.search);
+    prod = q.get('producto') || '';
+    sesion = (q.get('session_id') || '').trim();
+    // Si Stripe no sustituye {CHECKOUT_SESSION_ID}, llega la plantilla literal
+    // y sería la MISMA para todas: solo se contaría la primera compra de la
+    // historia y las demás se perderían en silencio. Mejor sin identificador.
+    if (sesion.indexOf('{') !== -1 || sesion.length > 200) sesion = '';
+  } catch (e) {}
+  var valor = IMPORTES[prod];
+
+  /* Una recarga de esta página no puede volver a contar la misma compra. Se
+     guardan en el navegador los session_id de Stripe ya contados.
+
+     Dos límites que conviene tener escritos:
+     - Es dedupe LOCAL. Solo protege de recargas en ese mismo navegador. Si
+       abre el enlace en otro dispositivo, se cuenta otra vez.
+     - Entre dispositivos protege Meta: desde el 24-sep el Purchase lleva el
+       session_id como eventID, y Meta descarta el repetido. Si algún día se
+       manda también desde el servidor (API de conversiones), usar el mismo
+       session_id como event_id allí. */
+  var CLAVE_CONTADAS = 'vda_compras_contadas';
+  function yaContada(id, clave) {
+    if (!id) return false;                       // sin identificador no hay forma de saberlo
+    try {
+      var v = JSON.parse(localStorage.getItem(clave || CLAVE_CONTADAS) || '[]');
+      if (!Array.isArray(v)) v = [];
+      if (v.indexOf(id) !== -1) return true;
+      v.push(id);
+      localStorage.setItem(clave || CLAVE_CONTADAS, JSON.stringify(v.slice(-20)));  // la lista no crece sin fin
+    } catch (e) { return false; }                // sin almacenamiento: antes contar de más que perder la venta
+    return false;
+  }
+
+  // count.js va con `async` y casi siempre carga DESPUÉS de este bloque. Con
+  // «si existe goatcounter, cuenta» el evento se perdía en silencio (lección
+  // de pedido.html, 21-sep). Si aún no está, se espera a que cargue.
+  function cuenta(ev) {
+    var envia = function () {
+      try { window.goatcounter.count({ path: ev, title: ev, event: true }); } catch (e) {}
+    };
+    if (window.goatcounter && window.goatcounter.count) return envia();
+    var s = document.querySelector('script[data-goatcounter]');
+    if (s) s.addEventListener('load', envia, { once: true });
+    else window.addEventListener('load', function () { setTimeout(envia, 500); }, { once: true });
+  }
+
+  document.addEventListener('DOMContentLoaded', function () {
+    if (valor) {
+      var t = TEXTOS[prod];
+      document.getElementById('titular').textContent = 'Tu pago está hecho';
+      document.getElementById('sub').textContent = 'Gracias por confiar. Ahora me pongo con ' + t.corto + '.';
+      document.getElementById('paso-entrega').innerHTML = t.entrega;
+      document.getElementById('compra').hidden = false;
+      // El calendario deja de ser «el regalo» de la página y pasa a ser lo que
+      // es para quien ha comprado: un extra de bienvenida.
+      document.getElementById('rotulo-regalo').textContent = 'Regalo de bienvenida';
+      // 25-sep: a quien acaba de comprar la carta natal se le enseña su revolución
+      // solar (a quien compró el pack no: ya la tiene).
+      if (prod === 'carta') {
+        var up = document.getElementById('upsell-revolucion');
+        if (up) up.hidden = false;
+      }
+
+      // La página se ve siempre; lo que no se repite es el conteo.
+      if (!yaContada(sesion)) {
+        // GoatCounter no pide consentimiento: es la única cuenta de compras
+        // confirmadas que no depende de que acepte cookies.
+        cuenta('compra-confirmada');
+        cuenta('compra-confirmada-' + prod);
+      }
+      // Fuera del dedupe: si la primera visita llegó sin contestar a las cookies
+      // y acepta en una recarga, el Purchase sale entonces. No se duplica: Meta
+      // descarta el repetido por eventID (= session_id).
+      try { mideCompra(sesion); } catch (e) {}
+    } else {
+      cuenta('lista-alta');
+      try { window.vdaMeta && vdaMeta.track('Lead', { content_name: 'lista de correo' }); } catch (e) {}
+    }
+  });
+})();
+</script>
+</head>
+<body>
+<div class="cielo" id="cielo" aria-hidden="true"></div>
+<main>
+<img class="logo" src="logo.png" alt="Viaje del Alma" width="92" height="92">
+<h1 id="titular">Ya estás en la lista</h1>
+<p class="sub" id="sub">Te escribiré cuando haya luna nueva, cuando llegue un sabbat y cuando pase algo que merezca la pena contarte. Sin prisa y sin ruido. Mientras tanto, la luna sigue su ciclo — y este regalo es para que lo camines con ella.</p>
+
+<!-- Solo con ?producto= en la URL: quien viene de pagar. Oculto por defecto,
+     así que para quien se apunta a la lista esta página no cambia nada. -->
+<div class="marco" id="compra" hidden><span class="e3"></span>
+<p class="eyebrow">Lo que pasa ahora</p>
+<ul class="pasos">
+<li id="paso-entrega">Tu informe te llega en PDF a tu correo, <b>en menos de 24 horas</b>.</li>
+<li>Míralo también en <b>spam</b> o en promociones: llega de un remitente que aún no conoces.</li>
+<li>Si algún dato de nacimiento no era correcto, <b>respóndeme a ese mismo correo</b> y lo rehago sin coste.</li>
+<li>El <b>recibo del pago</b> te lo envía la pasarela en un correo aparte. No lo busques en el mío.</li>
+</ul>
+</div>
+
+<div class="marco"><span class="e3"></span>
+<p class="eyebrow" id="rotulo-regalo">Tu regalo</p>
+<h2>Calendario Lunar · Otoño–Invierno 2026</h2>
+<p>Las lunas de septiembre a diciembre con su día y su hora, un ritual de cinco
+minutos para cada luna nueva y llena, y los tres sabbats que cierran el año:
+Mabon, Samhain y Yule.</p>
+<a class="boton" href="calendario-lunar.pdf" download="ViajeDelAlma_CalendarioLunar.pdf">Descargar el calendario ✦</a>
+<p class="letra-chica">Es un PDF pensado para el móvil, y bonito también impreso.
+Si el botón no descarga, <a href="calendario-lunar.pdf">ábrelo aquí</a> y guárdalo.</p>
+</div>
+
+<!-- 16-oct: el regalo sigue en 2027 (enero a abril, sacado del Calendario lunar 2027). Desde el 1-ene-2027 el de otoño se oculta solo. -->
+<div class="marco" id="regalo-2027"><span class="e3"></span>
+<p class="eyebrow" id="rotulo-2027">Y para empezar 2027</p>
+<h2>Calendario Lunar · Enero–Abril 2027</h2>
+<p>Los cuatro primeros meses del año, luna a luna: cada fase con su día, su hora y su signo,
+las fiestas de la rueda que caen en esos meses, los eclipses de febrero y un ritual sencillo
+para cada luna nueva, cada luna llena y cada sabbat.</p>
+<a class="boton" href="/calendario-2027/regalo/ViajeDelAlma_CalendarioLunar_2027_EneroAbril.pdf" download data-goatcounter-click="gracias-regalo-2027-norte">Descargar enero–abril ✦</a>
+<p class="letra-chica">¿Vives en el hemisferio sur? <a href="/calendario-2027/regalo/ViajeDelAlma_CalendarioLunar_2027_EneroAbril_HemisferioSur.pdf" download data-goatcounter-click="gracias-regalo-2027-sur">Aquí tienes tu edición</a>, con las horas de tu país.
+¿Quieres el año entero? <a href="/calendario-2027/?utm_source=web&amp;utm_medium=gracias&amp;utm_campaign=calendario2027" data-goatcounter-click="gracias-calendario-completo">El Calendario lunar 2027 completo</a>.</p>
+</div>
+<script>
+// Desde el 1 de enero de 2027 (hora de Madrid) el calendario de otoño–invierno 2026 ya no se ofrece.
+(function () { if (Date.now() >= Date.parse('2027-01-01T00:00:00+01:00')) { var m = document.querySelector('a[href="calendario-lunar.pdf"]'); m = m && m.closest('.marco'); if (m) m.hidden = true; var r = document.getElementById('rotulo-2027'); if (r) r.textContent = 'Tu regalo'; } })();
+</script>
+
+<!-- 25-sep: solo para quien acaba de comprar la carta natal (se enseña desde el script). -->
+<div class="marco" id="upsell-revolucion" hidden><span class="e3"></span>
+<p class="eyebrow">Y ahora, tu año</p>
+<h2>Tu revolución solar</h2>
+<p>Tu carta natal cuenta quién eres. La revolución solar cuenta qué te trae el año, de cumpleaños a cumpleaños y con fechas: unas cuarenta páginas escritas para ti.</p>
+<p>Como ya eres clienta, unas semanas antes de tu cumpleaños te llegará un código personal para pedirla a <b>14,99 €</b>. Si la quieres ya, la tienes aquí por 24,99 €.</p>
+<a class="boton" href="/revolucion/" data-goatcounter-click="gracias-upsell-revolucion">Ver mi revolución solar ✦</a>
+</div>
+
+<div class="marco"><span class="e3"></span>
+<p class="eyebrow">Y si aún no la tienes</p>
+<p>Viaje del Alma ya está en Google Play. Un ritual guiado de tres minutos cada día,
+con la carta, la planta y el mineral que le tocan. <strong>El ritual diario es gratis, siempre.</strong></p>
+<p><a class="boton" href="https://play.google.com/store/apps/details?id=com.viajedelalma.app&amp;referrer=utm%5Fsource%3Dgracias%26utm%5Fmedium%3Dweb%26utm%5Fcampaign%3Dlanzamiento" rel="noopener">Descárgala en Google Play ✦</a></p>
+</div>
+
+<p class="volver"><a href="/">← Volver a Viaje del Alma</a></p>
+<p style="text-align:center;font-size:.9rem;margin-top:14px">Síguenos en <a href="https://www.instagram.com/viajedelalma.app/" target="_blank" rel="noopener" data-goatcounter-click="gracias-redes-instagram">Instagram</a> · <a href="https://www.tiktok.com/@viajedelalma.app" target="_blank" rel="noopener" data-goatcounter-click="gracias-redes-tiktok">TikTok</a> · <a href="https://www.pinterest.com/viajedelalmaapp/" target="_blank" rel="noopener" data-goatcounter-click="gracias-redes-pinterest">Pinterest</a> · <a href="https://www.facebook.com/profile.php?id=61593699406994" target="_blank" rel="noopener" data-goatcounter-click="gracias-redes-facebook">Facebook</a></p>
+</main>
+<script>
+(function estrellas(){
+const cielo = document.getElementById("cielo");
+const n = Math.min(90, Math.floor(innerWidth / 12));
+for (let i = 0; i < n; i++){
+const s = document.createElement("span");
+s.className = "estrella";
+const t = Math.random();
+const d = t < .82 ? 1 : t < .96 ? 1.6 : 2.2;
+s.style.width = s.style.height = d + "px";
+s.style.left = (Math.random() * 100) + "%";
+s.style.top = (Math.random() * 100) + "%";
+s.style.setProperty("--o", (.25 + Math.random() * .5).toFixed(2));
+s.style.setProperty("--t", (3 + Math.random() * 5).toFixed(1) + "s");
+s.style.setProperty("--d", (Math.random() * 6).toFixed(1) + "s");
+cielo.appendChild(s);
+}
+})();
+</script>
+</body>
+</html>

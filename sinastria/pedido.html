@@ -1,0 +1,437 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Vuestros datos de nacimiento · Sinastría · Viaje del Alma</title>
+<link rel="icon" href="/favicon.png">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300&family=Karla:wght@300;400;500;700&display=swap">
+<style>
+:root{
+  --noche:#0B0818; --noche-2:#14102A; --noche-3:#1C1636;
+  --violeta:#7B6BAB; --oro:#C9A84C; --oro-claro:#E8D9A0;
+  --texto:#EDE7DC; --tenue:#A99CCB; --linea:rgba(201,168,76,.22);
+  --display:'Cormorant Garamond','Iowan Old Style',Georgia,serif;
+  --cuerpo:'Karla','Helvetica Neue',Arial,sans-serif;
+}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+body{margin:0;background:var(--noche);color:var(--texto);font-family:var(--cuerpo);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased}
+.envoltura{max-width:640px;margin:0 auto;padding:40px 20px 72px}
+h1{font-family:var(--display);font-weight:300;font-size:clamp(2.1rem,7vw,3rem);line-height:1.05;margin:0 0 10px}
+h2{font-family:var(--display);font-weight:400;font-size:1.5rem;line-height:1.2;margin:40px 0 4px;color:var(--oro-claro)}
+.marca{font-size:.72rem;letter-spacing:.34em;color:var(--oro);text-transform:uppercase;margin-bottom:26px}
+.marca a{color:inherit;text-decoration:none}
+.entradilla{color:var(--tenue);margin:0 0 10px}
+.precio-cab{margin:0 0 6px;font-size:1.25rem;color:var(--oro-claro)}
+.precio-cab small{display:block;font-size:.88rem;color:var(--tenue)}
+label{display:block;font-size:.7rem;letter-spacing:.19em;text-transform:uppercase;color:var(--oro);margin:22px 0 7px}
+input,select{width:100%;padding:13px 14px;background:var(--noche-2);color:var(--texto);
+  border:1px solid var(--linea);border-radius:9px;font-family:var(--cuerpo);font-size:16px}
+input:focus,select:focus{outline:none;border-color:var(--oro)}
+.fila{display:flex;gap:10px;align-items:center}
+.fila select{flex:1}
+.nota{font-size:.85rem;color:var(--tenue);margin:7px 0 0}
+.casilla{display:flex;gap:10px;align-items:flex-start;margin-top:14px;color:var(--tenue);font-size:.92rem}
+.casilla input{width:auto;margin-top:4px}
+.casilla label{margin:0;text-transform:none;letter-spacing:0;color:var(--tenue);font-size:.92rem}
+.persona{border:1px solid var(--linea);border-radius:11px;padding:4px 16px 18px;margin-top:16px;background:rgba(20,16,42,.45)}
+.vinculos{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.vinculo{display:flex;gap:8px;align-items:center;justify-content:center;border:1px solid var(--linea);border-radius:9px;padding:12px 8px;margin:0;text-transform:none;letter-spacing:0;color:var(--texto);font-size:.98rem;cursor:pointer}
+.vinculo input{width:auto;margin:0;accent-color:var(--oro)}
+.vinculo:has(input:checked){border-color:var(--oro);background:var(--noche-3)}
+button{width:100%;margin-top:32px;padding:17px;border:0;border-radius:11px;cursor:pointer;
+  background:linear-gradient(180deg,var(--oro-claro),var(--oro));color:#2A2004;
+  font-family:var(--cuerpo);font-weight:700;font-size:1.02rem;letter-spacing:.02em}
+button:disabled{opacity:.5;cursor:default}
+.error{background:rgba(180,60,60,.16);border:1px solid rgba(220,120,120,.4);
+  border-radius:9px;padding:12px 14px;margin-top:18px;font-size:.92rem;display:none}
+.resumen{border:1px solid var(--linea);border-radius:11px;padding:18px;margin-top:30px;background:var(--noche-2)}
+.resumen b{color:var(--oro-claro);font-weight:500}
+.aviso-frio{margin:18px 0 0;padding:12px 14px;border:1px solid var(--linea);border-radius:2px;background:rgba(201,168,76,.06);font-size:.92rem;color:var(--tenue)}
+.aviso-frio a{color:var(--oro-claro);text-decoration:underline;text-underline-offset:3px}
+.aviso-frio b{color:var(--oro-claro);font-weight:500}
+.pie{margin-top:40px;font-size:.8rem;color:var(--tenue);text-align:center}
+.pie a{color:var(--tenue)}
+@media (max-width:440px){.vinculos{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="envoltura">
+
+  <div class="marca"><a href="/">Viaje del Alma</a></div>
+  <h1>Vuestra sinastría</h1>
+  <p class="precio-cab">19,99 €<small>Pago único · PDF en el correo en menos de 24 horas</small></p>
+  <p class="entradilla">Dos cartas natales leídas juntas, con la compatibilidad por áreas y los momentos
+  importantes de vuestro próximo año. Unas 22 páginas, escritas para que las leáis las dos personas a la vez.
+  <a href="/sinastria/" style="color:var(--oro-claro)">Qué incluye</a>.</p>
+
+  <form id="f" novalidate>
+
+    <h2>Qué os une</h2>
+    <div class="vinculos" role="radiogroup" aria-label="Qué os une">
+      <label class="vinculo"><input type="radio" name="vinculo" value="pareja" checked> Pareja</label>
+      <label class="vinculo"><input type="radio" name="vinculo" value="amistad"> Amistad</label>
+      <label class="vinculo"><input type="radio" name="vinculo" value="familia"> Familia</label>
+    </div>
+    <div id="bloque-parentesco" hidden>
+      <label for="parentesco" id="etq-parentesco">Qué es la segunda persona para la primera</label>
+      <select id="parentesco">
+        <option value="">Elige</option>
+        <option value="progenitor">Su madre o su padre</option>
+        <option value="descendiente">Su hija o su hijo</option>
+        <option value="hermanos">Su hermana o su hermano</option>
+        <option value="abuelos">Su abuela o su abuelo</option>
+        <option value="nietos">Su nieta o su nieto</option>
+        <option value="otro">Otro familiar</option>
+      </select>
+    </div>
+    <p class="nota" id="nota-menor">Si una de las dos personas es menor de edad, solo se hace de amistad o de familia.</p>
+
+    <div class="persona" id="p1">
+      <h2>Primera persona</h2>
+      <label for="nombre1">Nombre</label>
+      <input id="nombre1" type="text" maxlength="60" autocomplete="off" placeholder="Como queréis que aparezca en el informe">
+      <label for="trato1">Género</label>
+      <select id="trato1">
+        <option value="femenino">Mujer</option>
+        <option value="masculino">Hombre</option>
+        <option value="neutro">Prefiere no decirlo</option>
+      </select>
+      <label for="fecha1">Fecha de nacimiento</label>
+      <input id="fecha1" type="date" min="1900-01-01">
+      <label for="h1">Hora de nacimiento</label>
+      <div class="fila"><select id="h1"></select><span>:</span><select id="m1"></select></div>
+      <div class="casilla"><input id="sinhora1" type="checkbox"><label for="sinhora1">No sé a qué hora nació</label></div>
+      <label for="pais1">País de nacimiento</label>
+      <select id="pais1"><option value="">Elige el país</option></select>
+      <label for="ciudad1">Localidad de nacimiento</label>
+      <input id="filtro1" type="text" placeholder="Escribe para buscar" autocomplete="off" disabled>
+      <select id="ciudad1" style="margin-top:8px" disabled><option value="">Elige antes el país</option></select>
+    </div>
+
+    <div class="persona" id="p2">
+      <h2>Segunda persona</h2>
+      <label for="nombre2">Nombre</label>
+      <input id="nombre2" type="text" maxlength="60" autocomplete="off" placeholder="Como queréis que aparezca en el informe">
+      <label for="trato2">Género</label>
+      <select id="trato2">
+        <option value="femenino">Mujer</option>
+        <option value="masculino">Hombre</option>
+        <option value="neutro">Prefiere no decirlo</option>
+      </select>
+      <label for="fecha2">Fecha de nacimiento</label>
+      <input id="fecha2" type="date" min="1900-01-01">
+      <label for="h2">Hora de nacimiento</label>
+      <div class="fila"><select id="h2"></select><span>:</span><select id="m2"></select></div>
+      <div class="casilla"><input id="sinhora2" type="checkbox"><label for="sinhora2">No sé a qué hora nació</label></div>
+      <label for="pais2">País de nacimiento</label>
+      <select id="pais2"><option value="">Elige el país</option></select>
+      <label for="ciudad2">Localidad de nacimiento</label>
+      <input id="filtro2" type="text" placeholder="Escribe para buscar" autocomplete="off" disabled>
+      <select id="ciudad2" style="margin-top:8px" disabled><option value="">Elige antes el país</option></select>
+    </div>
+    <p class="nota">¿No sabéis una de las horas? No pasa nada: sin hora no hay Ascendente ni casas de esa
+    persona, y su Luna se trata con cuidado. Todo lo demás se calcula igual. ¿No aparece un pueblo? La
+    localidad más cercana sirve: a menos de treinta kilómetros la carta no cambia.</p>
+
+    <label for="correo">Correo donde llega el informe</label>
+    <input id="correo" type="email" maxlength="120" autocomplete="email" inputmode="email" placeholder="Aquí llegará el PDF">
+
+    <div class="casilla" style="margin-top:22px">
+      <input id="permiso" type="checkbox">
+      <label for="permiso">Las personas cuyos datos pongo aquí están de acuerdo en que los uséis para hacer este informe
+      (<a href="/privacidad.html#sinastria" target="_blank" rel="noopener" style="color:var(--oro-claro)">privacidad</a>).</label>
+    </div>
+
+    <div class="resumen" id="resumen" hidden></div>
+
+    <div class="aviso-frio" id="rescate-pago" hidden>
+      <b>Te llevamos al pago seguro de Stripe.</b> Si allí el botón no responde, suele ser el bloqueador de
+      anuncios o alguna extensión del navegador: abre <a id="rescate-enlace" href="#" target="_blank" rel="noopener">este
+      mismo enlace de pago</a> en una <b>ventana de incógnito</b>. Los datos ya están guardados.
+    </div>
+    <div class="error" id="error"></div>
+
+    <!-- Art. 103.m TRLGDCU: consentimiento expreso y renuncia al desistimiento antes de pagar. -->
+    <div class="casilla" style="margin-top:18px">
+      <input id="desistimiento" type="checkbox">
+      <label for="desistimiento" style="color:var(--texto)">
+      Quiero recibir el informe ya: acepto que empecéis a prepararlo en cuanto pague y sé que,
+      al ser contenido digital personalizado, una vez iniciado pierdo el derecho de desistimiento
+      de 14 días (<a href="/terminos.html#informes" target="_blank" rel="noopener" style="color:var(--oro-claro)">términos</a>).
+      </label>
+    </div>
+
+    <button id="enviar" type="submit">Continuar al pago · 19,99 €</button>
+    <p class="nota" style="text-align:center">Pago seguro con Stripe. IVA incluido. El informe llega al correo en menos de 24 horas.</p>
+  </form>
+
+  <p class="pie">
+    Los datos se usan solo para calcular y enviar el informe. Guardamos también desde qué red llegaste, sin cookies.<br>
+    <a href="/privacidad.html">Privacidad</a> · <a href="/terminos.html">Términos</a> · <a href="/sinastria/">Volver</a>
+  </p>
+</div>
+
+<script data-goatcounter="https://viajedelalma.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+<script src="/meta.js" defer></script>   <!-- píxel de Meta, solo con consentimiento -->
+<script>
+/* ═══════════════════════════════════════════════════════════════════════
+   Pedido de la sinastría (16-oct-2026). Misma mecánica que /carta/pedido.html:
+   las localidades se eligen de una lista cerrada (de ahí salen latitud,
+   longitud y zona horaria), el id del pedido lo genera el navegador y la fila
+   se guarda con la clave publicable, que solo puede insertar pedidos sin pagar.
+
+   La primera persona va en las columnas de siempre; la segunda, en `persona2`
+   (JSON), y lo que les une en `vinculo` y `parentesco`. La base comprueba todo
+   con la restricción `sinastria_completa`.
+
+   El motor se niega a hacer una sinastría de pareja con una persona menor de
+   edad: aquí se para antes de cobrar, nunca después.
+   ═══════════════════════════════════════════════════════════════════════ */
+
+const SUPABASE_URL  = 'https://orxyhxehapqmjwmqmqgv.supabase.co';
+const SUPABASE_ANON = 'sb_publishable_As7G8e_pyZwjApjgcC48ow_RDc4hZfN';   // clave publicable: la seguridad la da RLS
+// Enlace de pago de la sinastría. Tiene que estar también en stripe-webhook y
+// estado-pedido (ENLACES), o el pedido llega como «desconocido» y se retiene.
+const PAGO = 'https://buy.stripe.com/4gMfZi7Pu7n54Aj3kkew809';
+const PRECIO = 19.99;
+
+(function guardaOrigen() {
+  try {
+    const p = new URLSearchParams(location.search);
+    const o = {};
+    ['utm_source', 'utm_medium', 'utm_campaign'].forEach((k) => {
+      const v = (p.get(k) || '').trim().slice(0, 60);
+      if (v) o[k] = v;
+    });
+    if (Object.keys(o).length) sessionStorage.setItem('vda_origen', JSON.stringify(o));
+  } catch (e) {}
+})();
+function origen() {
+  try {
+    const o = JSON.parse(sessionStorage.getItem('vda_origen') || '{}');
+    const r = {};
+    ['utm_source', 'utm_medium', 'utm_campaign'].forEach((k) => {
+      if (typeof o[k] === 'string' && o[k]) r[k] = o[k].slice(0, 60);
+    });
+    return r;
+  } catch (e) { return {}; }
+}
+
+const PAISES = {"ES":"España","MX":"México","AR":"Argentina","CO":"Colombia","CL":"Chile","PE":"Perú","VE":"Venezuela","EC":"Ecuador","GT":"Guatemala","CU":"Cuba","BO":"Bolivia","DO":"República Dominicana","HN":"Honduras","PY":"Paraguay","SV":"El Salvador","NI":"Nicaragua","CR":"Costa Rica","PR":"Puerto Rico","UY":"Uruguay","PA":"Panamá","GQ":"Guinea Ecuatorial","PT":"Portugal","BR":"Brasil","US":"Estados Unidos","CA":"Canadá","FR":"Francia","DE":"Alemania","IT":"Italia","GB":"Reino Unido","CH":"Suiza","BE":"Bélgica","NL":"Países Bajos","AD":"Andorra","IE":"Irlanda","AT":"Austria","SE":"Suecia","NO":"Noruega","DK":"Dinamarca","PL":"Polonia","RO":"Rumanía","RU":"Rusia","MA":"Marruecos","DZ":"Argelia","SN":"Senegal","CN":"China","JP":"Japón","IN":"India","PH":"Filipinas","AU":"Australia","IL":"Israel","TR":"Turquía","GR":"Grecia","UA":"Ucrania","BG":"Bulgaria","CZ":"Chequia","HU":"Hungría","FI":"Finlandia","IS":"Islandia","LU":"Luxemburgo"};
+
+const $ = id => document.getElementById(id);
+const opt = (v, t) => { const o = document.createElement('option'); o.value = v; o.textContent = t; return o; };
+const esc = t => String(t).replace(/[&<>"]/g, x => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[x]);
+const sinTildes = s => s.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase();
+const LUGARES = { 1: [], 2: [] };
+const LISTAS = {};
+async function cargaLista(p) {
+  if (!LISTAS[p]) LISTAS[p] = await (await fetch(`/carta/ciudades/${p}.json`)).json();
+  return LISTAS[p];
+}
+
+/* ---------- medición: una vez por visita ---------- */
+const YA = {};
+function mide(ev) {
+  if (YA[ev]) return; YA[ev] = true;
+  const envia = () => { try { window.goatcounter.count({ path: ev, title: ev, event: true }); } catch (e) {} };
+  if (window.goatcounter && window.goatcounter.count) return envia();
+  const s = document.querySelector('script[data-goatcounter]');
+  if (s) s.addEventListener('load', envia, { once: true });
+  else addEventListener('load', () => setTimeout(envia, 500), { once: true });
+}
+mide('sin-pedido-ve');
+$('f').addEventListener('input', () => { mide('sin-pedido-empieza'); $('error').style.display = 'none'; }, { once: false });
+
+function muestraError(t, motivo) {
+  $('error').textContent = t; $('error').style.display = 'block';
+  $('error').scrollIntoView({ block: 'center' });
+  mide('sin-pedido-error-' + (motivo || 'otro'));
+}
+
+/* ---------- desplegables de las dos personas ---------- */
+const hoyISO = new Date().toISOString().slice(0, 10);
+[1, 2].forEach((n) => {
+  for (let i = 0; i < 24; i++) $('h' + n).appendChild(opt(i, String(i).padStart(2, '0')));
+  for (let i = 0; i < 60; i++) $('m' + n).appendChild(opt(i, String(i).padStart(2, '0')));
+  $('h' + n).prepend(opt('', '--')); $('m' + n).prepend(opt('', '--'));
+  $('h' + n).value = ''; $('m' + n).value = '';
+  $('fecha' + n).max = hoyISO;
+  for (const [c, nom] of Object.entries(PAISES)) $('pais' + n).appendChild(opt(c, nom));
+
+  $('sinhora' + n).addEventListener('change', () => {
+    const s = $('sinhora' + n).checked;
+    $('h' + n).disabled = $('m' + n).disabled = s;
+    if (s) { $('h' + n).value = ''; $('m' + n).value = ''; }
+    resumen();
+  });
+
+  const pais = $('pais' + n), filtro = $('filtro' + n), ciudad = $('ciudad' + n);
+  pais.addEventListener('change', async () => {
+    const elegido = pais.value;   // R06-20261018-04: el país que se ha pedido ahora
+    ciudad.innerHTML = ''; ciudad.disabled = true; filtro.disabled = true; LUGARES[n] = [];
+    if (!elegido) { ciudad.appendChild(opt('', 'Elige antes el país')); resumen(); return; }
+    ciudad.appendChild(opt('', 'Cargando…'));
+    let lista;
+    try { lista = await cargaLista(elegido); }
+    catch (e) { if (pais.value !== elegido) return; return muestraError('No se ha podido cargar la lista de localidades. Prueba a recargar la página.', 'lista'); }
+    // Si mientras se bajaba la lista se eligió otro país, esta llega tarde: no se pinta.
+    if (pais.value !== elegido) return;
+    LUGARES[n] = lista;
+    pinta(''); ciudad.disabled = false; filtro.disabled = false; filtro.value = ''; resumen();
+  });
+  function pinta(texto) {
+    const f = sinTildes(texto.trim());
+    const todas = LUGARES[n];
+    const lista = todas.map((c, i) => [c, i]).filter(([c]) => !f || sinTildes(c[0]).includes(f));
+    // Los nombres repetidos dentro de un país pueden tener otra zona horaria: se desambiguan.
+    const veces = {};
+    todas.forEach((c) => { veces[c[0]] = (veces[c[0]] || 0) + 1; });
+    const etiqueta = (c) => (veces[c[0]] > 1
+      ? `${c[0]} — ${String(c[3]).split('/').pop().replace(/_/g, ' ')} (${Number(c[1]).toFixed(1)}, ${Number(c[2]).toFixed(1)})`
+      : c[0]);
+    ciudad.innerHTML = '';
+    ciudad.appendChild(opt('', lista.length
+      ? `Elige la localidad (${lista.length}${lista.length > 1200 ? ', se muestran 1200' : ''})` : 'Sin resultados'));
+    lista.slice(0, 1200).forEach(([c, i]) => ciudad.appendChild(opt(i, etiqueta(c))));
+    if (lista.length > 1200) ciudad.appendChild(opt('', `… y ${lista.length - 1200} más: escribe arriba para encontrarlas`));
+  }
+  filtro.addEventListener('input', () => pinta(filtro.value));
+  ['fecha', 'h', 'm', 'ciudad', 'nombre'].forEach(k => $(k + n).addEventListener('change', resumen));
+});
+
+/* ---------- vínculo y parentesco ---------- */
+const vinculo = () => (document.querySelector('input[name=vinculo]:checked') || {}).value || 'pareja';
+function alCambiarVinculo() {
+  $('bloque-parentesco').hidden = vinculo() !== 'familia';
+  resumen();
+}
+document.querySelectorAll('input[name=vinculo]').forEach(r => r.addEventListener('change', alCambiarVinculo));
+$('parentesco').addEventListener('change', resumen);
+['nombre1', 'nombre2'].forEach(id => $(id).addEventListener('input', () => {
+  const a = $('nombre1').value.trim() || 'la primera persona', b = $('nombre2').value.trim() || 'La segunda persona';
+  $('etq-parentesco').textContent = `Qué es ${b} para ${a}`;
+}));
+
+/* ---------- datos de una persona ---------- */
+function edad(fecha) {
+  const [a, m, d] = fecha.split('-').map(Number);
+  const h = new Date();
+  return h.getFullYear() - a - ((h.getMonth() + 1 < m || (h.getMonth() + 1 === m && h.getDate() < d)) ? 1 : 0);
+}
+function persona(n) {
+  const c = LUGARES[n][$('ciudad' + n).value];
+  const sinHora = $('sinhora' + n).checked;
+  const hh = $('h' + n).value, mm = $('m' + n).value;
+  return {
+    nombre: $('nombre' + n).value.trim(),
+    trato: $('trato' + n).value,
+    fecha: $('fecha' + n).value,
+    sinHora,
+    hora: (sinHora || hh === '' || mm === '') ? null : `${String(hh).padStart(2, '0')}:${String(mm).padStart(2, '0')}`,
+    pais: $('pais' + n).value,
+    c,
+  };
+}
+
+/* ---------- resumen en vivo ---------- */
+const NOMBRE_VINCULO = { pareja: 'pareja', amistad: 'amistad', familia: 'familia' };
+function resumen() {
+  const a = persona(1), b = persona(2);
+  const lista = p => p.fecha && p.c && (p.sinHora || p.hora) && p.nombre;
+  if (!lista(a) || !lista(b)) { $('resumen').hidden = true; return; }
+  const linea = p => {
+    const [y, m, d] = p.fecha.split('-');
+    return `<b>${esc(p.nombre)}</b>: ${+d}/${+m}/${y}, ${p.sinHora ? 'sin hora' : p.hora}, ${esc(p.c[0])} (${PAISES[p.pais]})`;
+  };
+  $('resumen').hidden = false;
+  $('resumen').innerHTML = `Sinastría de <b>${NOMBRE_VINCULO[vinculo()]}</b>.<br>${linea(a)}<br>${linea(b)}<br>
+    <span style="color:var(--tenue);font-size:.9rem">Compruébalo antes de pagar: rehacerlo después cuesta un correo.</span>`;
+}
+
+/* ---------- envío ---------- */
+$('f').addEventListener('submit', async ev => {
+  ev.preventDefault();
+  mide('sin-pedido-intenta-pagar');
+  $('error').style.display = 'none';
+  const a = persona(1), b = persona(2);
+  const correo = $('correo').value.trim();
+  const v = vinculo();
+  const par = v === 'familia' ? $('parentesco').value : null;
+
+  for (const [p, quien, n] of [[a, 'de la primera persona', 1], [b, 'de la segunda persona', 2]]) {
+    if (!p.nombre)                      return muestraError(`Falta el nombre ${quien}.`, 'nombre' + n);
+    if (!p.fecha)                       return muestraError(`Falta la fecha de nacimiento ${quien}.`, 'fecha' + n);
+    if (p.fecha > hoyISO)               return muestraError(`La fecha ${quien} está en el futuro.`, 'fecha' + n);
+    if (!p.sinHora && !p.hora)          return muestraError(`Pon la hora ${quien}, o marca «No sé a qué hora nació».`, 'hora' + n);
+    if (!p.c)                           return muestraError(`Elige la localidad de nacimiento ${quien} en la lista.`, 'localidad' + n);
+  }
+  if (v === 'familia' && !par)          return muestraError('Elige qué es la segunda persona para la primera.', 'parentesco');
+  if (v === 'pareja' && Math.min(edad(a.fecha), edad(b.fecha)) < 18)
+                                        return muestraError('Con una persona menor de edad no hacemos sinastrías de pareja: elige amistad o familia.', 'menor');
+  if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(correo))
+                                        return muestraError('Ese correo no parece válido. Ahí es donde llega el informe.', 'correo');
+  if (!$('permiso').checked)            return muestraError('Marca la casilla del permiso de las dos personas.', 'permiso');
+  if (!$('desistimiento').checked)      return muestraError('Para continuar, marca la casilla sobre el inicio inmediato del informe.', 'casilla');
+
+  // R06-20261018-06: pedidos.id es uuid. Sin crypto.randomUUID (navegadores antiguos),
+  // un UUID v4 hecho con getRandomValues; antes salía «fecha-aleatorio» y la base lo rechazaba.
+  const id = crypto.randomUUID ? crypto.randomUUID() : (() => {
+    const b = crypto.getRandomValues(new Uint8Array(16));
+    b[6] = (b[6] & 0x0f) | 0x40; b[8] = (b[8] & 0x3f) | 0x80;
+    const h = Array.from(b, x => x.toString(16).padStart(2, '0')).join('');
+    return `${h.slice(0, 8)}-${h.slice(8, 12)}-${h.slice(12, 16)}-${h.slice(16, 20)}-${h.slice(20)}`;
+  })();
+  const pedido = {
+    id, nombre: a.nombre, correo,
+    nacimiento_fecha: a.fecha,
+    nacimiento_hora: a.hora ? a.hora + ':00' : null,
+    pais: a.pais, localidad: a.c[0], lat: a.c[1], lon: a.c[2], zona: a.c[3],
+    trato: a.trato,
+    estado: 'nuevo', intentos: 0,
+    producto: 'sinastria',
+    // La sinastría no da derecho al aviso anual de la revolución (oferta_anual.py).
+    sin_ofertas: true,
+    vinculo: v,
+    parentesco: par,
+    persona2: { nombre: b.nombre, fecha: b.fecha, hora: b.hora, lat: b.c[1], lon: b.c[2], zona: b.c[3],
+                localidad: b.c[0], pais: b.pais, trato: b.trato },
+    ...origen(),
+  };
+
+  $('enviar').disabled = true; $('enviar').textContent = 'Guardando…';
+  const guarda = (datos) => fetch(`${SUPABASE_URL}/rest/v1/pedidos`, {
+    method: 'POST',
+    headers: { apikey: SUPABASE_ANON, Authorization: `Bearer ${SUPABASE_ANON}`,
+               'Content-Type': 'application/json', Prefer: 'return=minimal' },
+    body: JSON.stringify(datos),
+  });
+  try {
+    let r = await guarda(pedido);
+    if (!r.ok && ['utm_source', 'utm_medium', 'utm_campaign'].some(k => pedido[k] !== undefined)) {
+      const { utm_source, utm_medium, utm_campaign, ...sinOrigen } = pedido;
+      r = await guarda(sinOrigen);
+    }
+    if (!r.ok) throw new Error(await r.text());
+  } catch (e) {
+    $('enviar').disabled = false; $('enviar').textContent = 'Continuar al pago · 19,99 €';
+    return muestraError('No se han podido guardar los datos. Vuelve a intentarlo en un minuto; no se te ha cobrado nada.', 'guardar');
+  }
+  mide('sin-datos-enviados');
+  try { window.vdaMeta && vdaMeta.track('InitiateCheckout', { content_name: 'sinastria', value: PRECIO, currency: 'EUR' }); } catch (e) {}
+
+  const url = new URL(PAGO);
+  url.searchParams.set('client_reference_id', id);
+  url.searchParams.set('prefilled_email', correo);
+  const pagoUrl = url.toString();
+  $('rescate-pago').hidden = false;
+  $('rescate-enlace').href = pagoUrl;
+  location.href = pagoUrl;
+});
+</script>
+</body>
+</html>
