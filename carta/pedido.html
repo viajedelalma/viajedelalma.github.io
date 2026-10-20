@@ -109,7 +109,7 @@ h2.datos{font-family:var(--display);font-weight:400;font-size:1.55rem;margin:0 0
   <header class="producto-cab">
     <div>
       <h1 id="cab-titulo">Tu carta natal, escrita para ti</h1>
-      <p class="precio-cab"><span id="cab-precio">24,99 €</span>
+      <p class="precio-cab"><span id="cab-precio">14,99 €</span>
         <small id="cab-condiciones">Pago único · PDF en tu correo en menos de 24 horas</small></p>
     </div>
     <figure class="imagen">
@@ -148,13 +148,13 @@ h2.datos{font-family:var(--display);font-weight:400;font-size:1.55rem;margin:0 0
       <div class="productos">
         <label class="producto"><input type="radio" name="producto" value="carta" checked>
           <span><b>Tu carta natal</b><small>Quién eres: unas veinticinco páginas.</small></span>
-          <span class="precio" data-precio="carta">24,99 €</span></label>
+          <span class="precio" data-precio="carta">14,99 €</span></label>
         <label class="producto"><input type="radio" name="producto" value="revolucion">
           <span><b>Tu revolución solar</b><small>Tu año, de cumpleaños a cumpleaños: unas cuarenta páginas con fechas.</small></span>
           <span class="precio">24,99 €</span></label>
         <label class="producto"><input type="radio" name="producto" value="pack">
-          <span><b>Las dos</b><small>La carta natal y la revolución, en un solo correo. Ahorras <span data-precio="ahorro_pack">10 €</span>.</small></span>
-          <span class="precio" data-precio="pack">39,99 €</span></label>
+          <span><b>Las dos</b><small>La carta natal y la revolución, en un solo correo. Ahorras <span data-precio="ahorro_pack">10,99 €</span>.</small></span>
+          <span class="precio" data-precio="pack">28,99 €</span></label>
       </div>
     </div>
 
@@ -274,7 +274,7 @@ h2.datos{font-family:var(--display);font-weight:400;font-size:1.55rem;margin:0 0
       </label>
     </div>
 
-    <button id="enviar" type="submit">Continuar al pago · 24,99 €</button>
+    <button id="enviar" type="submit">Continuar al pago · 14,99 €</button>
     <p class="nota" style="text-align:center">
       Pago seguro con Stripe. IVA incluido. Recibes <span id="recibes">el informe</span> en tu correo en menos de 24 horas.</p><p class="nota" style="text-align:center">Si al pulsar no pasa nada, suele ser el bloqueador de anuncios: prueba en una ventana de incógnito o desactívalo un momento. Tus datos siguen aquí.
     </p>
@@ -289,7 +289,7 @@ h2.datos{font-family:var(--display);font-weight:400;font-size:1.55rem;margin:0 0
 </div>
 
 <script data-goatcounter="https://viajedelalma.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
-<script src="/precios.js"></script>   <!-- prueba de precio 13–26 oct: carta 14,99 € y pack 28,99 €; vuelve sola -->
+<script src="/precios.js"></script>   <!-- precios: carta 14,99 € y pack 28,99 € (decisión de la PO del 20-oct) -->
 <script src="/meta.js" defer></script>   <!-- píxel de Meta, solo con consentimiento -->
 <script>
 /* ═══════════════════════════════════════════════════════════════════════
@@ -318,7 +318,7 @@ const SUPABASE_ANON = 'sb_publishable_As7G8e_pyZwjApjgcC48ow_RDc4hZfN';   // cla
    predice: explica.», que por decisión del 17-sep es el lema de la carta. El
    de la revolución es «No adivina. Te prepara.» */
 const PRODUCTOS = {
-  carta:      { pago: 'https://buy.stripe.com/4gM14ob1G4aT1o7f32ew800', precio: (window.VDA_PRECIOS && VDA_PRECIOS.carta) || '24,99 €',
+  carta:      { pago: 'https://buy.stripe.com/00w8wQd9Oazhd6P088ew805', precio: (window.VDA_PRECIOS && VDA_PRECIOS.carta) || '14,99 €',
                 paginas: 'El informe son unas veinticinco páginas', recibes: 'el informe',
                 titulo: 'Tu carta natal, escrita para ti', cabPaginas: 'Unas veinticinco páginas',
                 cabCalculo: 'calculadas con efemérides astronómicas para el día, la hora y el lugar en que naciste',
@@ -330,7 +330,7 @@ const PRODUCTOS = {
                 cabCalculo: 'calculadas con efemérides astronómicas para el instante exacto en que el Sol vuelve al grado en que estaba cuando naciste, visto desde el lugar donde pasas ese cumpleaños. Por eso vale de un cumpleaños al siguiente, y cambia cada año',
                 cabLema: 'No adivina. Te prepara.',
                 cabDetalle: 'La carta de tu año dibujada, el <b>tema que la domina</b>, lo que pide cada área de tu vida <b>trimestre a trimestre</b>, y <b>los tránsitos, progresiones y eclipses del año con la fecha en que se hacen exactos</b>.' },
-  pack:       { pago: 'https://buy.stripe.com/6oU6oIgm022L4AjbQQew802', precio: (window.VDA_PRECIOS && VDA_PRECIOS.pack) || '39,99 €',
+  pack:       { pago: 'https://buy.stripe.com/aFa14oc5K5eX9UD6wwew806', precio: (window.VDA_PRECIOS && VDA_PRECIOS.pack) || '28,99 €',
                 paginas: 'Son dos informes, unas sesenta y cinco páginas', recibes: 'los dos informes',
                 titulo: 'Tu carta natal y tu revolución solar', cabPaginas: 'Dos informes, unas sesenta y cinco páginas',
                 cabCalculo: 'calculadas con efemérides astronómicas: tu carta natal, para el día, la hora y el lugar en que naciste; y tu revolución, para el instante en que el Sol vuelve a ese mismo grado y el lugar donde pasas tu cumpleaños',
@@ -733,10 +733,10 @@ $('f').addEventListener('submit', async ev => {
 
   try { window.vdaMeta && vdaMeta.track('InitiateCheckout', { content_name: prod, value: parseFloat(PRODUCTOS[prod].precio.replace(',', '.')), currency: 'EUR' }); } catch (e) {}
 
-  // Prueba de precio 13–26 oct (precios.js). (14-oct) Si hay enlace de pago con el
-  // precio de otoño ya puesto, se usa ese: Stripe aplica el código desde el navegador
-  // tras un hCaptcha y enseña unos 5–7 s de 24,99 € (en el móvil, el código queda
-  // plegado). Esos enlaces no admiten códigos. Si no lo hay, el código de siempre.
+  // Precios (precios.js; decisión de la PO del 20-oct): carta 14,99 € y pack 28,99 €
+  // se cobran con enlaces de precio fijo y sin códigos (los del 14-oct: con código,
+  // Stripe enseñaba unos segundos 24,99 €). Son también los de PRODUCTOS, así que
+  // se cobra lo mismo aunque precios.js no cargue.
   const enlaceOtono = window.VDA_PRECIOS && VDA_PRECIOS.enlace && VDA_PRECIOS.enlace[prod];
   // client_reference_id es el hilo que une el pago con estos datos.
   const url = new URL(enlaceOtono || PRODUCTOS[prod].pago);
