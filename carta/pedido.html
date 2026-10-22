@@ -150,7 +150,7 @@ h2.datos{font-family:var(--display);font-weight:400;font-size:1.55rem;margin:0 0
           <span><b>Tu carta natal</b><small>Quién eres: unas veinticinco páginas.</small></span>
           <span class="precio" data-precio="carta">14,99 €</span></label>
         <label class="producto"><input type="radio" name="producto" value="revolucion">
-          <span><b>Tu revolución solar</b><small>Tu año, de cumpleaños a cumpleaños: unas cuarenta páginas con fechas.</small></span>
+          <span><b>Tu revolución solar</b><small>Tu año, de cumpleaños a cumpleaños: unas treinta y cinco páginas con fechas.</small></span>
           <span class="precio">24,99 €</span></label>
         <label class="producto"><input type="radio" name="producto" value="pack">
           <span><b>Las dos</b><small>La carta natal y la revolución, en un solo correo. Ahorras <span data-precio="ahorro_pack">10,99 €</span>.</small></span>
@@ -325,14 +325,14 @@ const PRODUCTOS = {
                 cabLema: 'No predice: explica.',
                 cabDetalle: 'Tus <b>10 planetas</b> por signo y casa, tus <b>12 casas</b>, tus aspectos, tu eje kármico y <b>los tránsitos de tus próximos 12 meses, con la fecha de cada uno</b>.' },
   revolucion: { pago: 'https://buy.stripe.com/cNidRaedSdLtd6P6wwew801', precio: '24,99 €',
-                paginas: 'La revolución son unas cuarenta páginas', recibes: 'el informe',
-                titulo: 'Tu revolución solar, escrita para ti', cabPaginas: 'Unas cuarenta páginas',
+                paginas: 'La revolución son unas treinta y cinco páginas', recibes: 'el informe',
+                titulo: 'Tu revolución solar, escrita para ti', cabPaginas: 'Unas treinta y cinco páginas',
                 cabCalculo: 'calculadas con efemérides astronómicas para el instante exacto en que el Sol vuelve al grado en que estaba cuando naciste, visto desde el lugar donde pasas ese cumpleaños. Por eso vale de un cumpleaños al siguiente, y cambia cada año',
                 cabLema: 'No adivina. Te prepara.',
                 cabDetalle: 'La carta de tu año dibujada, el <b>tema que la domina</b>, lo que pide cada área de tu vida <b>trimestre a trimestre</b>, y <b>los tránsitos, progresiones y eclipses del año con la fecha en que se hacen exactos</b>.' },
   pack:       { pago: 'https://buy.stripe.com/aFa14oc5K5eX9UD6wwew806', precio: (window.VDA_PRECIOS && VDA_PRECIOS.pack) || '28,99 €',
-                paginas: 'Son dos informes, unas sesenta y cinco páginas', recibes: 'los dos informes',
-                titulo: 'Tu carta natal y tu revolución solar', cabPaginas: 'Dos informes, unas sesenta y cinco páginas',
+                paginas: 'Son dos informes, unas sesenta páginas', recibes: 'los dos informes',
+                titulo: 'Tu carta natal y tu revolución solar', cabPaginas: 'Dos informes, unas sesenta páginas',
                 cabCalculo: 'calculadas con efemérides astronómicas: tu carta natal, para el día, la hora y el lugar en que naciste; y tu revolución, para el instante en que el Sol vuelve a ese mismo grado y el lugar donde pasas tu cumpleaños',
                 cabLema: 'No predice: explica. No adivina: te prepara.',
                 cabDetalle: 'Quién eres —tus <b>10 planetas</b>, tus <b>12 casas</b>, tus aspectos y tu eje kármico— y <b>de qué va tu año</b>, con el calendario de tránsitos, progresiones y eclipses <b>y la fecha de cada uno</b>.' },
@@ -515,7 +515,7 @@ function aniosPosibles(fecha) {
   // Textos cortos: en el móvil el desplegable corta a unos 35 caracteres.
   const mes = MESES[m - 1][0].toUpperCase() + MESES[m - 1].slice(1);
   const tramo = y => `${mes} ${y} – ${MESES[m - 1]} ${y + 1}`;
-  // Un año al que le queda menos de un mes no se vende: serían cuarenta
+  // Un año al que le queda menos de un mes no se vende: serían treinta y cinco
   // páginas sobre algo que ya pasó (revisión de código, 17-sep).
   if (enCurso >= a && dias > 30) lista.push({ anio: enCurso, texto: `${tramo(enCurso)} (el actual)` });
   if (enCurso + 1 >= a) lista.push({ anio: enCurso + 1, texto: `${tramo(enCurso + 1)} (el próximo)` });
