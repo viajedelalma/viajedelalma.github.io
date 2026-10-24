@@ -1,0 +1,40 @@
+<!doctype html>
+<!--
+  App web de Viaje del Alma (24-oct-2026). Este archivo va en la RAÍZ del repo de la web
+  (viajedelalma/viajedelalma.github.io), no dentro de `web/`.
+
+  GitHub Pages solo tiene un index.html para la app web. Si alguien recarga o abre un enlace
+  a una pantalla interna (p. ej. /web/ruta/samhain), GitHub no encuentra ese archivo y sirve
+  este 404.html. Aquí se le devuelve a /web/ con la pantalla en `?ruta=` y el index.html de la
+  app la recupera antes de arrancar (ver scripts/build-web.mjs).
+
+  Fuera de /web/ no cambia nada para el resto de la web: se enseña un aviso sencillo con enlace
+  a la portada (texto PROPUESTA de Luna, pendiente de la PO).
+-->
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex" />
+    <title>Viaje del Alma</title>
+    <script>
+      (function () {
+        var l = window.location;
+        var p = l.pathname;
+        if (p === "/web" || p.indexOf("/web/") === 0) {
+          var resto = p.slice(4) || "/";
+          l.replace("/web/?ruta=" + encodeURIComponent(resto + l.search) + l.hash);
+        }
+      })();
+    </script>
+    <style>
+      body { margin: 0; min-height: 100vh; display: flex; align-items: center; justify-content: center;
+             background: #080614; color: #f3e9d8; font-family: Georgia, "Times New Roman", serif; text-align: center; }
+      a { color: #e19e4c; }
+      p { padding: 0 24px; line-height: 1.6; }
+    </style>
+  </head>
+  <body>
+    <p>Esta página no existe.<br /><a href="/">Volver a Viaje del Alma</a></p>
+  </body>
+</html>
