@@ -21,9 +21,10 @@
       (function () {
         var l = window.location;
         var p = l.pathname;
-        if (p === "/web" || p.indexOf("/web/") === 0) {
-          var resto = p.slice(4) || "/";
-          l.replace("/web/?ruta=" + encodeURIComponent(resto + l.search) + l.hash);
+        var m = p.match(/^\/(web|web-prueba)(\/.*)?$/);
+        if (m) {
+          var resto = m[2] || "/";
+          l.replace("/" + m[1] + "/?ruta=" + encodeURIComponent(resto + l.search) + l.hash);
         }
       })();
     </script>
