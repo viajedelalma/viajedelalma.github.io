@@ -168,6 +168,18 @@ text-transform:uppercase;font-weight:600;padding:16px 26px;text-decoration:none;
 box-shadow:0 0 24px rgba(196,154,60,.28);transition:box-shadow .25s ease,transform .15s ease}
 .descarga:hover{box-shadow:0 0 34px rgba(232,206,140,.5);transform:translateY(-1px);color:#0A0716;border-bottom:0}
 .descarga-hero{margin-top:26px}
+/* App web (25-oct-2026): botón de la portada para entrar desde el navegador (iPhone, Android y ordenador). */
+.cta-web{display:inline-flex;flex-direction:column;align-items:center;gap:5px;margin-top:24px;padding:14px 30px 16px;border-radius:999px;
+background:linear-gradient(180deg,var(--oro-brillo),var(--oro-claro) 45%,var(--oro));color:#0A0716;border-bottom:0;text-decoration:none;
+box-shadow:0 0 0 1px rgba(246,227,174,.55),0 0 38px rgba(232,206,140,.5);transition:box-shadow .25s ease,transform .15s ease}
+.cta-web:hover{color:#0A0716;border-bottom:0;transform:translateY(-1px);box-shadow:0 0 0 1px rgba(246,227,174,.8),0 0 52px rgba(246,227,174,.65)}
+.cta-web-nuevo{font-family:var(--display);font-size:.62rem;letter-spacing:.26em;text-transform:uppercase;font-weight:600;opacity:.72}
+.cta-web-txt{font-family:var(--display);font-size:1.02rem;letter-spacing:.07em;font-weight:700;text-wrap:balance}
+.cta-web-nota{display:block;margin-top:10px;font-size:.92rem;font-style:italic;color:var(--tenue)}
+@media (max-width:520px){.cta-web{max-width:calc(100vw - 44px);box-sizing:border-box;padding:12px 18px 14px}.cta-web-txt{font-size:.92rem;letter-spacing:.04em}.cta-web-nuevo{font-size:.56rem;letter-spacing:.16em}}
+.p-cuerpo .descarga-web{margin-left:8px;background:transparent;color:var(--oro-claro);box-shadow:inset 0 0 0 1px var(--oro)}
+.p-cuerpo .descarga-web:hover{color:var(--oro-brillo);background:rgba(196,154,60,.12)}
+@media (max-width:520px){.p-cuerpo .descarga-web{margin-left:0;margin-top:10px}}
 .descarga-nota{margin-top:12px;font-size:.92rem;color:var(--tenue)}
 /* ── CORREO ────────────────────────────────────── */
 .campo{display:flex;flex-direction:column;gap:12px;margin-top:22px}
@@ -300,6 +312,7 @@ header.hero .sello{margin:16px auto}
 </svg>
 <h1>Viaje del Alma</h1>
 <p class="claim">Un gesto cada día, guiado por la luna.</p>
+<p><a class="cta-web" href="/web/" data-goatcounter-click="portada-web"><span class="cta-web-nuevo">Nuevo</span><span class="cta-web-txt">Ahora, acceso a la app desde la web para iPhone y Android →</span></a><span class="cta-web-nota">La misma app, con tu misma cuenta. Sin descargar nada.</span></p>
 <div class="sello" aria-hidden="true">✦</div>
 <p class="sub">
 Una práctica espiritual diaria en español: rituales breves, tarot,
@@ -330,9 +343,9 @@ plantas y minerales, y un diario que solo lees tú.
 <summary data-goatcounter-click="portada-producto-app"><img class="p-mini" src="/app/amatista.webp" width="48" height="48" alt=""><span class="p-txt"><span class="p-nombre">La app</span><span class="p-precio">Gratis · Premium 4,99 €/mes</span></span></summary>
 <div class="p-cuerpo">
 <p>Tu práctica espiritual diaria, en español: un ritual guiado de tres minutos, gratis para siempre, y además tarot, luna, horóscopo, tu planta y tu mineral de cada mes, meditaciones y un diario que solo lees tú.</p>
-<p>Premium desbloquea todo por 4,99 € al mes o 49,99 € al año, con siete días de prueba gratis.</p>
-<p><a class="descarga" href="https://play.google.com/store/apps/details?id=com.viajedelalma.app&amp;referrer=utm%5Fsource%3Dlanding%26utm%5Fmedium%3Dweb%26utm%5Fcampaign%3Dlanzamiento" rel="noopener" data-goatcounter-click="portada-play">Descárgala en Google Play</a></p>
-<p class="p-mas"><a href="/app/?o=web">Ver todo lo que incluye</a> · Android</p>
+<p>Premium desbloquea todo por 4,99 € al mes. En Android, también 49,99 € al año, con siete días de prueba gratis.</p>
+<p><a class="descarga" href="https://play.google.com/store/apps/details?id=com.viajedelalma.app&amp;referrer=utm%5Fsource%3Dlanding%26utm%5Fmedium%3Dweb%26utm%5Fcampaign%3Dlanzamiento" rel="noopener" data-goatcounter-click="portada-play">Descárgala en Google Play</a><a class="descarga descarga-web" href="/web/" data-goatcounter-click="portada-producto-web">Úsala en el navegador</a></p>
+<p class="p-mas"><a href="/app/?o=web">Ver todo lo que incluye</a> · Android, iPhone y ordenador</p>
 </div>
 </details>
 
