@@ -1,0 +1,423 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Canjea tu regalo · Viaje del Alma</title>
+<meta name="description" content="Tienes un regalo: tu carta natal y tu calendario lunar 2027. Escribe tu código y tus datos de nacimiento.">
+<link rel="icon" href="/favicon.png">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Karla:wght@300;400;500;700&display=swap">
+<style>
+:root{
+  --noche:#0B0818; --noche-2:#14102A; --noche-3:#1C1636;
+  --oro:#C9A84C; --oro-claro:#E8D9A0; --texto:#EDE7DC; --tenue:#A99CCB; --linea:rgba(201,168,76,.22);
+  --display:'Cormorant Garamond','Iowan Old Style',Georgia,serif;
+  --cuerpo:'Karla','Helvetica Neue',Arial,sans-serif;
+}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+body{margin:0;background:var(--noche);color:var(--texto);font-family:var(--cuerpo);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased;font-variant-numeric:lining-nums;
+  background-image:radial-gradient(ellipse 90% 38% at 50% 0%,rgba(107,78,158,.34),transparent 70%)}
+.envoltura{max-width:640px;margin:0 auto;padding:34px 20px 72px}
+.marca{font-size:.72rem;letter-spacing:.34em;color:var(--oro);text-transform:uppercase;margin-bottom:26px;text-align:center}
+.marca a{color:inherit;text-decoration:none;display:inline-flex;align-items:center;gap:10px}
+.marca img{border-radius:50%;border:1px solid var(--oro)}
+h1{font-family:var(--display);font-weight:300;font-size:clamp(2.2rem,8vw,3.1rem);line-height:1.05;margin:0 0 12px;text-align:center}
+h1 em{font-style:italic;color:var(--oro-claro)}
+h2{font-family:var(--display);font-weight:400;font-size:1.65rem;line-height:1.2;margin:40px 0 8px;padding-top:18px;border-top:1px solid var(--linea)}
+.centro{text-align:center}
+.entradilla{color:var(--tenue);font-size:1.05rem;max-width:52ch;margin:0 auto 14px;text-align:center}
+.dedicatoria{font-family:var(--display);font-style:italic;font-size:1.45rem;line-height:1.35;color:var(--oro-claro);text-align:center;max-width:46ch;margin:18px auto 4px;white-space:pre-line}
+.firma{text-align:center;color:var(--tenue);margin:0 0 6px}
+label{display:block;font-size:.7rem;letter-spacing:.19em;text-transform:uppercase;color:var(--oro);margin:22px 0 7px}
+input,select{width:100%;padding:13px 14px;background:var(--noche-2);color:var(--texto);border:1px solid var(--linea);border-radius:9px;font-family:var(--cuerpo);font-size:16px}
+input:focus,select:focus{outline:none;border-color:var(--oro)}
+.codigo-campo{text-align:center;letter-spacing:.14em;text-transform:uppercase;font-size:1.15rem}
+.fila{display:flex;gap:10px;align-items:center}
+.fila select{flex:1}
+.nota{font-size:.85rem;color:var(--tenue);margin:7px 0 0}
+.casilla{display:flex;gap:10px;align-items:flex-start;margin-top:14px;color:var(--tenue);font-size:.92rem}
+.casilla input{width:auto;margin-top:4px;accent-color:var(--oro)}
+.casilla label{margin:0;text-transform:none;letter-spacing:0;color:var(--tenue);font-size:.92rem}
+.casilla a{color:var(--oro-claro)}
+.boton{display:inline-block;padding:16px 26px;border-radius:999px;background:linear-gradient(135deg,var(--oro-claro),var(--oro));color:#1a1408;
+  font-weight:700;letter-spacing:.1em;text-transform:uppercase;font-size:.82rem;text-decoration:none;border:0;cursor:pointer;font-family:var(--cuerpo)}
+.boton.secundario{background:none;border:1px solid var(--oro);color:var(--oro-claro);font-weight:500}
+.boton:disabled{opacity:.55;cursor:default}
+.ancho{width:100%;margin-top:28px;border-radius:11px;font-size:1rem;letter-spacing:.03em;text-transform:none;padding:17px}
+.error{background:rgba(180,60,60,.16);border:1px solid rgba(220,120,120,.4);border-radius:9px;padding:12px 14px;margin-top:16px;font-size:.92rem;display:none}
+.resumen{border:1px solid var(--linea);border-radius:11px;padding:16px;margin-top:24px;background:var(--noche-2);font-size:.95rem}
+.resumen b{color:var(--oro-claro);font-weight:500}
+details{margin-top:18px;border-top:1px solid var(--linea);padding-top:12px}
+summary{cursor:pointer;color:var(--oro);font-size:.92rem}
+details p{color:var(--tenue);font-size:.92rem}
+.calendario{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:14px}
+.hemi{border:1px solid var(--linea);border-radius:8px;padding:14px;background:rgba(20,16,42,.6);text-align:center}
+.hemi b{display:block;font-family:var(--display);font-weight:400;font-size:1.2rem;color:var(--oro-claro);margin-bottom:8px}
+.hemi a{display:block;margin-top:8px;font-size:.88rem}
+.hemi a.boton{padding:11px 10px;font-size:.72rem}
+.portada{display:block;width:100%;max-width:440px;height:auto;margin:6px auto 0;border-radius:4px}
+.hecho{text-align:center}
+.pie{margin-top:40px;font-size:.8rem;color:var(--tenue);text-align:center;line-height:1.7}
+.pie a{color:var(--tenue)}
+@media (max-width:440px){ .calendario{grid-template-columns:1fr} }
+</style>
+<script data-goatcounter="https://viajedelalma.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</head>
+<body>
+<div class="envoltura">
+  <div class="marca"><a href="/"><img src="/logo.png" width="34" height="34" alt="">Viaje del Alma</a></div>
+
+  <!-- 1 · el código -->
+  <section id="paso-codigo" hidden>
+    <h1>Canjea tu <em>regalo</em></h1>
+    <p class="entradilla">Escribe el código de tu tarjeta. Lo tienes debajo del QR, empieza por VDA.</p>
+    <form id="fc" novalidate style="max-width:360px;margin:0 auto">
+      <input id="codigo" class="codigo-campo" type="text" maxlength="20" autocomplete="off" autocapitalize="characters" spellcheck="false" placeholder="VDA-XXXX-XXXX">
+      <div class="error" id="error-codigo"></div>
+      <button class="boton ancho" id="ver-regalo" type="submit">Ver mi regalo</button>
+    </form>
+  </section>
+
+  <p class="entradilla" id="cargando" hidden>Abriendo tu regalo…</p>
+
+  <!-- 2 · el regalo -->
+  <section id="regalo" hidden>
+    <h1 id="saludo">Tienes un <em>regalo</em></h1>
+    <p class="entradilla" id="de-quien"></p>
+    <p class="dedicatoria" id="dedicatoria" hidden></p>
+    <p class="firma" id="firma" hidden></p>
+
+    <p class="entradilla" id="ya-canjeado" hidden style="color:var(--oro-claro);margin-top:20px">Tu carta natal ya está pedida:
+      te llega (o te ha llegado) al correo que pusiste. Si no la encuentras, mira en promociones o en spam, o escríbenos a
+      viajedelalma.app@gmail.com. Tu calendario sigue aquí abajo.</p>
+    <p class="entradilla" id="caducado" hidden style="color:var(--oro-claro);margin-top:20px">Este regalo ha caducado.
+      Escríbenos a viajedelalma.app@gmail.com con tu código y lo miramos.</p>
+
+    <div id="bloque-calendario" hidden>
+      <h2>Tu calendario lunar 2027</h2>
+      <p class="nota" style="font-size:.95rem">Ya es tuyo: descárgalo ahora. Elige tu hemisferio; si vives en Argentina, Chile,
+        Uruguay o Australia, el del sur. Cada versión viene para la pantalla y para imprimir.</p>
+      <img class="portada" src="/calendario-2027/img/norte_01_portada.webp" width="1200" height="900" alt="Portada del Calendario lunar 2027">
+      <div class="calendario">
+        <div class="hemi"><b>Hemisferio norte</b>
+          <a class="boton" id="cn-pantalla" href="#" data-goatcounter-click="regalo-canje-cal-norte">Para el móvil ✦</a>
+          <a class="boton secundario" id="cn-imprimir" href="#" data-goatcounter-click="regalo-canje-cal-norte-imprimir">Para imprimir</a></div>
+        <div class="hemi"><b>Hemisferio sur</b>
+          <a class="boton" id="cs-pantalla" href="#" data-goatcounter-click="regalo-canje-cal-sur">Para el móvil ✦</a>
+          <a class="boton secundario" id="cs-imprimir" href="#" data-goatcounter-click="regalo-canje-cal-sur-imprimir">Para imprimir</a></div>
+      </div>
+      <p class="nota">Los botones valen una hora. Si alguno ya no descarga, vuelve a abrir esta página con tu código.</p>
+    </div>
+
+    <div id="bloque-carta" hidden>
+      <h2>Tu carta natal</h2>
+      <p class="nota" style="font-size:.95rem">Unas veinticinco páginas calculadas con tus datos de nacimiento. La hora y el lugar
+        exactos son lo que la hace tuya: cambian tu Ascendente y tus doce casas.</p>
+
+      <form id="f" novalidate>
+        <label for="nombre">Tu nombre</label>
+        <input id="nombre" type="text" maxlength="80" autocomplete="given-name" placeholder="Como quieres que aparezca en la portada">
+
+        <label for="correo">Tu correo</label>
+        <input id="correo" type="email" maxlength="120" autocomplete="email" inputmode="email" placeholder="Aquí te llega tu carta en PDF">
+
+        <label for="trato">Género</label>
+        <select id="trato">
+          <option value="femenino">Mujer</option>
+          <option value="masculino">Hombre</option>
+          <option value="neutro">Prefiero no decirlo</option>
+        </select>
+        <p class="nota">Para escribirte en femenino, en masculino o sin género.</p>
+
+        <label for="fecha">Fecha de nacimiento</label>
+        <input id="fecha" type="date" min="1900-01-01">
+
+        <label for="h">Hora de nacimiento</label>
+        <div class="fila"><select id="h"></select><span>:</span><select id="m"></select></div>
+        <div class="casilla">
+          <input id="sinhora" type="checkbox">
+          <label for="sinhora">No sé a qué hora nací</label>
+        </div>
+        <p class="nota" id="aviso-hora" hidden>Sin hora se calcula todo menos el Ascendente y las casas. No se inventan:
+          la carta sale más corta y lo dice.</p>
+        <details>
+          <summary>¿Dónde encuentro mi hora de nacimiento?</summary>
+          <p>En el libro de familia, si lo tienes a mano. Si no, en el Registro Civil de donde naciste: se pide por internet,
+          es gratis y llega en unos días. Si aparece con minutos redondeados, ponla igual.</p>
+        </details>
+
+        <label for="pais">País de nacimiento</label>
+        <select id="pais"><option value="">Elige tu país</option></select>
+        <label for="ciudad">Localidad de nacimiento</label>
+        <input id="filtro" type="text" placeholder="Escribe para buscar" autocomplete="off" disabled>
+        <select id="ciudad" style="margin-top:8px" disabled><option value="">Elige antes el país</option></select>
+        <p class="nota">¿No aparece tu pueblo? Elige la localidad más cercana: a menos de treinta kilómetros la carta no cambia.</p>
+
+        <div class="resumen" id="resumen" hidden></div>
+
+        <div class="casilla" style="margin-top:22px">
+          <input id="ofertas" type="checkbox">
+          <label for="ofertas">Quiero que me escribáis unas semanas antes de mi cumpleaños, una vez al año, con un código
+            personal para la revolución solar de mi nuevo año a precio de clienta (14,99 €). Opcional.</label>
+        </div>
+        <div class="casilla">
+          <input id="acepto" type="checkbox">
+          <label for="acepto">Pido mi carta natal: acepto que empecéis a prepararla en cuanto la pida y sé que, desde ese
+            momento, el regalo queda canjeado (<a href="/terminos.html#regalo" target="_blank" rel="noopener">términos</a>).</label>
+        </div>
+
+        <div class="error" id="error"></div>
+        <button class="boton ancho" id="enviar" type="submit">Pedir mi carta natal</button>
+        <p class="nota" style="text-align:center">Te llega en PDF a tu correo en menos de 24 horas, casi siempre en unos minutos.</p>
+      </form>
+    </div>
+  </section>
+
+  <!-- 3 · hecho -->
+  <section id="hecho" class="hecho" hidden>
+    <h1>Tu carta está <em>en camino</em></h1>
+    <p class="entradilla" id="hecho-texto">Te llega en PDF a tu correo en unos minutos (como mucho, en 24 horas). Si no la ves,
+      mira en promociones o en spam.</p>
+    <p class="entradilla">Tu calendario 2027 sigue en esta misma página: <a href="#" id="volver-calendario" style="color:var(--oro-claro)">descárgalo aquí</a>.</p>
+    <p class="entradilla" style="margin-top:28px">¿Te apetece algo para cada día? Viaje del Alma es también una app con un ritual
+      de tres minutos marcado por la luna: <a href="/app/?o=web" style="color:var(--oro-claro)" data-goatcounter-click="regalo-canje-app">mírala aquí</a>.</p>
+  </section>
+
+  <section id="no-existe" hidden>
+    <h1>No encontramos ese código</h1>
+    <p class="entradilla">Revisa que esté bien escrito (empieza por VDA y tiene ocho letras y números después). Si sigue sin
+      funcionar, escríbenos a <b>viajedelalma.app@gmail.com</b> con una foto de tu tarjeta y lo arreglamos.</p>
+    <p class="centro"><button class="boton secundario" type="button" id="otra-vez">Probar otra vez</button></p>
+  </section>
+
+  <p class="pie">Tus datos se usan solo para calcular y enviarte tu carta.<br>
+    <a href="/privacidad.html#regalo">Privacidad</a> · <a href="/terminos.html#regalo">Términos</a> · <a href="/">Viaje del Alma</a></p>
+</div>
+
+<script src="/regalo/tarjeta.js"></script>
+<script>
+/* ═══════════════════════════════════════════════════════════════════════
+   /regalo/canjear/ · quien recibe el regalo pone su código y sus datos.
+   El formulario es el de /carta/pedido.html (solo carta natal): la localidad
+   se elige de una lista cerrada y de ella salen latitud, longitud y zona.
+   1) INSERT del pedido «nuevo» con la clave anónima (como pedido.html);
+   2) la función «regalo» comprueba el código y lo pasa a pagado (0 €, origen
+      regalo/vale), y dispara el motor. Si algo falla, el código sigue valiendo.
+   ═══════════════════════════════════════════════════════════════════════ */
+const SUPABASE_URL  = 'https://orxyhxehapqmjwmqmqgv.supabase.co';
+const SUPABASE_ANON = 'sb_publishable_As7G8e_pyZwjApjgcC48ow_RDc4hZfN';
+const $ = (id) => document.getElementById(id);
+const R = window.VdaRegalo;
+let CODIGO = '';
+
+const PAISES = {"ES":"España","MX":"México","AR":"Argentina","CO":"Colombia","CL":"Chile","PE":"Perú","VE":"Venezuela","EC":"Ecuador","GT":"Guatemala","CU":"Cuba","BO":"Bolivia","DO":"República Dominicana","HN":"Honduras","PY":"Paraguay","SV":"El Salvador","NI":"Nicaragua","CR":"Costa Rica","PR":"Puerto Rico","UY":"Uruguay","PA":"Panamá","GQ":"Guinea Ecuatorial","PT":"Portugal","BR":"Brasil","US":"Estados Unidos","CA":"Canadá","FR":"Francia","DE":"Alemania","IT":"Italia","GB":"Reino Unido","CH":"Suiza","BE":"Bélgica","NL":"Países Bajos","AD":"Andorra","IE":"Irlanda","AT":"Austria","SE":"Suecia","NO":"Noruega","DK":"Dinamarca","PL":"Polonia","RO":"Rumanía","RU":"Rusia","MA":"Marruecos","DZ":"Argelia","SN":"Senegal","CN":"China","JP":"Japón","IN":"India","PH":"Filipinas","AU":"Australia","IL":"Israel","TR":"Turquía","GR":"Grecia","UA":"Ucrania","BG":"Bulgaria","CZ":"Chequia","HU":"Hungría","FI":"Finlandia","IS":"Islandia","LU":"Luxemburgo"};
+const esc = (t) => String(t).replace(/[&<>"]/g, (x) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[x]);
+const opt = (v, t) => { const o = document.createElement('option'); o.value = v; o.textContent = t; return o; };
+
+/* ---------- 1 · código ---------- */
+function muestra(id) {
+  ['paso-codigo', 'regalo', 'hecho', 'no-existe'].forEach((s) => { $(s).hidden = s !== id; });
+  $('cargando').hidden = true;
+}
+function normaliza(t) {
+  let s = String(t || '').toUpperCase().replace(/[^A-Z0-9]/g, '');
+  if (s.length === 11 && s.startsWith('VDA')) s = s.slice(3);
+  return s.length === 8 ? `VDA-${s.slice(0, 4)}-${s.slice(4)}` : '';
+}
+function enlaza(id, url) { const a = $(id); a.href = url; a.removeAttribute('aria-disabled'); }
+
+async function abre(codigo) {
+  CODIGO = normaliza(codigo);
+  if (!CODIGO) { muestra('paso-codigo'); return false; }
+  $('cargando').hidden = false;
+  ['paso-codigo', 'regalo', 'hecho', 'no-existe'].forEach((s) => { $(s).hidden = true; });
+  let d;
+  try { d = await R.api('ver', { codigo: CODIGO, calendario: true }); } catch (e) { d = null; }
+  if (!d || !d.ok) { muestra('no-existe'); R.mide('regalo-canje-no-existe'); return false; }
+  try { history.replaceState(null, '', location.pathname + '?c=' + encodeURIComponent(CODIGO)); } catch (e) {}
+  muestra('regalo');
+  $('saludo').innerHTML = `${esc(d.para)}, tienes un <em>regalo</em>`;
+  $('de-quien').textContent = `${d.de} te regala tu carta natal y tu calendario lunar 2027.`;
+  if (d.dedicatoria) { $('dedicatoria').textContent = `«${d.dedicatoria}»`; $('dedicatoria').hidden = false; $('firma').textContent = `— ${d.de}`; $('firma').hidden = false; }
+  if (d.calendario) {
+    enlaza('cn-pantalla', d.calendario.norte.pantalla); enlaza('cn-imprimir', d.calendario.norte.imprimir);
+    enlaza('cs-pantalla', d.calendario.sur.pantalla); enlaza('cs-imprimir', d.calendario.sur.imprimir);
+    $('bloque-calendario').hidden = false;
+  }
+  if (d.caducado) { $('caducado').hidden = false; R.mide('regalo-canje-caducado'); return true; }
+  if (d.estado === 'canjeado') { $('ya-canjeado').hidden = false; R.mide('regalo-canje-ya'); return true; }
+  $('bloque-carta').hidden = false;
+  if (!$('nombre').value) $('nombre').value = d.para;
+  R.mide('regalo-canje-ve');
+  return true;
+}
+$('fc').addEventListener('submit', (e) => {
+  e.preventDefault();
+  if (!normaliza($('codigo').value)) {
+    $('error-codigo').textContent = 'Ese código no tiene la forma de los nuestros: VDA y ocho letras o números.';
+    $('error-codigo').style.display = 'block'; R.mide('regalo-canje-error-formato'); return;
+  }
+  abre($('codigo').value);
+});
+$('codigo').addEventListener('input', () => { $('error-codigo').style.display = 'none'; });
+$('otra-vez').addEventListener('click', () => { muestra('paso-codigo'); $('codigo').focus(); });
+$('volver-calendario').addEventListener('click', (e) => { e.preventDefault(); muestra('regalo'); $('bloque-carta').hidden = true; $('bloque-calendario').scrollIntoView({ behavior: 'smooth' }); });
+
+/* ---------- 2 · formulario (de /carta/pedido.html, solo carta) ---------- */
+for (let i = 0; i < 24; i++) $('h').appendChild(opt(i, String(i).padStart(2, '0')));
+for (let i = 0; i < 60; i++) $('m').appendChild(opt(i, String(i).padStart(2, '0')));
+$('h').prepend(opt('', '--')); $('m').prepend(opt('', '--'));
+$('h').value = ''; $('m').value = '';
+$('fecha').max = new Date().toISOString().slice(0, 10);
+for (const [c, n] of Object.entries(PAISES)) $('pais').appendChild(opt(c, n));
+
+const sinTildes = (s) => s.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase();
+const LISTAS = {};
+let CIUDADES = [];
+async function cargaLista(p) {
+  if (!LISTAS[p]) LISTAS[p] = await (await fetch(`/carta/ciudades/${p}.json`)).json();
+  return LISTAS[p];
+}
+function pinta(texto) {
+  const f = sinTildes(texto.trim());
+  const lista = CIUDADES.map((c, i) => [c, i]).filter(([c]) => !f || sinTildes(c[0]).includes(f));
+  // Nombres repetidos dentro del país con zona distinta: se distinguen (como en pedido.html).
+  const veces = {};
+  CIUDADES.forEach((c) => { veces[c[0]] = (veces[c[0]] || 0) + 1; });
+  const etiqueta = (c) => (veces[c[0]] > 1
+    ? `${c[0]} — ${String(c[3]).split('/').pop().replace(/_/g, ' ')} (${Number(c[1]).toFixed(1)}, ${Number(c[2]).toFixed(1)})`
+    : c[0]);
+  $('ciudad').innerHTML = '';
+  $('ciudad').appendChild(opt('', lista.length ? `Elige la localidad (${lista.length}${lista.length > 1200 ? ', se muestran 1200' : ''})` : 'Sin resultados'));
+  lista.slice(0, 1200).forEach(([c, i]) => $('ciudad').appendChild(opt(i, etiqueta(c))));
+  if (lista.length > 1200) $('ciudad').appendChild(opt('', `… y ${lista.length - 1200} más: escribe arriba para encontrarlas`));
+}
+$('pais').addEventListener('change', async () => {
+  const p = $('pais').value;
+  $('ciudad').innerHTML = ''; $('ciudad').disabled = true; $('filtro').disabled = true; CIUDADES = [];
+  if (!p) { $('ciudad').appendChild(opt('', 'Elige antes el país')); resumen(); return; }
+  $('ciudad').appendChild(opt('', 'Cargando…'));
+  let lista;
+  try { lista = await cargaLista(p); } catch (e) {
+    if ($('pais').value !== p) return;
+    return muestraError('No se ha podido cargar la lista de localidades. Prueba a recargar la página.');
+  }
+  if ($('pais').value !== p) return;
+  CIUDADES = lista; pinta('');
+  $('ciudad').disabled = false; $('filtro').disabled = false; $('filtro').value = '';
+  resumen();
+});
+$('filtro').addEventListener('input', () => pinta($('filtro').value));
+$('ciudad').addEventListener('change', resumen);
+$('sinhora').addEventListener('change', () => {
+  const s = $('sinhora').checked;
+  $('h').disabled = $('m').disabled = s;
+  $('aviso-hora').hidden = !s;
+  if (s) { $('h').value = ''; $('m').value = ''; }
+  resumen();
+});
+['fecha', 'h', 'm'].forEach((id) => $(id).addEventListener('change', resumen));
+function resumen() {
+  const c = CIUDADES[$('ciudad').value];
+  const hora = $('sinhora').checked ? 'sin hora'
+    : ($('h').value !== '' && $('m').value !== '' ? `${String($('h').value).padStart(2, '0')}:${String($('m').value).padStart(2, '0')}` : '');
+  if (!$('fecha').value || !c || !hora) { $('resumen').hidden = true; return; }
+  const [a, m, d] = $('fecha').value.split('-');
+  $('resumen').innerHTML = `Se calculará tu carta para el <b>${+d}/${+m}/${a}</b>, <b>${hora}</b>, en <b>${esc(c[0])}</b> (${PAISES[$('pais').value]}).<br>`
+    + `<span style="color:var(--tenue);font-size:.9rem">Zona horaria: ${esc(c[3])}. Compruébalo antes de pedirla.</span>`;
+  $('resumen').hidden = false;
+}
+
+const MOTIVOS = [[/^Falta tu nombre/, 'nombre'], [/^Ese correo/, 'correo'], [/^Falta la fecha/, 'fecha'], [/^Esa fecha/, 'fecha-futura'],
+  [/^Pon la hora/, 'hora'], [/^Elige tu localidad/, 'localidad'], [/^Para continuar, marca/, 'casilla'],
+  [/^No se han podido guardar/, 'guardar'], [/^Este regalo ya/, 'canjeado'], [/^No hemos podido/, 'canjear']];
+function muestraError(t) {
+  $('error').textContent = t; $('error').style.display = 'block';
+  const m = MOTIVOS.find(([r]) => r.test(t));
+  R.mide('regalo-canje-error-' + (m ? m[1] : 'otro'));
+  $('error').scrollIntoView({ block: 'center', behavior: 'smooth' });
+}
+$('f').addEventListener('input', () => { $('error').style.display = 'none'; });
+$('f').addEventListener('change', () => { $('error').style.display = 'none'; });
+['input', 'change'].forEach((t) => $('f').addEventListener(t, (e) => { if (e.isTrusted) R.mide('regalo-canje-empieza'); }));
+
+function uuid() {
+  if (crypto.randomUUID) return crypto.randomUUID();
+  const b = crypto.getRandomValues(new Uint8Array(16));
+  b[6] = (b[6] & 0x0f) | 0x40; b[8] = (b[8] & 0x3f) | 0x80;
+  const h = Array.from(b, (x) => x.toString(16).padStart(2, '0')).join('');
+  return `${h.slice(0, 8)}-${h.slice(8, 12)}-${h.slice(12, 16)}-${h.slice(16, 20)}-${h.slice(20)}`;
+}
+
+$('f').addEventListener('submit', async (ev) => {
+  ev.preventDefault();
+  R.mide('regalo-canje-intenta');
+  $('error').style.display = 'none';
+  const nombre = $('nombre').value.trim();
+  const correo = $('correo').value.trim();
+  const fecha = $('fecha').value;
+  const c = CIUDADES[$('ciudad').value];
+  const sinHora = $('sinhora').checked;
+  if (!nombre) return muestraError('Falta tu nombre: es el que sale en la portada.');
+  if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(correo)) return muestraError('Ese correo no parece válido. Ahí te llega tu carta.');
+  if (!fecha) return muestraError('Falta la fecha de nacimiento.');
+  if (new Date(fecha) > new Date()) return muestraError('Esa fecha está en el futuro.');
+  if (!sinHora && ($('h').value === '' || $('m').value === '')) return muestraError('Pon la hora, o marca «No sé a qué hora nací».');
+  if (!c) return muestraError('Elige tu localidad de nacimiento en la lista.');
+  if (!$('acepto').checked) return muestraError('Para continuar, marca la casilla de «Pido mi carta natal».');
+
+  const id = uuid();
+  const pedido = {
+    id, nombre: nombre.slice(0, 80), correo,
+    nacimiento_fecha: fecha,
+    nacimiento_hora: sinHora ? null : `${String($('h').value).padStart(2, '0')}:${String($('m').value).padStart(2, '0')}:00`,
+    pais: $('pais').value, localidad: c[0], lat: c[1], lon: c[2], zona: c[3],
+    trato: $('trato').value, estado: 'nuevo', intentos: 0, producto: 'carta',
+    sin_ofertas: !$('ofertas').checked,
+  };
+  $('enviar').disabled = true; $('enviar').textContent = 'Guardando…';
+  const reactiva = () => { $('enviar').disabled = false; $('enviar').textContent = 'Pedir mi carta natal'; };
+  try {
+    const r = await fetch(`${SUPABASE_URL}/rest/v1/pedidos`, {
+      method: 'POST',
+      headers: { apikey: SUPABASE_ANON, Authorization: `Bearer ${SUPABASE_ANON}`, 'Content-Type': 'application/json', Prefer: 'return=minimal' },
+      body: JSON.stringify(pedido),
+    });
+    if (!r.ok) throw new Error(await r.text());
+  } catch (e) {
+    reactiva();
+    return muestraError('No se han podido guardar tus datos. Vuelve a intentarlo en un minuto; tu código sigue valiendo.');
+  }
+  $('enviar').textContent = 'Canjeando tu regalo…';
+  // Hasta tres intentos solo si la respuesta es «reintenta» o no llega; «canjeado» o «caducado» son finales.
+  const definitiva = (r) => r && (r.ok || (r.motivo && r.motivo !== 'reintenta'));
+  let d = null;
+  for (let i = 0; i < 3; i++) {
+    try { d = await R.api('canjear', { codigo: CODIGO, pedido_id: id }); } catch (e) { d = null; }
+    if (definitiva(d) || i === 2) break;
+    await new Promise((res) => setTimeout(res, 1500));
+  }
+  if (d && d.ok) {
+    R.mide('regalo-canje-ok');
+    $('hecho-texto').textContent = `Te llega en PDF a ${correo} en unos minutos (como mucho, en 24 horas). Si no la ves, mira en promociones o en spam.`;
+    muestra('hecho');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    return;
+  }
+  reactiva();
+  if (d && d.motivo === 'canjeado') return muestraError('Este regalo ya se ha canjeado. Si no has sido tú, escríbenos a viajedelalma.app@gmail.com.');
+  if (d && d.motivo === 'caducado') return muestraError('Este regalo ha caducado. Escríbenos a viajedelalma.app@gmail.com con tu código.');
+  muestraError('No hemos podido canjear tu regalo ahora mismo. Vuelve a intentarlo en un minuto; tu código sigue valiendo.');
+});
+
+/* ---------- arranque ---------- */
+(function () {
+  const c = new URLSearchParams(location.search).get('c') || '';
+  if (c) { $('codigo').value = c; abre(c); } else { muestra('paso-codigo'); R.mide('regalo-canje-sin-codigo'); }
+})();
+</script>
+</body>
+</html>

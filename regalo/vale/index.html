@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Tarjeta regalo · Viaje del Alma</title>
+<link rel="icon" href="/favicon.png">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Karla:wght@300;400;500;700&display=swap">
+<link rel="stylesheet" href="/regalo/tarjeta.css">
+<style>
+:root{
+  --noche:#0B0818; --oro:#C9A84C; --oro-claro:#E8D9A0;
+  --texto:#EDE7DC; --tenue:#A99CCB; --linea:rgba(201,168,76,.22);
+  --display:'Cormorant Garamond','Iowan Old Style',Georgia,serif;
+  --cuerpo:'Karla','Helvetica Neue',Arial,sans-serif;
+}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+body{margin:0;background:var(--noche);color:var(--texto);font-family:var(--cuerpo);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased;
+  background-image:radial-gradient(ellipse 90% 38% at 50% 0%,rgba(107,78,158,.34),transparent 70%)}
+.envoltura{max-width:640px;margin:0 auto;padding:30px 20px 60px;text-align:center}
+.marca{font-size:.72rem;letter-spacing:.34em;color:var(--oro);text-transform:uppercase;margin-bottom:22px}
+.marca a{color:inherit;text-decoration:none;display:inline-flex;align-items:center;gap:10px}
+.marca img{border-radius:50%;border:1px solid var(--oro)}
+h1{font-family:var(--display);font-weight:300;font-size:clamp(1.9rem,7vw,2.6rem);line-height:1.1;margin:0 0 16px}
+.temas{display:inline-flex;border:1px solid var(--linea);border-radius:999px;padding:3px;margin:0 0 18px}
+.temas button{border:0;background:none;color:var(--tenue);padding:8px 16px;border-radius:999px;font:inherit;font-size:.86rem;cursor:pointer}
+.temas button[aria-pressed="true"]{background:rgba(201,168,76,.18);color:var(--oro-claro)}
+.botones{display:flex;flex-wrap:wrap;justify-content:center;gap:10px;margin-top:22px}
+.boton{display:inline-block;padding:14px 22px;border-radius:999px;background:linear-gradient(135deg,var(--oro-claro),var(--oro));color:#1a1408;
+  font-weight:700;letter-spacing:.1em;text-transform:uppercase;font-size:.78rem;text-decoration:none;border:0;cursor:pointer;font-family:var(--cuerpo)}
+.boton.secundario{background:none;border:1px solid var(--oro);color:var(--oro-claro);font-weight:500}
+.chica{font-size:.88rem;color:var(--tenue);max-width:50ch;margin:14px auto 0}
+.aviso{margin:0 auto 18px;max-width:520px;padding:12px 14px;border:1px solid var(--linea);border-radius:4px;background:rgba(201,168,76,.08);color:var(--oro-claro);font-size:.94rem}
+.corte{display:block}
+@media print{
+  @page{size:A4 portrait;margin:14mm}
+  body{background:#fff!important;background-image:none!important}
+  .envoltura{max-width:none;padding:0}
+  .marca,h1,.temas,.botones,.chica,.aviso,.no-imprimir{display:none!important}
+  .corte{display:block;border:1px dashed #b9b2c9;padding:6mm;width:186mm;margin:20mm auto 0}
+  .tarjeta{max-width:none;width:174mm;box-shadow:none!important;border-radius:0}
+}
+</style>
+<script data-goatcounter="https://viajedelalma.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</head>
+<body>
+<div class="envoltura">
+  <div class="marca"><a href="/"><img src="/logo.png" width="34" height="34" alt="">Viaje del Alma</a></div>
+  <div id="cargando"><h1>Cargando la tarjeta…</h1></div>
+  <div id="listo" hidden>
+    <h1 id="titulo">Tarjeta regalo</h1>
+    <p class="aviso" id="canjeada" hidden>Este regalo ya se ha canjeado: su carta está en camino o ya ha llegado.</p>
+    <div class="temas" role="group" aria-label="Fondo de la tarjeta">
+      <button type="button" id="t-noche" aria-pressed="true">Fondo de noche</button>
+      <button type="button" id="t-papel" aria-pressed="false">Fondo claro</button>
+    </div>
+    <div class="corte"><div id="tarjeta"></div></div>
+    <div class="botones">
+      <button class="boton" id="imprimir" type="button">Imprimir o guardar en PDF</button>
+      <a class="boton secundario" id="whatsapp" href="#" target="_blank" rel="noopener">Mandarla por WhatsApp</a>
+    </div>
+    <p class="chica">Si la imprimes en casa, el fondo claro gasta mucha menos tinta. En el móvil, «Imprimir» te deja
+      también guardarla como PDF.</p>
+  </div>
+  <div id="no" hidden>
+    <h1>No encontramos esta tarjeta</h1>
+    <p class="chica">Comprueba que el enlace está completo. Si no, escríbenos a <b>viajedelalma.app@gmail.com</b> y te ayudamos.</p>
+  </div>
+</div>
+<script src="/regalo/qrcode.min.js"></script>
+<script src="/regalo/tarjeta.js"></script>
+<script>
+(function () {
+  var R = window.VdaRegalo;
+  var $ = function (id) { return document.getElementById(id); };
+  var codigo = new URLSearchParams(location.search).get('c') || '';
+  var datos = null, tema = 'noche';
+  try { if (localStorage.getItem('vda-regalo-tema') === 'papel') tema = 'papel'; } catch (e) {}
+  function pinta() {
+    R.tarjeta($('tarjeta'), datos, { tema: tema });
+    $('t-noche').setAttribute('aria-pressed', String(tema === 'noche'));
+    $('t-papel').setAttribute('aria-pressed', String(tema === 'papel'));
+  }
+  function ponTema(t) { tema = t; try { localStorage.setItem('vda-regalo-tema', t); } catch (e) {} pinta(); R.mide('regalo-vale-tema-' + t); }
+  $('t-noche').addEventListener('click', function () { ponTema('noche'); });
+  $('t-papel').addEventListener('click', function () { ponTema('papel'); });
+  $('imprimir').addEventListener('click', function () { R.mide('regalo-vale-imprimir'); window.print(); });
+
+  R.mide('regalo-vale-ve');
+  R.api('ver', { codigo: codigo }).then(function (d) {
+    $('cargando').hidden = true;
+    if (!d || !d.ok) { $('no').hidden = false; R.mide('regalo-vale-no'); return; }
+    datos = d;
+    $('listo').hidden = false;
+    $('titulo').textContent = 'Tarjeta regalo para ' + d.para;
+    $('canjeada').hidden = d.estado !== 'canjeado';
+    var canje = R.enlaceCanje(d.codigo);
+    var texto = d.para + ', tengo un regalo para ti: tu carta natal y tu calendario lunar 2027 de Viaje del Alma. '
+      + 'Entra aquí, pon tu código ' + d.codigo + ' y tus datos de nacimiento: ' + canje;
+    $('whatsapp').href = 'https://wa.me/?text=' + encodeURIComponent(texto);
+    $('whatsapp').addEventListener('click', function () { R.mide('regalo-vale-whatsapp'); });
+    pinta();
+  }).catch(function () { $('cargando').hidden = true; $('no').hidden = false; });
+})();
+</script>
+</body>
+</html>

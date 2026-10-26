@@ -1,0 +1,184 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Tu regalo está listo · Viaje del Alma</title>
+<link rel="icon" href="/favicon.png">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Karla:wght@300;400;500;700&display=swap">
+<link rel="stylesheet" href="/regalo/tarjeta.css">
+<style>
+:root{
+  --noche:#0B0818; --noche-2:#14102A; --oro:#C9A84C; --oro-claro:#E8D9A0;
+  --texto:#EDE7DC; --tenue:#A99CCB; --linea:rgba(201,168,76,.22);
+  --display:'Cormorant Garamond','Iowan Old Style',Georgia,serif;
+  --cuerpo:'Karla','Helvetica Neue',Arial,sans-serif;
+}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+body{margin:0;background:var(--noche);color:var(--texto);font-family:var(--cuerpo);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased;
+  background-image:radial-gradient(ellipse 90% 38% at 50% 0%,rgba(107,78,158,.34),transparent 70%)}
+.envoltura{max-width:640px;margin:0 auto;padding:34px 20px 70px;text-align:center}
+.marca{font-size:.72rem;letter-spacing:.34em;color:var(--oro);text-transform:uppercase;margin-bottom:26px}
+.marca a{color:inherit;text-decoration:none;display:inline-flex;align-items:center;gap:10px}
+.marca img{border-radius:50%;border:1px solid var(--oro)}
+h1{font-family:var(--display);font-weight:300;font-size:clamp(2.2rem,8vw,3.1rem);line-height:1.05;margin:0 0 12px}
+p{margin:0 0 14px}
+.entradilla{color:var(--tenue);font-size:1.05rem;max-width:52ch;margin:0 auto 22px}
+#tarjeta{margin:10px 0 22px}
+.botones{display:flex;flex-direction:column;align-items:center;gap:12px;margin-top:6px}
+.boton{display:inline-block;min-width:260px;padding:15px 26px;border-radius:999px;background:linear-gradient(135deg,var(--oro-claro),var(--oro));color:#1a1408;
+  font-weight:700;letter-spacing:.12em;text-transform:uppercase;font-size:.8rem;text-decoration:none;border:0;cursor:pointer;font-family:var(--cuerpo)}
+.boton.secundario{background:none;border:1px solid var(--oro);color:var(--oro-claro);font-weight:500}
+.chica{font-size:.9rem;color:var(--tenue)}
+.caja{margin:26px auto 0;max-width:520px;padding:18px;border:1px solid var(--linea);border-radius:4px;background:rgba(20,16,42,.55);text-align:left;font-size:.95rem;color:var(--tenue)}
+.caja b{color:var(--oro-claro);font-weight:500}
+.esperando{color:var(--oro-claro)}
+.pie{margin-top:40px;font-size:.8rem;color:var(--tenue)}
+.pie a{color:var(--tenue)}
+</style>
+<script data-goatcounter="https://viajedelalma.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+<script src="/meta.js" defer></script>
+</head>
+<body>
+<div class="envoltura">
+  <div class="marca"><a href="/"><img src="/logo.png" width="34" height="34" alt="">Viaje del Alma</a></div>
+
+  <div id="cargando">
+    <h1>Preparando tu tarjeta…</h1>
+    <p class="entradilla esperando" id="espera">Estamos confirmando el pago con Stripe. Tarda unos segundos.</p>
+  </div>
+
+  <div id="listo" hidden>
+    <h1 id="titulo">Tu regalo está listo</h1>
+    <p class="entradilla" id="entradilla">Aquí tienes su tarjeta. Te la hemos mandado también a tu correo.</p>
+    <div id="tarjeta"></div>
+    <div class="botones">
+      <a class="boton" id="ver" href="#">Ver e imprimir la tarjeta</a>
+      <a class="boton secundario" id="whatsapp" href="#" target="_blank" rel="noopener">Mandarla por WhatsApp</a>
+      <button class="boton secundario" id="copiar" type="button">Copiar el enlace</button>
+    </div>
+    <p class="chica" id="copiado" hidden style="margin-top:10px">Enlace copiado.</p>
+    <div class="caja">
+      <p><b>¿Y ahora?</b> Imprime la tarjeta para el sobre o mándale el enlace cuando quieras dárselo.
+        Con su código, entra en viajedelalma.app/regalo/canjear, pone sus datos de nacimiento y su carta le llega
+        al correo en menos de 24 horas. El calendario lo descarga en ese momento.</p>
+      <p style="margin:0">Guarda el correo que te hemos mandado: lleva la tarjeta y el código. El recibo del pago te llega
+        aparte, de Link, el servicio de pagos de Stripe.</p>
+    </div>
+  </div>
+
+  <div id="sin-compra" hidden>
+    <h1>No encontramos tu compra</h1>
+    <p class="entradilla">Si acabas de pagar, mira tu correo: la tarjeta te llega en unos minutos. Si no aparece,
+      escríbenos a <b>viajedelalma.app@gmail.com</b> con el correo con el que pagaste y te la mandamos.</p>
+  </div>
+
+  <p class="pie"><a href="/privacidad.html#regalo">Privacidad</a> · <a href="/terminos.html#regalo">Términos</a> · <a href="/">Viaje del Alma</a></p>
+</div>
+
+<script src="/regalo/qrcode.min.js"></script>
+<script src="/regalo/tarjeta.js"></script>
+<script>
+/* /regalo/gracias/ · Stripe vuelve aquí con ?session_id=… La función «regalo»
+   confirma el pago con Stripe, pone el código y manda la tarjeta. Si la página
+   llega antes que Stripe termine, se reintenta unos segundos. El session_id se
+   guarda en este navegador para poder volver. */
+(function () {
+  var R = window.VdaRegalo;
+  var $ = function (id) { return document.getElementById(id); };
+  var q = new URLSearchParams(location.search);
+  var sid = q.get('session_id') || '';
+  if (sid) {
+    try { localStorage.setItem('vda-regalo-sid', sid); } catch (e) {}
+    try { history.replaceState(null, '', location.pathname); } catch (e) {}
+  } else {
+    try { sid = localStorage.getItem('vda-regalo-sid') || ''; } catch (e) {}
+  }
+  if (!/^cs_(live|test)_[A-Za-z0-9]{10,200}$/.test(sid)) {
+    $('cargando').hidden = true; $('sin-compra').hidden = false; R.mide('regalo-gracias-sin-sid'); return;
+  }
+
+  function pinta(d) {
+    $('cargando').hidden = true; $('listo').hidden = false;
+    $('titulo').textContent = 'El regalo para ' + d.para + ' está listo';
+    if (!d.correo_enviado) $('entradilla').textContent = 'Aquí tienes su tarjeta. En unos minutos te llega también a tu correo.';
+    R.tarjeta($('tarjeta'), d);
+    var vale = '/regalo/vale/?c=' + encodeURIComponent(d.codigo);
+    var canje = R.enlaceCanje(d.codigo);
+    $('ver').href = vale;
+    var texto = d.para + ', tengo un regalo para ti: tu carta natal y tu calendario lunar 2027 de Viaje del Alma. '
+      + 'Entra aquí, pon tu código ' + d.codigo + ' y tus datos de nacimiento: ' + canje;
+    $('whatsapp').href = 'https://wa.me/?text=' + encodeURIComponent(texto);
+    $('ver').addEventListener('click', function () { R.mide('regalo-gracias-ver'); });
+    $('whatsapp').addEventListener('click', function () { R.mide('regalo-gracias-whatsapp'); });
+    $('copiar').addEventListener('click', function () {
+      R.mide('regalo-gracias-copiar');
+      var hecho = function () { $('copiado').hidden = false; };
+      if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(canje).then(hecho, function () { prompt('Copia el enlace:', canje); });
+      else prompt('Copia el enlace:', canje);
+    });
+  }
+
+  /* Medición de la venta, como las páginas de descarga: solo si Stripe confirma el cobro
+     (estado-pedido) y con su importe real. El píxel, con consentimiento (meta.js). */
+  function galleta(n) {
+    try { var m = document.cookie.match(new RegExp('(?:^|; )' + n + '=([^;]*)')); return m ? decodeURIComponent(m[1]) : ''; } catch (e) { return ''; }
+  }
+  function mideCompra() {
+    // Como gracias.html: solo se descarta el «no» explícito; con «pendiente» el
+    // píxel queda en la cola de meta.js y el servidor no avisa a Meta.
+    var consent = null;
+    try { consent = window.vdaMeta && vdaMeta.consentimiento ? vdaMeta.consentimiento() : null; } catch (e) {}
+    var extra = '&consentimiento=' + (consent === 'si' ? 'si' : 'pendiente');
+    if (consent === 'si') {
+      var fbp = galleta('_fbp'), fbc = galleta('_fbc');
+      if (fbp) extra += '&fbp=' + encodeURIComponent(fbp);
+      if (fbc) extra += '&fbc=' + encodeURIComponent(fbc);
+    }
+    fetch('https://orxyhxehapqmjwmqmqgv.supabase.co/functions/v1/estado-pedido?session_id=' + encodeURIComponent(sid) + extra,
+          { credentials: 'omit', cache: 'no-store' })
+      .then(function (r) { return r.ok ? r.json() : { pagado: false }; })
+      .then(function (d) {
+        if (!d || d.pagado !== true) return;
+        R.mide('regalo-pagado');
+        if (consent === 'no') return;
+        var valor = Math.round(d.importe_centimos) / 100, moneda = String(d.moneda || 'eur').toUpperCase();
+        if (!(valor > 0)) return;
+        try { window.vdaMeta && vdaMeta.track('Purchase', { content_name: 'regalo', content_type: 'product', value: valor, currency: moneda }, { eventID: sid }); } catch (e) {}
+      })
+      .catch(function () {});
+  }
+  function mideCompraCuandoPueda() {
+    // meta.js va con «defer»: se espera a que haya cargado.
+    if (document.readyState === 'complete') return mideCompra();
+    addEventListener('load', mideCompra, { once: true });
+  }
+
+  var intentos = 0;
+  function pide() {
+    intentos++;
+    R.api('confirmar', { session_id: sid }).then(function (d) {
+      if (d && d.ok) {
+        try { localStorage.setItem('vda-regalo-codigo', d.codigo); } catch (e) {}
+        pinta(d);
+        if (q.get('session_id')) mideCompraCuandoPueda();
+        return;
+      }
+      if (intentos < 8 && d && (d.motivo === 'sin_pagar' || d.motivo === 'reintenta')) {
+        $('espera').textContent = 'Stripe todavía está confirmando el pago… (' + intentos + ')';
+        return setTimeout(pide, 2500);
+      }
+      $('cargando').hidden = true; $('sin-compra').hidden = false; R.mide('regalo-gracias-no');
+    }).catch(function () {
+      if (intentos < 8) return setTimeout(pide, 2500);
+      $('cargando').hidden = true; $('sin-compra').hidden = false; R.mide('regalo-gracias-sin-respuesta');
+    });
+  }
+  pide();
+})();
+</script>
+</body>
+</html>
