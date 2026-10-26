@@ -1,0 +1,58 @@
+/* Tarjeta regalo de Viaje del Alma (26-oct-2026). La usan /regalo/gracias/,
+   /regalo/vale/ y la vista previa de /regalo/. Dos temas: «noche» (pantalla)
+   y «papel» (para imprimir en casa sin gastar media tinta). */
+.tarjeta{
+  --t-fondo:#0D0A1F; --t-fondo-2:#1B1438; --t-oro:#C9A84C; --t-oro-claro:#E8D9A0;
+  --t-texto:#EDE7DC; --t-tenue:#B7AAD6; --t-linea:rgba(201,168,76,.55);
+  position:relative;width:100%;max-width:560px;aspect-ratio:4/3;margin:0 auto;
+  border-radius:6px;overflow:hidden;color:var(--t-texto);
+  background:
+    radial-gradient(1.2px 1.2px at 12% 18%,rgba(255,255,255,.75),transparent 60%),
+    radial-gradient(1px 1px at 82% 12%,rgba(255,255,255,.6),transparent 60%),
+    radial-gradient(1.4px 1.4px at 68% 78%,rgba(255,255,255,.55),transparent 60%),
+    radial-gradient(1px 1px at 24% 84%,rgba(255,255,255,.5),transparent 60%),
+    radial-gradient(1px 1px at 91% 58%,rgba(255,255,255,.55),transparent 60%),
+    radial-gradient(1.2px 1.2px at 7% 52%,rgba(255,255,255,.45),transparent 60%),
+    radial-gradient(ellipse 70% 55% at 50% 0%,rgba(123,107,171,.42),transparent 72%),
+    linear-gradient(180deg,var(--t-fondo-2),var(--t-fondo));
+  box-shadow:0 18px 50px rgba(0,0,0,.55);
+  font-family:'Karla','Helvetica Neue',Arial,sans-serif;
+  container-type:inline-size;
+  -webkit-print-color-adjust:exact;print-color-adjust:exact;
+}
+.tarjeta.papel{
+  --t-fondo:#FBF7EE; --t-fondo-2:#FBF7EE; --t-oro:#A9852F; --t-oro-claro:#8A6A1F;
+  --t-texto:#241C3A; --t-tenue:#5E547A; --t-linea:rgba(169,133,47,.6);
+  background:#FBF7EE;box-shadow:0 10px 30px rgba(0,0,0,.25);
+}
+.tarjeta .t-marco{position:absolute;inset:3.2cqw;border:1px solid var(--t-linea);outline:1px solid var(--t-linea);outline-offset:-1.6cqw;
+  display:flex;flex-direction:column;align-items:center;text-align:center;padding:4.4cqw 6cqw 3.4cqw}
+.tarjeta .t-marco > *{flex-shrink:0}
+.tarjeta .t-esquina{position:absolute;width:5cqw;height:5cqw;border-color:var(--t-oro);border-style:solid;border-width:0}
+.tarjeta .t-esquina.a{top:-1px;left:-1px;border-top-width:2px;border-left-width:2px}
+.tarjeta .t-esquina.b{top:-1px;right:-1px;border-top-width:2px;border-right-width:2px}
+.tarjeta .t-esquina.c{bottom:-1px;left:-1px;border-bottom-width:2px;border-left-width:2px}
+.tarjeta .t-esquina.d{bottom:-1px;right:-1px;border-bottom-width:2px;border-right-width:2px}
+.tarjeta .t-marca{display:flex;align-items:center;gap:1.8cqw;font-size:2cqw;letter-spacing:.36em;text-transform:uppercase;color:var(--t-oro)}
+.tarjeta .t-marca img{width:5.8cqw;height:5.8cqw;border-radius:50%;border:1px solid var(--t-oro)}
+.tarjeta .t-para{font-family:'Cormorant Garamond','Iowan Old Style',Georgia,serif;font-weight:300;font-size:7cqw;line-height:1.05;margin:3.4cqw 0 0;color:var(--t-oro-claro)}
+.tarjeta .t-para.media{font-size:5.4cqw}
+.tarjeta .t-para.larga{font-size:4.3cqw;line-height:1.1}
+.tarjeta .t-para small{display:block;font-size:2.2cqw;letter-spacing:.3em;text-transform:uppercase;color:var(--t-tenue);margin-bottom:.8cqw;font-family:'Karla','Helvetica Neue',Arial,sans-serif;font-weight:500}
+.tarjeta .t-regalo{font-family:'Cormorant Garamond','Iowan Old Style',Georgia,serif;font-size:3.3cqw;font-style:italic;margin:1.6cqw 0 0;color:var(--t-texto)}
+.tarjeta .t-dedicatoria{font-family:'Cormorant Garamond','Iowan Old Style',Georgia,serif;font-size:3.2cqw;line-height:1.3;font-style:italic;color:var(--t-texto);
+  margin:2.6cqw auto 0;max-width:86%;white-space:pre-line;overflow-wrap:anywhere}
+.tarjeta .t-dedicatoria.media{font-size:2.75cqw}
+.tarjeta .t-dedicatoria.larga{font-size:2.35cqw}
+.tarjeta .t-firma{font-size:2.4cqw;color:var(--t-tenue);margin-top:1.4cqw;letter-spacing:.06em}
+.tarjeta .t-pie{margin-top:auto;display:flex;align-items:center;gap:3cqw;width:100%;justify-content:center;
+  border-top:1px solid var(--t-linea);padding-top:2.2cqw}
+.tarjeta .t-qr{width:11.5cqw;height:11.5cqw;flex:0 0 auto;background:#fff;border-radius:3px;padding:.8cqw;display:flex}
+.tarjeta .t-qr svg,.tarjeta .t-qr img{width:100%;height:100%;display:block}
+.tarjeta .t-qr:empty{display:none}
+.tarjeta .t-canje{text-align:left;font-size:2.05cqw;line-height:1.45;color:var(--t-tenue);max-width:60cqw}
+.tarjeta .t-canje b{color:var(--t-texto);font-weight:500}
+.tarjeta .t-codigo{display:inline-block;margin:.5cqw 0 .6cqw;padding:.6cqw 1.6cqw;border:1px dashed var(--t-oro);border-radius:3px;
+  font-size:3.1cqw;letter-spacing:.14em;color:var(--t-oro-claro);font-weight:700;font-family:'Karla','Helvetica Neue',Arial,sans-serif}
+.tarjeta.sin-dedicatoria .t-dedicatoria{display:none}
+.tarjeta.muestra .t-codigo{letter-spacing:.08em}
