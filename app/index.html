@@ -62,6 +62,16 @@ background:linear-gradient(168deg,#120C28,#080614);text-align:center;box-shadow:
 .iphone p{font-size:18px;line-height:1.5;margin-bottom:10px}
 .iphone .cta{margin-top:16px}
 .iphone .ip-nota{font-size:15px;color:var(--tenue);font-style:italic;margin:12px 0 0}
+/* 26-oct · Meditación colectiva de Samhain (sáb 31, 21:00 de cada móvil). Se esconde sola el 1-nov a las 03:00, hora de cada móvil. */
+.colectiva{border:1px solid rgba(196,154,60,.55);border-radius:16px;padding:20px 20px 18px;margin:0 auto 26px;max-width:520px;
+background:linear-gradient(168deg,#1d1030,#080614);text-align:center;box-shadow:0 0 30px rgba(196,154,60,.14)}
+.colectiva .col-eti{font-family:var(--sans);font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--tenue);margin-bottom:6px}
+.colectiva h2{margin:0 0 6px;font-size:17px}
+.colectiva .col-cuando{font-family:var(--display);font-size:15px;letter-spacing:.06em;color:var(--oro-claro);margin-bottom:12px}
+.colectiva p{font-size:18px;line-height:1.5;margin-bottom:10px}
+.col-botones{display:flex;flex-direction:column;gap:10px;margin-top:14px}
+.col-botones .cta{font-size:17px;padding:14px 18px;width:100%;max-width:none}
+.col-botones .col-sec{background:transparent;color:var(--oro-claro);border:1px solid var(--oro-claro);box-shadow:none}
 footer{text-align:center;font-size:14px;color:var(--tenue);margin-top:34px}
 footer a{color:var(--tenue)}
 /* 25-sep · El ritual de hoy y la lista de correo, traídos desde la portada. */
@@ -85,7 +95,7 @@ footer a{color:var(--tenue)}
 </style>
 <script data-goatcounter="https://viajedelalma.goatcounter.com/count"
         async src="//gc.zgo.at/count.js"></script>
-<script src="/samhain/cinta.js" defer></script>   <!-- cinta de temporada Samhain, se retira sola el 3-nov -->
+<script src="/samhain/cinta.js" defer></script>   <!-- cinta de temporada Samhain, se retira sola el 2-nov a las 00:00 -->
 <script src="/meta.js" defer></script>   <!-- píxel de Meta, solo con consentimiento -->
 </head>
 <body>
@@ -100,6 +110,21 @@ footer a{color:var(--tenue)}
 <button type="button" class="sonido" id="sonido" aria-pressed="false">🔊 Activar sonido</button>
 </div>
 
+<section class="colectiva" id="bloqueColectiva" aria-labelledby="tituloColectiva" hidden>
+<p class="col-eti">Gratis · cada una desde su casa</p>
+<h2 id="tituloColectiva">Meditación colectiva de Samhain</h2>
+<p class="col-cuando">Sábado 31 de octubre · 21:00, hora de tu móvil</p>
+<p>No es un directo: a tu hora, la misma meditación y el mismo ritual.</p>
+<p>Para unirte, crea tu cuenta gratuita, busca la tarjeta de Samhain en «Hoy» y pulsa «Unirme».</p>
+<div class="col-botones" id="colBotones">
+<a class="cta" id="colPlay" href="https://play.google.com/store/apps/details?id=com.viajedelalma.app&amp;referrer=utm%5Fsource%3Dweb%26utm%5Fmedium%3Dapp%26utm%5Fcampaign%3Dsin%5Fcampana" rel="noopener" data-goatcounter-click="app-colectiva-play">Android · Google Play</a>
+<a class="cta col-sec" id="colWeb" href="/web/" data-goatcounter-click="app-colectiva-web">iPhone y ordenador · desde el navegador</a>
+</div>
+</section>
+<script>(function(){try{if(new Date()<new Date(2026,10,1,3,0,0)){var bc=document.getElementById("bloqueColectiva");bc.hidden=false;
+/* Quien llega desde las piezas de la colectiva la ve arriba, antes del vídeo. */
+if(new URLSearchParams(location.search).get("utm_campaign")==="samhain_colectiva_2026"){var v=document.querySelector(".vbox");if(v)v.parentNode.insertBefore(bc,v);}}}catch(e){}})();</script>
+
 <a class="cta" id="cta1" href="https://play.google.com/store/apps/details?id=com.viajedelalma.app&amp;referrer=utm%5Fsource%3Dweb%26utm%5Fmedium%3Dapp%26utm%5Fcampaign%3Dsin%5Fcampana" rel="noopener">Descárgala gratis en Google Play</a>
 <p class="nota">Ritual diario siempre gratis · Premium con 7 días de prueba</p>
 
@@ -111,7 +136,9 @@ footer a{color:var(--tenue)}
 <a class="cta" href="/web/" data-goatcounter-click="app-web-iphone">Entrar desde el navegador</a>
 <p class="ip-nota">Premium opcional · SUSCRIPCIÓN de 4,99 €/mes · Cancela cuando quieras.</p>
 </section>
-<script>(function(){try{if(/iPhone|iPad|iPod/.test(navigator.userAgent)||(navigator.platform==="MacIntel"&&navigator.maxTouchPoints>1)){var b=document.getElementById("bloqueIphone"),c=document.getElementById("cta1");if(b&&c)c.parentNode.insertBefore(b,c);}}catch(e){}})();</script>
+<script>(function(){try{if(/iPhone|iPad|iPod/.test(navigator.userAgent)||(navigator.platform==="MacIntel"&&navigator.maxTouchPoints>1)){var b=document.getElementById("bloqueIphone"),c=document.getElementById("cta1");if(b&&c)c.parentNode.insertBefore(b,c);
+/* 26-oct · En iPhone, en la colectiva va primero (y relleno) el botón del navegador. */
+var w=document.getElementById("colWeb"),p=document.getElementById("colPlay");if(w&&p){w.classList.remove("col-sec");p.classList.add("col-sec");p.parentNode.insertBefore(w,p);}}}catch(e){}})();</script>
 
 <h2>Tu planta y tu mineral del mes</h2>
 <p class="pm">Cada mes, una planta y un mineral con su historia, su energía y un mini-ritual.</p>
@@ -369,8 +396,14 @@ input.addEventListener("keydown", e => { if (e.key === "Enter") btn.click(); });
       var v=(q.get(k)||"").replace(/[^A-Za-z0-9_.\-]/g,"").slice(0,60); if(v) p.push(k+"="+v); });
     ref=p.join("&");
   }
-  if(ref){ document.querySelectorAll("a.cta").forEach(function(a){
-    a.href="https://play.google.com/store/apps/details?id=com.viajedelalma.app&referrer="+encodeURIComponent(ref); }); }
+  /* 26-oct · Antes se cambiaban TODOS los a.cta, también «Entrar desde el navegador»: con campaña
+     o desde la portada, el botón de iPhone llevaba a Google Play. Ahora solo los de Play; los de la
+     app web llevan la misma campaña a /web/, que la guarda para la cuenta que se cree allí. */
+  if(ref){
+    document.querySelectorAll('a.cta[href*="play.google.com"]').forEach(function(a){
+      a.href="https://play.google.com/store/apps/details?id=com.viajedelalma.app&referrer="+encodeURIComponent(ref); });
+    document.querySelectorAll('a.cta[href^="/web/"]').forEach(function(a){ a.href="/web/?"+ref; });
+  }
 }catch(e){} })();
 })();
 </script>
