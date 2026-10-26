@@ -1,11 +1,11 @@
 /* Cinta de temporada · Samhain 2026 (26-sep).
    Una sola línea en lo alto de cada página que la carga. Se retira sola el
-   3-nov; para quitarla antes, borrar la línea <script src="/samhain/cinta.js">
+   2-nov a las 00:00 (26-oct: la venta de la guía cierra ese momento); para quitarla antes, borrar la línea <script src="/samhain/cinta.js">
    de cada página o dejar este archivo vacío. */
 (function () {
   var ahora = Date.now();
   var LANZAMIENTO = Date.parse('2026-10-01T20:00:00+02:00');
-  var FIN = Date.parse('2026-11-03T00:00:00+01:00');
+  var FIN = Date.parse('2026-11-02T00:00:00+01:00');   // = FIN_VENTA de /samhain/
   var FIN_LANZ = Date.parse('2026-10-24T23:59:59+02:00');   // 1 € hasta aquí; después, 6,99 €
   if (ahora >= FIN || /^\/samhain\//.test(location.pathname)) return;
 
