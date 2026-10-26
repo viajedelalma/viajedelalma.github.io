@@ -4,14 +4,14 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Ritual de Samhain 2026: guía de siete noches · Viaje del Alma</title>
-<meta name="description" content="Guía en PDF para celebrar Samhain 2026 del 25 de octubre al 1 de noviembre: un ritual sencillo cada noche, una meditación guiada exclusiva, un oráculo para imprimir y la versión del hemisferio sur. 1 € hasta el 24 de octubre; después, 6,99 €.">
+<meta name="description" content="Guía en PDF para celebrar Samhain 2026 del 25 de octubre al 1 de noviembre: un ritual sencillo cada noche, una meditación guiada exclusiva, un oráculo para imprimir y la versión del hemisferio sur. 6,99 €.">
 <link rel="icon" href="/favicon.png">
 <link rel="canonical" href="https://viajedelalma.app/samhain/">
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"Product","name":"Guía de Samhain 2026 · Siete noches y una mañana","description":"Guía en PDF para celebrar Samhain del 25 de octubre al 1 de noviembre: un ritual sencillo cada noche, una meditación guiada exclusiva, un oráculo para imprimir y la versión del hemisferio sur.","image":"https://viajedelalma.app/samhain/guia.jpg","brand":{"@type":"Brand","name":"Viaje del Alma"},"offers":{"@type":"Offer","price":"1.00","priceCurrency":"EUR","priceValidUntil":"2026-10-24","url":"https://viajedelalma.app/samhain/"}}
+{"@context":"https://schema.org","@type":"Product","name":"Guía de Samhain 2026 · Siete noches y una mañana","description":"Guía en PDF para celebrar Samhain del 25 de octubre al 1 de noviembre: un ritual sencillo cada noche, una meditación guiada exclusiva, un oráculo para imprimir y la versión del hemisferio sur.","image":"https://viajedelalma.app/samhain/guia.jpg","brand":{"@type":"Brand","name":"Viaje del Alma"},"offers":{"@type":"Offer","price":"6.99","priceCurrency":"EUR","priceValidUntil":"2026-11-01","url":"https://viajedelalma.app/samhain/"}}
 </script>
 <meta property="og:title" content="Samhain · Siete noches y una mañana">
-<meta property="og:description" content="Un ritual sencillo cada noche hasta el año nuevo celta. Guía en PDF: 1 € hasta el 24 de octubre.">
+<meta property="og:description" content="Un ritual sencillo cada noche hasta el año nuevo celta. Guía en PDF: 6,99 €.">
 <meta property="og:image" content="https://viajedelalma.app/samhain/guia.jpg">
 <meta property="og:url" content="https://viajedelalma.app/samhain/">
 <meta name="twitter:card" content="summary_large_image">
@@ -81,6 +81,9 @@ details p{margin:10px 0 0;color:var(--tenue);font-size:.95rem}
 body.lanzado .fase-antes,body.lanzado .barra-antes{display:none}
 body.lanzado .fase-despues{display:block}
 body.lanzado .barra-despues{display:inline-block}
+.fase-cerrada{display:none}
+body.cerrada .fase-despues,body.cerrada .fase-antes,body.cerrada .barra{display:none}
+body.cerrada .fase-cerrada{display:block}
 .reloj{display:flex;justify-content:center;gap:10px;margin:16px 0 14px}
 .reloj div{min-width:64px;padding:10px 6px;border:1px solid var(--linea);border-radius:2px;background:rgba(11,8,24,.6)}
 .reloj b{display:block;font-family:var(--display);font-weight:400;font-size:2.1rem;line-height:1;color:var(--oro-claro)}
@@ -120,13 +123,31 @@ body.lanzado .barra-despues{display:inline-block}
     <p class="legal">Te escribiré para avisarte del lanzamiento y, de vez en cuando, con las lunas y las novedades de Viaje del Alma. Te borras cuando quieras respondiendo a cualquier correo. <a href="/privacidad.html">Privacidad</a>.</p>
   </div>
 
+  <!-- DESDE EL 2-NOV: la venta se cierra (decisión de la PO, 26-oct: opción «a») -->
+  <div class="precio fase-cerrada" id="cerrada">
+    <small>Samhain 2026 · del 25 de octubre al 1 de noviembre</small>
+    <div class="cifra" style="font-size:1.9rem;line-height:1.15">La guía de este año ya pasó</div>
+    <div id="cerrada-yule" hidden>
+      <p class="lead-oferta">La próxima rueda es <b>Yule</b>, el solsticio de invierno, y ya tiene su guía.</p>
+      <a class="boton" id="ir-yule" href="/yule/?utm_source=web&amp;utm_medium=samhain&amp;utm_campaign=yule">Ver la guía de Yule</a>
+    </div>
+    <div id="cerrada-lista">
+      <p class="lead-oferta"><b>Apúntate a la de Yule</b>, el solsticio de invierno. Te escribimos con calma, con las lunas y los sabbats, y te avisamos cuando salga su guía.</p>
+      <div class="form">
+        <input type="email" id="email-yule" placeholder="Tu correo" autocomplete="email" inputmode="email" aria-label="Tu correo">
+        <button class="boton" id="apuntar-yule" type="button">Apuntarme</button>
+      </div>
+      <p class="aviso-f" id="aviso-yule"></p>
+      <p class="legal">Te escribiré con las lunas, los sabbats y las novedades de Viaje del Alma. Te borras cuando quieras respondiendo a cualquier correo. <a href="/privacidad.html">Privacidad</a>.</p>
+    </div>
+  </div>
+
   <!-- DESPUÉS DEL LANZAMIENTO: venta -->
   <div class="precio fase-despues" id="precio">
     <small>Guía de Samhain · PDF de 23 páginas + meditación</small>
-    <div class="cifra" id="cifra">1 €</div>
+    <div class="cifra" id="cifra">6,99 €</div>
     <small>IVA incluido · la descargas en cuanto pagas</small>
-    <p class="codigo" id="nota-lanzamiento">Precio de lanzamiento hasta el sábado 24 de octubre a las 23:59. Después, 6,99 €.</p>
-    <label class="acepto"><input type="checkbox" class="consiento"> <span>Acepto los <a href="/terminos.html#guias" target="_blank">términos</a> y quiero la descarga ya: sé que, al ser contenido digital que recibo al momento, pierdo el derecho de desistimiento.</span></label>
+        <label class="acepto"><input type="checkbox" class="consiento"> <span>Acepto los <a href="/terminos.html#guias" target="_blank">términos</a> y quiero la descarga ya: sé que, al ser contenido digital que recibo al momento, pierdo el derecho de desistimiento.</span></label>
     <a class="boton cta-sh" data-origen="precio" href="#">Quiero mi guía</a>
     <p class="aviso">Marca la casilla para continuar.</p>
   </div>
@@ -174,23 +195,27 @@ body.lanzado .barra-despues{display:inline-block}
 
 <div class="barra" id="barra" aria-hidden="true">
   <span class="barra-antes">Se abre el 1 de octubre · a 1 €</span>
-  <span class="barra-despues" id="barra-precio">Siete noches de Samhain · 1 €</span>
+  <span class="barra-despues" id="barra-precio">Siete noches de Samhain · 6,99 €</span>
   <a class="boton secundario barra-antes" id="barra-apuntar" href="#espera">Apuntarme</a>
-  <a class="boton barra-despues" id="barra-cta" href="#precio">Quiero mi guía · 1&nbsp;€</a>
+  <a class="boton barra-despues" id="barra-cta" href="#precio">Quiero mi guía · 6,99&nbsp;€</a>
 </div>
 
 <script data-goatcounter="https://viajedelalma.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 <script src="/meta.js" defer></script>
 <script>
 (function () {
-  // Precio de lanzamiento (decisión de la PO, 27-sep): 1 € del jue 1-oct 20:00 al sáb 24-oct 23:59;
-  // desde el dom 25-oct (la primera noche), 6,99 €. Cada precio tiene su propio Payment Link de Stripe.
+  // El lanzamiento a 1 € terminó el sáb 24-oct (su enlace está desactivado en Stripe desde el 25-oct).
+  // Desde el dom 25-oct (la primera noche), 6,99 €. R06-20261025-02, 26-oct.
   var ENLACE_699 = 'https://buy.stripe.com/8x23cw2vadLt1o74ooew803';
-  var ENLACE_1EUR = 'https://buy.stripe.com/fZu4gA9XCbDl4Ajf32ew804';   // Payment Link de 1 € (sin códigos), creado el 27-sep
-  var FIN_LANZ = Date.parse('2026-10-24T23:59:59+02:00');
-  var enLanzamiento = Date.now() < FIN_LANZ && new URLSearchParams(location.search).get('ver') !== 'despues';
-  var ENLACE_PAGO = enLanzamiento ? ENLACE_1EUR : ENLACE_699;
-  var PRECIO = enLanzamiento ? 1 : 6.99;
+  var enLanzamiento = false;
+  var ENLACE_PAGO = ENLACE_699;
+  var PRECIO = 6.99;
+  // Cierre (decisión de la PO, 26-oct, opción «a»): el dom 1-nov es la última mañana de la guía. Desde el
+  // lun 2-nov a las 00:00 (hora de España, UTC+1) no se vende; se invita a la de Yule. ?ver=cerrado lo enseña antes.
+  var FIN_VENTA = Date.parse('2026-11-02T00:00:00+01:00');
+  var q00 = new URLSearchParams(location.search);
+  var cerrada = Date.now() >= FIN_VENTA || q00.get('ver') === 'cerrado';
+  if (cerrada) { document.body.classList.add('cerrada'); ENLACE_PAGO = ''; }
   if (!enLanzamiento) {
     document.getElementById('cifra').textContent = '6,99 €';
     var nl = document.getElementById('nota-lanzamiento'); if (nl) nl.style.display = 'none';
@@ -252,7 +277,40 @@ body.lanzado .barra-despues{display:inline-block}
     else addEventListener('load', function () { setTimeout(envia, 500); }, { once: true });
   }
   function mideVista() { try { window.vdaMeta && vdaMeta.track('ViewContent', { content_name: 'guia samhain', content_type: 'product', value: PRECIO, currency: 'EUR' }); } catch (e) {} }
-  if (window.vdaMeta) mideVista(); else addEventListener('load', mideVista, { once: true });
+  if (!cerrada) { if (window.vdaMeta) mideVista(); else addEventListener('load', mideVista, { once: true }); }
+
+  if (cerrada) {
+    cuenta('sh-ve-cerrada');
+    // Si /yule/ ya está publicada, se lleva allí; si no (404), se ofrece la lista.
+    fetch('/yule/', { method: 'HEAD', cache: 'no-store' }).then(function (r) {
+      if (r.ok) { document.getElementById('cerrada-yule').hidden = false; document.getElementById('cerrada-lista').hidden = true; }
+    }).catch(function () {});
+    document.getElementById('ir-yule').addEventListener('click', function () { cuenta('sh-cerrada-a-yule'); });
+    (function listaYule() {
+      var btn = document.getElementById('apuntar-yule'), inp = document.getElementById('email-yule'), av = document.getElementById('aviso-yule');
+      var URL_SB = 'https://orxyhxehapqmjwmqmqgv.supabase.co', KEY = 'sb_publishable_As7G8e_pyZwjApjgcC48ow_RDc4hZfN'; // clave publicable, la protege la RLS
+      btn.addEventListener('click', function () {
+        var email = inp.value.trim().toLowerCase();
+        if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) { av.textContent = 'Ese correo no parece completo. Revísalo.'; inp.focus(); return; }
+        btn.disabled = true; av.textContent = 'Apuntando…'; cuenta('sh-yule-empieza');
+        // Origen 'web': es la lista de siempre, con su bienvenida automática (ninguna alta sin respuesta, 5i).
+        fetch(URL_SB + '/rest/v1/lista_correo', {
+          method: 'POST',
+          headers: { apikey: KEY, Authorization: 'Bearer ' + KEY, 'Content-Type': 'application/json', Prefer: 'return=minimal' },
+          body: JSON.stringify({ email: email, origen: 'web' })
+        }).then(function (r) {
+          if (r.ok || r.status === 409) {
+            cuenta('sh-yule-ok');
+            try { window.vdaMeta && vdaMeta.track('Lead', { content_name: 'lista yule desde samhain' }); } catch (e) {}
+            av.textContent = '¡Dentro! En unos minutos te llega un correo de bienvenida. Mira también en «Promociones» por si acaso.';
+            inp.value = '';
+          } else { av.textContent = 'No he podido guardarlo. Prueba otra vez o escribe a viajedelalma.app@gmail.com.'; btn.disabled = false; }
+        }).catch(function () { av.textContent = 'Se ha cortado la conexión. Prueba otra vez.'; btn.disabled = false; });
+      });
+      inp.addEventListener('keydown', function (e) { if (e.key === 'Enter') btn.click(); });
+    })();
+    return;
+  }
 
   var casilla = document.querySelector('.consiento'), boton = document.querySelector('.cta-sh'), aviso = document.querySelector('.aviso');
   var etiquetaCasilla = casilla.closest('.acepto');
