@@ -261,6 +261,19 @@ function origen() {
 
 /* Medición: qué se ve y dónde se para la gente. */
 R.mide('regalo-ve');
+/* 27-oct (REGALO-2610-01): entradas desde nuestra web (portada, /carta/, gracias). ?vda_placement no es
+   una UTM: se cuenta como evento y, solo si la visita no trae ya un origen de campaña, se guarda como
+   origen web para que el vale diga de qué entrada vino la venta. Lista cerrada de valores. */
+(function entrada() {
+  try {
+    const v = new URLSearchParams(location.search).get('vda_placement') || '';
+    if (['portada', 'carta', 'carta_arriba', 'gracias_carta'].indexOf(v) === -1) return;
+    R.mide('regalo-desde-' + v);
+    if (!sessionStorage.getItem('vda_origen')) {
+      sessionStorage.setItem('vda_origen', JSON.stringify({ utm_source: 'web', utm_medium: 'entrada', utm_campaign: 'regalo_' + v }));
+    }
+  } catch (e) {}
+})();
 try { window.addEventListener('load', () => { window.vdaMeta && vdaMeta.track('ViewContent', { content_name: 'regalo', value: PRECIO, currency: 'EUR' }); }); } catch (e) {}
 $('ir-comprar').addEventListener('click', () => R.mide('regalo-ir-comprar'));
 if ('IntersectionObserver' in window) {

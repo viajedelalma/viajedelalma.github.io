@@ -181,6 +181,15 @@ h1{font-size:clamp(2.1rem,7vw,4rem)}
 .campos{gap:12px}
 .afinar{padding:10px 12px}
 }
+/* 27-oct · Para regalar (REGALO-2610-01, B2): alternativa junto a la compra, sin tocar el precio de la carta. */
+.para-regalar{margin:22px auto 6px;max-width:520px;padding:18px 18px 16px;border:1px solid var(--linea);border-left:2px solid var(--oro);background:rgba(201,168,76,.06);text-align:left}
+.para-regalar .eyebrow{display:block;margin-bottom:6px}
+.para-regalar h4{font-family:inherit;font-size:1.25rem;font-weight:500;color:var(--oro-claro);margin:0 0 6px}
+.para-regalar p{color:var(--tenue);margin:0 0 10px;max-width:none}
+.para-regalar .pr-precio{color:var(--oro-claro);font-weight:500}
+.para-regalar .boton-b{display:inline-block;margin:4px 0 10px}
+.regalar-arriba{margin-top:10px;font-size:.92rem}
+.regalar-arriba a{color:var(--oro-claro)}
 </style>
 <script data-goatcounter="https://viajedelalma.goatcounter.com/count"
         async src="//gc.zgo.at/count.js"></script>
@@ -200,6 +209,7 @@ h1{font-size:clamp(2.1rem,7vw,4rem)}
   <div class="compra-arriba">
     <a class="boton-b lleno grande cta-compra" data-origen="boton-arriba" href="/carta/pedido.html">Comprar mi informe · <span data-precio="carta">14,99 €</span></a>
     <p>Tu carta natal completa en PDF, unas 25 páginas, en tu correo en menos de 24 horas.<br>O, si prefieres, mira gratis tu Sol, tu Luna y tu Ascendente aquí debajo.</p>
+    <p class="regalar-arriba">¿La quieres para otra persona? <a href="/regalo/?vda_placement=carta_arriba" data-goatcounter-click="carta-a-regalo-arriba">Carta natal de regalo + calendario lunar 2027 · 19,99 €</a></p>
   </div>
 
   <hr class="regla">
@@ -310,6 +320,15 @@ h1{font-size:clamp(2.1rem,7vw,4rem)}
         <p class="entrega">Primero tus datos de nacimiento, después el pago. Así ves exactamente qué se va a calcular antes de pagar nada.</p>
         <p class="entrega">¿Quieres ver cómo es el cuaderno entero? <a href="/carta/muestra-lorca.pdf" target="_blank" rel="noopener" data-goatcounter-click="carta-ejemplo-puerta">Abre el informe de Federico García Lorca</a> (PDF). El tuyo es igual, con tu carta.</p>
         <p class="entrega">¿Prefieres saber qué te trae el año? <a href="/revolucion/" data-goatcounter-click="carta-a-revolucion">Tu revolución solar, 24,99 €</a>, o las dos juntas por <span data-precio="pack">28,99 €</span>.</p>
+        <!-- 27-oct · B2 (REGALO-2610-01) -->
+        <div class="para-regalar">
+          <span class="eyebrow">Para regalar</span>
+          <h4>¿La quieres para otra persona?</h4>
+          <p>Regálasela sin pedirle sus datos de nacimiento. Recibirás una tarjeta con tu dedicatoria y quien la reciba completará sus datos al canjear.</p>
+          <p class="pr-precio">Carta natal de regalo + calendario lunar 2027 · 19,99 €</p>
+          <a class="boton-b" href="/regalo/?vda_placement=carta" data-goatcounter-click="carta-a-regalo">Preparar un regalo</a>
+          <p>La tarjeta se puede imprimir o mandar por WhatsApp. La carta y el calendario incluyen versión para pantalla y para imprimir en casa.</p>
+        </div>
         <ul class="garantias">
           <li>Eliges tu localidad en una lista, no la escribes: de ahí salen tus coordenadas y tu huso horario reales, incluidos los cambios de hora históricos de tu país.</li>
           <li>Lo recibes en PDF en tu correo en menos de 24 horas, para leerlo despacio y guardarlo. Va en dos versiones: una para la pantalla y otra en blanco, para imprimirla en casa.</li>

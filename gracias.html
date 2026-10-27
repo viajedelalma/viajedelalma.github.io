@@ -258,6 +258,11 @@ display:grid;gap:13px;font-size:1.05rem;color:var(--niebla)}
         var up = document.getElementById('upsell-revolucion');
         if (up) up.hidden = false;
       }
+      // 27-oct (REGALO-2610-01, B3): a quien compró la carta o el pack, la carta de regalo.
+      if (prod === 'carta' || prod === 'pack') {
+        var ur = document.getElementById('upsell-regalo');
+        if (ur) ur.hidden = false;
+      }
 
       // La página se ve siempre; lo que no se repite es el conteo.
       if (!yaContada(sesion)) {
@@ -295,6 +300,16 @@ display:grid;gap:13px;font-size:1.05rem;color:var(--niebla)}
 <li>Si algún dato de nacimiento no era correcto, <b>respóndeme a ese mismo correo</b> y lo rehago sin coste.</li>
 <li>El <b>recibo del pago</b> te lo envía la pasarela en un correo aparte. No lo busques en el mío.</li>
 </ul>
+</div>
+
+<!-- 27-oct · B3 (REGALO-2610-01): solo a quien acaba de comprar la carta natal o el pack (lo enseña el script). -->
+<div class="marco" id="upsell-regalo" hidden><span class="e3"></span>
+<p class="eyebrow">Para regalar</p>
+<h2>¿Te ha venido alguien a la cabeza?</h2>
+<p>También puedes regalar una carta natal. Tú escribes la dedicatoria; esa persona aporta sus datos al canjear. Incluye el calendario lunar 2027.</p>
+<p><b>19,99 € · pago único</b></p>
+<a class="boton" href="/regalo/?vda_placement=gracias_carta" data-goatcounter-click="gracias-a-regalo">Ver la edición regalo ✦</a>
+<p class="letra-chica">La tarjeta llega en un minuto después del pago y puedes imprimirla o mandarla por WhatsApp.</p>
 </div>
 
 <div class="marco"><span class="e3"></span>

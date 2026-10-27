@@ -289,6 +289,16 @@ header.hero .sello{margin:16px auto}
 .productos .temporada{margin-top:14px}
 @media (max-width:400px){.temporada .p-nombre{font-size:.9rem!important}.t-ir{padding:3px 7px!important;font-size:.6rem!important;letter-spacing:.04em}.t-fila{gap:10px!important}}
 @media (max-width:520px){.t-fila{gap:12px;padding:12px 14px 10px}.t-ir{padding:4px 9px;font-size:.66rem}.temporada .p-txt{flex-direction:column;align-items:flex-start}.temporada .p-nombre{font-size:1rem;letter-spacing:.05em;white-space:nowrap}.temporada .p-nombre::before{margin-right:6px}}
+/* 27-oct · Entrada a la carta natal de regalo (REGALO-2610-01, B1; «adelante» de la PO a las 08:12). Sin fecha: se queda fija. */
+.regalo-portada{display:block;padding:24px 22px 20px;margin:16px 0 12px;border-color:rgba(196,154,60,.6);box-shadow:0 0 26px rgba(196,154,60,.14);text-align:left}
+.rp-etiqueta{position:absolute;top:-9px;left:18px;background:var(--oro);color:#140a08;font-family:var(--display);font-size:.62rem;letter-spacing:.16em;text-transform:uppercase;padding:2px 9px;border-radius:2px}
+.regalo-portada img{width:100%;height:auto;display:block;border-radius:3px;border:1px solid var(--linea);margin:4px 0 16px}
+.regalo-portada h3{font-family:var(--display);font-weight:500;font-size:1.12rem;letter-spacing:.04em;line-height:1.4;color:var(--oro-brillo);margin-bottom:8px}
+.regalo-portada p{font-size:1.05rem;line-height:1.6;color:var(--niebla)}
+.regalo-portada .rp-precio{font-family:var(--display);font-size:.95rem;letter-spacing:.06em;color:var(--oro-claro);margin:12px 0 4px}
+.regalo-portada .descarga{margin-top:10px}
+.regalo-portada .rp-nota{font-size:.9rem;font-style:italic;color:var(--tenue);margin-top:12px}
+@media (max-width:520px){.regalo-portada{padding:22px 16px 18px}.regalo-portada h3{font-size:1rem}}
 </style>
 <script data-goatcounter="https://viajedelalma.goatcounter.com/count"
         async src="//gc.zgo.at/count.js"></script>
@@ -328,6 +338,16 @@ plantas y minerales, y un diario que solo lees tú.
 
 <a class="producto temporada" id="temporadaSamhain" href="/samhain/?utm_source=web&amp;utm_medium=portada&amp;utm_campaign=samhain" data-goatcounter-click="portada-samhain"><span class="t-etiqueta">Solo esta temporada</span><span class="t-fila"><img class="p-mini" src="/samhain/guia.jpg" width="48" height="48" alt=""><span class="p-txt"><span class="p-nombre">Guía de Samhain</span><span class="p-precio" id="temporadaPrecio">Llega el 1 de octubre · 1 €</span></span><span class="t-ir" id="temporadaIr">Avísame →</span></span></a>
 <script>(function(){var n=Date.now(),L=Date.parse('2026-10-01T20:00:00+02:00'),F=Date.parse('2026-11-02T00:00:00+01:00'),c=document.getElementById('temporadaSamhain');if(n>=F){c.parentNode.removeChild(c);return;}if(n>=L){document.getElementById('temporadaPrecio').textContent=n<Date.parse('2026-10-24T23:59:59+02:00')?'Siete noches · 1 € hasta el 24-oct':'Siete noches · 6,99 €';document.getElementById('temporadaIr').textContent='Verla →';}})();</script>
+
+<!-- 27-oct · B1 (REGALO-2610-01): la carta natal de regalo, antes del catálogo. Lleva a /regalo/ con ?vda_placement=portada (no es UTM: no pisa el origen real de la visita). -->
+<div class="producto regalo-portada" id="regaloPortadaB1"><span class="rp-etiqueta">Para regalar</span>
+<img src="/regalo/img/regalo_pack.webp" width="1200" height="800" alt="La tarjeta de regalo con su dedicatoria, la carta natal y el calendario lunar 2027" loading="lazy">
+<h3>Un regalo que diga: he pensado en ti</h3>
+<p>Una carta natal personalizada, el calendario lunar 2027 y una tarjeta con tu dedicatoria. No necesitas saber la hora de nacimiento de esa persona: la aporta al canjear.</p>
+<p class="rp-precio">19,99 € · pago único</p>
+<p><a class="descarga" href="/regalo/?vda_placement=portada" data-goatcounter-click="portada-regalo">Ver la carta natal de regalo</a></p>
+<p class="rp-nota">Tarjeta en un minuto tras pagar. Carta natal por correo en menos de 24 h después del canje con los datos de nacimiento.</p>
+</div>
 
 <details class="producto">
 <summary data-goatcounter-click="portada-producto-calendario"><svg class="p-mini" viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="24" r="23.5" fill="#160F2E" stroke="rgba(196,154,60,.45)"/><circle cx="24" cy="24" r="11" fill="#E8CE8C"/><path fill="#160F2E" d="M24 13a11 11 0 0 0 0 22a6.5 11 0 0 1 0-22z"/><g fill="#C49A3C"><circle cx="9" cy="24" r="1.6"/><circle cx="39" cy="24" r="1.6"/><circle cx="24" cy="8.5" r="1.3"/><circle cx="24" cy="39.5" r="1.3"/></g></svg><span class="p-txt"><span class="p-nombre">Calendario lunar 2027</span><span class="p-precio">PDF · 7,99 €</span></span></summary>
