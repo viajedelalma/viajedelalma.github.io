@@ -126,13 +126,15 @@ h2.datos{font-family:var(--display);font-weight:400;font-size:1.55rem;margin:0 0
     </ul>
   </header>
 
-  <p class="aviso-frio" id="aviso-gratis" hidden>
-    ¿Prefieres verla gratis primero? En un minuto tienes tu Sol, tu Luna y tu Ascendente,
-    sin registro y sin dejar tu correo: <a href="/carta/">calcula tu carta gratis</a>. Y si ya
-    lo tienes claro, sigue aquí.
+  <!-- 30-oct-2026 (CHATGPT-ADS-3010-01, «ok» de la PO): a quien ya ha pulsado comprar no se le
+       manda a la carta gratis. Se le ofrece ver un informe entero de ejemplo. -->
+  <p class="aviso-frio" id="aviso-muestra" hidden>
+    ¿Quieres verlo antes de pagar? Abre un informe entero de ejemplo, el de
+    <a href="/carta/muestra-lorca.pdf" target="_blank" rel="noopener">Federico García Lorca</a> (PDF).
+    El tuyo es igual, con tu carta.
   </p>
   <p class="aviso-frio" id="aviso-listo" hidden>
-    Tus datos de nacimiento ya están puestos desde tu carta gratis. Compruébalos y
+    Tus datos de nacimiento ya están puestos desde la carta que has calculado. Compruébalos y
     <b>solo falta tu correo</b>: ahí te llega el informe.
   </p>
 
@@ -284,7 +286,7 @@ h2.datos{font-family:var(--display);font-weight:400;font-size:1.55rem;margin:0 0
   <p class="pie">
     Tus datos se usan solo para calcular y enviarte el informe. Guardamos también desde qué red llegaste, sin cookies.<br>
     <a href="/privacidad.html">Privacidad</a> · <a href="/terminos.html">Términos</a> ·
-    <a href="/carta/">Volver a la carta gratis</a>
+    <a href="/carta/">Volver a la carta natal</a>
   </p>
 </div>
 
@@ -836,7 +838,8 @@ function desactivaExpres(porClic) {
 /* ---------- prellenado desde /carta/ ----------
    Si acaba de calcular su carta gratis, sus datos están en esta pestaña
    (sessionStorage 'vda_natal'). Se rellenan y solo le queda el correo.
-   Si llega en frío (anuncio directo), se le ofrece la carta gratis antes. */
+   Si llega en frío (anuncio directo), se le ofrece ver un informe entero de ejemplo
+   (hasta el 30-oct se le ofrecía la carta gratis). */
 (async function prellena() {
   let d = null;
   try { d = JSON.parse(sessionStorage.getItem('vda_natal') || 'null'); } catch (e) {}
@@ -877,9 +880,13 @@ function desactivaExpres(porClic) {
     ['input', 'change'].forEach(t => $('f').addEventListener(t, empieza));
   })();
   if (!d || !d.fecha) {
-    $('aviso-gratis').hidden = false;
     mide('pedido-en-frio');
-    $('aviso-gratis').querySelector('a').addEventListener('click', () => mide('pedido-a-gratis'));
+    // (30-oct) Antes: «¿Prefieres verla gratis primero?» con enlace a /carta/. Ahora, la muestra
+    // entera, y solo si lo que se pide lleva la carta (carta o pack): es una carta natal.
+    if (producto() === 'carta' || producto() === 'pack') {
+      $('aviso-muestra').hidden = false;
+      $('aviso-muestra').querySelector('a').addEventListener('click', () => mide('pedido-a-muestra'));
+    }
     return;
   }
   mide('pedido-prellenado');
@@ -920,7 +927,7 @@ function desactivaExpres(porClic) {
   if (falta.length) {
     // Solo textos fijos de este archivo: nada que escriba la usuaria entra en innerHTML.
     const lista = falta.length > 1 ? falta.slice(0, -1).join(', ') + ' y ' + falta[falta.length - 1] : falta[0];
-    $('aviso-listo').innerHTML = 'Hemos traído lo que pusiste en tu carta gratis. Para que el informe sea '
+    $('aviso-listo').innerHTML = 'Hemos traído lo que pusiste al calcular tu carta. Para que el informe sea '
       + 'de verdad tuyo, ' + (falta.length > 1 ? 'te faltan ' : 'te falta ')
       + '<b>' + lista + ' de nacimiento</b>'
       + (sinHoraPuesta && !conRevolucion() ? ' (si no sabes la hora, marca «No sé a qué hora nací»)' : '')

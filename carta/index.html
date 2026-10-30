@@ -3,6 +3,27 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<script>/* 30-oct-2026 · Modo venta (ver el comentario del CSS). Se decide aquí, antes de pintar,
+   para que la calculadora no aparezca y desaparezca. Solo con un anuncio de pago en la dirección
+   (utm_medium paid, cpc, ppc o paid_social), con ?venta=1, o al volver desde el formulario de pedido
+   en la misma pestaña. ?venta=0 lo quita. */
+(function () {
+  var venta = false;
+  try {
+    var p = new URLSearchParams(location.search);
+    var m = (p.get('utm_medium') || '').toLowerCase(), v = p.get('venta');
+    if (v === '0') {
+      try { sessionStorage.removeItem('vda_modo_venta'); } catch (e) {}
+    } else if (v === '1' || ['paid', 'cpc', 'ppc', 'paid_social'].indexOf(m) > -1) {
+      venta = true;
+      try { sessionStorage.setItem('vda_modo_venta', '1'); } catch (e) {}
+    } else {
+      try { venta = sessionStorage.getItem('vda_modo_venta') === '1' && /\/carta\/pedido/.test(document.referrer); } catch (e) {}
+    }
+  } catch (e) {}
+  if (venta) document.documentElement.classList.add('modo-venta');
+})();
+</script>
 <meta name="description" content="Calcula tu carta natal gratis: tu Sol, tu Luna y tu Ascendente con efemérides reales. Sin registro: el cálculo ocurre en tu móvil.">
 <link rel="canonical" href="https://viajedelalma.app/carta/">
 <meta property="og:url" content="https://viajedelalma.app/carta/">
@@ -190,6 +211,19 @@ h1{font-size:clamp(2.1rem,7vw,4rem)}
 .para-regalar .boton-b{display:inline-block;margin:4px 0 10px}
 .regalar-arriba{margin-top:10px;font-size:.92rem}
 .regalar-arriba a{color:var(--oro-claro)}
+/* 30-oct-2026 · Modo venta (CHATGPT-ADS-3010-01; «ok» de la PO a la recomendación de ChatGPT:
+   «retirar lo gratuito del recorrido de venta y mantener la muestra y los 14,99 €»).
+   Quien llega desde un anuncio de pago ve la página sin la calculadora ni nada gratis: qué trae el
+   informe, un trozo de muestra, el informe entero de ejemplo y la compra. Quien llega por redes, la
+   portada o Google sigue viendo la carta gratis, porque el carrusel fijado de IG y FB y la portada la
+   prometen. Todo lo gratis lleva .solo-gratis; los textos propios de la venta, .solo-venta. */
+.solo-venta{display:none}
+html.modo-venta .solo-gratis{display:none!important}
+html.modo-venta .solo-venta{display:revert}
+html.modo-venta #resultado{display:block!important}
+html.modo-venta .muestra{border-top:1px solid var(--linea);margin-top:26px}
+html.modo-venta #indice-tuyo{display:none!important}
+html.modo-venta .compra-arriba .solo-venta a{color:var(--oro-claro);text-decoration:underline;text-underline-offset:3px}
 </style>
 <script data-goatcounter="https://viajedelalma.goatcounter.com/count"
         async src="//gc.zgo.at/count.js"></script>
@@ -204,17 +238,19 @@ h1{font-size:clamp(2.1rem,7vw,4rem)}
 <div class="envoltura">
   <p class="eyebrow">Viaje del Alma</p>
   <h1>El cielo del<br><em>día que naciste</em></h1>
-<p class="entradilla">Tu Sol, tu Luna y tu Ascendente, calculados con efemérides reales. Gratis, sin registro y sin que nadie se quede tu fecha de nacimiento.</p>
+<p class="entradilla solo-gratis">Tu Sol, tu Luna y tu Ascendente, calculados con efemérides reales. Gratis, sin registro y sin que nadie se quede tu fecha de nacimiento.</p>
+<p class="entradilla solo-venta">Tu carta natal completa, escrita para ti: unas 25 páginas en PDF con tus planetas, tus doce casas, tus aspectos y el año que viene, calculadas con efemérides reales para el día, la hora y el lugar en que naciste. No predice: explica.</p>
 
   <div class="compra-arriba">
     <a class="boton-b lleno grande cta-compra" data-origen="boton-arriba" href="/carta/pedido.html">Comprar mi informe · <span data-precio="carta">14,99 €</span></a>
-    <p>Tu carta natal completa en PDF, unas 25 páginas, en tu correo en menos de 24 horas.<br>O, si prefieres, mira gratis tu Sol, tu Luna y tu Ascendente aquí debajo.</p>
+    <p>Tu carta natal completa en PDF, unas 25 páginas, en tu correo en menos de 24 horas.<span class="solo-gratis"><br>O, si prefieres, mira gratis tu Sol, tu Luna y tu Ascendente aquí debajo.</span><span class="solo-venta"><br>Pago único, IVA incluido. Aquí debajo tienes un trozo del informe y lo que trae, capítulo a capítulo.</span></p>
+    <p class="solo-venta">¿Quieres ver uno entero antes de pedirlo? <a href="/carta/muestra-lorca.pdf" target="_blank" rel="noopener" data-goatcounter-click="carta-ejemplo-venta">Abre el informe de Federico García Lorca</a> (PDF). El tuyo es igual, con tu carta.</p>
     <p class="regalar-arriba">¿La quieres para otra persona? <a href="/regalo/?vda_placement=carta_arriba" data-goatcounter-click="carta-a-regalo-arriba">Carta natal de regalo + calendario lunar 2027 · 19,99 €</a></p>
   </div>
 
-  <hr class="regla">
+  <hr class="regla solo-gratis">
 
-  <form class="panel" id="formulario">
+  <form class="panel solo-gratis" id="formulario">
     <div class="campos">
       <div class="campo ancho"><label for="f-fecha">Fecha de nacimiento</label><input id="f-fecha" type="date" required></div>
       <div class="campo ancho"><label for="f-nombre">Tu nombre (opcional)</label><input id="f-nombre" type="text" autocomplete="given-name" placeholder="Como quieras que te llame"></div>
@@ -237,23 +273,23 @@ h1{font-size:clamp(2.1rem,7vw,4rem)}
     <p class="error" id="error" hidden></p>
   </form>
 
-  <p class="aviso-informe">¿Quieres la carta entera? <b>Informe completo: unas 25 páginas, <span data-precio="carta">14,99 €</span></b>, en tu correo en menos de 24 horas. Calcula tu carta gratis y verás qué incluye, o <a class="cta-compra" data-origen="arriba" href="/carta/pedido.html">pide tu informe ya</a>. ¿Quieres ver uno entero antes? <a href="/carta/muestra-lorca.pdf" target="_blank" rel="noopener" data-goatcounter-click="carta-ejemplo-arriba">Mira el de Federico García Lorca</a> (PDF).</p>
+  <p class="aviso-informe solo-gratis">¿Quieres la carta entera? <b>Informe completo: unas 25 páginas, <span data-precio="carta">14,99 €</span></b>, en tu correo en menos de 24 horas. Calcula tu carta gratis y verás qué incluye, o <a class="cta-compra" data-origen="arriba" href="/carta/pedido.html">pide tu informe ya</a>. ¿Quieres ver uno entero antes? <a href="/carta/muestra-lorca.pdf" target="_blank" rel="noopener" data-goatcounter-click="carta-ejemplo-arriba">Mira el de Federico García Lorca</a> (PDF).</p>
 
   <div id="resultado" hidden>
-    <hr class="regla">
-    <div class="cabecera-carta">
+    <hr class="regla solo-gratis">
+    <div class="cabecera-carta solo-gratis">
       <h2 id="titulo-carta" style="font-size:2rem"></h2>
       <p id="datos-carta"></p>
     </div>
-    <div class="tira" id="tira"></div>
-    <div class="rueda" id="rueda"></div>
+    <div class="tira solo-gratis" id="tira"></div>
+    <div class="rueda solo-gratis" id="rueda"></div>
 
-    <div class="lecturas" id="lecturas"></div>
+    <div class="lecturas solo-gratis" id="lecturas"></div>
 
     <!-- 22-oct-2026 (LISTA-CARTA-2210-01, sí de la PO a las 12:07): la casilla sube aquí y nombra el regalo
          que ya manda la bienvenida automática. Cambia sola el 1-ene-2027; desde el 1-may-2027 (cuando caduca
          el regalo de enero–abril) vuelve al texto de antes, que no promete regalo. -->
-    <div class="regalo-correo" style="text-align:center;margin:30px auto 6px;max-width:520px">
+    <div class="regalo-correo solo-gratis" style="text-align:center;margin:30px auto 6px;max-width:520px">
       <hr class="regla" style="margin:0 auto 22px;max-width:520px">
       <form class="correo" id="form-correo" novalidate>
         <label for="f-correo" class="rol-correo" id="rol-correo">Llévate gratis el Calendario Lunar: otoño e invierno de 2026 y enero–abril de 2027, con un ritual sencillo para cada luna.</label>
@@ -266,7 +302,7 @@ h1{font-size:clamp(2.1rem,7vw,4rem)}
       <p id="letra-correo" style="margin:4px auto 0;max-width:460px;font-size:.8rem;color:var(--tenue)">Después, pocos correos con las lunas, los sabbats y las novedades de Viaje del Alma. Te borras cuando quieras.</p>
     </div>
 
-    <div class="velo">
+    <div class="velo solo-gratis">
       <div class="contenido">
         <h3 style="font-size:1.5rem;padding-top:22px;border-top:1px solid var(--linea)">Tus doce casas y tus aspectos</h3>
         <p style="color:#D8D0E4">Las casas dicen dónde ocurre cada cosa en tu vida: el dinero, el hogar, el trabajo, los vínculos. Los aspectos dicen cómo se hablan entre sí tus planetas, dónde tienes facilidad y dónde tienes tensión que empuja.</p>
@@ -296,7 +332,7 @@ h1{font-size:clamp(2.1rem,7vw,4rem)}
         <p class="magnitud" id="magnitud"></p>
         <p class="enc">Y esto es lo que trae, capítulo a capítulo:</p>
         <ol>
-          <li><b>Quién eres</b> — tu Sol, tu Luna y tu Ascendente, con más hondura que aquí arriba.</li>
+          <li><b>Quién eres</b> — tu Sol, tu Luna y tu Ascendente, <span class="solo-gratis">con más hondura que aquí arriba</span><span class="solo-venta">leídos a fondo</span>.</li>
           <li><b>Tu cielo completo</b> — los ocho planetas, tu Medio Cielo, el regente de tu carta y tu Punto de la Fortuna.</li>
           <li><b>Dónde ocurre tu vida</b> — tus doce casas, una a una. También las que están vacías: que no haya un planeta dentro también dice algo.</li>
           <li><b>Cómo se hablan tus planetas</b> — tus aspectos, ordenados por lo que de verdad pesa.</li>
@@ -341,12 +377,12 @@ h1{font-size:clamp(2.1rem,7vw,4rem)}
         </details>
       </div>
 
-      <hr class="regla" style="margin:28px auto;max-width:520px">
+      <hr class="regla solo-gratis" style="margin:28px auto;max-width:520px">
 
-      <div class="acciones" style="margin-top:18px">
+      <div class="acciones solo-gratis" style="margin-top:18px">
         <a class="boton-b" id="cta-app" href="#" target="_blank" rel="noopener">Descargar la app gratis</a>
       </div>
-      <p style="margin-top:16px;font-size:.8rem">El ritual diario de la app es gratuito para siempre.</p>
+      <p class="solo-gratis" style="margin-top:16px;font-size:.8rem">El ritual diario de la app es gratuito para siempre.</p>
     </div>
 
     <div class="redes" style="text-align:center;margin:34px auto 26px;max-width:520px"><p style="margin:0 0 10px;font-size:.74rem;letter-spacing:.24em;text-transform:uppercase;color:var(--oro)">✦ Síguenos en redes ✦</p><p style="margin:0;font-size:1.05rem;line-height:2"><a href="https://www.instagram.com/viajedelalma.app/" target="_blank" rel="noopener" data-goatcounter-click="carta-redes-instagram" style="color:var(--oro-claro);text-decoration:underline;text-underline-offset:4px;margin:0 7px;white-space:nowrap">Instagram</a><span style="color:var(--oro)">·</span><a href="https://www.tiktok.com/@viajedelalma.app" target="_blank" rel="noopener" data-goatcounter-click="carta-redes-tiktok" style="color:var(--oro-claro);text-decoration:underline;text-underline-offset:4px;margin:0 7px;white-space:nowrap">TikTok</a><span style="color:var(--oro)">·</span><a href="https://www.pinterest.com/viajedelalmaapp/" target="_blank" rel="noopener" data-goatcounter-click="carta-redes-pinterest" style="color:var(--oro-claro);text-decoration:underline;text-underline-offset:4px;margin:0 7px;white-space:nowrap">Pinterest</a><span style="color:var(--oro)">·</span><a href="https://www.facebook.com/profile.php?id=61593699406994" target="_blank" rel="noopener" data-goatcounter-click="carta-redes-facebook" style="color:var(--oro-claro);text-decoration:underline;text-underline-offset:4px;margin:0 7px;white-space:nowrap">Facebook</a></p></div>
@@ -1554,16 +1590,24 @@ function escapa(s) { return s.replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt
   (function barraCompra() {
     var barra = document.getElementById('barra'), puerta = document.getElementById('puerta');
     if (!barra || !puerta || !('IntersectionObserver' in window)) return;
-    var puertaVisible = false;
+    var puertaVisible = false, arribaVisible = true;
+    var venta = document.documentElement.classList.contains('modo-venta');
     function pinta() {
-      var mostrar = document.body.classList.contains('carta-propia') && !puertaVisible;
+      var mostrar = (document.body.classList.contains('carta-propia') || (venta && !arribaVisible)) && !puertaVisible;
       barra.classList.toggle('visible', mostrar);
       barra.setAttribute('aria-hidden', mostrar ? 'false' : 'true');
       document.body.classList.toggle('con-barra', mostrar);
     }
     new IntersectionObserver(function (es) { puertaVisible = es[0].isIntersecting; pinta(); }, { rootMargin: '0px 0px -40px 0px' }).observe(puerta);
     document.addEventListener('carta-propia', pinta);
+    var arriba = document.querySelector('.compra-arriba');
+    if (venta && arriba) new IntersectionObserver(function (es) { arribaVisible = es[0].isIntersecting; pinta(); }).observe(arriba);
   })();
+  // 30-oct · Modo venta: se cuenta una vez por visita y la pestaña nombra lo que se vende.
+  if (document.documentElement.classList.contains('modo-venta')) {
+    document.title = 'Tu carta natal completa en PDF · Viaje del Alma';
+    cuentaUna('carta-modo-venta');
+  }
 })();
 </script>
 
