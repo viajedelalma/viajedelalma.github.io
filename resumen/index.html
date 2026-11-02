@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<!-- La llave va en la URL: que no salga hacia ninguna otra web -->
+<meta name="referrer" content="no-referrer">
+<!-- El Resumen se pinta con innerHTML. Aunque el motor ya lo escapa, aquí no
+     se ejecuta ningún script que no sea resumen.js (sin 'unsafe-inline'). -->
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; connect-src https://orxyhxehapqmjwmqmqgv.supabase.co; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self'; base-uri 'none'; form-action 'none'">
+<title>Tu Resumen · Viaje del Alma</title>
+<link rel="icon" href="/favicon.png">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Karla:wght@300;400;500;700&display=swap">
+<style>
+:root{
+  --noche:#0B0818; --noche-2:#14102A; --oro:#C9A84C; --oro-claro:#E8D9A0;
+  --texto:#EDE7DC; --tenue:#A99CCB; --azul:#8FB8D8; --linea:rgba(201,168,76,.22);
+  --display:'Cormorant Garamond','Iowan Old Style',Georgia,serif;
+  --cuerpo:'Karla','Helvetica Neue',Arial,sans-serif;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+body{margin:0;background:var(--noche);color:var(--texto);font-family:var(--cuerpo);font-size:17px;line-height:1.65;-webkit-font-smoothing:antialiased;
+  background-image:radial-gradient(ellipse 90% 30% at 50% 0%,rgba(107,78,158,.34),transparent 70%)}
+.envoltura{max-width:640px;margin:0 auto;padding:30px 16px 70px}
+.marca{font-size:.72rem;letter-spacing:.34em;color:var(--oro);text-transform:uppercase;margin-bottom:22px;text-align:center}
+.marca a{color:inherit;text-decoration:none;display:inline-flex;align-items:center;gap:10px}
+.marca img{border-radius:50%;border:1px solid var(--oro)}
+.estado{text-align:center;color:var(--tenue);margin:60px 0}
+/* lo que monta el motor (resumen_html.cuerpo) */
+.cab{text-align:center;margin-bottom:8px}
+.fase{font-size:.74rem;letter-spacing:.22em;text-transform:uppercase;color:var(--azul);margin:0}
+h1{font-family:var(--display);font-weight:300;font-size:clamp(2rem,7vw,2.7rem);line-height:1.1;margin:8px 0 6px}
+.titular{font-family:var(--display);font-style:italic;font-size:1.35rem;line-height:1.35;color:var(--oro-claro);margin:0 0 6px}
+.b{border-top:1px solid var(--linea);padding:20px 0 6px}
+.b h2{font-family:var(--display);font-weight:600;font-size:1.3rem;color:var(--oro);margin:0 0 8px;letter-spacing:.02em}
+.b p{margin:0 0 12px}
+.b strong{color:var(--oro-claro);font-weight:500}
+.sub{color:var(--azul);font-size:.95rem;margin-bottom:8px!important}
+.nota{color:var(--tenue);font-size:.9rem}
+.palabra-dia{font-family:var(--display);font-size:1.9rem;color:var(--oro-claro);margin:0 0 4px!important}
+ol{margin:0 0 12px 1.2em;padding:0}
+ol li{margin-bottom:6px}
+.pie{margin-top:40px;font-size:.8rem;color:var(--tenue);text-align:center}
+.pie a{color:var(--tenue)}
+</style>
+</head>
+<body>
+<div class="envoltura">
+  <div class="marca"><a href="/"><img src="/logo.png" width="34" height="34" alt="">Viaje del Alma</a></div>
+
+  <p class="estado" id="cargando">Abriendo tu Resumen…</p>
+  <p class="estado" id="error" hidden>No encontramos este Resumen. Puede que el enlace esté incompleto o que sea de hace más de un mes y medio. Si crees que es un error, responde al correo y lo miramos.</p>
+  <main id="resumen" hidden></main>
+
+  <p class="pie">Tu Resumen es privado: solo lo ve quien tiene este enlace.<br>
+    Para dejar la prueba, responde a cualquiera de los correos.<br>
+    <a href="/privacidad.html">Privacidad</a> · <a href="/">Viaje del Alma</a></p>
+</div>
+<script src="/resumen/resumen.js"></script>
+</body>
+</html>

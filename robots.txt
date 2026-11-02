@@ -1,4 +1,6 @@
 User-agent: *
 Allow: /
+# Los Resúmenes diarios son privados (la llave va en la URL)
+Disallow: /resumen/
 
 Sitemap: https://viajedelalma.app/sitemap.xml
