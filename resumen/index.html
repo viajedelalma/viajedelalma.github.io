@@ -1,0 +1,340 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Tu Resumen diario · Viaje del Alma</title>
+<meta name="description" content="Tu Resumen diario personalizado: tu cielo, tu Luna, tu planta y tu mineral de hoy.">
+<link rel="icon" href="/favicon.png">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Karla:wght@300;400;500;700&display=swap">
+<style>
+:root{
+  --noche:#0B0818; --noche-2:#14102A; --noche-3:#1C1636;
+  --oro:#C9A84C; --oro-claro:#E8D9A0; --texto:#EDE7DC; --tenue:#A99CCB; --linea:rgba(201,168,76,.22);
+  --display:'Cormorant Garamond','Iowan Old Style',Georgia,serif;
+  --cuerpo:'Karla','Helvetica Neue',Arial,sans-serif;
+}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+body{margin:0;background:var(--noche);color:var(--texto);font-family:var(--cuerpo);font-size:16px;line-height:1.65;-webkit-font-smoothing:antialiased;font-variant-numeric:lining-nums;
+  background-image:radial-gradient(ellipse 90% 38% at 50% 0%,rgba(107,78,158,.34),transparent 70%)}
+.envoltura{max-width:640px;margin:0 auto;padding:30px 16px 72px}
+.marca{font-size:.72rem;letter-spacing:.34em;color:var(--oro);text-transform:uppercase;margin-bottom:22px;text-align:center}
+.marca a{color:inherit;text-decoration:none;display:inline-flex;align-items:center;gap:10px}
+.marca img{border-radius:50%;border:1px solid var(--oro)}
+.fecha{font-size:.74rem;letter-spacing:.24em;text-transform:uppercase;color:var(--tenue);text-align:center;margin:0 0 6px}
+h1{font-family:var(--display);font-weight:300;font-size:clamp(2.1rem,8vw,2.9rem);line-height:1.08;margin:0 0 8px;text-align:center}
+h1 em{font-style:italic;color:var(--oro-claro)}
+.entradilla{color:var(--tenue);text-align:center;margin:0 auto 8px;max-width:46ch}
+.bloque{background:linear-gradient(180deg,var(--noche-2),rgba(20,16,42,.6));border:1px solid var(--linea);border-radius:18px;padding:20px 18px;margin:18px 0}
+.etiqueta{font-size:.68rem;letter-spacing:.24em;text-transform:uppercase;color:var(--oro);margin:0 0 4px}
+h2{font-family:var(--display);font-weight:400;font-size:1.55rem;line-height:1.2;margin:0 0 10px;color:var(--oro-claro)}
+.dato{font-size:.95rem;color:var(--oro-claro);margin:0 0 10px}
+p{margin:0 0 12px}
+.texto p:last-child{margin-bottom:0}
+.dos{display:grid;grid-template-columns:1fr;gap:12px}
+@media (min-width:560px){.dos{grid-template-columns:1fr 1fr}}
+.ficha{border:1px solid var(--linea);border-radius:14px;padding:14px;background:rgba(28,22,54,.55)}
+.ficha b{display:block;font-family:var(--display);font-weight:400;font-size:1.35rem;color:var(--oro-claro);line-height:1.2;margin-bottom:4px}
+details{margin-top:8px}
+summary{cursor:pointer;color:var(--oro);font-size:.9rem}
+details p{margin-top:8px;color:var(--texto)}
+ol.pasos{margin:4px 0 12px;padding-left:1.3em}
+ol.pasos li{margin:0 0 6px}
+.nota{font-size:.88rem;color:var(--tenue)}
+.nota a,.texto a{color:var(--oro-claro)}
+.cita{font-family:var(--display);font-style:italic;font-size:1.45rem;line-height:1.35;color:var(--oro-claro);text-align:center;margin:6px 0 2px}
+.pendiente{opacity:.7}
+.cuidado-alma{border-color:rgba(232,217,160,.55)}
+.carta-nombre{font-family:var(--display);font-size:1.3rem;color:var(--oro-claro);margin:0 0 6px}
+.aspectos{font-size:.86rem;color:var(--tenue);margin:8px 0 0;padding-left:1.1em}
+label{display:block;font-size:.7rem;letter-spacing:.19em;text-transform:uppercase;color:var(--oro);margin:18px 0 7px}
+input{width:100%;font:inherit;color:var(--texto);background:var(--noche-3);border:1px solid var(--linea);border-radius:12px;padding:13px 14px}
+input:focus{outline:none;border-color:var(--oro)}
+.boton{display:inline-block;border:0;cursor:pointer;font:inherit;font-weight:700;padding:15px 26px;border-radius:999px;background:linear-gradient(135deg,var(--oro-claro),var(--oro));color:#1a1408;text-decoration:none;margin-top:20px}
+.boton[disabled]{opacity:.6;cursor:default}
+.boton.secundario{background:none;border:1px solid var(--oro);color:var(--oro-claro);font-weight:500}
+.centro{text-align:center}
+.error{color:#f2b8b5;font-size:.92rem;margin-top:12px}
+.semana{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin:8px 0 0;padding:0;list-style:none}
+.semana button{font:inherit;font-size:.86rem;color:var(--oro-claro);background:none;border:1px solid var(--linea);border-radius:999px;padding:7px 13px;cursor:pointer}
+.semana button[aria-current="true"]{border-color:var(--oro);background:rgba(201,168,76,.12)}
+.pie{font-size:.8rem;color:var(--tenue);text-align:center;margin-top:34px}
+.pie a{color:var(--tenue)}
+.cargando{text-align:center;color:var(--tenue);margin:40px 0}
+</style>
+<script data-goatcounter="https://viajedelalma.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</head>
+<body>
+<div class="envoltura">
+  <div class="marca"><a href="/?o=resumen"><img src="/logo.png" width="34" height="34" alt="">Viaje del Alma</a></div>
+
+  <p class="cargando" id="cargando">Preparando tu Resumen…</p>
+
+  <!-- Entrar -->
+  <section id="entrar" hidden>
+    <h1>Tu <em>Resumen</em> diario</h1>
+    <p class="entradilla">Entra con tu cuenta de Viaje del Alma: el mismo correo y la misma contraseña que usas en la app.</p>
+    <form id="f-entrar" class="bloque" novalidate>
+      <label for="correo">Tu correo</label>
+      <input id="correo" type="email" autocomplete="email" inputmode="email" required>
+      <label for="clave">Tu contraseña</label>
+      <input id="clave" type="password" autocomplete="current-password" required>
+      <div class="centro"><button class="boton" id="b-entrar" type="submit">Entrar</button></div>
+      <p class="error" id="error-entrar" role="alert" hidden></p>
+      <p class="nota centro" style="margin-top:16px">¿No recuerdas tu contraseña? Responde a cualquiera de nuestros correos y te ayudamos.</p>
+    </form>
+  </section>
+
+  <!-- Sin resumen / fuera de fechas -->
+  <section id="aviso" hidden class="centro">
+    <h1>Tu <em>Resumen</em> diario</h1>
+    <p class="entradilla" id="aviso-texto"></p>
+    <p><button class="boton secundario" id="b-salir-aviso" type="button">Entrar con otra cuenta</button></p>
+  </section>
+
+  <!-- El resumen -->
+  <main id="resumen" hidden>
+    <p class="fecha" id="r-fecha"></p>
+    <h1 id="r-saludo"></h1>
+    <p class="entradilla" id="r-sabbat" hidden></p>
+    <p class="entradilla error" id="r-sin-ia" hidden>Tu texto personal de hoy no ha llegado todavía. Aquí tienes lo de cada día; vuelve a intentarlo en un momento.
+      <br><button class="boton secundario" id="b-reintentar" type="button">Volver a intentarlo</button></p>
+
+    <section class="bloque" id="b-cielo">
+      <p class="etiqueta">Tu cielo hoy</p>
+      <div class="texto" id="r-cielo"></div>
+      <ul class="aspectos" id="r-aspectos" hidden></ul>
+      <p class="nota" id="r-precision" hidden></p>
+    </section>
+
+    <section class="bloque" id="b-luna">
+      <p class="etiqueta">La Luna</p>
+      <h2 id="r-luna-titulo"></h2>
+      <p class="dato" id="r-luna-dato"></p>
+      <div class="texto" id="r-luna"></div>
+    </section>
+
+    <section class="bloque">
+      <p class="etiqueta">Planta y mineral</p>
+      <div class="dos">
+        <div class="ficha"><b id="r-planta"></b><span id="r-planta-corto"></span>
+          <details><summary>Su gesto de hoy</summary><p id="r-planta-ritual"></p></details></div>
+        <div class="ficha"><b id="r-mineral"></b><span id="r-mineral-corto"></span>
+          <details><summary>Su gesto de hoy</summary><p id="r-mineral-ritual"></p></details></div>
+      </div>
+    </section>
+
+    <div id="r-secciones"></div>
+
+    <section class="bloque cuidado-alma" id="r-cuidado-alma" hidden>
+      <p class="etiqueta">Cuidado del Alma</p>
+      <p>Si estás atravesando un momento muy difícil, no tienes que hacerlo a solas. Habla con alguien de confianza o con un profesional.</p>
+      <p>Si tienes pensamientos de hacerte daño, en España puedes llamar al 024, gratis y a cualquier hora. Si estás en otro país, llama al número de emergencias de tu país.</p>
+    </section>
+
+    <section class="centro" id="b-semana" hidden>
+      <p class="etiqueta" style="margin-top:28px">Tus días</p>
+      <ul class="semana" id="r-semana"></ul>
+    </section>
+
+    <p class="pie">Este Resumen es una guía de reflexión espiritual y simbólica. No sustituye el consejo médico, psicológico, legal ni financiero.
+      <br><a href="/privacidad.html">Privacidad</a> · <a href="#" id="b-salir">Salir</a></p>
+  </main>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.111.0/dist/umd/supabase.js"
+  integrity="sha384-faMlYZUtkJj+Sh6Bmu/L0GzPcraRWN6CW+9RH3GUrK/Z0WS9tgaNNt0tHiLxsbdb" crossorigin="anonymous"></script>
+<script>
+/* ═══════════════════════════════════════════════════════════════════════
+   /resumen/ · Resumen diario (piloto de voluntarias, noviembre de 2026).
+   · La sesión es la misma que la de la app web (/web): misma clave en el
+     navegador (sb-orxyhxehapqmjwmqmqgv-auth-token) y la misma versión de
+     supabase-js que la app (2.111.0). Quien ya entró en /web no tiene que
+     volver a entrar.
+   · El resumen de hoy lo da la Edge Function resumen-diario («hoy»): se
+     genera la primera vez que se abre en el día y se guarda.
+   · Los días anteriores se leen de briefing_diario (RLS: solo los suyos).
+   · Sin datos personales en la URL ni en la analítica.
+   ═══════════════════════════════════════════════════════════════════════ */
+const SUPABASE_URL = 'https://orxyhxehapqmjwmqmqgv.supabase.co';
+const SUPABASE_ANON = 'sb_publishable_As7G8e_pyZwjApjgcC48ow_RDc4hZfN';
+const CLAVE_SESION = 'sb-orxyhxehapqmjwmqmqgv-auth-token';
+const $ = (id) => document.getElementById(id);
+const mide = (ev) => { try { window.goatcounter && window.goatcounter.count && window.goatcounter.count({ path: ev, event: true }); } catch (e) {} };
+
+let sb = null;
+try {
+  sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON, {
+    auth: { storage: window.localStorage, storageKey: CLAVE_SESION, autoRefreshToken: true, persistSession: true, detectSessionInUrl: false },
+  });
+} catch (e) { sb = null; }
+
+const PANTALLAS = ['cargando', 'entrar', 'aviso', 'resumen'];
+function muestra(id) { PANTALLAS.forEach((p) => { $(p).hidden = p !== id; }); }
+
+/* Texto con párrafos, siempre como texto (nunca como HTML). */
+function pinta(el, texto) {
+  el.textContent = '';
+  String(texto || '').split(/\n{2,}|\n/).map((t) => t.trim()).filter(Boolean).forEach((t) => {
+    const p = document.createElement('p'); p.textContent = t; el.appendChild(p);
+  });
+}
+function nodo(tag, clase, texto) { const n = document.createElement(tag); if (clase) n.className = clase; if (texto != null) n.textContent = texto; return n; }
+
+function pintaResumen(c, sinIa) {
+  $('r-fecha').textContent = c.fecha_texto || '';
+  $('r-saludo').textContent = c.nombre ? `Buenos días, ${c.nombre}` : 'Buenos días';
+  $('r-sabbat').hidden = !c.sabbat;
+  if (c.sabbat) $('r-sabbat').textContent = `Hoy es ${c.sabbat} en la rueda del año.`;
+  $('r-sin-ia').hidden = !sinIa;
+
+  // Tu cielo hoy
+  $('b-cielo').hidden = !c.cielo || !c.cielo.texto;
+  if (c.cielo && c.cielo.texto) pinta($('r-cielo'), c.cielo.texto);
+  const ul = $('r-aspectos'); ul.textContent = '';
+  if (c.cielo && c.cielo.estilo === 'nombres' && Array.isArray(c.cielo.aspectos) && c.cielo.aspectos.length) {
+    c.cielo.aspectos.forEach((a) => ul.appendChild(nodo('li', '', a)));
+    ul.hidden = false;
+  } else ul.hidden = true;
+  const prec = c.cielo && c.cielo.precision;
+  $('r-precision').hidden = !prec || prec === 'exacta';
+  if (prec === 'aproximada') $('r-precision').textContent = 'Con una hora de nacimiento aproximada no miramos tu Ascendente ni tus casas.';
+  if (prec === 'desconocida') $('r-precision').textContent = 'Sin tu hora de nacimiento no miramos tu Luna natal, tu Ascendente ni tus casas: el resto de tu cielo sí.';
+
+  // La Luna
+  const l = c.luna || {};
+  $('r-luna-titulo').textContent = `${l.fase || 'Luna'} en ${l.signo || ''}`;
+  let dato = `Día ${l.dia} del ciclo lunar`;
+  if (l.entra) dato += ` · entra en ${l.entra.signo} a las ${l.entra.hora}`;
+  if (l.casa) dato += ` · pasa por tu casa ${l.casa}`;
+  $('r-luna-dato').textContent = dato;
+  pinta($('r-luna'), l.texto || '');
+
+  // Planta y mineral
+  $('r-planta').textContent = c.planta.nombre; $('r-planta-corto').textContent = c.planta.corto; $('r-planta-ritual').textContent = c.planta.ritual;
+  $('r-mineral').textContent = c.mineral.nombre; $('r-mineral-corto').textContent = c.mineral.corto; $('r-mineral-ritual').textContent = c.mineral.ritual;
+
+  // Secciones elegidas
+  const cont = $('r-secciones'); cont.textContent = '';
+  (c.secciones || []).forEach((s) => {
+    const b = nodo('section', 'bloque' + (s.pendiente ? ' pendiente' : ''));
+    b.appendChild(nodo('p', 'etiqueta', s.titulo));
+    if (s.id === 'practica') {
+      b.appendChild(nodo('h2', '', s.subtitulo || 'Tu práctica de hoy'));
+      const ol = nodo('ol', 'pasos'); (s.pasos || []).forEach((x) => ol.appendChild(nodo('li', '', x))); b.appendChild(ol);
+      const n = nodo('p', 'nota'); n.append('Si quieres hacerlo guiado, lo tienes hoy en la app, en la pantalla Hoy. ');
+      const a = nodo('a', '', 'Abrir la app'); a.href = '/web/'; a.setAttribute('data-goatcounter-click', 'resumen-a-app'); n.appendChild(a);
+      b.appendChild(n);
+    } else if (s.id === 'palabra') {
+      b.appendChild(nodo('p', 'cita', `«${s.texto || ''}»`));
+    } else if (s.id === 'carta') {
+      if (s.carta) { b.appendChild(nodo('p', 'carta-nombre', s.carta.nombre)); b.appendChild(nodo('p', '', s.carta.sentido)); }
+      if (s.texto) { const d = nodo('div', 'texto'); pinta(d, s.texto); b.appendChild(d); }
+    } else {
+      const d = nodo('div', 'texto'); pinta(d, s.texto || (sinIa ? 'Llegará en cuanto vuelvas a intentarlo.' : '')); b.appendChild(d);
+    }
+    cont.appendChild(b);
+  });
+
+  $('r-cuidado-alma').hidden = c.delicado !== true;
+}
+
+async function cargaSemana(fechaActual) {
+  try {
+    const { data } = await sb.from('briefing_diario').select('fecha').order('fecha', { ascending: false }).limit(7);
+    const dias = (data || []).map((x) => x.fecha);
+    if (!dias.includes(fechaActual)) dias.unshift(fechaActual);
+    if (dias.length < 2) { $('b-semana').hidden = true; return; }
+    const ul = $('r-semana'); ul.textContent = '';
+    dias.slice(0, 7).forEach((f) => {
+      const li = document.createElement('li'); const b = document.createElement('button'); b.type = 'button'; b.dataset.fecha = f;
+      const [y, m, d] = f.split('-').map(Number);
+      b.textContent = new Date(Date.UTC(y, m - 1, d)).toLocaleDateString('es-ES', { weekday: 'short', day: 'numeric', timeZone: 'UTC' });
+      b.setAttribute('aria-current', f === fechaActual ? 'true' : 'false');
+      b.addEventListener('click', () => abreDia(f, fechaActual));
+      li.appendChild(b); ul.appendChild(li);
+    });
+    $('b-semana').hidden = false;
+  } catch (e) { $('b-semana').hidden = true; }
+}
+
+let HOY = null; // { fecha, contenido }
+async function abreDia(f, fechaActual) {
+  if (HOY && f === HOY.fecha) { pintaResumen(HOY.contenido, false); }
+  else {
+    const { data } = await sb.from('briefing_diario').select('contenido').eq('fecha', f).maybeSingle();
+    if (data && data.contenido) pintaResumen(data.contenido, false);
+    mide('resumen-ve-dia-anterior');
+  }
+  document.querySelectorAll('#r-semana button').forEach((b) => b.setAttribute('aria-current', b.dataset.fecha === f ? 'true' : 'false'));
+  $('r-sin-ia').hidden = true;
+  void fechaActual;
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+async function cargaHoy() {
+  muestra('cargando');
+  const { data: s } = await sb.auth.getSession();
+  if (!s || !s.session) { muestra('entrar'); mide('resumen-pide-entrar'); return; }
+  let r, j;
+  try {
+    r = await fetch(`${SUPABASE_URL}/functions/v1/resumen-diario`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', apikey: SUPABASE_ANON, Authorization: `Bearer ${s.session.access_token}` },
+      body: JSON.stringify({ modo: 'hoy' }),
+    });
+    j = await r.json();
+  } catch (e) { j = null; }
+  if (!j) { $('aviso-texto').textContent = 'No hemos podido traer tu Resumen. Revisa tu conexión y vuelve a abrir esta página.'; muestra('aviso'); return; }
+  if (j.estado === 'sin_sesion') { await sb.auth.signOut({ scope: 'local' }); muestra('entrar'); return; }
+  if (j.estado === 'sin_resumen') {
+    $('aviso-texto').textContent = 'Esta cuenta todavía no tiene el Resumen diario. Si te has apuntado a la prueba con otro correo, entra con ese.';
+    muestra('aviso'); mide('resumen-sin-resumen'); return;
+  }
+  if (j.estado === 'fuera_de_fechas' || j.estado === 'terminado') {
+    $('aviso-texto').textContent = j.estado === 'terminado'
+      ? 'La semana de prueba del Resumen diario ha terminado. Gracias por acompañarnos.'
+      : 'Tu Resumen diario empieza el primer día de la prueba. Ese día te llegará también por correo a las 7:00.';
+    muestra('aviso'); return;
+  }
+  if (j.estado === 'ok' || j.estado === 'sin_ia') {
+    HOY = { fecha: j.contenido.fecha, contenido: j.contenido };
+    pintaResumen(j.contenido, j.estado === 'sin_ia');
+    muestra('resumen');
+    mide(j.estado === 'ok' ? 'resumen-abre' : 'resumen-sin-ia');
+    if (j.estado === 'ok') cargaSemana(j.contenido.fecha);
+    return;
+  }
+  $('aviso-texto').textContent = 'Algo no ha ido bien al preparar tu Resumen. Vuelve a intentarlo en unos minutos.';
+  muestra('aviso');
+}
+
+$('f-entrar').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const correo = $('correo').value.trim(), clave = $('clave').value;
+  const err = $('error-entrar'); err.hidden = true;
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(correo) || !clave) { err.textContent = 'Escribe tu correo y tu contraseña.'; err.hidden = false; return; }
+  $('b-entrar').disabled = true;
+  const { error } = await sb.auth.signInWithPassword({ email: correo, password: clave });
+  $('b-entrar').disabled = false;
+  if (error) {
+    err.textContent = /invalid/i.test(error.message || '') ? 'El correo o la contraseña no coinciden.' : 'No hemos podido entrar. Vuelve a intentarlo en un momento.';
+    err.hidden = false; mide('resumen-entrar-error'); return;
+  }
+  $('clave').value = '';
+  mide('resumen-entra');
+  cargaHoy();
+});
+async function salir(e) { if (e) e.preventDefault(); await sb.auth.signOut({ scope: 'local' }); HOY = null; muestra('entrar'); }
+$('b-salir').addEventListener('click', salir);
+$('b-salir-aviso').addEventListener('click', salir);
+$('b-reintentar').addEventListener('click', () => { mide('resumen-reintenta'); cargaHoy(); });
+
+if (!sb) { $('aviso-texto').textContent = 'Esta página necesita conexión para cargar. Vuelve a abrirla en un momento.'; muestra('aviso'); }
+else cargaHoy();
+</script>
+</body>
+</html>
