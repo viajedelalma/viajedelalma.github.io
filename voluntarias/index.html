@@ -426,11 +426,16 @@ body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;
           <p class="error" id="e-alma" hidden></p>
         </fieldset>
 
-        <!-- PROPUESTA de texto (3-nov-2026): Mundo solo con fuentes con licencia (decisión de Gemma, «solo lo legal»).
-             La Agencia SINC publica con licencia Creative Commons 4.0 citando la fuente. Sin temas que elegir. -->
-        <fieldset class="campo sub" id="c-mundo" data-seccion="mundo" aria-describedby="ay-mundo">
-          <legend>Mundo: ciencia y salud</legend>
-          <p class="ayuda" id="ay-mundo">Cada día, cuatro noticias de ciencia y salud de la Agencia SINC, con enlace a cada una.</p>
+        <fieldset class="campo sub" id="c-mundo" data-seccion="mundo" aria-describedby="ay-mundo e-mundo">
+          <legend>Mundo: ¿qué temas te interesan?</legend>
+          <p class="ayuda" id="ay-mundo">Siempre son cuatro titulares en total, repartidos entre los temas que elijas, con enlace a la noticia original.</p>
+          <div class="opciones chips">
+            <label class="opcion"><input type="checkbox" name="mundo" value="es" checked>España</label>
+            <label class="opcion"><input type="checkbox" name="mundo" value="int" checked>Internacional</label>
+            <label class="opcion"><input type="checkbox" name="mundo" value="cultura" checked>Cultura y sociedad</label>
+            <label class="opcion"><input type="checkbox" name="mundo" value="ciencia" checked>Ciencia y salud</label>
+          </div>
+          <p class="error" id="e-mundo" hidden></p>
         </fieldset>
 
         <fieldset class="campo sub" id="c-cuidado" data-seccion="cuidado" aria-describedby="ay-cuidado">
@@ -782,6 +787,7 @@ function coherenciaAlma() {
 }
 function opcionesElegidas(secs) {
   var o = { luna: marcado('luna') || 'ambas' };
+  if (secs.indexOf('mundo') !== -1) o.mundo = marcados('mundo');
   if (secs.indexOf('cuidado') !== -1 && marcados('cuidado').length) o.cuidado = marcados('cuidado');
   if (secs.indexOf('dinero') !== -1) o.dinero = marcado('dinero') || 'no_dice';
   if (secs.indexOf('vinculos') !== -1 && marcados('vinculos').length) o.vinculos = marcados('vinculos');
@@ -810,7 +816,7 @@ function pintaCorreo() {
 }
 
 // ── Borrador en esta pestaña (por si sale a seguirnos y vuelve); se borra al enviar ──
-var MULTI = ['seccion', 'cuidado', 'vinculos', 'alma_excluye'];
+var MULTI = ['seccion', 'mundo', 'cuidado', 'vinculos', 'alma_excluye'];
 function guardaBorrador() {
   try {
     var d = {};
@@ -924,6 +930,7 @@ function valida() {
   if (!marcado('sigue')) { marcaError('sigue', 'Elige una respuesta.'); malos.push(document.querySelector('input[name="sigue"]')); }
   if (!marcado('cielo')) { marcaError('cielo', 'Elige una respuesta.'); malos.push(document.querySelector('input[name="cielo"]')); }
   var secs = secciones();
+  if (secs.indexOf('mundo') !== -1 && !marcados('mundo').length) { marcaError('mundo', 'Elige al menos un tema.'); malos.push(document.querySelector('input[name="mundo"]')); }
   // Alimento del alma sin ninguna tradición no tiene sentido (REV-0311-V2-07). PROPUESTA de texto.
   if (secs.indexOf('alma') !== -1 && marcados('alma_excluye').length >= TRADICIONES) { marcaError('alma', 'Has marcado todas las tradiciones como «prefiero no recibir». Deja al menos una sin marcar o quita Alimento del alma de tus secciones.'); malos.push(document.querySelector('input[name="alma_excluye"]')); }
   if (secs.length < 3 || secs.length > 5) { pintaContador(false); $('c-secciones').setAttribute('aria-invalid', 'true'); malos.push(document.querySelector('input[name="seccion"]')); }
