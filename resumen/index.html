@@ -244,7 +244,10 @@ function pintaResumen(c, sinIa) {
     } else if (s.id === 'palabra') {
       b.appendChild(nodo('p', 'cita', `«${s.texto || ''}»`));
     } else if (s.id === 'carta') {
-      if (s.carta) { b.appendChild(nodo('p', 'carta-nombre', s.carta.nombre)); b.appendChild(nodo('p', '', s.carta.sentido)); }
+      if (s.carta) {
+        if (s.carta.baraja) b.appendChild(nodo('p', 'alma-fuente', s.carta.baraja === 'plantas' ? 'Oráculo de plantas' : 'Tarot'));
+        b.appendChild(nodo('p', 'carta-nombre', s.carta.nombre)); b.appendChild(nodo('p', '', s.carta.sentido));
+      }
       if (s.texto) { const d = nodo('div', 'texto'); pinta(d, s.texto); b.appendChild(d); }
     } else if (s.id === 'alma' && s.cita) {
       // Lectura del catálogo (texto exacto, dominio público), reflexión y eco de otra tradición
