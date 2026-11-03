@@ -399,7 +399,7 @@ body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;
       <div id="sub-opciones">
         <p class="etiqueta" id="sub-titulo">Ajusta tus secciones</p>
 
-        <fieldset class="campo sub" id="c-alma" data-seccion="alma" aria-describedby="ay-alma">
+        <fieldset class="campo sub" id="c-alma" data-seccion="alma" aria-describedby="ay-alma e-alma">
           <legend>Alimento del alma</legend>
           <p class="ayuda" id="ay-alma">Cada día, una lectura, un poema o una enseñanza de una tradición (por ejemplo, las lecturas cristianas del día), con un eco de otra en una línea.</p>
           <p class="pregunta">¿Hay algo que prefieras no recibir?</p>
@@ -423,18 +423,14 @@ body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;
             <label class="opcion"><input type="radio" name="alma_diaria" value="poesia">Poesía y mística</label>
             <label class="opcion"><input type="radio" name="alma_diaria" value="celta">Rueda del año celta</label>
           </div>
+          <p class="error" id="e-alma" hidden></p>
         </fieldset>
 
-        <fieldset class="campo sub" id="c-mundo" data-seccion="mundo" aria-describedby="ay-mundo e-mundo">
-          <legend>Mundo: ¿qué temas te interesan?</legend>
-          <p class="ayuda" id="ay-mundo">Siempre son cuatro titulares en total, repartidos entre los temas que elijas, con enlace a la noticia original.</p>
-          <div class="opciones chips">
-            <label class="opcion"><input type="checkbox" name="mundo" value="es" checked>España</label>
-            <label class="opcion"><input type="checkbox" name="mundo" value="int" checked>Internacional</label>
-            <label class="opcion"><input type="checkbox" name="mundo" value="cultura" checked>Cultura y sociedad</label>
-            <label class="opcion"><input type="checkbox" name="mundo" value="ciencia" checked>Ciencia y salud</label>
-          </div>
-          <p class="error" id="e-mundo" hidden></p>
+        <!-- PROPUESTA de texto (3-nov-2026): Mundo solo con fuentes con licencia (decisión de Gemma, «solo lo legal»).
+             La Agencia SINC publica con licencia Creative Commons 4.0 citando la fuente. Sin temas que elegir. -->
+        <fieldset class="campo sub" id="c-mundo" data-seccion="mundo" aria-describedby="ay-mundo">
+          <legend>Mundo: ciencia y salud</legend>
+          <p class="ayuda" id="ay-mundo">Cada día, cuatro noticias de ciencia y salud de la Agencia SINC, con enlace a cada una.</p>
         </fieldset>
 
         <fieldset class="campo sub" id="c-cuidado" data-seccion="cuidado" aria-describedby="ay-cuidado">
@@ -479,7 +475,7 @@ body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;
 
       <div class="campo" id="c-contexto">
         <label class="pregunta" for="contexto">¿Qué te preocupa o te ilusiona ahora mismo?</label>
-        <p class="ayuda" id="ay-contexto">Puedes contarlo en una frase o dejarlo en blanco. Lo que escribas aquí se usa, tal cual, para escribir tu Resumen con inteligencia artificial: no pongas tu correo, tu teléfono, tus datos de nacimiento ni nombres de otras personas, ni detalles médicos o íntimos que no quieras compartir.</p>
+        <p class="ayuda" id="ay-contexto">Puedes contarlo en una frase o dejarlo en blanco. Lo que escribas aquí se usa, tal cual, para escribir con inteligencia artificial tu Resumen y tus informes mensuales: no pongas tu correo, tu teléfono, tus datos de nacimiento ni nombres de otras personas, ni detalles médicos o íntimos que no quieras compartir.</p>
         <textarea id="contexto" name="contexto" maxlength="500" aria-describedby="ay-contexto cuenta-contexto"></textarea>
         <p class="nota" id="cuenta-contexto" style="text-align:right;margin:4px 0 0">0 / 500</p>
       </div>
@@ -542,6 +538,23 @@ var APERTURA = Date.parse('2026-11-08T09:55:00+01:00');
 var CIERRE = Date.parse('2026-11-16T00:00:00+01:00'); // = 15-nov a las 23:59:59 de Madrid
 var BORRADOR = 'vda_voluntarias_borrador';
 var INICIO = 'vda_voluntarias_inicio';   // cuándo empezó a rellenarlo (la función descarta lo enviado en menos de 15 s)
+var INICIO_MEM = 0;                       // lo mismo en memoria: si el navegador no deja guardar (modo privado, SecurityError), no se pierde (REV-0311-V2-08)
+var TRADICIONES = 6;                      // las de Alimento del alma: si las excluye todas, se le avisa
+/* Cuándo empezó a rellenar el formulario. Si había un inicio guardado en esta pestaña (volvió de seguirnos), vale ese;
+   si no, el de memoria; y si tampoco, ahora. Guardarlo es opcional. */
+function marcaInicio() {
+  var guardado = 0;
+  try { guardado = +sessionStorage.getItem(INICIO) || 0; } catch (e) {}
+  if (!INICIO_MEM) INICIO_MEM = guardado || Date.now();
+  else if (guardado && guardado < INICIO_MEM) INICIO_MEM = guardado;
+  try { if (!guardado) sessionStorage.setItem(INICIO, String(INICIO_MEM)); } catch (e) {}
+}
+function inicioRelleno() {
+  var guardado = 0;
+  try { guardado = +sessionStorage.getItem(INICIO) || 0; } catch (e) {}
+  if (!INICIO_MEM && !guardado) marcaInicio();   // nunca se manda t=0 por un fallo del navegador
+  return Math.min(guardado || Infinity, INICIO_MEM || Infinity);
+}
 var ESPERA_LOCALIDADES = 10000;          // ms: si la lista de localidades no llega, se ofrece escribirla
 // Mismos países y mismas localidades que la carta gratuita (/carta/ciudades/XX.json: [nombre, lat, lon, zona IANA])
 var PAISES = {"ES":"España","MX":"México","AR":"Argentina","CO":"Colombia","CL":"Chile","PE":"Perú","VE":"Venezuela","EC":"Ecuador","GT":"Guatemala","CU":"Cuba","BO":"Bolivia","DO":"República Dominicana","HN":"Honduras","PY":"Paraguay","SV":"El Salvador","NI":"Nicaragua","CR":"Costa Rica","PR":"Puerto Rico","UY":"Uruguay","PA":"Panamá","GQ":"Guinea Ecuatorial","PT":"Portugal","BR":"Brasil","US":"Estados Unidos","CA":"Canadá","FR":"Francia","DE":"Alemania","IT":"Italia","GB":"Reino Unido","CH":"Suiza","BE":"Bélgica","NL":"Países Bajos","AD":"Andorra","IE":"Irlanda","AT":"Austria","SE":"Suecia","NO":"Noruega","DK":"Dinamarca","PL":"Polonia","RO":"Rumanía","RU":"Rusia","MA":"Marruecos","DZ":"Argelia","SN":"Senegal","CN":"China","JP":"Japón","IN":"India","PH":"Filipinas","AU":"Australia","IL":"Israel","TR":"Turquía","GR":"Grecia","UA":"Ucrania","BG":"Bulgaria","CZ":"Chequia","HU":"Hungría","FI":"Finlandia","IS":"Islandia","LU":"Luxemburgo"};
@@ -581,7 +594,7 @@ function segunHash(enfoca) {
   if (e !== 'abierta') { muestra(e, enfoca); return; }
   if (location.hash === '#formulario') {
     muestra('formulario', enfoca); mideUnaVez('voluntarias-formulario-' + ORIGEN_EV);
-    try { if (!sessionStorage.getItem(INICIO)) sessionStorage.setItem(INICIO, String(Date.now())); } catch (er) {}
+    marcaInicio();
   } else {
     muestra('previa', enfoca);
   }
@@ -769,7 +782,6 @@ function coherenciaAlma() {
 }
 function opcionesElegidas(secs) {
   var o = { luna: marcado('luna') || 'ambas' };
-  if (secs.indexOf('mundo') !== -1) o.mundo = marcados('mundo');
   if (secs.indexOf('cuidado') !== -1 && marcados('cuidado').length) o.cuidado = marcados('cuidado');
   if (secs.indexOf('dinero') !== -1) o.dinero = marcado('dinero') || 'no_dice';
   if (secs.indexOf('vinculos') !== -1 && marcados('vinculos').length) o.vinculos = marcados('vinculos');
@@ -798,7 +810,7 @@ function pintaCorreo() {
 }
 
 // ── Borrador en esta pestaña (por si sale a seguirnos y vuelve); se borra al enviar ──
-var MULTI = ['seccion', 'mundo', 'cuidado', 'vinculos', 'alma_excluye'];
+var MULTI = ['seccion', 'cuidado', 'vinculos', 'alma_excluye'];
 function guardaBorrador() {
   try {
     var d = {};
@@ -839,7 +851,7 @@ function recuperaBorrador() {
   $('f-pais').value = cc;
   return cc ? { cc: cc, pendiente: { ciudad: d.ciudad, filtro: d.filtro, nolista: d.nolista === true } } : null;
 }
-function borraBorrador() { try { sessionStorage.removeItem(BORRADOR); sessionStorage.removeItem(INICIO); } catch (e) {} }
+function borraBorrador() { INICIO_MEM = 0; try { sessionStorage.removeItem(BORRADOR); sessionStorage.removeItem(INICIO); } catch (e) {} }
 
 // ── Validación ──
 function marcaError(campo, texto, control) {
@@ -912,7 +924,8 @@ function valida() {
   if (!marcado('sigue')) { marcaError('sigue', 'Elige una respuesta.'); malos.push(document.querySelector('input[name="sigue"]')); }
   if (!marcado('cielo')) { marcaError('cielo', 'Elige una respuesta.'); malos.push(document.querySelector('input[name="cielo"]')); }
   var secs = secciones();
-  if (secs.indexOf('mundo') !== -1 && !marcados('mundo').length) { marcaError('mundo', 'Elige al menos un tema.'); malos.push(document.querySelector('input[name="mundo"]')); }
+  // Alimento del alma sin ninguna tradición no tiene sentido (REV-0311-V2-07). PROPUESTA de texto.
+  if (secs.indexOf('alma') !== -1 && marcados('alma_excluye').length >= TRADICIONES) { marcaError('alma', 'Has marcado todas las tradiciones como «prefiero no recibir». Deja al menos una sin marcar o quita Alimento del alma de tus secciones.'); malos.push(document.querySelector('input[name="alma_excluye"]')); }
   if (secs.length < 3 || secs.length > 5) { pintaContador(false); $('c-secciones').setAttribute('aria-invalid', 'true'); malos.push(document.querySelector('input[name="seccion"]')); }
   if (marcado('fechas') !== 'si') { if (!marcado('fechas')) { marcaError('fechas', 'Elige una respuesta.'); malos.push(document.querySelector('input[name="fechas"]')); } }
   if (!$('acepto').checked) { marcaError('acepto', 'Para enviar la candidatura tienes que marcar esta casilla.', $('acepto')); malos.push($('acepto')); }
@@ -963,10 +976,9 @@ function envia(ev) {
   var err = $('e-general');
   var aviso = $('estado-envio');
   aviso.textContent = 'Enviando tu candidatura…';
-  var inicio = 0;
-  try { inicio = +sessionStorage.getItem(INICIO) || 0; } catch (e) {}
+  var inicio = inicioRelleno();
   datos.web = $('f-trampa').value;                               // campo trampa: una persona lo deja vacío
-  datos.t = inicio ? Math.max(0, Date.now() - inicio) : 0;        // ms rellenando
+  datos.t = Math.max(0, Date.now() - inicio);                     // ms rellenando (sale de memoria si el navegador no guarda)
   var vuelve = function () { b.disabled = false; b.textContent = 'Enviar mi candidatura'; aviso.textContent = ''; };
   fetch(ALTA_URL, {
     method: 'POST', credentials: 'omit', cache: 'no-store',
