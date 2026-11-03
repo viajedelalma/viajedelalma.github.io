@@ -81,6 +81,47 @@ input:focus,select:focus,textarea:focus{outline:2px solid var(--oro);outline-off
 .pie{font-size:.8rem;color:var(--tenue);text-align:center;margin-top:34px}
 .pie a{color:var(--tenue)}
 .cargando{text-align:center;color:var(--tenue);margin:40px 0}
+/* Cielo de fondo: nebulosa suave y unas pocas estrellas, fijo detrás de todo (se nota sobre todo en pantallas anchas) */
+body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;
+  background:
+    radial-gradient(ellipse 45% 55% at 0% 35%,rgba(107,78,158,.20),transparent 70%),
+    radial-gradient(ellipse 40% 50% at 100% 70%,rgba(60,154,196,.09),transparent 70%),
+    radial-gradient(1.5px 1.5px at 8% 22%,rgba(232,217,160,.75),transparent 60%),
+    radial-gradient(1px 1px at 15% 64%,rgba(237,231,220,.6),transparent 60%),
+    radial-gradient(1.5px 1.5px at 22% 88%,rgba(232,217,160,.5),transparent 60%),
+    radial-gradient(1px 1px at 5% 48%,rgba(237,231,220,.5),transparent 60%),
+    radial-gradient(1.5px 1.5px at 92% 18%,rgba(232,217,160,.7),transparent 60%),
+    radial-gradient(1px 1px at 85% 42%,rgba(237,231,220,.55),transparent 60%),
+    radial-gradient(1.5px 1.5px at 95% 83%,rgba(232,217,160,.5),transparent 60%),
+    radial-gradient(1px 1px at 78% 92%,rgba(237,231,220,.45),transparent 60%)}
+/* Previa: los tres niveles y las condiciones en rejilla */
+.rejilla{display:grid;grid-template-columns:1fr;gap:0}
+.solo-ancha{display:none}
+@media (min-width:960px){.solo-ancha{display:inline}}
+.nivel-card .num{display:inline-flex;align-items:center;justify-content:center;width:34px;height:34px;border-radius:50%;border:1px solid var(--oro);color:var(--oro-claro);font-family:var(--cuerpo);font-weight:500;font-size:.95rem;margin-bottom:10px}
+.etiqueta.centro{text-align:center;margin-top:26px}
+/* Respuestas cortas (Sí / No / No lo sé) en fila también en el móvil */
+.opciones.cortas{grid-template-columns:repeat(3,auto);justify-content:start}
+.opciones.cortas .opcion{white-space:nowrap;padding-right:18px}
+.rejilla > .bloque{margin:9px 0}
+@media (max-width:360px){.opciones.cortas{grid-template-columns:1fr}.opciones.cortas .opcion{white-space:normal}}
+@media (min-width:700px){
+  .opciones.ancha-3,.opciones.cortas{grid-template-columns:repeat(3,1fr)}
+  .opciones.ancha-2{grid-template-columns:1fr 1fr}
+  .opciones.secciones-grid{grid-template-columns:repeat(3,1fr)}
+  .lugar-grid{display:grid;grid-template-columns:1fr 1.4fr;gap:14px;align-items:start}
+  .lugar-grid #lugar-lista > label:first-child{margin-top:0!important}
+  .bloque{padding:26px 28px}
+}
+@media (min-width:960px){
+  .envoltura{max-width:1080px;padding-top:44px}
+  #formulario,#gracias,#antes,#cerrada{max-width:780px;margin-left:auto;margin-right:auto}
+  #previa > h1{font-size:3.3rem}
+  #previa > .entradilla{font-size:1.08rem}
+  .rejilla.tres{grid-template-columns:repeat(3,1fr);gap:20px;align-items:stretch}
+  .rejilla.tres > .bloque{margin:12px 0}
+  .pie{max-width:780px;margin-left:auto;margin-right:auto}
+}
 </style>
 <script data-goatcounter="https://viajedelalma.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 </head>
@@ -104,44 +145,49 @@ input:focus,select:focus,textarea:focus{outline:2px solid var(--oro);outline-off
 
   <!-- Pantalla previa · VOL-PREVIA -->
   <main id="previa" hidden>
-    <h1>Tres maneras de acompañarte. Queremos saber cuáles te sirven.</h1>
+    <h1>Tres maneras de acompañarte.<br class="solo-ancha"> Queremos saber cuáles te sirven.</h1>
     <p class="entradilla">Estamos preparando tres niveles de Viaje del Alma y buscamos entre 8 y 10 voluntarias para probarlos y contarnos su experiencia.</p>
 
-    <section class="bloque">
-      <p class="etiqueta">Esto es lo que probarás</p>
-      <div class="nivel">
+    <p class="etiqueta centro">Esto es lo que probarás</p>
+    <div class="rejilla tres">
+      <section class="bloque nivel-card">
+        <span class="num" aria-hidden="true">1</span>
         <h3>La app en Premium</h3>
         <p>Acceso incluido del 17 de noviembre al 17 de diciembre. Puedes usarla en Android o entrar en la app web desde Android o iPhone.</p>
-      </div>
-      <div class="nivel">
+      </section>
+      <section class="bloque nivel-card">
+        <span class="num" aria-hidden="true">2</span>
         <h3>El Resumen diario personalizado</h3>
         <p>Del 17 al 23 de noviembre, disponible en la web y en tu correo a las 7:00, hora de Madrid.</p>
         <p>Siempre incluye Tu cielo hoy, La Luna y Planta y mineral. Además, eliges entre tres y cinco de las nueve secciones disponibles.</p>
-      </div>
-      <div class="nivel">
+      </section>
+      <section class="bloque nivel-card">
+        <span class="num" aria-hidden="true">3</span>
         <h3>Un informe mensual según tu carta natal</h3>
         <p>El primero llega el 17 de noviembre y abarca hasta el 16 de diciembre. El segundo llega el 17 de diciembre y abarca hasta el 16 de enero. Ambos están incluidos.</p>
-      </div>
-    </section>
+      </section>
+    </div>
 
-    <section class="bloque">
-      <p class="etiqueta">Qué te pedimos</p>
-      <p>Que nos sigas en Instagram, en @viajedelalma.app, o en nuestra página Viaje del Alma de Facebook; que pruebes el contenido a tu ritmo y que, del 24 al 27 de noviembre, nos cuentes qué te ha servido y qué cambiarías.</p>
-      <p>Puedes participar aunque no conozcas la astrología. No necesitas tener pareja ni estar trabajando.</p>
-    </section>
+    <div class="rejilla tres">
+      <section class="bloque">
+        <p class="etiqueta">Qué te pedimos</p>
+        <p>Que nos sigas en Instagram, en @viajedelalma.app, o en nuestra página Viaje del Alma de Facebook; que pruebes el contenido a tu ritmo y que, del 24 al 27 de noviembre, nos cuentes qué te ha servido y qué cambiarías.</p>
+        <p>Puedes participar aunque no conozcas la astrología. No necesitas tener pareja ni estar trabajando.</p>
+      </section>
 
-    <section class="bloque">
-      <p class="etiqueta">Cómo elegimos el grupo</p>
-      <p>Buscamos la mitad de participantes con Android y la mitad con iPhone, con distintas experiencias de uso. Tendremos en cuenta la disponibilidad y que podamos preparar el contenido con los datos aportados. No elegimos por prometer buenas opiniones.</p>
-      <p>Puedes solicitar plaza hasta el 15 de noviembre a las 23:59. El lunes 16 te escribiremos para decirte si tienes plaza o quedas en reserva. Enviar el formulario no garantiza entrar.</p>
-    </section>
+      <section class="bloque">
+        <p class="etiqueta">Cómo elegimos el grupo</p>
+        <p>Buscamos la mitad de participantes con Android y la mitad con iPhone, con distintas experiencias de uso. Tendremos en cuenta la disponibilidad y que podamos preparar el contenido con los datos aportados. No elegimos por prometer buenas opiniones.</p>
+        <p>Puedes solicitar plaza hasta el 15 de noviembre a las 23:59. El lunes 16 te escribiremos para decirte si tienes plaza o quedas en reserva. Enviar el formulario no garantiza entrar.</p>
+      </section>
 
-    <section class="bloque">
-      <p class="etiqueta">Sin tarjeta y sin compra obligatoria</p>
-      <p>No se crea una suscripción de pago. Al terminar el Premium de regalo, puedes seguir usando la versión gratuita. El Resumen diario personalizado termina el 23 de noviembre.</p>
-      <p>El 17 de diciembre recibirás el segundo informe y, si lo autorizas en el formulario, una propuesta para continuar. Puedes rechazarla.</p>
-      <p>Tu opinión puede ser positiva, crítica o «no lo compraría». No te pedimos reseñas públicas ni valoraciones favorables.</p>
-    </section>
+      <section class="bloque">
+        <p class="etiqueta">Sin tarjeta y sin compra obligatoria</p>
+        <p>No se crea una suscripción de pago. Al terminar el Premium de regalo, puedes seguir usando la versión gratuita. El Resumen diario personalizado termina el 23 de noviembre.</p>
+        <p>El 17 de diciembre recibirás el segundo informe y, si lo autorizas en el formulario, una propuesta para continuar. Puedes rechazarla.</p>
+        <p>Tu opinión puede ser positiva, crítica o «no lo compraría». No te pedimos reseñas públicas ni valoraciones favorables.</p>
+      </section>
+    </div>
 
     <p class="centro"><a class="boton" id="ir-formulario" href="#formulario">Rellenar el formulario</a></p>
   </main>
@@ -185,7 +231,7 @@ input:focus,select:focus,textarea:focus{outline:2px solid var(--oro);outline-off
       <fieldset class="campo" id="c-cuenta" aria-describedby="ay-cuenta e-cuenta">
         <legend>¿Tienes ya una cuenta en Viaje del Alma?</legend>
         <p class="ayuda" id="ay-cuenta">No necesitas crearla para enviar esta candidatura. Si obtienes plaza, te explicaremos cómo entrar.</p>
-        <div class="opciones">
+        <div class="opciones cortas">
           <label class="opcion"><input type="radio" name="cuenta" value="si">Sí</label>
           <label class="opcion"><input type="radio" name="cuenta" value="no">No</label>
           <label class="opcion"><input type="radio" name="cuenta" value="no_se">No lo sé</label>
@@ -196,7 +242,7 @@ input:focus,select:focus,textarea:focus{outline:2px solid var(--oro);outline-off
       <fieldset class="campo" id="c-premium" aria-describedby="ay-premium e-premium">
         <legend>¿Tienes ahora una suscripción Premium de pago?</legend>
         <p class="ayuda" id="ay-premium">Nos sirve para revisar tu acceso antes de empezar. Esta candidatura no cancela ni modifica una suscripción que ya tengas.</p>
-        <div class="opciones">
+        <div class="opciones cortas">
           <label class="opcion"><input type="radio" name="premium" value="si">Sí</label>
           <label class="opcion"><input type="radio" name="premium" value="no">No</label>
           <label class="opcion"><input type="radio" name="premium" value="no_se">No lo sé</label>
@@ -222,7 +268,7 @@ input:focus,select:focus,textarea:focus{outline:2px solid var(--oro);outline-off
       <fieldset class="campo" id="c-horatipo" aria-describedby="ay-horatipo e-horatipo">
         <legend>¿Cómo conoces tu hora de nacimiento?</legend>
         <p class="ayuda" id="ay-horatipo">Marca lo que realmente sabes. No hace falta inventar una hora para participar.</p>
-        <div class="opciones">
+        <div class="opciones ancha-3">
           <label class="opcion"><input type="radio" name="horatipo" value="exacta">La sé con exactitud</label>
           <label class="opcion"><input type="radio" name="horatipo" value="aproximada">La sé aproximadamente</label>
           <label class="opcion"><input type="radio" name="horatipo" value="desconocida">No la sé</label>
@@ -242,13 +288,17 @@ input:focus,select:focus,textarea:focus{outline:2px solid var(--oro);outline-off
       <fieldset class="campo" id="c-lugar" aria-describedby="ay-lugar e-lugar">
         <legend>¿Dónde naciste?</legend>
         <p class="ayuda" id="ay-lugar">Escribe la localidad donde naciste, aunque ahora vivas en otro sitio. No necesitamos tu dirección ni el hospital.</p>
+        <div class="lugar-grid">
+        <div>
         <label class="nota" for="f-pais">País</label>
         <select id="f-pais" name="pais"></select>
+        </div>
         <div id="lugar-lista" hidden>
           <label class="nota" for="f-filtro" style="display:block;margin-top:10px">Localidad</label>
           <input id="f-filtro" name="filtro" type="search" placeholder="Escribe para buscar tu localidad" autocomplete="off" hidden>
           <select id="f-ciudad" name="ciudad" aria-label="Localidad" style="margin-top:6px"></select>
           <label class="casilla nota" style="margin-top:10px"><input type="checkbox" id="f-nolista" name="nolista">No encuentro mi localidad en la lista</label>
+        </div>
         </div>
         <div id="lugar-region" hidden>
           <label class="nota" for="f-region" style="display:block;margin-top:10px" id="region-texto">Hay varias localidades con este nombre. Escribe también tu provincia o región para que sepamos cuál es.</label>
@@ -264,7 +314,7 @@ input:focus,select:focus,textarea:focus{outline:2px solid var(--oro);outline-off
       <fieldset class="campo" id="c-sigue" aria-describedby="ay-sigue e-sigue">
         <legend>¿Dónde nos sigues?</legend>
         <p class="ayuda" id="ay-sigue">Basta una de las dos. Si todavía no nos sigues, puedes abrir la cuenta desde aquí y volver al formulario sin perder tus respuestas.</p>
-        <div class="opciones">
+        <div class="opciones ancha-3">
           <label class="opcion"><input type="radio" name="sigue" value="instagram">Instagram, @viajedelalma.app</label>
           <label class="opcion"><input type="radio" name="sigue" value="facebook">Facebook, página Viaje del Alma</label>
           <label class="opcion"><input type="radio" name="sigue" value="ambas">En ambas</label>
@@ -285,7 +335,7 @@ input:focus,select:focus,textarea:focus{outline:2px solid var(--oro);outline-off
       <fieldset class="campo" id="c-cielo" aria-describedby="ay-cielo e-cielo">
         <legend>¿Cómo prefieres leer Tu cielo hoy?</legend>
         <p class="ayuda" id="ay-cielo">Cambia la manera de contártelo, no el contenido que recibes.</p>
-        <div class="opciones">
+        <div class="opciones ancha-2">
           <label class="opcion"><input type="radio" name="cielo" value="sin_tecnicismos">Sin tecnicismos: explicado con palabras sencillas</label>
           <label class="opcion"><input type="radio" name="cielo" value="nombres">Con nombres astrológicos y su explicación</label>
         </div>
@@ -295,7 +345,7 @@ input:focus,select:focus,textarea:focus{outline:2px solid var(--oro);outline-off
       <fieldset class="campo" id="c-secciones" aria-describedby="ay-secciones contador-secciones">
         <legend>¿Qué secciones quieres en tu Resumen diario personalizado?</legend>
         <p class="ayuda" id="ay-secciones">Hemos marcado tres para empezar. Puedes cambiarlas o añadir hasta dos más.</p>
-        <div class="opciones dos-col" id="lista-secciones">
+        <div class="opciones dos-col secciones-grid" id="lista-secciones">
           <label class="opcion"><input type="checkbox" name="seccion" value="alma" checked>Alimento del alma</label>
           <label class="opcion"><input type="checkbox" name="seccion" value="mundo" checked>Mundo</label>
           <label class="opcion"><input type="checkbox" name="seccion" value="practica" checked>Práctica</label>
@@ -319,7 +369,7 @@ input:focus,select:focus,textarea:focus{outline:2px solid var(--oro);outline-off
       <fieldset class="campo" id="c-fechas" aria-describedby="ay-fechas e-fechas">
         <legend>¿Te viene bien probarlo del 17 al 23 de noviembre y responder al cuestionario entre el 24 y el 27?</legend>
         <p class="ayuda" id="ay-fechas">Puedes usarlo a tu ritmo. Queremos conocer tu experiencia real, también si alguna parte no te interesa.</p>
-        <div class="opciones">
+        <div class="opciones ancha-2">
           <label class="opcion"><input type="radio" name="fechas" value="si">Sí</label>
           <label class="opcion"><input type="radio" name="fechas" value="no">Esta vez no me viene bien</label>
         </div>
