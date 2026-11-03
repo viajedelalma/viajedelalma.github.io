@@ -1,0 +1,765 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Prueba los tres niveles · Viaje del Alma</title>
+<meta name="description" content="Buscamos entre 8 y 10 voluntarias para probar los tres niveles de Viaje del Alma: Premium, el Resumen diario personalizado y un informe mensual según tu carta natal. Sin tarjeta.">
+<meta property="og:title" content="Buscamos 8–10 voluntarias · Viaje del Alma">
+<meta property="og:description" content="Prueba los tres niveles de Viaje del Alma. Sin tarjeta y sin compra obligatoria.">
+<meta property="og:image" content="https://viajedelalma.app/og-image.jpg">
+<meta property="og:url" content="https://viajedelalma.app/voluntarias/">
+<meta property="og:type" content="website">
+<link rel="icon" href="/favicon.png">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Karla:wght@300;400;500;700&display=swap">
+<style>
+:root{
+  --noche:#0B0818; --noche-2:#14102A; --noche-3:#1C1636;
+  --oro:#C9A84C; --oro-claro:#E8D9A0; --texto:#EDE7DC; --tenue:#A99CCB; --linea:rgba(201,168,76,.22);
+  --error:#f2b8b5;
+  --display:'Cormorant Garamond','Iowan Old Style',Georgia,serif;
+  --cuerpo:'Karla','Helvetica Neue',Arial,sans-serif;
+}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--noche);color:var(--texto);font-family:var(--cuerpo);font-size:16px;line-height:1.65;-webkit-font-smoothing:antialiased;font-variant-numeric:lining-nums;
+  background-image:radial-gradient(ellipse 90% 38% at 50% 0%,rgba(107,78,158,.34),transparent 70%)}
+.envoltura{max-width:640px;margin:0 auto;padding:30px 16px 72px}
+.marca{font-size:.72rem;letter-spacing:.34em;color:var(--oro);text-transform:uppercase;margin-bottom:22px;text-align:center}
+.marca a{color:inherit;text-decoration:none;display:inline-flex;align-items:center;gap:10px}
+.marca img{border-radius:50%;border:1px solid var(--oro)}
+h1{font-family:var(--display);font-weight:300;font-size:clamp(2rem,7.5vw,2.7rem);line-height:1.1;margin:0 0 12px;text-align:center}
+h2{font-family:var(--display);font-weight:400;font-size:1.5rem;line-height:1.2;margin:0 0 10px;color:var(--oro-claro)}
+h3{font-family:var(--display);font-weight:600;font-size:1.25rem;line-height:1.25;margin:0 0 4px;color:var(--oro-claro)}
+p{margin:0 0 12px}
+a{color:var(--oro-claro)}
+.entradilla{color:var(--tenue);text-align:center;margin:0 auto 8px;max-width:48ch}
+.bloque{background:linear-gradient(180deg,var(--noche-2),rgba(20,16,42,.6));border:1px solid var(--linea);border-radius:18px;padding:20px 18px;margin:18px 0}
+.bloque > :last-child{margin-bottom:0}
+.etiqueta{font-size:.68rem;letter-spacing:.24em;text-transform:uppercase;color:var(--oro);margin:0 0 6px}
+.nivel{margin:0 0 16px}
+.nivel:last-child{margin-bottom:0}
+.nota{font-size:.88rem;color:var(--tenue)}
+.centro{text-align:center}
+.boton{display:inline-block;border:0;cursor:pointer;font:inherit;font-weight:700;padding:15px 26px;border-radius:999px;background:linear-gradient(135deg,var(--oro-claro),var(--oro));color:#1a1408;text-decoration:none;margin-top:12px}
+.boton[disabled]{opacity:.55;cursor:default}
+.enlace-volver{display:inline-block;font-size:.9rem;margin:0 0 6px}
+/* Formulario */
+fieldset{border:0;margin:0;padding:0;min-width:0}
+.campo{margin:0 0 22px}
+.campo:last-child{margin-bottom:0}
+.pregunta,legend{display:block;font-weight:700;font-size:1rem;color:var(--texto);margin:0 0 4px;padding:0}
+.ayuda{font-size:.88rem;color:var(--tenue);margin:0 0 10px}
+input[type=text],input[type=email],input[type=search],select,textarea{width:100%;font:inherit;font-size:16px;color:var(--texto);background:var(--noche-3);border:1px solid var(--linea);border-radius:12px;padding:12px 14px}
+select{appearance:none;-webkit-appearance:none;background-image:linear-gradient(45deg,transparent 50%,var(--oro) 50%),linear-gradient(135deg,var(--oro) 50%,transparent 50%);background-position:calc(100% - 18px) 52%,calc(100% - 13px) 52%;background-size:5px 5px;background-repeat:no-repeat;padding-right:34px}
+textarea{min-height:110px;resize:vertical}
+input:focus,select:focus,textarea:focus{outline:2px solid var(--oro);outline-offset:1px;border-color:var(--oro)}
+[aria-invalid="true"]{border-color:var(--error)!important}
+.opciones{display:grid;gap:8px}
+.opciones.dos-col{grid-template-columns:1fr 1fr}
+.opcion{display:flex;align-items:flex-start;gap:12px;border:1px solid var(--linea);border-radius:12px;padding:12px 14px;background:rgba(28,22,54,.55);cursor:pointer;min-height:48px}
+.opcion input{margin:3px 0 0;width:20px;height:20px;flex:none;accent-color:var(--oro)}
+.opcion:has(input:checked){border-color:var(--oro);background:rgba(201,168,76,.10)}
+.opcion:has(input:focus-visible){outline:2px solid var(--oro);outline-offset:1px}
+.trio{display:grid;grid-template-columns:1fr 1.5fr 1.2fr;gap:8px}
+.par{display:grid;grid-template-columns:1fr auto 1fr;gap:8px;align-items:center;max-width:240px}
+.par span{color:var(--oro);font-weight:700}
+.fijo{list-style:none;margin:0 0 8px;padding:0;display:flex;flex-wrap:wrap;gap:8px}
+.fijo li{border:1px solid var(--oro);border-radius:999px;padding:6px 12px;font-size:.92rem;color:var(--oro-claro)}
+.contador{font-size:.9rem;color:var(--oro-claro);margin:10px 0 0}
+.error{color:var(--error);font-size:.92rem;margin:8px 0 0}
+.aviso-error{border-color:rgba(242,184,181,.55)}
+.casilla{display:flex;gap:12px;align-items:flex-start;cursor:pointer}
+.casilla input{margin:4px 0 0;width:22px;height:22px;flex:none;accent-color:var(--oro)}
+.redes{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0 0}
+.redes a{font-size:.9rem;border:1px solid var(--linea);border-radius:999px;padding:6px 12px;text-decoration:none}
+.revisa-correo{font-size:.92rem;color:var(--tenue);margin:14px 0 0}
+.revisa-correo b{color:var(--oro-claro);word-break:break-all}
+.pie{font-size:.8rem;color:var(--tenue);text-align:center;margin-top:34px}
+.pie a{color:var(--tenue)}
+.cargando{text-align:center;color:var(--tenue);margin:40px 0}
+</style>
+<script data-goatcounter="https://viajedelalma.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</head>
+<body>
+<div class="envoltura">
+  <div class="marca"><a href="/?o=voluntarias"><img src="/logo.png" width="34" height="34" alt="">Viaje del Alma</a></div>
+
+  <p class="cargando" id="cargando">Un momento…</p>
+
+  <!-- Antes de abrir (dom 8-nov, 9:55 de Madrid) -->
+  <section id="antes" class="centro" hidden>
+    <h1>Prueba los tres niveles con nosotras</h1>
+    <p class="entradilla">La convocatoria se abre el domingo 8 de noviembre a las 10:00, hora de Madrid. Vuelve a este enlace ese día para solicitar plaza.</p>
+  </section>
+
+  <!-- Después del cierre (dom 15-nov, 23:59 de Madrid) -->
+  <section id="cerrada" class="centro" hidden>
+    <h1>Convocatoria cerrada</h1>
+    <p class="entradilla">Esta convocatoria terminó el 15 de noviembre a las 23:59. Gracias por tu interés. Ya no recogemos candidaturas para esta prueba.</p>
+  </section>
+
+  <!-- Pantalla previa · VOL-PREVIA -->
+  <main id="previa" hidden>
+    <h1>Tres maneras de acompañarte. Queremos saber cuáles te sirven.</h1>
+    <p class="entradilla">Estamos preparando tres niveles de Viaje del Alma y buscamos entre 8 y 10 voluntarias para probarlos y contarnos su experiencia.</p>
+
+    <section class="bloque">
+      <p class="etiqueta">Esto es lo que probarás</p>
+      <div class="nivel">
+        <h3>La app en Premium</h3>
+        <p>Acceso incluido del 17 de noviembre al 17 de diciembre. Puedes usarla en Android o entrar en la app web desde Android o iPhone.</p>
+      </div>
+      <div class="nivel">
+        <h3>El Resumen diario personalizado</h3>
+        <p>Del 17 al 23 de noviembre, disponible en la web y en tu correo a las 7:00, hora de Madrid.</p>
+        <p>Siempre incluye Tu cielo hoy, La Luna y Planta y mineral. Además, eliges entre tres y cinco de las nueve secciones disponibles.</p>
+      </div>
+      <div class="nivel">
+        <h3>Un informe mensual según tu carta natal</h3>
+        <p>El primero llega el 17 de noviembre y abarca hasta el 16 de diciembre. El segundo llega el 17 de diciembre y abarca hasta el 16 de enero. Ambos están incluidos.</p>
+      </div>
+    </section>
+
+    <section class="bloque">
+      <p class="etiqueta">Qué te pedimos</p>
+      <p>Que nos sigas en Instagram, en @viajedelalma.app, o en nuestra página Viaje del Alma de Facebook; que pruebes el contenido a tu ritmo y que, del 24 al 27 de noviembre, nos cuentes qué te ha servido y qué cambiarías.</p>
+      <p>Puedes participar aunque no conozcas la astrología. No necesitas tener pareja ni estar trabajando.</p>
+    </section>
+
+    <section class="bloque">
+      <p class="etiqueta">Cómo elegimos el grupo</p>
+      <p>Buscamos la mitad de participantes con Android y la mitad con iPhone, con distintas experiencias de uso. Tendremos en cuenta la disponibilidad y que podamos preparar el contenido con los datos aportados. No elegimos por prometer buenas opiniones.</p>
+      <p>Puedes solicitar plaza hasta el 15 de noviembre a las 23:59. El lunes 16 te escribiremos para decirte si tienes plaza o quedas en reserva. Enviar el formulario no garantiza entrar.</p>
+    </section>
+
+    <section class="bloque">
+      <p class="etiqueta">Sin tarjeta y sin compra obligatoria</p>
+      <p>No se crea una suscripción de pago. Al terminar el Premium de regalo, puedes seguir usando la versión gratuita. El Resumen diario personalizado termina el 23 de noviembre.</p>
+      <p>El 17 de diciembre recibirás el segundo informe y, si lo autorizas en el formulario, una propuesta para continuar. Puedes rechazarla.</p>
+      <p>Tu opinión puede ser positiva, crítica o «no lo compraría». No te pedimos reseñas públicas ni valoraciones favorables.</p>
+    </section>
+
+    <p class="centro"><a class="boton" id="ir-formulario" href="#formulario">Rellenar el formulario</a></p>
+  </main>
+
+  <!-- Formulario · VOL-FORM -->
+  <form id="formulario" hidden novalidate>
+    <a class="enlace-volver" href="#condiciones">← Volver a las condiciones</a>
+    <h1>Solicita plaza para probar los tres niveles de Viaje del Alma</h1>
+    <section class="bloque">
+      <p>Rellena este formulario antes del 15 de noviembre a las 23:59, hora de Madrid.</p>
+      <p>La prueba incluye Premium del 17 de noviembre al 17 de diciembre; el Resumen diario personalizado del 17 al 23 de noviembre, en la web y por correo a las 7:00 —hora de Madrid—; y dos informes mensuales, que recibirás el 17 de noviembre y el 17 de diciembre.</p>
+      <p>Es gratis, sin tarjeta y sin contratación automática. Elegiremos un grupo de 8 a 10 participantes, mitad Android y mitad iPhone. El lunes 16 de noviembre te comunicaremos el resultado por correo.</p>
+      <p>Para participar debes seguir a @viajedelalma.app en Instagram o a nuestra página Viaje del Alma en Facebook.</p>
+    </section>
+
+    <section class="bloque">
+      <div class="campo" id="c-nombre">
+        <label class="pregunta" for="nombre">¿Cómo quieres que te llamemos?</label>
+        <p class="ayuda" id="ay-nombre">Puede ser tu nombre de pila o el nombre con el que te sientas cómoda. No necesitamos apellidos.</p>
+        <input id="nombre" name="nombre" type="text" maxlength="60" autocomplete="given-name" aria-describedby="ay-nombre e-nombre">
+        <p class="error" id="e-nombre" hidden></p>
+      </div>
+
+      <div class="campo" id="c-correo">
+        <label class="pregunta" for="correo">¿En qué correo quieres recibir la información de la prueba?</label>
+        <p class="ayuda" id="ay-correo">Aquí te comunicaremos si tienes plaza y, si participas, recibirás el Resumen diario personalizado y los avisos de tus informes. Si ya tienes cuenta en Viaje del Alma, utiliza el mismo correo.</p>
+        <input id="correo" name="correo" type="email" maxlength="254" inputmode="email" autocomplete="email" autocapitalize="off" spellcheck="false" aria-describedby="ay-correo e-correo">
+        <p class="error" id="e-correo" hidden></p>
+      </div>
+
+      <fieldset class="campo" id="c-movil" aria-describedby="ay-movil e-movil">
+        <legend>¿Qué móvil utilizarás principalmente para la prueba?</legend>
+        <p class="ayuda" id="ay-movil">Si tienes los dos, elige el que usarás durante esa semana. Con iPhone entrarás desde el navegador.</p>
+        <div class="opciones dos-col">
+          <label class="opcion"><input type="radio" name="movil" value="android">Android</label>
+          <label class="opcion"><input type="radio" name="movil" value="iphone">iPhone</label>
+        </div>
+        <p class="error" id="e-movil" hidden></p>
+      </fieldset>
+
+      <fieldset class="campo" id="c-cuenta" aria-describedby="ay-cuenta e-cuenta">
+        <legend>¿Tienes ya una cuenta en Viaje del Alma?</legend>
+        <p class="ayuda" id="ay-cuenta">No necesitas crearla para enviar esta candidatura. Si obtienes plaza, te explicaremos cómo entrar.</p>
+        <div class="opciones">
+          <label class="opcion"><input type="radio" name="cuenta" value="si">Sí</label>
+          <label class="opcion"><input type="radio" name="cuenta" value="no">No</label>
+          <label class="opcion"><input type="radio" name="cuenta" value="no_se">No lo sé</label>
+        </div>
+        <p class="error" id="e-cuenta" hidden></p>
+      </fieldset>
+
+      <fieldset class="campo" id="c-premium" aria-describedby="ay-premium e-premium">
+        <legend>¿Tienes ahora una suscripción Premium de pago?</legend>
+        <p class="ayuda" id="ay-premium">Nos sirve para revisar tu acceso antes de empezar. Esta candidatura no cancela ni modifica una suscripción que ya tengas.</p>
+        <div class="opciones">
+          <label class="opcion"><input type="radio" name="premium" value="si">Sí</label>
+          <label class="opcion"><input type="radio" name="premium" value="no">No</label>
+          <label class="opcion"><input type="radio" name="premium" value="no_se">No lo sé</label>
+        </div>
+        <p class="error" id="e-premium" hidden></p>
+      </fieldset>
+    </section>
+
+    <section class="bloque">
+      <p>Pedimos tu fecha, hora y lugar de nacimiento para preparar Tu cielo hoy y tus informes según tu carta natal; estos datos no se publican.</p>
+
+      <fieldset class="campo" id="c-fecha" aria-describedby="ay-fecha e-fecha">
+        <legend>¿Qué día naciste?</legend>
+        <p class="ayuda" id="ay-fecha">Escríbelo en formato día-mes-año.</p>
+        <div class="trio">
+          <select id="f-dia" name="dia" aria-label="Día"></select>
+          <select id="f-mes" name="mes" aria-label="Mes"></select>
+          <select id="f-ano" name="ano" aria-label="Año"></select>
+        </div>
+        <p class="error" id="e-fecha" hidden></p>
+      </fieldset>
+
+      <fieldset class="campo" id="c-horatipo" aria-describedby="ay-horatipo e-horatipo">
+        <legend>¿Cómo conoces tu hora de nacimiento?</legend>
+        <p class="ayuda" id="ay-horatipo">Marca lo que realmente sabes. No hace falta inventar una hora para participar.</p>
+        <div class="opciones">
+          <label class="opcion"><input type="radio" name="horatipo" value="exacta">La sé con exactitud</label>
+          <label class="opcion"><input type="radio" name="horatipo" value="aproximada">La sé aproximadamente</label>
+          <label class="opcion"><input type="radio" name="horatipo" value="desconocida">No la sé</label>
+        </div>
+        <p class="error" id="e-horatipo" hidden></p>
+      </fieldset>
+
+      <fieldset class="campo" id="c-hora" aria-describedby="ay-hora e-hora" hidden>
+        <legend>¿A qué hora naciste?</legend>
+        <p class="ayuda" id="ay-hora">Indica la hora local que figuraba en el lugar donde naciste. Si es aproximada, la trataremos como aproximada.</p>
+        <div class="par">
+          <select id="f-h" name="h" aria-label="Hora"></select><span>:</span><select id="f-m" name="m" aria-label="Minutos"></select>
+        </div>
+        <p class="error" id="e-hora" hidden></p>
+      </fieldset>
+
+      <fieldset class="campo" id="c-lugar" aria-describedby="ay-lugar e-lugar">
+        <legend>¿Dónde naciste?</legend>
+        <p class="ayuda" id="ay-lugar">Escribe la localidad donde naciste, aunque ahora vivas en otro sitio. No necesitamos tu dirección ni el hospital.</p>
+        <label class="nota" for="f-pais">País</label>
+        <select id="f-pais" name="pais"></select>
+        <div id="lugar-lista" hidden>
+          <label class="nota" for="f-filtro" style="display:block;margin-top:10px">Localidad</label>
+          <input id="f-filtro" name="filtro" type="search" placeholder="Escribe para buscar tu localidad" autocomplete="off" hidden>
+          <select id="f-ciudad" name="ciudad" aria-label="Localidad" style="margin-top:6px"></select>
+          <label class="casilla nota" style="margin-top:10px"><input type="checkbox" id="f-nolista" name="nolista">No encuentro mi localidad en la lista</label>
+        </div>
+        <div id="lugar-region" hidden>
+          <label class="nota" for="f-region" style="display:block;margin-top:10px" id="region-texto">Hay varias localidades con este nombre. Escribe también tu provincia o región para que sepamos cuál es.</label>
+          <input id="f-region" name="region" type="text" maxlength="80" autocomplete="off">
+        </div>
+        <div id="lugar-libre" hidden>
+          <label class="nota" for="f-libre" style="display:block;margin-top:10px" id="libre-texto">Escribe tu localidad y tu provincia o región.</label>
+          <input id="f-libre" name="libre" type="text" maxlength="150" autocomplete="off">
+        </div>
+        <p class="error" id="e-lugar" hidden></p>
+      </fieldset>
+
+      <fieldset class="campo" id="c-sigue" aria-describedby="ay-sigue e-sigue">
+        <legend>¿Dónde nos sigues?</legend>
+        <p class="ayuda" id="ay-sigue">Basta una de las dos. Si todavía no nos sigues, puedes abrir la cuenta desde aquí y volver al formulario sin perder tus respuestas.</p>
+        <div class="opciones">
+          <label class="opcion"><input type="radio" name="sigue" value="instagram">Instagram, @viajedelalma.app</label>
+          <label class="opcion"><input type="radio" name="sigue" value="facebook">Facebook, página Viaje del Alma</label>
+          <label class="opcion"><input type="radio" name="sigue" value="ambas">En ambas</label>
+        </div>
+        <div class="redes">
+          <a href="https://www.instagram.com/viajedelalma.app/" target="_blank" rel="noopener" data-goatcounter-click="voluntarias-abre-instagram">Abrir @viajedelalma.app en Instagram</a>
+          <a href="https://www.facebook.com/profile.php?id=61593699406994" target="_blank" rel="noopener" data-goatcounter-click="voluntarias-abre-facebook">Abrir Viaje del Alma en Facebook</a>
+        </div>
+        <p class="error" id="e-sigue" hidden></p>
+      </fieldset>
+    </section>
+
+    <section class="bloque">
+      <p class="etiqueta">Siempre en tu Resumen diario personalizado</p>
+      <ul class="fijo"><li>Tu cielo hoy</li><li>La Luna</li><li>Planta y mineral</li></ul>
+      <p class="ayuda">Estas partes están siempre incluidas y no cuentan dentro de las tres a cinco secciones que eliges a continuación.</p>
+
+      <fieldset class="campo" id="c-cielo" aria-describedby="ay-cielo e-cielo">
+        <legend>¿Cómo prefieres leer Tu cielo hoy?</legend>
+        <p class="ayuda" id="ay-cielo">Cambia la manera de contártelo, no el contenido que recibes.</p>
+        <div class="opciones">
+          <label class="opcion"><input type="radio" name="cielo" value="sin_tecnicismos">Sin tecnicismos: explicado con palabras sencillas</label>
+          <label class="opcion"><input type="radio" name="cielo" value="nombres">Con nombres astrológicos y su explicación</label>
+        </div>
+        <p class="error" id="e-cielo" hidden></p>
+      </fieldset>
+
+      <fieldset class="campo" id="c-secciones" aria-describedby="ay-secciones contador-secciones">
+        <legend>¿Qué secciones quieres en tu Resumen diario personalizado?</legend>
+        <p class="ayuda" id="ay-secciones">Hemos marcado tres para empezar. Puedes cambiarlas o añadir hasta dos más.</p>
+        <div class="opciones dos-col" id="lista-secciones">
+          <label class="opcion"><input type="checkbox" name="seccion" value="alma" checked>Alimento del alma</label>
+          <label class="opcion"><input type="checkbox" name="seccion" value="mundo" checked>Mundo</label>
+          <label class="opcion"><input type="checkbox" name="seccion" value="practica" checked>Práctica</label>
+          <label class="opcion"><input type="checkbox" name="seccion" value="foco">Tu foco</label>
+          <label class="opcion"><input type="checkbox" name="seccion" value="cuidado">Cuidado</label>
+          <label class="opcion"><input type="checkbox" name="seccion" value="dinero">Dinero y trabajo</label>
+          <label class="opcion"><input type="checkbox" name="seccion" value="vinculos">Vínculos</label>
+          <label class="opcion"><input type="checkbox" name="seccion" value="carta">Una carta</label>
+          <label class="opcion"><input type="checkbox" name="seccion" value="palabra">Palabra del día</label>
+        </div>
+        <p class="contador" id="contador-secciones" aria-live="polite"></p>
+      </fieldset>
+
+      <div class="campo" id="c-contexto">
+        <label class="pregunta" for="contexto">¿Qué te preocupa o te ilusiona ahora mismo?</label>
+        <p class="ayuda" id="ay-contexto">Puedes contarlo en una frase o dejarlo en blanco. Evita nombres de otras personas y detalles médicos o íntimos que no quieras compartir.</p>
+        <textarea id="contexto" name="contexto" maxlength="500" aria-describedby="ay-contexto cuenta-contexto"></textarea>
+        <p class="nota" id="cuenta-contexto" style="text-align:right;margin:4px 0 0">0 / 500</p>
+      </div>
+
+      <fieldset class="campo" id="c-fechas" aria-describedby="ay-fechas e-fechas">
+        <legend>¿Te viene bien probarlo del 17 al 23 de noviembre y responder al cuestionario entre el 24 y el 27?</legend>
+        <p class="ayuda" id="ay-fechas">Puedes usarlo a tu ritmo. Queremos conocer tu experiencia real, también si alguna parte no te interesa.</p>
+        <div class="opciones">
+          <label class="opcion"><input type="radio" name="fechas" value="si">Sí</label>
+          <label class="opcion"><input type="radio" name="fechas" value="no">Esta vez no me viene bien</label>
+        </div>
+        <p class="error" id="e-fechas" hidden></p>
+        <p class="nota" id="no-fechas" role="status" hidden style="margin-top:10px">Gracias por decírnoslo. Esta prueba es solo del 17 al 23 de noviembre, así que esta vez no puedes entrar en el grupo. No enviaremos nada de lo que has escrito.</p>
+      </fieldset>
+    </section>
+
+    <section class="bloque">
+      <div class="campo" id="c-acepto">
+        <label class="casilla"><input type="checkbox" id="acepto" name="acepto" aria-describedby="ay-acepto e-acepto"><span>He leído las condiciones y la <a href="/privacidad.html#voluntarias" target="_blank" rel="noopener">información de privacidad</a>. Confirmo que sigo al menos una de las cuentas indicadas y quiero participar en la prueba, recibir sus contenidos y los correos necesarios para realizarla y evaluarla.</span></label>
+        <p class="ayuda" id="ay-acepto" style="margin-top:10px">Para participar hay que seguir a @viajedelalma.app en Instagram o a la página Viaje del Alma en Facebook. Seguirnos y enviar el formulario no garantiza plaza. No tienes que comprar, compartir publicaciones ni escribir una reseña. Puedes dejar la prueba cuando quieras. No te damos de alta en la lista general de publicidad.</p>
+        <p class="error" id="e-acepto" hidden></p>
+      </div>
+
+      <div class="campo" id="c-propuesta">
+        <label class="casilla"><input type="checkbox" id="propuesta" name="propuesta" aria-describedby="ay-propuesta"><span>Quiero recibir el 17 de diciembre una única propuesta para continuar con el nivel que me interese.</span></label>
+        <p class="ayuda" id="ay-propuesta" style="margin-top:10px">No condiciona tu plaza ni el segundo informe. Puedes cambiar de opinión.</p>
+      </div>
+
+      <p class="revisa-correo" id="revisa-correo" hidden>Te escribiremos a <b id="revisa-correo-dir"></b>. Revisa que esté bien.</p>
+      <p class="error" id="e-general" role="alert" hidden></p>
+      <p class="centro"><button class="boton" id="enviar" type="submit">Enviar mi candidatura</button></p>
+    </section>
+  </form>
+
+  <!-- Tras enviar -->
+  <section id="gracias" hidden>
+    <h1 id="gracias-titulo">Gracias. Hemos recibido tu candidatura.</h1>
+    <section class="bloque">
+      <p>El lunes 16 de noviembre te escribiremos para decirte si tienes plaza o quedas en reserva. Estamos formando un grupo de entre 8 y 10 participantes, mitad Android y mitad iPhone.</p>
+      <p>Enviar el formulario no confirma una plaza. No tienes que comprar ni hacer nada más ahora.</p>
+    </section>
+  </section>
+
+  <p class="pie">Convocatoria organizada por Viaje del Alma para mayores de 18 años. No está patrocinada, avalada ni administrada por Instagram o Facebook.<br>
+    <a href="/privacidad.html#voluntarias">Privacidad</a> · <a href="/terminos.html">Términos</a></p>
+</div>
+
+<script>
+(function () {
+'use strict';
+var SB_URL = 'https://orxyhxehapqmjwmqmqgv.supabase.co';
+var SB_KEY = 'sb_publishable_As7G8e_pyZwjApjgcC48ow_RDc4hZfN'; // clave publicable: la protege la RLS (solo puede insertar candidaturas)
+var APERTURA = Date.parse('2026-11-08T09:55:00+01:00');
+var CIERRE = Date.parse('2026-11-16T00:00:00+01:00'); // = 15-nov a las 23:59:59 de Madrid; la base aplica el mismo cierre
+var BORRADOR = 'vda_voluntarias_borrador';
+// Mismos países y mismas localidades que la carta gratuita (/carta/ciudades/XX.json: [nombre, lat, lon, zona IANA])
+var PAISES = {"ES":"España","MX":"México","AR":"Argentina","CO":"Colombia","CL":"Chile","PE":"Perú","VE":"Venezuela","EC":"Ecuador","GT":"Guatemala","CU":"Cuba","BO":"Bolivia","DO":"República Dominicana","HN":"Honduras","PY":"Paraguay","SV":"El Salvador","NI":"Nicaragua","CR":"Costa Rica","PR":"Puerto Rico","UY":"Uruguay","PA":"Panamá","GQ":"Guinea Ecuatorial","PT":"Portugal","BR":"Brasil","US":"Estados Unidos","CA":"Canadá","FR":"Francia","DE":"Alemania","IT":"Italia","GB":"Reino Unido","CH":"Suiza","BE":"Bélgica","NL":"Países Bajos","AD":"Andorra","IE":"Irlanda","AT":"Austria","SE":"Suecia","NO":"Noruega","DK":"Dinamarca","PL":"Polonia","RO":"Rumanía","RU":"Rusia","MA":"Marruecos","DZ":"Argelia","SN":"Senegal","CN":"China","JP":"Japón","IN":"India","PH":"Filipinas","AU":"Australia","IL":"Israel","TR":"Turquía","GR":"Grecia","UA":"Ucrania","BG":"Bulgaria","CZ":"Chequia","HU":"Hungría","FI":"Finlandia","IS":"Islandia","LU":"Luxemburgo"};
+var OTRO = 'OTRO';
+var MESES = ['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];
+
+function $(id) { return document.getElementById(id); }
+function marcado(nombre) { var e = document.querySelector('input[name="' + nombre + '"]:checked'); return e ? e.value : ''; }
+function sinTildes(s) { return s.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase(); }
+function opcion(sel, valor, texto) { var o = document.createElement('option'); o.value = valor; o.textContent = texto; sel.appendChild(o); }
+
+// ── Procedencia: solo la etiqueta del enlace (utm_source/utm_medium), nunca datos personales ──
+var ORIGEN = (function () {
+  var p = new URLSearchParams(location.search);
+  var limpio = function (v) { return (v || '').toLowerCase().replace(/[^a-z0-9_-]/g, '').slice(0, 29); };
+  var o = [limpio(p.get('utm_source')), limpio(p.get('utm_medium'))].filter(Boolean).join('/');
+  return o || 'directo';
+})();
+var ORIGEN_EV = ORIGEN.split('/')[0];
+function mide(ev) { try { window.goatcounter && window.goatcounter.count && window.goatcounter.count({ path: ev, event: true }); } catch (e) {} }
+var medido = {};
+function mideUnaVez(ev) { if (!medido[ev]) { medido[ev] = 1; mide(ev); } }
+
+// ── Pantallas ──
+var PANTALLAS = ['cargando', 'antes', 'cerrada', 'previa', 'formulario', 'gracias'];
+function muestra(id) { PANTALLAS.forEach(function (p) { $(p).hidden = (p !== id); }); }
+function estado() { var t = Date.now(); return t < APERTURA ? 'antes' : (t >= CIERRE ? 'cerrada' : 'abierta'); }
+function segunHash() {
+  var e = estado();
+  if (e !== 'abierta') { muestra(e); return; }
+  if (location.hash === '#formulario') {
+    muestra('formulario'); mideUnaVez('voluntarias-formulario-' + ORIGEN_EV);
+  } else {
+    muestra('previa');
+  }
+  window.scrollTo(0, 0);
+}
+
+// ── Selectores de fecha y hora (sin valor de partida: nadie se queda con una fecha que no ha elegido) ──
+function rellenaSelectores() {
+  var dia = $('f-dia'), mes = $('f-mes'), ano = $('f-ano'), h = $('f-h'), m = $('f-m');
+  var dos = function (n) { return String(n).padStart(2, '0'); };
+  opcion(dia, '', 'Día'); for (var d = 1; d <= 31; d++) opcion(dia, String(d), String(d));
+  opcion(mes, '', 'Mes'); MESES.forEach(function (n, i) { opcion(mes, String(i + 1), n); });
+  opcion(ano, '', 'Año'); for (var y = new Date().getFullYear() - 18; y >= 1926; y--) opcion(ano, String(y), String(y));
+  opcion(h, '', '--'); for (var i = 0; i < 24; i++) opcion(h, dos(i), dos(i));
+  opcion(m, '', '--'); for (var j = 0; j < 60; j++) opcion(m, dos(j), dos(j));
+}
+
+// ── Lugar de nacimiento ──
+var CIUDADES = [];
+var REPETIDAS = {};
+function rellenaPaises() {
+  var sel = $('f-pais');
+  opcion(sel, '', 'Elige tu país');
+  Object.keys(PAISES).sort(function (a, b) { return a === 'ES' ? -1 : b === 'ES' ? 1 : PAISES[a].localeCompare(PAISES[b], 'es'); })
+    .forEach(function (cc) { opcion(sel, cc, PAISES[cc]); });
+  opcion(sel, OTRO, 'Otro país');
+}
+function pintaCiudades(filtro) {
+  var sel = $('f-ciudad');
+  var f = filtro ? sinTildes(filtro.trim().replace(/\s+/g, ' ')) : '';
+  sel.innerHTML = '';
+  opcion(sel, '', CIUDADES.length ? 'Elige tu localidad' : 'Elige antes tu país');
+  var n = 0, exactas = [];
+  CIUDADES.forEach(function (c, i) {
+    var nombre = sinTildes(c[0]);
+    if (f && nombre.indexOf(f) === -1) return;
+    opcion(sel, String(i), c[0]); n++;
+    if (f && nombre === f) exactas.push(String(i));
+  });
+  if (f && n === 0) opcion(sel, '', 'Ninguna coincide');
+  sel.value = '';
+  // Solo se elige sola si no hay duda: una única localidad escrita tal cual, o una sola que coincida.
+  if (exactas.length === 1) sel.value = exactas[0];
+  else if (f && n === 1 && !exactas.length) sel.value = sel.options[1].value;
+  revisaRepetida();
+}
+function revisaRepetida() {
+  var i = $('f-ciudad').value;
+  var rep = i !== '' && CIUDADES[+i] && REPETIDAS[sinTildes(CIUDADES[+i][0])] > 1 && !$('f-nolista').checked;
+  $('lugar-region').hidden = !rep;
+  if (rep) $('region-texto').textContent = 'Hay varias localidades llamadas «' + CIUDADES[+i][0] + '» en ' + PAISES[$('f-pais').value] + '. Escribe también tu provincia o región para que sepamos cuál es.';
+}
+function cargaPais(cc) {
+  CIUDADES = []; REPETIDAS = {};
+  $('f-filtro').value = '';
+  $('f-nolista').checked = false;
+  $('lugar-region').hidden = true;
+  if (!cc || cc === OTRO) {
+    $('lugar-lista').hidden = true;
+    $('lugar-libre').hidden = (cc !== OTRO);
+    $('libre-texto').textContent = 'Escribe tu localidad, tu provincia o región y tu país.';
+    pintaCiudades('');
+    return Promise.resolve();
+  }
+  $('lugar-libre').hidden = true;
+  $('lugar-lista').hidden = false;
+  var sel = $('f-ciudad');
+  sel.disabled = true;
+  sel.innerHTML = '<option value="">Cargando localidades…</option>';
+  return fetch('/carta/ciudades/' + cc + '.json', { cache: 'force-cache' })
+    .then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); })
+    .then(function (lista) {
+      if ($('f-pais').value !== cc) return; // cambió de país mientras cargaba
+      CIUDADES = lista;
+      CIUDADES.forEach(function (c) { var k = sinTildes(c[0]); REPETIDAS[k] = (REPETIDAS[k] || 0) + 1; });
+      sel.disabled = false;
+      $('f-filtro').hidden = CIUDADES.length < 40;
+      pintaCiudades('');
+    })
+    .catch(function () {
+      sel.innerHTML = '<option value="">No he podido cargar las localidades</option>';
+      $('f-nolista').checked = true;
+      cambiaNoLista();
+    });
+}
+function cambiaNoLista() {
+  var no = $('f-nolista').checked;
+  $('f-filtro').disabled = no;
+  $('f-ciudad').disabled = no || !CIUDADES.length;
+  $('lugar-libre').hidden = !no;
+  $('libre-texto').textContent = 'Escribe tu localidad y tu provincia o región.';
+  revisaRepetida();
+}
+
+// ── Hora: solo se pide si la sabe ──
+function cambiaHoraTipo() {
+  var t = marcado('horatipo');
+  $('c-hora').hidden = !(t === 'exacta' || t === 'aproximada');
+}
+
+// ── Secciones: de 3 a 5, con los mensajes de VOL-FORM ──
+var MSG_SECCIONES = {
+  3: 'Has elegido 3. Puedes añadir hasta 2 más o continuar así.',
+  4: 'Has elegido 4. Puedes añadir 1 más o continuar así.',
+  5: 'Has elegido 5. Para añadir otra, desmarca primero una.'
+};
+function secciones() { return Array.prototype.map.call(document.querySelectorAll('input[name="seccion"]:checked'), function (e) { return e.value; }); }
+function pintaContador(inicio) {
+  var n = secciones().length;
+  var c = $('contador-secciones');
+  if (inicio && n === 3) c.textContent = 'Tienes 3 secciones elegidas. Puedes cambiarlas o añadir hasta 2 más.';
+  else if (n < 3) c.textContent = 'Elige al menos 3 secciones.';
+  else c.textContent = MSG_SECCIONES[n] || '';
+  c.classList.toggle('error', n < 3);
+}
+function cambiaSeccion(e) {
+  if (e.target.checked && secciones().length > 5) {
+    e.target.checked = false; // no se añade la sexta ni se quita otra
+    $('contador-secciones').textContent = 'Puedes elegir un máximo de 5 secciones.';
+    $('contador-secciones').classList.remove('error');
+    return;
+  }
+  pintaContador(false);
+}
+
+// ── Disponibilidad ──
+function cambiaFechas() {
+  var no = marcado('fechas') === 'no';
+  $('no-fechas').hidden = !no;
+  $('enviar').disabled = no;
+  if (no) mideUnaVez('voluntarias-no-fechas');
+}
+
+// ── Correo a la vista antes de enviar ──
+function pintaCorreo() {
+  var v = $('correo').value.trim();
+  $('revisa-correo').hidden = !v;
+  $('revisa-correo-dir').textContent = v;
+}
+
+// ── Borrador en esta pestaña (por si sale a seguirnos y vuelve); se borra al enviar ──
+function guardaBorrador() {
+  try {
+    var d = {};
+    Array.prototype.forEach.call($('formulario').elements, function (el) {
+      if (!el.name) return;
+      if (el.type === 'radio') { if (el.checked) d[el.name] = el.value; }
+      else if (el.type === 'checkbox') {
+        if (el.name === 'seccion') { (d.seccion = d.seccion || []); if (el.checked) d.seccion.push(el.value); }
+        else d[el.name] = el.checked;
+      } else d[el.name] = el.value;
+    });
+    sessionStorage.setItem(BORRADOR, JSON.stringify(d));
+  } catch (e) { /* sin almacenamiento: el formulario funciona igual */ }
+}
+function recuperaBorrador() {
+  var d;
+  try { d = JSON.parse(sessionStorage.getItem(BORRADOR) || 'null'); } catch (e) { d = null; }
+  if (!d || typeof d !== 'object') return Promise.resolve();
+  var f = $('formulario');
+  ['nombre', 'correo', 'dia', 'mes', 'ano', 'h', 'm', 'contexto', 'region', 'libre'].forEach(function (k) {
+    if (typeof d[k] === 'string' && f.elements[k]) f.elements[k].value = d[k];
+  });
+  ['movil', 'cuenta', 'premium', 'horatipo', 'sigue', 'cielo', 'fechas'].forEach(function (k) {
+    if (typeof d[k] !== 'string') return;
+    var e = f.querySelector('input[name="' + k + '"][value="' + CSS.escape(d[k]) + '"]');
+    if (e) e.checked = true;
+  });
+  if (Array.isArray(d.seccion)) {
+    Array.prototype.forEach.call(f.querySelectorAll('input[name="seccion"]'), function (e) { e.checked = d.seccion.indexOf(e.value) !== -1; });
+  }
+  f.elements.acepto.checked = d.acepto === true;
+  f.elements.propuesta.checked = d.propuesta === true;
+  var cc = typeof d.pais === 'string' && (PAISES[d.pais] || d.pais === OTRO) ? d.pais : '';
+  $('f-pais').value = cc;
+  return cargaPais(cc).then(function () {
+    if (cc && cc !== OTRO && CIUDADES.length) {
+      if (typeof d.filtro === 'string') { $('f-filtro').value = d.filtro; pintaCiudades(d.filtro); }
+      if (typeof d.ciudad === 'string' && (d.ciudad === '' || CIUDADES[+d.ciudad])) $('f-ciudad').value = d.ciudad;
+      $('f-nolista').checked = d.nolista === true;
+      cambiaNoLista();
+    }
+    if (typeof d.region === 'string') $('f-region').value = d.region;
+    if (typeof d.libre === 'string') $('f-libre').value = d.libre;
+  });
+}
+function borraBorrador() { try { sessionStorage.removeItem(BORRADOR); } catch (e) {} }
+
+// ── Validación ──
+function marcaError(campo, texto, control) {
+  var e = $('e-' + campo);
+  if (e) { e.textContent = texto; e.hidden = false; }
+  var c = control || $('c-' + campo);
+  if (c) c.setAttribute('aria-invalid', 'true');
+}
+function limpiaErrores() {
+  Array.prototype.forEach.call(document.querySelectorAll('.error[id^="e-"]'), function (e) { e.hidden = true; e.textContent = ''; });
+  Array.prototype.forEach.call(document.querySelectorAll('[aria-invalid="true"]'), function (e) { e.removeAttribute('aria-invalid'); });
+}
+function fechaElegida() {
+  var d = +$('f-dia').value, m = +$('f-mes').value, y = +$('f-ano').value;
+  if (!d || !m || !y) return { error: 'vacia' };
+  var t = new Date(Date.UTC(y, m - 1, d));
+  if (t.getUTCFullYear() !== y || t.getUTCMonth() !== m - 1 || t.getUTCDate() !== d) return { error: 'invalida' };
+  // Hoy en Madrid, como la base de datos
+  var hoy = new Intl.DateTimeFormat('en-CA', { timeZone: 'Europe/Madrid', year: 'numeric', month: '2-digit', day: '2-digit' }).format(new Date());
+  var iso = y + '-' + String(m).padStart(2, '0') + '-' + String(d).padStart(2, '0');
+  if (iso > hoy) return { error: 'invalida' };
+  var hy = +hoy.slice(0, 4), hmd = hoy.slice(5);
+  var cumple18 = (hy - 18) + '-' + hmd;
+  if (iso > cumple18) return { error: 'menor' };
+  return { iso: iso };
+}
+function lugarElegido() {
+  var cc = $('f-pais').value;
+  if (!cc) return null;
+  if (cc === OTRO) {
+    var libre = $('f-libre').value.trim();
+    return libre ? { lugar: libre.slice(0, 200), pais: null, lat: null, lon: null, zona: null } : null;
+  }
+  var nombrePais = PAISES[cc];
+  if ($('f-nolista').checked || !CIUDADES.length) {
+    var t = $('f-libre').value.trim();
+    return t ? { lugar: (t + ', ' + nombrePais).slice(0, 200), pais: cc, lat: null, lon: null, zona: null } : null;
+  }
+  var i = $('f-ciudad').value;
+  var c = i !== '' ? CIUDADES[+i] : null;
+  if (!c) return null;
+  if (REPETIDAS[sinTildes(c[0])] > 1) {
+    // Nombre repetido: no se elige la primera; se guarda la región escrita y Luna la sitúa a mano.
+    var reg = $('f-region').value.trim();
+    return reg ? { lugar: (c[0] + ' (' + reg + '), ' + nombrePais).slice(0, 200), pais: cc, lat: null, lon: null, zona: null } : null;
+  }
+  return { lugar: (c[0] + ', ' + nombrePais).slice(0, 200), pais: cc, lat: c[1], lon: c[2], zona: c[3] };
+}
+function valida() {
+  limpiaErrores();
+  var malos = [];
+  var nombre = $('nombre').value.trim();
+  if (!nombre) { marcaError('nombre', 'Dinos cómo quieres que te llamemos.', $('nombre')); malos.push($('nombre')); }
+  var correo = $('correo').value.trim();
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(correo)) { marcaError('correo', 'Ese correo no parece completo. Revísalo.', $('correo')); malos.push($('correo')); }
+  [['movil', 'Elige el móvil que usarás.'], ['cuenta', 'Elige una respuesta.'], ['premium', 'Elige una respuesta.']].forEach(function (x) {
+    if (!marcado(x[0])) { marcaError(x[0], x[1]); malos.push(document.querySelector('input[name="' + x[0] + '"]')); }
+  });
+  var f = fechaElegida();
+  if (f.error === 'menor') { marcaError('fecha', 'Para participar tienes que ser mayor de 18 años.'); malos.push($('f-dia')); }
+  else if (f.error) { marcaError('fecha', 'Revisa la fecha de nacimiento: debe ser una fecha válida en formato día-mes-año.'); malos.push($('f-dia')); }
+  var ht = marcado('horatipo');
+  if (!ht) { marcaError('horatipo', 'Elige una respuesta.'); malos.push(document.querySelector('input[name="horatipo"]')); }
+  else if (ht !== 'desconocida' && (!$('f-h').value || !$('f-m').value)) { marcaError('hora', 'Elige la hora y los minutos.'); malos.push($('f-h')); }
+  var lugar = lugarElegido();
+  if (!lugar) { marcaError('lugar', 'Elige la localidad y el país para que podamos identificar tu lugar de nacimiento.'); malos.push($('f-pais')); }
+  if (!marcado('sigue')) { marcaError('sigue', 'Elige una respuesta.'); malos.push(document.querySelector('input[name="sigue"]')); }
+  if (!marcado('cielo')) { marcaError('cielo', 'Elige una respuesta.'); malos.push(document.querySelector('input[name="cielo"]')); }
+  var secs = secciones();
+  if (secs.length < 3 || secs.length > 5) { pintaContador(false); $('c-secciones').setAttribute('aria-invalid', 'true'); malos.push(document.querySelector('input[name="seccion"]')); }
+  if (marcado('fechas') !== 'si') { if (!marcado('fechas')) { marcaError('fechas', 'Elige una respuesta.'); malos.push(document.querySelector('input[name="fechas"]')); } }
+  if (!$('acepto').checked) { marcaError('acepto', 'Para enviar la candidatura tienes que marcar esta casilla.', $('acepto')); malos.push($('acepto')); }
+  if (malos.length) {
+    $('e-general').textContent = 'Revisa lo que está marcado en rojo. Tus respuestas siguen aquí.';
+    $('e-general').hidden = false;
+    var primero = malos[0];
+    try { primero.focus({ preventScroll: true }); } catch (e) { primero.focus(); }
+    (primero.closest('.campo') || primero).scrollIntoView({ block: 'center' });
+    return null;
+  }
+  return {
+    nombre: nombre.slice(0, 60),
+    correo: correo.slice(0, 254),
+    movil: marcado('movil'),
+    cuenta: marcado('cuenta'),
+    premium_actual: marcado('premium'),
+    fecha_nacimiento: f.iso,
+    hora_nacimiento: ht === 'desconocida' ? null : ($('f-h').value + ':' + $('f-m').value),
+    hora_aproximada: ht === 'aproximada',
+    lugar_nacimiento: lugar.lugar,
+    pais: lugar.pais,
+    lat: lugar.lat,
+    lon: lugar.lon,
+    zona: lugar.zona,
+    seguimiento: marcado('sigue'),
+    cielo: marcado('cielo'),
+    secciones: secs,
+    contexto: $('contexto').value.trim().slice(0, 500) || null,
+    fechas_ok: true,
+    consentimiento: true,
+    propuesta: $('propuesta').checked,
+    origen: ORIGEN.slice(0, 60)
+  };
+}
+
+// ── Envío ──
+function envia(ev) {
+  ev.preventDefault();
+  if (estado() !== 'abierta') { segunHash(); return; }
+  if (marcado('fechas') === 'no') return;
+  var datos = valida();
+  if (!datos) return;
+  var b = $('enviar');
+  b.disabled = true; b.textContent = 'Enviando…';
+  var err = $('e-general');
+  fetch(SB_URL + '/rest/v1/voluntarias', {
+    method: 'POST',
+    headers: { apikey: SB_KEY, Authorization: 'Bearer ' + SB_KEY, 'Content-Type': 'application/json', Prefer: 'return=minimal' },
+    body: JSON.stringify(datos)
+  }).then(function (r) {
+    if (r.ok) {
+      borraBorrador();
+      mide('voluntarias-enviada-' + ORIGEN_EV);
+      mide('voluntarias-enviada-' + datos.movil);
+      $('gracias-titulo').textContent = 'Gracias, ' + datos.nombre + '. Hemos recibido tu candidatura.';
+      history.replaceState(null, '', location.pathname + location.search);
+      muestra('gracias');
+      window.scrollTo(0, 0);
+      return;
+    }
+    b.disabled = false; b.textContent = 'Enviar mi candidatura';
+    if (r.status === 409) {
+      mide('voluntarias-repetida');
+      err.textContent = 'Ya tenemos una candidatura con este correo. Si quieres cambiar algún dato, escríbenos a viajedelalma.app@gmail.com.';
+    } else if (Date.now() >= CIERRE) {
+      segunHash(); return;
+    } else {
+      mide('voluntarias-error-' + r.status);
+      err.textContent = 'No hemos podido enviar tu candidatura. Vuelve a intentarlo en un momento; si sigue fallando, escríbenos a viajedelalma.app@gmail.com.';
+    }
+    err.hidden = false;
+  }).catch(function () {
+    b.disabled = false; b.textContent = 'Enviar mi candidatura';
+    mide('voluntarias-error-red');
+    err.textContent = 'Se ha cortado la conexión. Tus respuestas siguen aquí: vuelve a intentarlo.';
+    err.hidden = false;
+  });
+}
+
+// ── Arranque ──
+rellenaSelectores();
+rellenaPaises();
+$('f-pais').addEventListener('change', function () { cargaPais($('f-pais').value).then(guardaBorrador); });
+$('f-filtro').addEventListener('input', function (e) { pintaCiudades(e.target.value); });
+$('f-ciudad').addEventListener('change', revisaRepetida);
+$('f-nolista').addEventListener('change', cambiaNoLista);
+Array.prototype.forEach.call(document.querySelectorAll('input[name="horatipo"]'), function (e) { e.addEventListener('change', cambiaHoraTipo); });
+Array.prototype.forEach.call(document.querySelectorAll('input[name="seccion"]'), function (e) { e.addEventListener('change', cambiaSeccion); });
+Array.prototype.forEach.call(document.querySelectorAll('input[name="fechas"]'), function (e) { e.addEventListener('change', cambiaFechas); });
+$('correo').addEventListener('input', pintaCorreo);
+$('contexto').addEventListener('input', function () { $('cuenta-contexto').textContent = $('contexto').value.length + ' / 500'; });
+$('formulario').addEventListener('input', guardaBorrador);
+$('formulario').addEventListener('change', guardaBorrador);
+$('formulario').addEventListener('submit', envia);
+$('ir-formulario').addEventListener('click', function () { mide('voluntarias-pulsa-formulario'); });
+window.addEventListener('hashchange', segunHash);
+
+recuperaBorrador().then(function () {
+  cambiaHoraTipo(); cambiaFechas(); pintaCorreo();
+  $('cuenta-contexto').textContent = $('contexto').value.length + ' / 500';
+  pintaContador(true);
+  segunHash();
+  if (estado() === 'abierta') mideUnaVez('voluntarias-vista-' + ORIGEN_EV);
+});
+})();
+</script>
+</body>
+</html>
