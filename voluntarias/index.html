@@ -158,7 +158,7 @@ body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;
       <section class="bloque nivel-card">
         <span class="num" aria-hidden="true">2</span>
         <h3>El Resumen diario personalizado</h3>
-        <p>Del 17 al 23 de noviembre, disponible en la web y en tu correo a las 7:00, hora de Madrid.</p>
+        <p>Del 17 de noviembre al 16 de diciembre, disponible en la web y en tu correo a las 7:00, hora de Madrid.</p>
         <p>Siempre incluye Tu cielo hoy, La Luna y Planta y mineral. Además, eliges entre tres y cinco de las nueve secciones disponibles.</p>
       </section>
       <section class="bloque nivel-card">
@@ -171,7 +171,7 @@ body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;
     <div class="rejilla tres">
       <section class="bloque">
         <p class="etiqueta">Qué te pedimos</p>
-        <p>Que nos sigas en Instagram, en @viajedelalma.app, o en nuestra página Viaje del Alma de Facebook; que pruebes el contenido a tu ritmo y que, del 24 al 27 de noviembre, nos cuentes qué te ha servido y qué cambiarías.</p>
+        <p>Que nos sigas en Instagram, en @viajedelalma.app, o en nuestra página Viaje del Alma de Facebook; que pruebes el contenido a tu ritmo y que, del 14 al 16 de diciembre, nos cuentes qué te ha servido y qué cambiarías.</p>
         <p>Puedes participar aunque no conozcas la astrología. No necesitas tener pareja ni estar trabajando.</p>
       </section>
 
@@ -183,7 +183,7 @@ body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;
 
       <section class="bloque">
         <p class="etiqueta">Sin tarjeta y sin compra obligatoria</p>
-        <p>No se crea una suscripción de pago. Al terminar el Premium de regalo, puedes seguir usando la versión gratuita. El Resumen diario personalizado termina el 23 de noviembre.</p>
+        <p>No se crea una suscripción de pago. Al terminar el Premium de regalo, puedes seguir usando la versión gratuita. El Resumen diario personalizado termina el 16 de diciembre.</p>
         <p>El 17 de diciembre recibirás el segundo informe y, si lo autorizas en el formulario, una propuesta para continuar. Puedes rechazarla.</p>
         <p>Tu opinión puede ser positiva, crítica o «no lo compraría». No te pedimos reseñas públicas ni valoraciones favorables.</p>
       </section>
@@ -198,7 +198,7 @@ body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;
     <h1>Solicita plaza para probar los tres niveles de Viaje del Alma</h1>
     <section class="bloque">
       <p>Rellena este formulario antes del 15 de noviembre a las 23:59, hora de Madrid.</p>
-      <p>La prueba incluye Premium del 17 de noviembre al 17 de diciembre; el Resumen diario personalizado del 17 al 23 de noviembre, en la web y por correo a las 7:00 —hora de Madrid—; y dos informes mensuales, que recibirás el 17 de noviembre y el 17 de diciembre.</p>
+      <p>La prueba incluye Premium del 17 de noviembre al 17 de diciembre; el Resumen diario personalizado del 17 de noviembre al 16 de diciembre, en la web y por correo a las 7:00 —hora de Madrid—; y dos informes mensuales, que recibirás el 17 de noviembre y el 17 de diciembre.</p>
       <p>Es gratis, sin tarjeta y sin contratación automática. Elegiremos un grupo de 8 a 10 participantes, mitad Android y mitad iPhone. El lunes 16 de noviembre te comunicaremos el resultado por correo.</p>
       <p>Para participar debes seguir a @viajedelalma.app en Instagram o a nuestra página Viaje del Alma en Facebook.</p>
     </section>
@@ -220,7 +220,7 @@ body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;
 
       <fieldset class="campo" id="c-movil" aria-describedby="ay-movil e-movil">
         <legend>¿Qué móvil utilizarás principalmente para la prueba?</legend>
-        <p class="ayuda" id="ay-movil">Si tienes los dos, elige el que usarás durante esa semana. Con iPhone entrarás desde el navegador.</p>
+        <p class="ayuda" id="ay-movil">Si tienes los dos, elige el que usarás durante la prueba. Con iPhone entrarás desde el navegador.</p>
         <div class="opciones dos-col">
           <label class="opcion"><input type="radio" name="movil" value="android">Android</label>
           <label class="opcion"><input type="radio" name="movil" value="iphone">iPhone</label>
@@ -248,6 +248,16 @@ body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;
           <label class="opcion"><input type="radio" name="premium" value="no_se">No lo sé</label>
         </div>
         <p class="error" id="e-premium" hidden></p>
+      </fieldset>
+
+      <fieldset class="campo" id="c-conocia" aria-describedby="e-conocia">
+        <legend>¿Ya nos conocías?</legend>
+        <div class="opciones ancha-3">
+          <label class="opcion"><input type="radio" name="conocia" value="app">Sí, ya usaba la app</label>
+          <label class="opcion"><input type="radio" name="conocia" value="redes">Sí, por las redes, la web o el correo</label>
+          <label class="opcion"><input type="radio" name="conocia" value="no">No, es la primera vez</label>
+        </div>
+        <p class="error" id="e-conocia" hidden></p>
       </fieldset>
     </section>
 
@@ -367,14 +377,14 @@ body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;
       </div>
 
       <fieldset class="campo" id="c-fechas" aria-describedby="ay-fechas e-fechas">
-        <legend>¿Te viene bien probarlo del 17 al 23 de noviembre y responder al cuestionario entre el 24 y el 27?</legend>
+        <legend>¿Te viene bien probarlo del 17 de noviembre al 16 de diciembre y responder al cuestionario entre el 14 y el 16 de diciembre?</legend>
         <p class="ayuda" id="ay-fechas">Puedes usarlo a tu ritmo. Queremos conocer tu experiencia real, también si alguna parte no te interesa.</p>
         <div class="opciones ancha-2">
           <label class="opcion"><input type="radio" name="fechas" value="si">Sí</label>
           <label class="opcion"><input type="radio" name="fechas" value="no">Esta vez no me viene bien</label>
         </div>
         <p class="error" id="e-fechas" hidden></p>
-        <p class="nota" id="no-fechas" role="status" hidden style="margin-top:10px">Gracias por decírnoslo. Esta prueba es solo del 17 al 23 de noviembre, así que esta vez no puedes entrar en el grupo. No enviaremos nada de lo que has escrito.</p>
+        <p class="nota" id="no-fechas" role="status" hidden style="margin-top:10px">Gracias por decírnoslo. Esta prueba es del 17 de noviembre al 16 de diciembre, así que esta vez no puedes entrar en el grupo. No enviaremos nada de lo que has escrito.</p>
       </fieldset>
     </section>
 
@@ -611,7 +621,7 @@ function recuperaBorrador() {
   ['nombre', 'correo', 'dia', 'mes', 'ano', 'h', 'm', 'contexto', 'region', 'libre'].forEach(function (k) {
     if (typeof d[k] === 'string' && f.elements[k]) f.elements[k].value = d[k];
   });
-  ['movil', 'cuenta', 'premium', 'horatipo', 'sigue', 'cielo', 'fechas'].forEach(function (k) {
+  ['movil', 'cuenta', 'premium', 'conocia', 'horatipo', 'sigue', 'cielo', 'fechas'].forEach(function (k) {
     if (typeof d[k] !== 'string') return;
     var e = f.querySelector('input[name="' + k + '"][value="' + CSS.escape(d[k]) + '"]');
     if (e) e.checked = true;
@@ -690,7 +700,7 @@ function valida() {
   if (!nombre) { marcaError('nombre', 'Dinos cómo quieres que te llamemos.', $('nombre')); malos.push($('nombre')); }
   var correo = $('correo').value.trim();
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(correo)) { marcaError('correo', 'Ese correo no parece completo. Revísalo.', $('correo')); malos.push($('correo')); }
-  [['movil', 'Elige el móvil que usarás.'], ['cuenta', 'Elige una respuesta.'], ['premium', 'Elige una respuesta.']].forEach(function (x) {
+  [['movil', 'Elige el móvil que usarás.'], ['cuenta', 'Elige una respuesta.'], ['premium', 'Elige una respuesta.'], ['conocia', 'Elige una respuesta.']].forEach(function (x) {
     if (!marcado(x[0])) { marcaError(x[0], x[1]); malos.push(document.querySelector('input[name="' + x[0] + '"]')); }
   });
   var f = fechaElegida();
@@ -721,6 +731,7 @@ function valida() {
     movil: marcado('movil'),
     cuenta: marcado('cuenta'),
     premium_actual: marcado('premium'),
+    conocia: marcado('conocia'),
     fecha_nacimiento: f.iso,
     hora_nacimiento: ht === 'desconocida' ? null : ($('f-h').value + ':' + $('f-m').value),
     hora_aproximada: ht === 'aproximada',
