@@ -51,6 +51,12 @@ ol.pasos li{margin:0 0 6px}
 .titulares a{color:var(--oro-claro);font-family:var(--display);font-size:1.22rem;line-height:1.25;text-decoration:none;display:block;margin:0 0 4px}
 .titulares a:hover,.titulares a:focus-visible{text-decoration:underline}
 .titulares p{margin:0;font-size:.95rem}
+.alma-fuente{font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;color:var(--tenue);margin:0 0 10px}
+.alma-cita{font-family:var(--display);font-style:italic;font-size:1.35rem;line-height:1.4;color:var(--oro-claro);margin:4px 0 4px}
+.alma-ref{font-size:.85rem;color:var(--tenue);margin:0 0 14px}
+.alma-eco{border-top:1px solid var(--linea);margin-top:14px;padding-top:12px;font-size:.95rem}
+.alma-eco em{font-family:var(--display);font-size:1.12rem;color:var(--oro-claro)}
+.alma-momento{font-size:.92rem;color:var(--oro-claro);margin:0 0 10px}
 .nota a,.texto a{color:var(--oro-claro)}
 .cita{font-family:var(--display);font-style:italic;font-size:1.45rem;line-height:1.35;color:var(--oro-claro);text-align:center;margin:6px 0 2px}
 .pendiente{opacity:.7}
@@ -240,6 +246,21 @@ function pintaResumen(c, sinIa) {
     } else if (s.id === 'carta') {
       if (s.carta) { b.appendChild(nodo('p', 'carta-nombre', s.carta.nombre)); b.appendChild(nodo('p', '', s.carta.sentido)); }
       if (s.texto) { const d = nodo('div', 'texto'); pinta(d, s.texto); b.appendChild(d); }
+    } else if (s.id === 'alma' && s.cita) {
+      // Lectura del catálogo (texto exacto, dominio público), reflexión y eco de otra tradición
+      b.appendChild(nodo('p', 'alma-fuente', [s.tradicion, s.fuente, s.dia].filter(Boolean).join(' · ')));
+      if (s.momento) b.appendChild(nodo('p', 'alma-momento', s.momento));
+      const c = s.cita.charAt(0).toUpperCase() + s.cita.slice(1);
+      b.appendChild(nodo('p', 'alma-cita', `«${c.replace(/[:;,]$/, '')}»`));
+      if (s.cita_ref && s.cita_ref !== s.fuente) b.appendChild(nodo('p', 'alma-ref', s.cita_ref));
+      if (s.texto) { const d = nodo('div', 'texto'); pinta(d, s.texto); b.appendChild(d); }
+      if (s.eco && s.eco.cita) {
+        const e = nodo('p', 'alma-eco'); e.append(`${s.eco.desde}: `);
+        const ec = s.eco.cita.charAt(0).toUpperCase() + s.eco.cita.slice(1);
+        e.appendChild(nodo('em', '', `«${ec.replace(/[:;,]$/, '')}»`)); e.append(` (${s.eco.ref})`);
+        b.appendChild(e);
+      }
+      if (s.nota) b.appendChild(nodo('p', 'nota', s.nota));
     } else if (s.id === 'mundo' && Array.isArray(s.titulares)) {
       // Titulares propios con enlace a la noticia original (solo enlaces https)
       const ul = nodo('ul', 'titulares');
