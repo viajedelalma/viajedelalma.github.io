@@ -44,6 +44,13 @@ details p{margin-top:8px;color:var(--texto)}
 ol.pasos{margin:4px 0 12px;padding-left:1.3em}
 ol.pasos li{margin:0 0 6px}
 .nota{font-size:.88rem;color:var(--tenue)}
+.titulares{list-style:none;margin:2px 0 10px;padding:0}
+.titulares li{padding:12px 0;border-top:1px solid var(--linea)}
+.titulares li:first-child{border-top:0;padding-top:4px}
+.titulares .tema{font-size:.66rem;letter-spacing:.2em;text-transform:uppercase;color:var(--tenue);margin:0 0 3px}
+.titulares a{color:var(--oro-claro);font-family:var(--display);font-size:1.22rem;line-height:1.25;text-decoration:none;display:block;margin:0 0 4px}
+.titulares a:hover,.titulares a:focus-visible{text-decoration:underline}
+.titulares p{margin:0;font-size:.95rem}
 .nota a,.texto a{color:var(--oro-claro)}
 .cita{font-family:var(--display);font-style:italic;font-size:1.45rem;line-height:1.35;color:var(--oro-claro);text-align:center;margin:6px 0 2px}
 .pendiente{opacity:.7}
@@ -226,13 +233,29 @@ function pintaResumen(c, sinIa) {
       b.appendChild(nodo('h2', '', s.subtitulo || 'Tu práctica de hoy'));
       const ol = nodo('ol', 'pasos'); (s.pasos || []).forEach((x) => ol.appendChild(nodo('li', '', x))); b.appendChild(ol);
       const n = nodo('p', 'nota'); n.append('Si quieres hacerlo guiado, lo tienes hoy en la app, en la pantalla Hoy. ');
-      const a = nodo('a', '', 'Abrir la app'); a.href = '/web/'; a.setAttribute('data-goatcounter-click', 'resumen-a-app'); n.appendChild(a);
+      const a = nodo('a', '', 'Abrir la app'); a.href = '/web/'; a.addEventListener('click', () => mide('resumen-a-app')); n.appendChild(a); // los enlaces que se pintan después no los ve data-goatcounter-click
       b.appendChild(n);
     } else if (s.id === 'palabra') {
       b.appendChild(nodo('p', 'cita', `«${s.texto || ''}»`));
     } else if (s.id === 'carta') {
       if (s.carta) { b.appendChild(nodo('p', 'carta-nombre', s.carta.nombre)); b.appendChild(nodo('p', '', s.carta.sentido)); }
       if (s.texto) { const d = nodo('div', 'texto'); pinta(d, s.texto); b.appendChild(d); }
+    } else if (s.id === 'mundo' && Array.isArray(s.titulares)) {
+      // Titulares propios con enlace a la noticia original (solo enlaces https)
+      const ul = nodo('ul', 'titulares');
+      s.titulares.forEach((t) => {
+        const li = nodo('li');
+        li.appendChild(nodo('p', 'tema', `${t.tema || ''}${t.medio ? ' · ' + t.medio : ''}`));
+        if (/^https:\/\//.test(t.enlace || '')) {
+          const a = nodo('a', '', t.titulo); a.href = t.enlace; a.target = '_blank'; a.rel = 'noopener noreferrer';
+          a.addEventListener('click', () => mide('resumen-mundo-enlace'));
+          li.appendChild(a);
+        } else li.appendChild(nodo('p', 'carta-nombre', t.titulo));
+        li.appendChild(nodo('p', '', t.resumen));
+        ul.appendChild(li);
+      });
+      b.appendChild(ul);
+      if (s.nota) b.appendChild(nodo('p', 'nota', s.nota));
     } else {
       const d = nodo('div', 'texto'); pinta(d, s.texto || (sinIa ? 'Llegará en cuanto vuelvas a intentarlo.' : '')); b.appendChild(d);
     }
