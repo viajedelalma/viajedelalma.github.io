@@ -296,7 +296,7 @@ async function cargaHoy() {
   }
   if (j.estado === 'fuera_de_fechas' || j.estado === 'terminado') {
     $('aviso-texto').textContent = j.estado === 'terminado'
-      ? 'La semana de prueba del Resumen diario ha terminado. Gracias por acompañarnos.'
+      ? 'La prueba del Resumen diario ha terminado. Gracias por acompañarnos.'
       : 'Tu Resumen diario empieza el primer día de la prueba. Ese día te llegará también por correo a las 7:00.';
     muestra('aviso'); return;
   }
