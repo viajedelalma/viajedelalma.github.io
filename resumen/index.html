@@ -113,7 +113,7 @@ input:focus{outline:none;border-color:var(--oro)}
     <p class="fecha" id="r-fecha"></p>
     <h1 id="r-saludo"></h1>
     <p class="entradilla" id="r-sabbat" hidden></p>
-    <p class="entradilla error" id="r-sin-ia" hidden>Tu texto personal de hoy no ha llegado todavía. Aquí tienes lo de cada día; vuelve a intentarlo en un momento.
+    <p class="entradilla error" id="r-sin-ia" hidden role="status"><span id="r-sin-ia-texto">Tu texto personal de hoy no ha llegado todavía. Aquí tienes lo de cada día; vuelve a intentarlo en un momento.</span>
       <br><button class="boton secundario" id="b-reintentar" type="button">Volver a intentarlo</button></p>
 
     <section class="bloque" id="b-cielo">
@@ -290,8 +290,10 @@ function pintaResumen(c, sinIa) {
 }
 
 async function cargaSemana(fechaActual) {
+  const turno = TURNO;
   try {
     const { data } = await sb.from('briefing_diario').select('fecha').order('fecha', { ascending: false }).limit(7);
+    if (turno !== TURNO) return;
     const dias = (data || []).map((x) => x.fecha);
     if (!dias.includes(fechaActual)) dias.unshift(fechaActual);
     if (dias.length < 2) { $('b-semana').hidden = true; return; }
@@ -308,11 +310,44 @@ async function cargaSemana(fechaActual) {
   } catch (e) { $('b-semana').hidden = true; }
 }
 
-let HOY = null; // { fecha, contenido }
+/* ── Sesión compartida con /web (REV-0311-RESUMEN-01) ──────────────────
+   Si en otra pestaña se sale o se entra con otra cuenta, aquí se borra lo
+   que se estaba enseñando y se vuelve a cargar con la cuenta de ahora. Cada
+   carga lleva un turno: una respuesta que llega tarde, de otra cuenta o de
+   una carga anterior, no se pinta nunca. */
+let HOY = null;      // { fecha, contenido }
+let USUARIO = null;  // id de la cuenta cuyo Resumen se está enseñando
+let TURNO = 0;
+let REINTENTO = null;
+const TEXTO_SIN_IA = 'Tu texto personal de hoy no ha llegado todavía. Aquí tienes lo de cada día; vuelve a intentarlo en un momento.';
+const TEXTO_PREPARANDO = 'Tu texto personal de hoy se está preparando. Aparecerá aquí en unos segundos; mientras, tienes lo de cada día.';
+
+function limpia() {
+  TURNO++;
+  HOY = null; USUARIO = null;
+  if (REINTENTO) { clearTimeout(REINTENTO); REINTENTO = null; }
+  ['r-fecha', 'r-saludo', 'r-cielo', 'r-aspectos', 'r-luna-titulo', 'r-luna-dato', 'r-luna', 'r-secciones', 'r-semana',
+    'r-planta', 'r-planta-corto', 'r-planta-ritual', 'r-mineral', 'r-mineral-corto', 'r-mineral-ritual'].forEach((id) => { if ($(id)) $(id).textContent = ''; });
+  $('b-semana').hidden = true; $('r-cuidado-alma').hidden = true;
+  muestra('cargando');
+}
+async function cuentaActual() {
+  try { const { data } = await sb.auth.getSession(); return (data && data.session) || null; } catch (e) { return null; }
+}
+async function revisaCuenta() {
+  const s = await cuentaActual();
+  const id = s ? s.user.id : null;
+  if (id === USUARIO) return;
+  limpia();
+  if (id) cargaHoy(); else muestra('entrar');
+}
+
 async function abreDia(f, fechaActual) {
+  const turno = TURNO;
   if (HOY && f === HOY.fecha) { pintaResumen(HOY.contenido, false); }
   else {
     const { data } = await sb.from('briefing_diario').select('contenido').eq('fecha', f).maybeSingle();
+    if (turno !== TURNO) return;
     if (data && data.contenido) pintaResumen(data.contenido, false);
     mide('resumen-ve-dia-anterior');
   }
@@ -322,19 +357,27 @@ async function abreDia(f, fechaActual) {
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
-async function cargaHoy() {
-  muestra('cargando');
-  const { data: s } = await sb.auth.getSession();
-  if (!s || !s.session) { muestra('entrar'); mide('resumen-pide-entrar'); return; }
+async function cargaHoy(intento = 0) {
+  const turno = ++TURNO;
+  if (REINTENTO) { clearTimeout(REINTENTO); REINTENTO = null; }
+  if (!intento) muestra('cargando');
+  const sesion = await cuentaActual();
+  if (turno !== TURNO) return;
+  if (!sesion) { USUARIO = null; muestra('entrar'); mide('resumen-pide-entrar'); return; }
+  const uid = sesion.user.id;
   let r, j;
   try {
     r = await fetch(`${SUPABASE_URL}/functions/v1/resumen-diario`, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json', apikey: SUPABASE_ANON, Authorization: `Bearer ${s.session.access_token}` },
+      headers: { 'Content-Type': 'application/json', apikey: SUPABASE_ANON, Authorization: `Bearer ${sesion.access_token}` },
       body: JSON.stringify({ modo: 'hoy' }),
     });
     j = await r.json();
   } catch (e) { j = null; }
+  // Si mientras tanto cambió la cuenta o empezó otra carga, esta respuesta no se pinta.
+  const ahora = await cuentaActual();
+  if (turno !== TURNO || !ahora || ahora.user.id !== uid) return;
+  USUARIO = uid;
   if (!j) { $('aviso-texto').textContent = 'No hemos podido traer tu Resumen. Revisa tu conexión y vuelve a abrir esta página.'; muestra('aviso'); return; }
   if (j.estado === 'sin_sesion') { await sb.auth.signOut({ scope: 'local' }); muestra('entrar'); return; }
   if (j.estado === 'sin_resumen') {
@@ -347,9 +390,21 @@ async function cargaHoy() {
       : 'Tu Resumen diario empieza el primer día de la prueba. Ese día te llegará también por correo a las 7:00.';
     muestra('aviso'); return;
   }
+  if (j.estado === 'preparando' && j.contenido) {
+    // Otra pestaña (o el correo de las 7:00) lo está preparando: lo de cada día ya, y se vuelve a pedir solo.
+    pintaResumen(j.contenido, true);
+    const sigue = intento < 8;
+    $('r-sin-ia-texto').textContent = sigue ? TEXTO_PREPARANDO : TEXTO_SIN_IA;
+    $('b-reintentar').hidden = sigue;
+    muestra('resumen');
+    if (sigue) REINTENTO = setTimeout(() => cargaHoy(intento + 1), Math.min(Math.max(Number(j.reintentar_en) || 8, 5), 30) * 1000);
+    if (!intento) mide('resumen-preparando');
+    return;
+  }
   if (j.estado === 'ok' || j.estado === 'sin_ia') {
-    HOY = { fecha: j.contenido.fecha, contenido: j.contenido };
+    HOY = j.estado === 'ok' ? { fecha: j.contenido.fecha, contenido: j.contenido } : null;
     pintaResumen(j.contenido, j.estado === 'sin_ia');
+    $('r-sin-ia-texto').textContent = TEXTO_SIN_IA; $('b-reintentar').hidden = false;
     muestra('resumen');
     mide(j.estado === 'ok' ? 'resumen-abre' : 'resumen-sin-ia');
     if (j.estado === 'ok') cargaSemana(j.contenido.fecha);
@@ -375,13 +430,22 @@ $('f-entrar').addEventListener('submit', async (e) => {
   mide('resumen-entra');
   cargaHoy();
 });
-async function salir(e) { if (e) e.preventDefault(); await sb.auth.signOut({ scope: 'local' }); HOY = null; muestra('entrar'); }
+async function salir(e) { if (e) e.preventDefault(); limpia(); await sb.auth.signOut({ scope: 'local' }); muestra('entrar'); }
 $('b-salir').addEventListener('click', salir);
 $('b-salir-aviso').addEventListener('click', salir);
 $('b-reintentar').addEventListener('click', () => { mide('resumen-reintenta'); cargaHoy(); });
 
 if (!sb) { $('aviso-texto').textContent = 'Esta página necesita conexión para cargar. Vuelve a abrirla en un momento.'; muestra('aviso'); }
-else cargaHoy();
+else {
+  // Cambios de sesión: en esta pestaña (supabase-js) y en otras (/web u otra pestaña del Resumen), por tres vías.
+  sb.auth.onAuthStateChange((evento, sesion) => {
+    const id = sesion && sesion.user ? sesion.user.id : null;
+    if (evento === 'SIGNED_OUT' || (USUARIO && id && id !== USUARIO)) setTimeout(revisaCuenta, 0); // fuera del aviso, como pide supabase-js
+  });
+  window.addEventListener('storage', (e) => { if (e.key === CLAVE_SESION) revisaCuenta(); });
+  document.addEventListener('visibilitychange', () => { if (document.visibilityState === 'visible' && USUARIO) revisaCuenta(); });
+  cargaHoy();
+}
 </script>
 </body>
 </html>

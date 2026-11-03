@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<meta name="referrer" content="no-referrer">
+<title>Tus correos del Resumen · Viaje del Alma</title>
+<link rel="icon" href="/favicon.png">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Karla:wght@400;500;700&display=swap">
+<style>
+:root{
+  --noche:#0B0818; --noche-2:#14102A; --oro:#C9A84C; --oro-claro:#E8D9A0; --texto:#EDE7DC; --tenue:#A99CCB; --linea:rgba(201,168,76,.22);
+  --display:'Cormorant Garamond','Iowan Old Style',Georgia,serif; --cuerpo:'Karla','Helvetica Neue',Arial,sans-serif;
+}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+body{margin:0;background:var(--noche);color:var(--texto);font-family:var(--cuerpo);font-size:16px;line-height:1.65;-webkit-font-smoothing:antialiased;
+  background-image:radial-gradient(ellipse 90% 38% at 50% 0%,rgba(107,78,158,.34),transparent 70%);background-repeat:no-repeat;min-height:100vh}
+.envoltura{max-width:560px;margin:0 auto;padding:30px 16px 72px}
+.marca{font-size:.72rem;letter-spacing:.34em;color:var(--oro);text-transform:uppercase;margin-bottom:22px;text-align:center}
+.marca a{color:inherit;text-decoration:none;display:inline-flex;align-items:center;gap:10px}
+.marca img{border-radius:50%;border:1px solid var(--oro)}
+h1{font-family:var(--display);font-weight:300;font-size:clamp(2rem,8vw,2.6rem);line-height:1.1;margin:0 0 10px;text-align:center}
+h1 em{font-style:italic;color:var(--oro-claro)}
+h1:focus{outline:none}
+.entradilla{color:var(--tenue);text-align:center;margin:0 auto 8px;max-width:44ch}
+.bloque{background:linear-gradient(180deg,var(--noche-2),rgba(20,16,42,.6));border:1px solid var(--linea);border-radius:18px;padding:20px 18px;margin:18px 0}
+.nota{font-size:.9rem;color:var(--tenue);margin:10px 0 0}
+.boton{display:block;width:100%;border:0;cursor:pointer;font:inherit;font-weight:700;padding:15px 20px;border-radius:999px;background:linear-gradient(135deg,var(--oro-claro),var(--oro));color:#1a1408;text-align:center}
+.boton.secundario{background:none;border:1px solid var(--oro);color:var(--oro-claro);font-weight:500}
+.boton[disabled]{opacity:.6;cursor:default}
+.boton:focus-visible{outline:2px solid var(--oro-claro);outline-offset:3px}
+.error{color:#f2b8b5;font-size:.95rem;text-align:center;margin-top:14px}
+.pie{font-size:.8rem;color:var(--tenue);text-align:center;margin-top:34px}
+.pie a,.entradilla a{color:var(--oro-claro)}
+</style>
+</head>
+<body>
+<div class="envoltura">
+  <div class="marca"><a href="/?o=baja"><img src="/logo.png" width="34" height="34" alt="">Viaje del Alma</a></div>
+
+  <!-- PROPUESTA de textos: los aprueba Gemma el sábado 7 -->
+  <main id="elegir">
+    <h1 tabindex="-1">Tus correos del <em>Resumen</em></h1>
+    <p class="entradilla">¿Qué prefieres?</p>
+    <section class="bloque">
+      <button class="boton" id="b-correo" type="button">Dejar de recibir el correo de las 7:00</button>
+      <p class="nota">Sigues en la prueba: tu Resumen diario te espera cada mañana en <a href="/resumen/">viajedelalma.app/resumen</a>.</p>
+    </section>
+    <section class="bloque">
+      <button class="boton secundario" id="b-prueba" type="button" aria-expanded="false" aria-controls="confirmar">Dejar la prueba</button>
+      <div id="confirmar" hidden>
+        <p class="nota">Dejarás de recibir el Resumen diario, su correo y los informes mensuales. ¿Seguro?</p>
+        <button class="boton secundario" id="b-prueba-si" type="button" style="margin-top:10px">Sí, dejar la prueba</button>
+      </div>
+    </section>
+    <p class="error" id="error" role="alert" hidden></p>
+  </main>
+
+  <main id="hecho" hidden>
+    <h1 tabindex="-1" id="hecho-titulo">Hecho</h1>
+    <p class="entradilla" id="hecho-texto" role="status"></p>
+  </main>
+
+  <main id="no-vale" hidden>
+    <h1 tabindex="-1">Este enlace no vale</h1>
+    <p class="entradilla">Puede que esté incompleto. Para dejar de recibir nuestros correos, responde «baja» a cualquiera de ellos o escríbenos a viajedelalma.app@gmail.com.</p>
+  </main>
+
+  <p class="pie"><a href="/privacidad.html#voluntarias">Privacidad</a></p>
+</div>
+<script>
+/* /resumen/baja/ · baja del correo del Resumen diario (REV-0311-RESUMEN-05).
+   · El código del enlace (?t=…) es opaco: no dice quién eres. Se lee y se quita de la
+     barra de direcciones; esta página no carga analítica y no manda «Referer».
+   · Nada se hace al abrir la página (los programas de correo que previsualizan enlaces
+     no dan de baja a nadie): solo al pulsar un botón, con un POST a la función. */
+const FUNCION = 'https://orxyhxehapqmjwmqmqgv.supabase.co/functions/v1/resumen-diario';
+const CLAVE = 'sb_publishable_As7G8e_pyZwjApjgcC48ow_RDc4hZfN';
+const $ = (id) => document.getElementById(id);
+const token = new URLSearchParams(location.search).get('t') || '';
+try { history.replaceState(null, '', location.pathname); } catch (e) {}
+const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+
+function pantalla(id) {
+  ['elegir', 'hecho', 'no-vale'].forEach((p) => { $(p).hidden = p !== id; });
+  const h = document.querySelector(`#${id} h1`); if (h) h.focus();
+}
+if (!UUID.test(token)) pantalla('no-vale');
+
+async function baja(que, boton) {
+  const err = $('error'); err.hidden = true;
+  boton.disabled = true;
+  let j = null, st = 0;
+  try {
+    const r = await fetch(FUNCION, { method: 'POST', headers: { 'Content-Type': 'application/json', apikey: CLAVE }, body: JSON.stringify({ modo: 'baja', token, que }) });
+    st = r.status; j = await r.json();
+  } catch (e) { j = null; }
+  boton.disabled = false;
+  if (j && j.estado === 'ok') {
+    $('hecho-texto').textContent = que === 'correo'
+      ? 'Ya no te llegará el correo de las 7:00. Tu Resumen sigue cada mañana en viajedelalma.app/resumen.'
+      : 'Has dejado la prueba. Gracias por acompañarnos estos días.';
+    pantalla('hecho');
+    return;
+  }
+  if (st === 404 || st === 400) { pantalla('no-vale'); return; }
+  err.textContent = 'No hemos podido hacerlo ahora. Vuelve a intentarlo en un momento o responde «baja» a cualquiera de nuestros correos.';
+  err.hidden = false;
+}
+$('b-correo').addEventListener('click', (e) => baja('correo', e.currentTarget));
+$('b-prueba').addEventListener('click', (e) => {
+  const abierto = $('confirmar').hidden;
+  $('confirmar').hidden = !abierto; e.currentTarget.setAttribute('aria-expanded', String(abierto));
+  if (abierto) $('b-prueba-si').focus();
+});
+$('b-prueba-si').addEventListener('click', (e) => baja('prueba', e.currentTarget));
+</script>
+</body>
+</html>
