@@ -579,7 +579,28 @@ var ORIGEN = (function () {
   return o || 'directo';
 })();
 var ORIGEN_EV = ORIGEN.split('/')[0];
-function mide(ev) { try { window.goatcounter && window.goatcounter.count && window.goatcounter.count({ path: ev, event: true }); } catch (e) {} }
+
+// ── Enlace privado de ensayo (4-nov-2026): viajedelalma.app/voluntarias/#ensayo=<código> deja rellenar y enviar el
+// formulario antes de la apertura. El código va detrás de «#» (no llega a ningún servidor, a las estadísticas ni a otras
+// webs), se guarda solo en esta pestaña y se quita de la dirección al entrar. Quien decide si vale es la base
+// (voluntarias_registra compara su huella). En ensayo no se cuenta nada en las estadísticas.
+var ENSAYO_CLAVE = 'vda_voluntarias_ensayo';
+var ENSAYO = (function () {
+  var forma = /^[A-Za-z0-9_-]{32,64}$/, c = '';
+  var m = /^#ensayo=([A-Za-z0-9_-]{32,64})$/.exec(location.hash);
+  if (m) {
+    c = m[1];
+    try { sessionStorage.setItem(ENSAYO_CLAVE, c); } catch (e) {}
+    history.replaceState(null, '', location.pathname + location.search);
+  } else {
+    try { c = sessionStorage.getItem(ENSAYO_CLAVE) || ''; } catch (e) {}
+    if (!forma.test(c)) c = '';
+  }
+  return c;
+})();
+function quitaEnsayo() { ENSAYO = ''; try { sessionStorage.removeItem(ENSAYO_CLAVE); } catch (e) {} }
+
+function mide(ev) { if (ENSAYO) return; try { window.goatcounter && window.goatcounter.count && window.goatcounter.count({ path: ev, event: true }); } catch (e) {} }
 var medido = {};
 function mideUnaVez(ev) { if (!medido[ev]) { medido[ev] = 1; mide(ev); } }
 
@@ -593,7 +614,9 @@ function muestra(id, enfoca) {
   var h = document.querySelector('#' + id + ' h1');
   if (h) { try { h.focus({ preventScroll: true }); } catch (e) { h.focus(); } }
 }
-function estado() { var t = Date.now(); return t < APERTURA ? 'antes' : (t >= CIERRE ? 'cerrada' : 'abierta'); }
+function estadoReal() { var t = Date.now(); return t < APERTURA ? 'antes' : (t >= CIERRE ? 'cerrada' : 'abierta'); }
+// Con el enlace de ensayo, antes de la apertura se ve y se envía como si ya estuviera abierta (la base lo comprueba)
+function estado() { var e = estadoReal(); return (e === 'antes' && ENSAYO) ? 'abierta' : e; }
 function segunHash(enfoca) {
   var e = estado();
   if (e !== 'abierta') { muestra(e, enfoca); return; }
@@ -986,6 +1009,7 @@ function envia(ev) {
   var inicio = inicioRelleno();
   datos.web = $('f-trampa').value;                               // campo trampa: una persona lo deja vacío
   datos.t = Math.max(0, Date.now() - inicio);                     // ms rellenando (sale de memoria si el navegador no guarda)
+  if (ENSAYO && estadoReal() === 'antes') datos.ensayo = ENSAYO;   // enlace privado de ensayo: lo comprueba la base
   var vuelve = function () { b.disabled = false; b.textContent = 'Enviar mi candidatura'; aviso.textContent = ''; };
   fetch(ALTA_URL, {
     method: 'POST', credentials: 'omit', cache: 'no-store',
@@ -998,6 +1022,7 @@ function envia(ev) {
       borraBorrador();
       mide('voluntarias-enviada-' + ORIGEN_EV);
       mide('voluntarias-enviada-' + datos.movil);
+      if (datos.ensayo) quitaEnsayo();                             // después de «mide»: en ensayo no se cuenta nada
       $('gracias-titulo').textContent = 'Gracias, ' + datos.nombre + '. Hemos recibido tu candidatura.';
       history.replaceState(null, '', location.pathname + location.search);
       aviso.textContent = '';
@@ -1007,7 +1032,7 @@ function envia(ev) {
     vuelve();
     var e = x.j.estado;
     mide('voluntarias-error-' + (e || x.status));
-    if (e === 'antes') { muestra('antes', true); return; }
+    if (e === 'antes') { quitaEnsayo(); muestra('antes', true); return; }   // también si el código de ensayo no vale
     if (e === 'cerrada' && Date.now() >= CIERRE) { muestra('cerrada', true); return; }
     if (e === 'menor') {
       marcaError('fecha', 'Para participar tienes que ser mayor de 18 años.');
