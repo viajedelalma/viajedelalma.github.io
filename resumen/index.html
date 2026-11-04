@@ -30,13 +30,20 @@ h1 em{font-style:italic;color:var(--oro-claro)}
 .entradilla{color:var(--tenue);text-align:center;margin:0 auto 8px;max-width:46ch}
 .bloque{background:linear-gradient(180deg,var(--noche-2),rgba(20,16,42,.6));border:1px solid var(--linea);border-radius:18px;padding:20px 18px;margin:18px 0}
 .etiqueta{font-size:.68rem;letter-spacing:.24em;text-transform:uppercase;color:var(--oro);margin:0 0 4px}
+/* Cabecera de cada bloque con su dibujo (iconos Lucide, licencia ISC, los mismos que la app) */
+.cabeza{display:flex;align-items:center;gap:12px;margin:0 0 12px}
+.cabeza .etiqueta{margin:0}
+.medalla{flex:none;width:42px;height:42px;border-radius:50%;border:1px solid var(--linea);background:radial-gradient(circle at 50% 30%,rgba(201,168,76,.18),rgba(28,22,54,.7));display:flex;align-items:center;justify-content:center;color:var(--oro)}
+.medalla svg{width:21px;height:21px;fill:none;stroke:currentColor;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
 h2{font-family:var(--display);font-weight:400;font-size:1.55rem;line-height:1.2;margin:0 0 10px;color:var(--oro-claro)}
 .dato{font-size:.95rem;color:var(--oro-claro);margin:0 0 10px}
 p{margin:0 0 12px}
 .texto p:last-child{margin-bottom:0}
 .dos{display:grid;grid-template-columns:1fr;gap:12px}
 @media (min-width:560px){.dos{grid-template-columns:1fr 1fr}}
-.ficha{border:1px solid var(--linea);border-radius:14px;padding:14px;background:rgba(28,22,54,.55)}
+.ficha{border:1px solid var(--linea);border-radius:14px;padding:14px;background:rgba(28,22,54,.55);overflow:hidden}
+/* Foto real de la planta o el mineral (las mismas de la app; bancos libres, sin IA) */
+.ficha .foto{display:block;width:calc(100% + 28px);max-width:none;height:auto;aspect-ratio:4/3;object-fit:cover;margin:-14px -14px 12px;background:var(--noche-3)}
 .ficha b{display:block;font-family:var(--display);font-weight:400;font-size:1.35rem;color:var(--oro-claro);line-height:1.2;margin-bottom:4px}
 details{margin-top:8px}
 summary{cursor:pointer;color:var(--oro);font-size:.9rem}
@@ -78,6 +85,17 @@ input:focus{outline:none;border-color:var(--oro)}
 .pie{font-size:.8rem;color:var(--tenue);text-align:center;margin-top:34px}
 .pie a{color:var(--tenue)}
 .cargando{text-align:center;color:var(--tenue);margin:40px 0}
+/* Ordenador: letra y cajas más grandes (opinión de Gemma, 4-nov-2026). En el móvil, igual que antes. */
+@media (min-width:900px){
+  html,body{font-size:18px}
+  .envoltura{max-width:800px;padding-top:44px}
+  .bloque{padding:28px 32px;border-radius:22px;margin:22px 0}
+  .dos{gap:18px}
+  .ficha{padding:18px}
+  .ficha .foto{width:calc(100% + 36px);margin:-18px -18px 14px}
+  .medalla{width:48px;height:48px}
+  .medalla svg{width:24px;height:24px}
+}
 </style>
 <script data-goatcounter="https://viajedelalma.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 </head>
@@ -118,25 +136,25 @@ input:focus{outline:none;border-color:var(--oro)}
       <br><button class="boton secundario" id="b-reintentar" type="button">Volver a intentarlo</button></p>
 
     <section class="bloque" id="b-cielo">
-      <p class="etiqueta">Tu cielo hoy</p>
+      <div class="cabeza"><span class="medalla" data-icono="cielo" aria-hidden="true"></span><p class="etiqueta">Tu cielo hoy</p></div>
       <div class="texto" id="r-cielo"></div>
       <ul class="aspectos" id="r-aspectos" hidden></ul>
       <p class="nota" id="r-precision" hidden></p>
     </section>
 
     <section class="bloque" id="b-luna">
-      <p class="etiqueta">La Luna</p>
+      <div class="cabeza"><span class="medalla" data-icono="luna" aria-hidden="true"></span><p class="etiqueta">La Luna</p></div>
       <h2 id="r-luna-titulo"></h2>
       <p class="dato" id="r-luna-dato"></p>
       <div class="texto" id="r-luna"></div>
     </section>
 
     <section class="bloque">
-      <p class="etiqueta">Planta y mineral</p>
+      <div class="cabeza"><span class="medalla" data-icono="planta" aria-hidden="true"></span><p class="etiqueta">Planta y mineral</p></div>
       <div class="dos">
-        <div class="ficha"><b id="r-planta"></b><span id="r-planta-corto"></span>
+        <div class="ficha"><img class="foto" id="r-planta-foto" width="640" height="480" alt="" hidden><b id="r-planta"></b><span id="r-planta-corto"></span>
           <details><summary>Su gesto de hoy</summary><p id="r-planta-ritual"></p></details></div>
-        <div class="ficha"><b id="r-mineral"></b><span id="r-mineral-corto"></span>
+        <div class="ficha"><img class="foto" id="r-mineral-foto" width="640" height="480" alt="" hidden><b id="r-mineral"></b><span id="r-mineral-corto"></span>
           <details><summary>Su gesto de hoy</summary><p id="r-mineral-ritual"></p></details></div>
       </div>
     </section>
@@ -144,7 +162,7 @@ input:focus{outline:none;border-color:var(--oro)}
     <div id="r-secciones"></div>
 
     <section class="bloque cuidado-alma" id="r-cuidado-alma" hidden>
-      <p class="etiqueta">Cuidado del Alma</p>
+      <div class="cabeza"><span class="medalla" data-icono="cuidado-alma" aria-hidden="true"></span><p class="etiqueta">Cuidado del Alma</p></div>
       <p>Si estás atravesando un momento muy difícil, no tienes que hacerlo a solas. Habla con alguien de confianza o con un profesional.</p>
       <p>Si tienes pensamientos de hacerte daño, en España puedes llamar al 024, gratis y a cualquier hora. Si estás en otro país, llama al número de emergencias de tu país.</p>
     </section>
@@ -187,6 +205,8 @@ try {
 } catch (e) { sb = null; }
 
 const PANTALLAS = ['cargando', 'entrar', 'aviso', 'resumen'];
+// Aprobada por Gemma el 4-nov: la práctica sale en la app como «Ritual breve», con los mismos pasos, pero no es guiada.
+const NOTA_PRACTICA = 'Es el mismo ritual breve que tienes hoy en la app, en la pantalla Hoy. Allí puedes marcarlo como hecho.';
 function muestra(id) { PANTALLAS.forEach((p) => { $(p).hidden = p !== id; }); }
 
 /* Texto con párrafos, siempre como texto (nunca como HTML). */
@@ -197,6 +217,32 @@ function pinta(el, texto) {
   });
 }
 function nodo(tag, clase, texto) { const n = document.createElement(tag); if (clase) n.className = clase; if (texto != null) n.textContent = texto; return n; }
+
+/* Dibujo de cada sección: iconos de Lucide 0.475.0 (licencia ISC; aviso completo en
+   /resumen/img/iconos/LICENCIA-lucide.txt), los mismos que usa la app, dibujados con
+   createElementNS a partir de estas formas fijas (nada de innerHTML). */
+const ICONOS = {"cielo":[["circle",{"cx":"12","cy":"12","r":"3"}],["circle",{"cx":"19","cy":"5","r":"2"}],["circle",{"cx":"5","cy":"19","r":"2"}],["path",{"d":"M10.4 21.9a10 10 0 0 0 9.941-15.416"}],["path",{"d":"M13.5 2.1a10 10 0 0 0-9.841 15.416"}]],"luna":[["path",{"d":"M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"}]],"planta":[["path",{"d":"M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"}],["path",{"d":"M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"}]],"alma":[["path",{"d":"M12 7v14"}],["path",{"d":"M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"}]],"mundo":[["circle",{"cx":"12","cy":"12","r":"10"}],["path",{"d":"M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"}],["path",{"d":"M2 12h20"}]],"practica":[["path",{"d":"M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"}]],"foco":[["circle",{"cx":"12","cy":"12","r":"4"}],["path",{"d":"M12 2v2"}],["path",{"d":"M12 20v2"}],["path",{"d":"m4.93 4.93 1.41 1.41"}],["path",{"d":"m17.66 17.66 1.41 1.41"}],["path",{"d":"M2 12h2"}],["path",{"d":"M20 12h2"}],["path",{"d":"m6.34 17.66-1.41 1.41"}],["path",{"d":"m19.07 4.93-1.41 1.41"}]],"cuidado":[["path",{"d":"M12 5a3 3 0 1 1 3 3m-3-3a3 3 0 1 0-3 3m3-3v1M9 8a3 3 0 1 0 3 3M9 8h1m5 0a3 3 0 1 1-3 3m3-3h-1m-2 3v-1"}],["circle",{"cx":"12","cy":"8","r":"2"}],["path",{"d":"M12 10v12"}],["path",{"d":"M12 22c4.2 0 7-1.667 7-5-4.2 0-7 1.667-7 5Z"}],["path",{"d":"M12 22c-4.2 0-7-1.667-7-5 4.2 0 7 1.667 7 5Z"}]],"dinero":[["circle",{"cx":"8","cy":"8","r":"6"}],["path",{"d":"M18.09 10.37A6 6 0 1 1 10.34 18"}],["path",{"d":"M7 6h1v4"}],["path",{"d":"m16.71 13.88.7.71-2.82 2.82"}]],"vinculos":[["path",{"d":"M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"}]],"carta":[["path",{"d":"M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0"}],["circle",{"cx":"12","cy":"12","r":"3"}]],"palabra":[["path",{"d":"M16 3a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2 1 1 0 0 1 1 1v1a2 2 0 0 1-2 2 1 1 0 0 0-1 1v2a1 1 0 0 0 1 1 6 6 0 0 0 6-6V5a2 2 0 0 0-2-2z"}],["path",{"d":"M5 3a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2 1 1 0 0 1 1 1v1a2 2 0 0 1-2 2 1 1 0 0 0-1 1v2a1 1 0 0 0 1 1 6 6 0 0 0 6-6V5a2 2 0 0 0-2-2z"}]],"cuidado-alma":[["path",{"d":"M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"}],["path",{"d":"M12 5 9.04 7.96a2.17 2.17 0 0 0 0 3.08c.82.82 2.13.85 3 .07l2.07-1.9a2.82 2.82 0 0 1 3.79 0l2.96 2.66"}],["path",{"d":"m18 15-2-2"}],["path",{"d":"m15 18-2-2"}]]};
+function icono(nombre) {
+  const formas = ICONOS[nombre]; if (!formas) return null;
+  const NS = 'http://www.w3.org/2000/svg';
+  const svg = document.createElementNS(NS, 'svg'); svg.setAttribute('viewBox', '0 0 24 24'); svg.setAttribute('aria-hidden', 'true'); svg.setAttribute('focusable', 'false');
+  formas.forEach(([tag, attrs]) => { const e = document.createElementNS(NS, tag); Object.entries(attrs).forEach(([k, v]) => e.setAttribute(k, v)); svg.appendChild(e); });
+  return svg;
+}
+function cabeza(nombre, titulo) {
+  const c = nodo('div', 'cabeza'); const m = nodo('span', 'medalla'); m.setAttribute('aria-hidden', 'true');
+  const svg = icono(nombre); if (svg) m.appendChild(svg); else m.hidden = true;
+  c.appendChild(m); c.appendChild(nodo('p', 'etiqueta', titulo)); return c;
+}
+document.querySelectorAll('[data-icono]').forEach((m) => { const svg = icono(m.dataset.icono); if (svg) m.appendChild(svg); });
+
+/* Foto de la planta o el mineral del día: /resumen/img/<plantas|minerales>/<id>.jpg (copia reducida de la de la app). */
+function foto(el, tipo, x) {
+  const id = x && typeof x.id === 'string' && /^[a-z0-9-]{2,40}$/.test(x.id) ? x.id : null;
+  el.onerror = () => { el.hidden = true; };
+  if (!id) { el.hidden = true; el.removeAttribute('src'); return; }
+  el.alt = x.nombre ? `Foto: ${x.nombre}` : ''; el.src = `/resumen/img/${tipo}/${id}.jpg`; el.hidden = false;
+}
 
 function pintaResumen(c, sinIa) {
   $('r-fecha').textContent = c.fecha_texto || '';
@@ -230,16 +276,17 @@ function pintaResumen(c, sinIa) {
   // Planta y mineral
   $('r-planta').textContent = c.planta.nombre; $('r-planta-corto').textContent = c.planta.corto; $('r-planta-ritual').textContent = c.planta.ritual;
   $('r-mineral').textContent = c.mineral.nombre; $('r-mineral-corto').textContent = c.mineral.corto; $('r-mineral-ritual').textContent = c.mineral.ritual;
+  foto($('r-planta-foto'), 'plantas', c.planta); foto($('r-mineral-foto'), 'minerales', c.mineral);
 
   // Secciones elegidas
   const cont = $('r-secciones'); cont.textContent = '';
   (c.secciones || []).forEach((s) => {
     const b = nodo('section', 'bloque' + (s.pendiente ? ' pendiente' : ''));
-    b.appendChild(nodo('p', 'etiqueta', s.titulo));
+    b.appendChild(cabeza(s.id, s.titulo));
     if (s.id === 'practica') {
       b.appendChild(nodo('h2', '', s.subtitulo || 'Tu práctica de hoy'));
       const ol = nodo('ol', 'pasos'); (s.pasos || []).forEach((x) => ol.appendChild(nodo('li', '', x))); b.appendChild(ol);
-      const n = nodo('p', 'nota'); n.append('Si quieres hacerlo guiado, lo tienes hoy en la app, en la pantalla Hoy. ');
+      const n = nodo('p', 'nota'); n.append(NOTA_PRACTICA + ' ');
       const a = nodo('a', '', 'Abrir la app'); a.href = '/web/'; a.addEventListener('click', () => mide('resumen-a-app')); n.appendChild(a); // los enlaces que se pintan después no los ve data-goatcounter-click
       b.appendChild(n);
     } else if (s.id === 'palabra') {
@@ -332,6 +379,7 @@ function limpia() {
   ['r-fecha', 'r-saludo', 'r-cielo', 'r-aspectos', 'r-luna-titulo', 'r-luna-dato', 'r-luna', 'r-secciones', 'r-semana',
     'r-planta', 'r-planta-corto', 'r-planta-ritual', 'r-mineral', 'r-mineral-corto', 'r-mineral-ritual'].forEach((id) => { if ($(id)) $(id).textContent = ''; });
   $('b-semana').hidden = true; $('r-cuidado-alma').hidden = true;
+  ['r-planta-foto', 'r-mineral-foto'].forEach((id) => { $(id).hidden = true; $(id).removeAttribute('src'); });
   muestra('cargando');
 }
 async function cuentaActual() {
