@@ -246,6 +246,17 @@ body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;
         <p class="error" id="e-nombre" hidden></p>
       </div>
 
+      <fieldset class="campo" id="c-trato" aria-describedby="ay-trato e-trato">
+        <legend>Género</legend>
+        <p class="ayuda" id="ay-trato">Lo usamos para escribirte en femenino, en masculino o sin género.</p>
+        <div class="opciones ancha-3">
+          <label class="opcion"><input type="radio" name="trato" value="femenino">Mujer</label>
+          <label class="opcion"><input type="radio" name="trato" value="masculino">Hombre</label>
+          <label class="opcion"><input type="radio" name="trato" value="neutro">Prefiero no decirlo</label>
+        </div>
+        <p class="error" id="e-trato" hidden></p>
+      </fieldset>
+
       <div class="campo" id="c-correo">
         <label class="pregunta" for="correo">¿En qué correo quieres recibir la información de la prueba?</label>
         <p class="ayuda" id="ay-correo">Aquí te comunicaremos si tienes plaza y, si participas, recibirás el Resumen diario personalizado y los avisos de tus informes. Si ya tienes cuenta en Viaje del Alma, utiliza el mismo correo.</p>
@@ -883,7 +894,7 @@ function recuperaBorrador() {
   ['nombre', 'correo', 'dia', 'mes', 'ano', 'h', 'm', 'contexto', 'region', 'libre'].forEach(function (k) {
     if (typeof d[k] === 'string' && f.elements[k]) f.elements[k].value = d[k];
   });
-  ['movil', 'cuenta', 'premium', 'conocia', 'horatipo', 'sigue', 'cielo', 'fechas', 'luna', 'dinero', 'carta', 'alma_diaria'].forEach(function (k) {
+  ['trato', 'movil', 'cuenta', 'premium', 'conocia', 'horatipo', 'sigue', 'cielo', 'fechas', 'luna', 'dinero', 'carta', 'alma_diaria'].forEach(function (k) {
     if (typeof d[k] !== 'string') return;
     var e = f.querySelector('input[name="' + k + '"][value="' + CSS.escape(d[k]) + '"]');
     if (e) e.checked = true;
@@ -956,7 +967,7 @@ function valida() {
   if (!nombre) { marcaError('nombre', 'Dinos cómo quieres que te llamemos.', $('nombre')); malos.push($('nombre')); }
   var correo = $('correo').value.trim();
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(correo)) { marcaError('correo', 'Ese correo no parece completo. Revísalo.', $('correo')); malos.push($('correo')); }
-  [['movil', 'Elige el móvil que usarás.'], ['cuenta', 'Elige una respuesta.'], ['premium', 'Elige una respuesta.'], ['conocia', 'Elige una respuesta.']].forEach(function (x) {
+  [['trato', 'Elige una respuesta.'], ['movil', 'Elige el móvil que usarás.'], ['cuenta', 'Elige una respuesta.'], ['premium', 'Elige una respuesta.'], ['conocia', 'Elige una respuesta.']].forEach(function (x) {
     if (!marcado(x[0])) { marcaError(x[0], x[1]); malos.push(document.querySelector('input[name="' + x[0] + '"]')); }
   });
   var f = fechaElegida();
@@ -987,6 +998,7 @@ function valida() {
   }
   return {
     nombre: nombre.slice(0, 60),
+    trato: marcado('trato'),   // cómo escribirle: femenino, masculino o neutro (decisión de Gemma, 4-nov-2026)
     correo: correo.slice(0, 254),
     movil: marcado('movil'),
     cuenta: marcado('cuenta'),
