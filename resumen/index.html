@@ -60,6 +60,7 @@ ol.pasos li{margin:0 0 6px}
 .nota a,.texto a{color:var(--oro-claro)}
 .cita{font-family:var(--display);font-style:italic;font-size:1.45rem;line-height:1.35;color:var(--oro-claro);text-align:center;margin:6px 0 2px}
 .pendiente{opacity:.7}
+.aviso-mundo{font-size:.95rem;color:var(--oro-claro);margin:4px 0 10px}
 .cuidado-alma{border-color:rgba(232,217,160,.55)}
 .carta-nombre{font-family:var(--display);font-size:1.3rem;color:var(--oro-claro);margin:0 0 6px}
 .aspectos{font-size:.86rem;color:var(--tenue);margin:8px 0 0;padding-left:1.1em}
@@ -279,6 +280,8 @@ function pintaResumen(c, sinIa) {
         ul.appendChild(li);
       });
       b.appendChild(ul);
+      // Menos de cuatro noticias de sus temas: se dice (REV-0311-V4-03)
+      if (s.aviso) b.appendChild(nodo('p', 'aviso-mundo', s.aviso));
       if (s.nota) b.appendChild(nodo('p', 'nota', s.nota));
     } else {
       const d = nodo('div', 'texto'); pinta(d, s.texto || (sinIa ? 'Llegará en cuanto vuelvas a intentarlo.' : '')); b.appendChild(d);
