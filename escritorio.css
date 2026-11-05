@@ -1,5 +1,5 @@
 /* WEB-ESCRITORIO-0511-01 · Base: 5ada7a993559e142ffb8148ffd6b7a6444ca75e0.
-   No estilos fuera de esta media query. No afecta a /web/, pedidos ni impresión. */
+   No estilos fuera de esta media query. No afecta a /web/, /web-prueba/ ni impresión. */
 @media screen and (min-width: 1024px) {
   html:has(body[data-vda-page]) { font-size: 18px; }
   body[data-vda-page] {
@@ -21,7 +21,8 @@
     z-index: 10;
     align-items: center;
     justify-content: space-between;
-    gap: 12px;
+    gap: 12px 20px;
+    flex-wrap: wrap;
     box-sizing: border-box;
     width: calc(100% - 64px);
     max-width: 1180px;
@@ -29,7 +30,7 @@
     padding: 20px 0;
     border-bottom: 1px solid rgba(196,154,60,.28);
     font-family: var(--display);
-    font-size: 13px;
+    font-size: 16px;
     line-height: 1.5;
     letter-spacing: .04em;
   }
@@ -80,7 +81,7 @@
   body[data-vda-page="inicio"] .p-nombre { display: block; font-size: 18px; letter-spacing: .03em; }
   body[data-vda-page="inicio"] .p-precio { display: block; white-space: normal; }
   body[data-vda-page="inicio"] .p-cuerpo { font-size: 21px; }
-  body[data-vda-page="inicio"] .p-cuerpo .descarga { max-width: 100%; font-size: 13px; letter-spacing: .06em; }
+  body[data-vda-page="inicio"] .p-cuerpo .descarga { max-width: 100%; font-size: 16px; letter-spacing: .06em; }
   body[data-vda-page="inicio"] .p-cuerpo .descarga-web { margin: 10px 0 0; }
   body[data-vda-page="inicio"] .regalo-portada { display: grid; grid-template-columns: minmax(0,1fr) minmax(0,1fr); column-gap: 32px; padding: 32px; }
   body[data-vda-page="inicio"] .regalo-portada > img { grid-column: 1; grid-row: 1 / 6; margin: 0; align-self: center; }
@@ -186,4 +187,117 @@
 
 @media screen and (min-width: 1280px) {
   body[data-vda-page="inicio"] .productos { grid-template-columns: repeat(3,minmax(0,1fr)); }
+}
+
+/* WEB-ESCRITORIO-0511-02 · Lectura y recorridos completos, solo en ordenador.
+   Mantener toda regla dentro de screen/min-width: móvil e impresión usan el original. */
+@media screen and (min-width: 1024px) {
+  /* Texto auxiliar: 20 px en serif; controles y pies: 18 px. */
+  body[data-vda-page] :is(.nota, .chica, .ayuda, .pista, .pista-inline, .aviso,
+    .aviso-f, .aviso-frio, .aviso-informe, .aviso-correo, .aviso-mundo, .error,
+    .rescate, .revisa-correo, .entrega, .pack, .legal, .fuente, .fuentes,
+    .acepto, .etsy, .nota-hemis, .letra-chica, .descarga-nota, .cta-web-nota,
+    .rp-nota, .precio small, .precio-cab small, .producto small, .te-llega,
+    .tira, .dato, .alma-ref, .alma-eco, .alma-momento, .aspectos,
+    .garantias li, .indice p.enc, .indice .magnitud, .indice .carta-entera,
+    .indice .tuyo, .cabecera-carta p, .compra-arriba p, .regalar-arriba,
+    .velo-cta p, .eje p, .tres p, .incluye span, .fijo li, .noches li,
+    .caja, .enlace-volver, .ip-sub, .ip-nota, .col-cuando, .titulares p) {
+    font-size: 20px;
+    line-height: 1.6;
+  }
+  body[data-vda-page] :is(details p, summary, figcaption, .tabla, table.lunas,
+    ul.fiestas li, .barra span, .barra .txt, .temas button, .semana button) {
+    font-size: 20px;
+  }
+  body[data-vda-page] :is(.pie, footer, footer p, footer nav, .alma-fuente,
+    .contador, .redes a, .lectura h3 small) {
+    font-size: 18px;
+    line-height: 1.6;
+  }
+  body[data-vda-page] :is(label, .casilla, .casilla label, .check, .rol-correo,
+    input, select, textarea, button, .boton, .boton-b, .descarga, .enlace-boton) {
+    font-size: 18px;
+    line-height: 1.5;
+  }
+  body[data-vda-page] :is(input, select, textarea) { min-width: 0; }
+  body[data-vda-page] :is(label, .boton, .boton-b, .descarga, button.principal) {
+    letter-spacing: .07em;
+  }
+  body[data-vda-page] :is(.casilla label, .check, .rol-correo, .vinculo) {
+    letter-spacing: normal;
+  }
+  body[data-vda-page] :is(.marca, .eyebrow, .etiqueta, .fecha, .rol, .rotulo,
+    .cinta, .aviso-ejemplo, .tema, .ritual .fase, .cta-web-nuevo, .musica,
+    .t-etiqueta, .rp-etiqueta, .col-eti, .redes .t, .redes .titulo,
+    .cuando b, .noches li b, .reloj span, table.lunas thead th, ul.fiestas li b) {
+    font-size: 16px;
+    line-height: 1.5;
+    letter-spacing: .1em;
+  }
+  body[data-vda-page] .precio span { font-size: 20px; }
+  body[data-vda-page="inicio"] :is(.p-precio, .regalo-portada .rp-precio) { font-size: 20px; }
+  body[data-vda-page="inicio"] .cta-web-txt { font-size: 20px; }
+  body[data-vda-page="inicio"] .p-cuerpo .descarga { font-size: 18px; }
+  body[data-vda-page="inicio"] .capa .marca { font-size: 16px; }
+  body[data-vda-page="inicio"] .t-ir { font-size: 16px; white-space: normal; }
+  body[data-vda-page="inicio"] .temporada .p-nombre { font-size: 20px; white-space: normal; }
+  body[data-vda-page="app"] :is(header span, .sonido, li small, .fotos figcaption) { font-size: 18px; }
+  body[data-vda-page="app"] :is(.letra-chica, .campo input, .campo button, .nota) { font-size: 20px; }
+  body[data-vda-page="regalo"] :is(.vista p, .hemi a.boton) { font-size: 18px; }
+  body[data-vda-page="canjear"] .hemi a { font-size: 18px; }
+  body[data-vda-page="voluntarias"] .nivel-card .num { font-size: 20px; }
+
+  /* Algunos textos de ayuda antiguos llevan el tamaño en style.
+     Solo estos tamaños pequeños: no modificar los títulos ni las ilustraciones SVG. */
+  body[data-vda-page] :is(p, span, label)[style*="font-size:.7"],
+  body[data-vda-page] :is(p, span, label)[style*="font-size:.8"],
+  body[data-vda-page] :is(p, span, label)[style*="font-size:.9"] { font-size: 20px !important; }
+
+  /* Formularios: espacio para leer y escribir sin alargar demasiado cada línea. */
+  body:is([data-vda-page="pedido-carta"], [data-vda-page="pedido-sinastria"],
+    [data-vda-page="canjear"], [data-vda-page="baja"]) > .envoltura {
+    max-width: 960px;
+  }
+  body[data-vda-page="pedido-carta"] .producto-cab {
+    grid-template-columns: minmax(0,1fr) 220px;
+    gap: 32px;
+    align-items: center;
+  }
+  body[data-vda-page="pedido-carta"] .producto-cab h1 { font-size: 38px; }
+  body[data-vda-page="pedido-sinastria"] .persona { padding: 12px 28px 28px; }
+  body[data-vda-page="canjear"] #fc { max-width: 520px !important; }
+  body[data-vda-page="baja"] .bloque { padding: 28px; }
+  body[data-vda-page="regalo"] :is(.preguntas, .vista) { max-width: 760px; }
+
+  /* Confirmaciones y descargas: misma cabecera, caja más amplia, lectura centrada. */
+  body:is([data-vda-page="gracias-regalo"], [data-vda-page="vale"],
+    [data-vda-page="descarga-calendario"], [data-vda-page="descarga-samhain"]) > .envoltura {
+    max-width: 1040px;
+  }
+  body[data-vda-page="gracias-regalo"] .caja { max-width: 720px; padding: 28px; }
+  body[data-vda-page="vale"] .aviso { max-width: 720px; }
+  body[data-vda-page="descarga-calendario"] .portada { max-width: 680px; }
+  body[data-vda-page="descarga-calendario"] .form { max-width: 520px; }
+  body[data-vda-page="descarga-samhain"] .eje { gap: 24px; }
+  body[data-vda-page="descarga-samhain"] .eje > * { min-width: 0; }
+  body[data-vda-page="gracias"] { justify-content: flex-start; padding: 0; }
+  body[data-vda-page="gracias"] > main {
+    box-sizing: border-box; width: 100%; max-width: 960px; padding: 48px 32px 80px;
+  }
+  body[data-vda-page="gracias"] :is(.sub, .pasos) { max-width: 60ch; }
+
+  /* Páginas legales: ampliar la caja, conservar una sola columna de lectura. */
+  body[data-vda-page="legal"] > .wrap {
+    box-sizing: border-box; width: 100%; max-width: 1040px; margin: 0 auto;
+    padding: 48px 48px 100px;
+  }
+  body[data-vda-page="legal"] .wrap > nav { font-size: 18px; line-height: 1.7; }
+  body[data-vda-page="legal"] h1 { letter-spacing: .04em; }
+
+  /* Error y enlaces de paso. El redireccionamiento original no cambia. */
+  body[data-vda-page="no-encontrada"] { flex-direction: column; justify-content: flex-start; }
+  body[data-vda-page="no-encontrada"] > p { margin: 120px auto; font-size: 24px; }
+  body[data-vda-page="redireccion"] main { max-width: 760px; }
+  body[data-vda-page="redireccion"] a { line-height: 1.6; }
 }
