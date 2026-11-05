@@ -1,0 +1,189 @@
+/* WEB-ESCRITORIO-0511-01 · Base: 5ada7a993559e142ffb8148ffd6b7a6444ca75e0.
+   No estilos fuera de esta media query. No afecta a /web/, pedidos ni impresión. */
+@media screen and (min-width: 1024px) {
+  html:has(body[data-vda-page]) { font-size: 18px; }
+  body[data-vda-page] {
+    --noche: #080614;
+    --oro: #C49A3C;
+    --azul: #3C9AC4;
+    --display: "Cinzel", Georgia, serif;
+    --serif: "Cormorant Garamond", Georgia, serif;
+    background-color: var(--noche);
+    font-family: var(--serif);
+    font-size: 22px;
+    line-height: 1.65;
+  }
+
+  /* Oculta por el atributo hidden en móvil, incluso si la hoja no se descarga. */
+  body[data-vda-page] > .vda-desktop-nav[hidden] {
+    display: flex !important;
+    position: relative;
+    z-index: 10;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    box-sizing: border-box;
+    width: calc(100% - 64px);
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 20px 0;
+    border-bottom: 1px solid rgba(196,154,60,.28);
+    font-family: var(--display);
+    font-size: 13px;
+    line-height: 1.5;
+    letter-spacing: .04em;
+  }
+  .vda-desktop-nav a { color: #E8CE8C; text-decoration: none; border: 0; padding: 8px 0; }
+  .vda-desktop-nav a:hover { color: #F6E3AE; }
+  .vda-desktop-nav a:focus-visible { outline: 2px solid #3C9AC4; outline-offset: 5px; }
+  .vda-desktop-nav .vda-nav-brand { flex: 0 0 44px; padding: 0; line-height: 0; }
+  .vda-desktop-nav img { display: block; width: 44px; height: 44px; }
+
+  body[data-vda-page] > .envoltura,
+  body[data-vda-page="inicio"] .wrap,
+  body[data-vda-page="app"] > .wrap {
+    box-sizing: border-box;
+    width: 100%;
+    max-width: 1180px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 32px;
+    padding-right: 32px;
+  }
+  body[data-vda-page] > .envoltura { padding-top: 48px; padding-bottom: 100px; }
+  body[data-vda-page] > .envoltura > .marca { margin-bottom: 32px; }
+  body[data-vda-page] h1 { font-family: var(--display); font-size: clamp(36px,3.5vw,50px); line-height: 1.2; font-weight: 400; }
+  body[data-vda-page] h2 { font-family: var(--display); font-size: 25px; line-height: 1.35; }
+  body[data-vda-page] .entradilla { font-size: 23px; line-height: 1.55; }
+  body[data-vda-page] > .envoltura > p,
+  body[data-vda-page] > .envoltura > details { max-width: 72ch; }
+  body[data-vda-page] > .envoltura > .entradilla { max-width: 60ch; }
+
+  /* Portada: cabecera amplia, regalo destacado y catálogo en dos columnas. */
+  body[data-vda-page="inicio"] > .marca { display: none; }
+  body[data-vda-page="inicio"] .musica { top: 106px; right: 20px; }
+  body[data-vda-page="inicio"] header.hero.wrap { display: grid; grid-template-columns: minmax(0,.65fr) minmax(0,1.35fr); column-gap: 40px; padding-top: 48px; padding-bottom: 48px; text-align: left; }
+  body[data-vda-page="inicio"] header.hero > * { grid-column: 2; }
+  body[data-vda-page="inicio"] header.hero .dial { grid-column: 1; grid-row: 1 / 7; width: 240px; max-width: 100%; margin: auto; }
+  body[data-vda-page="inicio"] header.hero .sub { display: block; max-width: 56ch; margin-left: 0; }
+  body[data-vda-page="inicio"] header.hero .sello { display: flex; margin: 20px auto; }
+  body[data-vda-page="inicio"] .cta-web { max-width: 720px; }
+  body[data-vda-page="inicio"] .productos { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 22px; align-items: start; }
+  body[data-vda-page="inicio"] .productos > .eyebrow,
+  body[data-vda-page="inicio"] .productos > h2,
+  body[data-vda-page="inicio"] .regalo-portada,
+  body[data-vda-page="inicio"] .temporada { grid-column: 1 / -1; }
+  body[data-vda-page="inicio"] .productos > h2 { display: block; margin: 0 0 8px; }
+  body[data-vda-page="inicio"] .producto { min-width: 0; margin: 0; }
+  body[data-vda-page="inicio"] .producto summary { min-height: 104px; padding: 22px; }
+  body[data-vda-page="inicio"] .p-txt { display: block; }
+  body[data-vda-page="inicio"] .p-nombre { display: block; font-size: 18px; letter-spacing: .03em; }
+  body[data-vda-page="inicio"] .p-precio { display: block; white-space: normal; }
+  body[data-vda-page="inicio"] .p-cuerpo { font-size: 21px; }
+  body[data-vda-page="inicio"] .p-cuerpo .descarga { max-width: 100%; font-size: 13px; letter-spacing: .06em; }
+  body[data-vda-page="inicio"] .p-cuerpo .descarga-web { margin: 10px 0 0; }
+  body[data-vda-page="inicio"] .regalo-portada { display: grid; grid-template-columns: minmax(0,1fr) minmax(0,1fr); column-gap: 32px; padding: 32px; }
+  body[data-vda-page="inicio"] .regalo-portada > img { grid-column: 1; grid-row: 1 / 6; margin: 0; align-self: center; }
+  body[data-vda-page="inicio"] .regalo-portada > h3,
+  body[data-vda-page="inicio"] .regalo-portada > p { grid-column: 2; }
+
+  /* Lectura y productos: las listas comparables usan el ancho; la prosa no. */
+  body[data-vda-page="revolucion"] .eje,
+  body[data-vda-page="samhain"] .eje { gap: 24px; }
+  body[data-vda-page="revolucion"] ul.lista,
+  body[data-vda-page="sinastria"] ul.lista,
+  body[data-vda-page="calendario"] ul.lista,
+  body[data-vda-page="ritual"] .cuando {
+    display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 16px 32px;
+  }
+  body[data-vda-page="sinastria"] .tres { gap: 24px; }
+  body[data-vda-page="sinastria"] .tres > div { padding: 24px; }
+  body[data-vda-page="revolucion"] .precio,
+  body[data-vda-page="sinastria"] .precio,
+  body[data-vda-page="samhain"] .precio { max-width: 720px; margin: 40px auto; padding: 32px; }
+  body[data-vda-page="sinastria"] .muestra { max-width: 820px; margin: 32px auto; }
+  body[data-vda-page="sinastria"] > .envoltura { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); column-gap: 40px; align-items: start; }
+  body[data-vda-page="sinastria"] > .envoltura > * { grid-column: 1 / -1; min-width: 0; }
+  body[data-vda-page="sinastria"] > .envoltura > h1 { grid-column: 1; grid-row: 2; }
+  body[data-vda-page="sinastria"] > .envoltura > .entradilla { grid-column: 1; grid-row: 3; }
+  body[data-vda-page="sinastria"] .muestra:first-of-type { grid-column: 2; grid-row: 2 / 4; width: 100%; margin: 0; }
+  body[data-vda-page="ritual"] .gestos,
+  body[data-vda-page="ritual"] .tirada,
+  body[data-vda-page="ritual"] .guia { max-width: 72ch; }
+
+  /* Calendario: selector y compra al lado de la muestra, sin mover nodos. */
+  body[data-vda-page="calendario"] > .envoltura { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); column-gap: 40px; align-items: start; }
+  body[data-vda-page="calendario"] > .envoltura > * { grid-column: 1 / -1; min-width: 0; }
+  body[data-vda-page="calendario"] .hemis { grid-column: 1; grid-row: 4; }
+  body[data-vda-page="calendario"] .nota-hemis { grid-column: 1; grid-row: 5; }
+  body[data-vda-page="calendario"] .muestra { grid-column: 2; grid-row: 4 / 7; width: 100%; margin: 22px 0 0; align-self: center; }
+  body[data-vda-page="calendario"] #precio { grid-column: 1; grid-row: 6; }
+  body[data-vda-page="calendario"] .galeria { gap: 24px; }
+  body[data-vda-page="calendario"] .regalo { width: 100%; max-width: 760px; justify-self: center; }
+
+  /* Regalo: imagen y presentación, tres tarjetas y pasos. El formulario conserva su ancho. */
+  body[data-vda-page="regalo"] .cab { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); column-gap: 40px; text-align: left; align-items: start; }
+  body[data-vda-page="regalo"] .cab > * { grid-column: 1; }
+  body[data-vda-page="regalo"] .cab > .pack { grid-column: 2; grid-row: 1 / 6; align-self: center; margin: 0; width: 100%; }
+  body[data-vda-page="regalo"] .cab > .boton,
+  body[data-vda-page="regalo"] .cab > .cinta { justify-self: start; }
+  body[data-vda-page="regalo"] .cab .entradilla { margin-left: 0; }
+  body[data-vda-page="regalo"] .incluye,
+  body[data-vda-page="regalo"] .pasos { max-width: none; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 24px; }
+  body[data-vda-page="regalo"] .incluye li { grid-template-columns: 1fr; align-content: start; padding: 24px; }
+  body[data-vda-page="regalo"] .preguntas { max-width: 760px; }
+
+  /* Carta: calculadora contenida, lecturas e índice distribuidos sin alterar el modo venta. */
+  body[data-vda-page="carta"] > .envoltura { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); column-gap: 40px; align-items: start; }
+  body[data-vda-page="carta"] > .envoltura > * { grid-column: 1 / -1; min-width: 0; }
+  body[data-vda-page="carta"] > .envoltura > h1 { grid-column: 1; grid-row: 2; }
+  body[data-vda-page="carta"] > .envoltura > .entradilla { grid-column: 1; grid-row: 3; }
+  body[data-vda-page="carta"] .compra-arriba { grid-column: 2; grid-row: 2 / 4; margin: 0; align-self: center; padding: 24px; border: 1px solid var(--linea); }
+  body[data-vda-page="carta"] #formulario { max-width: 720px; margin-left: auto; margin-right: auto; }
+  body[data-vda-page="carta"] .lecturas { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 24px; }
+  body[data-vda-page="carta"] .lectura { grid-template-columns: 1fr; gap: 8px; padding: 24px; border: 1px solid var(--linea); }
+  body[data-vda-page="carta"] .lectura .glifo { text-align: left; }
+  body[data-vda-page="carta"] .muestra .parrafos { max-width: 72ch; margin-left: auto; margin-right: auto; }
+  body[data-vda-page="carta"] .indice ol { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); column-gap: 48px; }
+  body[data-vda-page="carta"] .puerta .compra { max-width: 720px; margin: 0 auto; }
+  body[data-vda-page="carta"] .regalo-correo { max-width: 720px; margin-left: auto; margin-right: auto; }
+
+  /* Página comercial de la app, distinta de la exportación Expo /web/. */
+  body[data-vda-page="app"] > .wrap { display: grid; grid-template-columns: minmax(0,1.2fr) minmax(0,1fr); gap: 0 48px; padding-top: 40px; }
+  body[data-vda-page="app"] > .wrap > * { grid-column: 1 / -1; min-width: 0; }
+  body[data-vda-page="app"] > .wrap > h1 { grid-column: 1; grid-row: 2; text-align: left; }
+  body[data-vda-page="app"] > .wrap > .sub { grid-column: 1; grid-row: 3; text-align: left; }
+  body[data-vda-page="app"] .vbox { grid-column: 2; grid-row: 2 / 7; align-self: start; }
+  body[data-vda-page="app"] #cta1 { grid-column: 1; grid-row: 4; margin: 8px 0 0; }
+  body[data-vda-page="app"] #cta1 + .nota { grid-column: 1; grid-row: 5; text-align: left; }
+  body[data-vda-page="app"] .iphone { grid-column: 1; grid-row: 6; max-width: none; margin: 0 0 32px; }
+  body[data-vda-page="app"] > .wrap > ul { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); column-gap: 32px; }
+  body[data-vda-page="app"] .fotos { gap: 24px; max-width: 900px; width: 100%; justify-self: center; }
+  body[data-vda-page="app"] .correo,
+  body[data-vda-page="app"] .ritual { width: 100%; max-width: 760px; justify-self: center; }
+
+  /* Resumen: solo el estado ya visible se distribuye; no revela secciones ocultas. */
+  body[data-vda-page="resumen"] #resumen:not([hidden]) { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 24px; }
+  body[data-vda-page="resumen"] #resumen > * { grid-column: 1 / -1; min-width: 0; }
+  body[data-vda-page="resumen"] #resumen > #b-cielo { grid-column: 1; }
+  body[data-vda-page="resumen"] #resumen > #b-luna { grid-column: 2; }
+  body[data-vda-page="resumen"] #resumen > .bloque { margin: 0; }
+  body[data-vda-page="resumen"] #r-secciones { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 24px; align-items: start; }
+  body[data-vda-page="resumen"] #r-secciones > .bloque { min-width: 0; margin: 0; }
+  body[data-vda-page="resumen"] #entrar,
+  body[data-vda-page="resumen"] #aviso { max-width: 720px; margin: 0 auto; }
+  body[data-vda-page="resumen"] .texto { max-width: 72ch; }
+  body[data-vda-page="resumen"] .bloque { padding: 28px; }
+  body[data-vda-page="resumen"] .dos { gap: 24px; }
+
+  /* Voluntarias ya tenía escritorio a 960px: solo se armoniza la anchura exterior. */
+  body[data-vda-page="voluntarias"] #formulario,
+  body[data-vda-page="voluntarias"] #gracias,
+  body[data-vda-page="voluntarias"] #antes,
+  body[data-vda-page="voluntarias"] #cerrada { max-width: 780px; }
+  body[data-vda-page="voluntarias"] .rejilla.tres { grid-template-columns: repeat(3,minmax(0,1fr)); }
+}
+
+@media screen and (min-width: 1280px) {
+  body[data-vda-page="inicio"] .productos { grid-template-columns: repeat(3,minmax(0,1fr)); }
+}
