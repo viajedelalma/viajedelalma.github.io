@@ -347,6 +347,8 @@ function nivelMes(lista) {
   const notas = [];
   const botones = botonesMes(i, 'boton');
   if (!botones.length && i.enviado_en) notas.push(`Te lo enviamos a tu correo el ${dia(i.enviado_en)}.`);
+  // El piloto tiene dos (17-nov y 17-dic): lo mismo que dice el correo del primero (texto de la maqueta v2).
+  if (i.desde === '2026-11-17') notas.push('El siguiente, del 17 de diciembre al 16 de enero, llega el 17 de diciembre.');
   if (antes.length) {
     const ul = nodo('ul', 'meses');
     antes.forEach((x) => { const li = nodo('li', '', `Del ${dia(x.desde)} al ${dia(x.hasta)}`); botonesMes(x, '').forEach((a) => li.appendChild(a)); ul.appendChild(li); });
