@@ -490,9 +490,12 @@ let USUARIO = null, TURNO = 0, GEN = 0, CARGADO = 0;
 async function cuentaActual() {
   try { const { data } = await sb.auth.getSession(); return (data && data.session) || null; } catch (e) { return null; }
 }
+function borraDatos() {
+  ['e-saludo', 'e-cuenta', 'e-niveles', 'e-compras', 'e-ofertas'].forEach((id) => vacia($(id)));
+}
 function limpia() {
   TURNO++; GEN++; USUARIO = null; CARGADO = 0;
-  ['e-saludo', 'e-cuenta', 'e-niveles', 'e-compras', 'e-ofertas'].forEach((id) => vacia($(id)));
+  borraDatos();
   franja('');
   muestra('cargando');
 }
@@ -516,12 +519,21 @@ async function carga(silencio) {
   if (!silencio) muestra('cargando');
   const sesion = await cuentaActual();
   if (turno !== TURNO) return;
-  if (!sesion) { USUARIO = null; muestra('entrar'); mide('mi-espacio-pide-entrar'); return; }
+  if (!sesion) {
+    // MIE2-01: sin sesión no se queda nada de la cuenta anterior (tampoco en una recarga silenciosa).
+    // La franja solo se borra si había una cuenta: la de «correo confirmado, entra» se queda.
+    const habia = !!USUARIO;
+    GEN++; USUARIO = null; CARGADO = 0; borraDatos();
+    if (habia) franja('');
+    muestra('entrar'); mide('mi-espacio-pide-entrar'); return;
+  }
   const uid = sesion.user.id;
   if (USUARIO && USUARIO !== uid) { limpia(); return carga(); } // otra cuenta: nada de la anterior se queda
   const j = await llama({ modo: 'estado' }, sesion);
   const ahora = await cuentaActual();
-  if (turno !== TURNO || !ahora || ahora.user.id !== uid) return; // cambió la cuenta o empezó otra carga
+  if (turno !== TURNO) return;                        // una carga más nueva manda (no se borra lo suyo)
+  if (!ahora) { limpia(); muestra('entrar'); return; } // MIE2-01: la sesión se fue mientras tanto
+  if (ahora.user.id !== uid) { limpia(); return carga(); } // cambió la cuenta: se borra y se carga la nueva
   USUARIO = uid;
   if (j && j.estado === 'sin_sesion') { await salir(); return; }
   if (!j || j.estado !== 'ok') {
