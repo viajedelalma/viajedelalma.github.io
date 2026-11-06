@@ -296,8 +296,8 @@ function pintaResumen(c, sinIa) {
   const cont = $('r-secciones'); cont.textContent = '';
   (c.secciones || []).forEach((s) => {
     const b = nodo('section', 'bloque' + (s.pendiente ? ' pendiente' : ''));
-    // REV-0611-FRASE (FRA-01): los Resúmenes guardados antes del 6-nov llevan «Palabra del día»; se lee el nombre de ahora.
-    b.appendChild(cabeza(s.id, s.id === 'palabra' ? 'Frase del día' : s.titulo));
+    // REV-0611-FRASE (FRA-01): los Resúmenes guardados antes llevan otro nombre («Palabra del día» o «Frase del día»); se lee el de ahora.
+    b.appendChild(cabeza(s.id, s.id === 'palabra' ? 'Afirmación del día' : s.titulo));
     if (s.id === 'practica') {
       b.appendChild(nodo('h2', '', s.subtitulo || 'Tu práctica de hoy'));
       const ol = nodo('ol', 'pasos'); (s.pasos || []).forEach((x) => ol.appendChild(nodo('li', '', x))); b.appendChild(ol);
