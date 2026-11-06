@@ -1,0 +1,630 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<title>Mi espacio · Viaje del Alma</title>
+<meta name="description" content="Todo lo tuyo de Viaje del Alma en un solo sitio: tu Premium, tu Resumen diario, Tu mes y lo que has comprado.">
+<link rel="icon" href="/favicon.png">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Karla:wght@300;400;500;700&display=swap">
+<style>
+/* Base: las mismas piezas que /resumen (bloque, cabeza, medalla, boton). */
+:root{
+  --noche:#0B0818; --noche-2:#14102A; --noche-3:#1C1636;
+  --oro:#C9A84C; --oro-claro:#E8D9A0; --texto:#EDE7DC; --tenue:#A99CCB; --linea:rgba(201,168,76,.22);
+  --display:'Cormorant Garamond','Iowan Old Style',Georgia,serif;
+  --cuerpo:'Karla','Helvetica Neue',Arial,sans-serif;
+}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+body{margin:0;background:var(--noche);color:var(--texto);font-family:var(--cuerpo);font-size:16px;line-height:1.65;-webkit-font-smoothing:antialiased;font-variant-numeric:lining-nums;
+  background-image:radial-gradient(ellipse 90% 38% at 50% 0%,rgba(107,78,158,.34),transparent 70%);background-repeat:no-repeat;min-height:100vh}
+.envoltura{max-width:640px;margin:0 auto;padding:30px 16px 72px}
+.marca{font-size:.72rem;letter-spacing:.34em;color:var(--oro);text-transform:uppercase;margin-bottom:22px;text-align:center}
+.marca a{color:inherit;text-decoration:none;display:inline-flex;align-items:center;gap:10px}
+.marca img{border-radius:50%;border:1px solid var(--oro)}
+.fecha{font-size:.74rem;letter-spacing:.24em;text-transform:uppercase;color:var(--tenue);text-align:center;margin:0 auto 6px}
+h1{font-family:var(--display);font-weight:300;font-size:clamp(2.1rem,8vw,2.9rem);line-height:1.08;margin:0 0 8px;text-align:center}
+h1 em{font-style:italic;color:var(--oro-claro)}
+.entradilla{color:var(--tenue);text-align:center;margin:0 auto 8px;max-width:46ch}
+.bloque{background:linear-gradient(180deg,var(--noche-2),rgba(20,16,42,.6));border:1px solid var(--linea);border-radius:18px;padding:20px 18px;margin:18px 0}
+.etiqueta{font-size:.68rem;letter-spacing:.24em;text-transform:uppercase;color:var(--oro);margin:0 0 4px}
+.cabeza{display:flex;align-items:center;gap:12px;margin:0 0 12px}
+.cabeza .etiqueta{margin:0}
+.medalla{flex:none;width:42px;height:42px;border-radius:50%;border:1px solid var(--linea);background:radial-gradient(circle at 50% 30%,rgba(201,168,76,.18),rgba(28,22,54,.7));display:flex;align-items:center;justify-content:center;color:var(--oro)}
+.medalla svg{width:21px;height:21px;fill:none;stroke:currentColor;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+h2{font-family:var(--display);font-weight:400;font-size:1.55rem;line-height:1.2;margin:0 0 10px;color:var(--oro-claro)}
+p{margin:0 0 12px}
+.nota{font-size:.88rem;color:var(--tenue)}
+.nota a{color:var(--oro-claro)}
+label{display:block;font-size:.7rem;letter-spacing:.19em;text-transform:uppercase;color:var(--oro);margin:18px 0 7px}
+input{width:100%;font:inherit;color:var(--texto);background:var(--noche-3);border:1px solid var(--linea);border-radius:12px;padding:13px 14px}
+input:focus{outline:none;border-color:var(--oro)}
+.boton{display:inline-block;border:0;cursor:pointer;font:inherit;font-weight:700;padding:15px 26px;border-radius:999px;background:linear-gradient(135deg,var(--oro-claro),var(--oro));color:#1a1408;text-decoration:none;margin-top:20px}
+.boton[disabled]{opacity:.6;cursor:default}
+.boton.secundario{background:none;border:1px solid var(--oro);color:var(--oro-claro);font-weight:500}
+.boton:focus-visible,.lista a:focus-visible,.descargas a:focus-visible{outline:2px solid #3C9AC4;outline-offset:3px}
+.centro{text-align:center}
+.error{color:#f2b8b5;font-size:.92rem;margin-top:12px}
+.pie{font-size:.8rem;color:var(--tenue);text-align:center;margin-top:34px}
+.pie a{color:var(--tenue)}
+.cargando{text-align:center;color:var(--tenue);margin:40px 0}
+/* «Mi espacio» · móvil (maqueta v2, aprobada el 6-nov-2026) */
+.cuenta{font-size:.86rem;color:var(--tenue);text-align:center;margin:0 auto 4px;overflow-wrap:anywhere}
+.cuenta .boton{margin-top:10px;padding:9px 18px;font-size:.9rem}
+.seccion-titulo{font-size:.7rem;letter-spacing:.26em;text-transform:uppercase;color:var(--tenue);text-align:center;margin:34px auto 4px}
+.franja{border:1px solid rgba(232,217,160,.55);border-radius:14px;padding:12px 16px;margin:18px 0 0;background:rgba(201,168,76,.10);color:var(--oro-claro);font-size:.95rem}
+.nivel .estado{display:inline-block;font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;color:#1a1408;background:linear-gradient(135deg,var(--oro-claro),var(--oro));border-radius:999px;padding:3px 10px;margin:0 0 10px}
+.nivel .estado.apagado{background:none;border:1px solid var(--linea);color:var(--tenue)}
+.nivel h2{margin-bottom:6px}
+.nivel p{margin:0 0 6px}
+.acciones{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px}
+.acciones .boton{margin-top:0;padding:12px 20px}
+.lista{list-style:none;margin:0;padding:0}
+.lista li{display:flex;justify-content:space-between;gap:14px;align-items:flex-start;padding:14px 0;border-top:1px solid var(--linea)}
+.lista li:first-child{border-top:0;padding-top:2px}
+.lista li > div{min-width:0}
+.lista b{display:block;font-family:var(--display);font-weight:400;font-size:1.3rem;line-height:1.2;color:var(--oro-claro)}
+.lista .detalle{font-size:.92rem;color:var(--tenue);margin:2px 0 0}
+.lista .boton{flex:none;margin-top:0;padding:8px 16px;font-size:.88rem}
+.descargas{display:flex;flex-wrap:wrap;gap:8px 16px;margin:8px 0 0;font-size:.92rem}
+.descargas a{color:var(--oro-claro)}
+.meses{list-style:none;margin:10px 0 0;padding:0;font-size:.88rem;color:var(--tenue)}
+.meses li{margin:4px 0}
+.meses a{color:var(--oro-claro);margin-left:8px}
+.ofertas{display:grid;grid-template-columns:1fr;gap:12px}
+.oferta{border:1px solid var(--linea);border-radius:14px;padding:14px;background:rgba(28,22,54,.55);display:flex;flex-direction:column}
+.oferta b{display:block;font-family:var(--display);font-weight:400;font-size:1.3rem;line-height:1.2;color:var(--oro-claro)}
+.oferta .detalle{font-size:.92rem;color:var(--tenue);margin:4px 0 10px;flex:1}
+.oferta .pie-oferta{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.oferta .precio{font-weight:700;color:var(--oro-claro)}
+.oferta .boton{margin-top:0;padding:9px 18px;font-size:.92rem}
+</style>
+<script data-goatcounter="https://viajedelalma.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+<!-- Ordenador (≥1024 px): formato web, con la base de escritorio.css (1180 px, Cinzel y Cormorant). -->
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600&amp;family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&amp;display=swap" media="screen and (min-width: 1024px)">
+<link rel="stylesheet" href="/escritorio.css?v=20261105-2" media="screen and (min-width: 1024px)">
+<style>
+@media (min-width:1024px){
+  body[data-vda-page="mi-espacio"] > .envoltura > .marca{display:none}
+  body[data-vda-page="mi-espacio"] #entrar,
+  body[data-vda-page="mi-espacio"] #aviso{max-width:640px;margin:0 auto}
+  body[data-vda-page="mi-espacio"] .cabecera{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:end;gap:24px;padding:8px 0 28px;border-bottom:1px solid var(--linea);margin-bottom:8px}
+  body[data-vda-page="mi-espacio"] .cabecera .fecha,
+  body[data-vda-page="mi-espacio"] .cabecera h1,
+  body[data-vda-page="mi-espacio"] .cabecera .entradilla{text-align:left;margin-left:0}
+  body[data-vda-page="mi-espacio"] .cabecera h1{margin:4px 0 6px}
+  body[data-vda-page="mi-espacio"] .cabecera .entradilla{max-width:none;margin-bottom:0}
+  body[data-vda-page="mi-espacio"] .cuenta{text-align:right;margin:0;font-size:17px;line-height:1.5}
+  body[data-vda-page="mi-espacio"] .cuenta .boton{display:inline-block;margin-top:10px;padding:10px 22px;font-size:16px}
+  body[data-vda-page="mi-espacio"] .franja{font-size:18px}
+  body[data-vda-page="mi-espacio"] .seccion-titulo{text-align:left;margin:40px 0 14px;font-family:var(--display);font-size:15px;letter-spacing:.22em;color:var(--oro)}
+  body[data-vda-page="mi-espacio"] .niveles{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px;align-items:stretch}
+  body[data-vda-page="mi-espacio"] .niveles > .bloque{margin:0;display:flex;flex-direction:column;padding:28px}
+  body[data-vda-page="mi-espacio"] .niveles .acciones{margin-top:auto;padding-top:18px}
+  body[data-vda-page="mi-espacio"] .niveles .estado{align-self:flex-start}
+  body[data-vda-page="mi-espacio"] .niveles h2{font-size:24px}
+  body[data-vda-page="mi-espacio"] .niveles p{font-size:19px;line-height:1.55}
+  body[data-vda-page="mi-espacio"] .niveles .nota,
+  body[data-vda-page="mi-espacio"] .meses{font-size:17px}
+  body[data-vda-page="mi-espacio"] .fila-dos{display:grid;grid-template-columns:minmax(0,4fr) minmax(0,8fr);gap:24px;align-items:start}
+  body[data-vda-page="mi-espacio"] .fila-dos > section > .bloque{margin:0;padding:28px}
+  body[data-vda-page="mi-espacio"] .fila-dos .nota{font-size:17px}
+  body[data-vda-page="mi-espacio"] .ofertas{grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+  body[data-vda-page="mi-espacio"] .oferta{padding:18px}
+  body[data-vda-page="mi-espacio"] .oferta b,
+  body[data-vda-page="mi-espacio"] .lista b{font-size:22px}
+  body[data-vda-page="mi-espacio"] .oferta .detalle,
+  body[data-vda-page="mi-espacio"] .lista .detalle,
+  body[data-vda-page="mi-espacio"] .descargas{font-size:17px;line-height:1.5}
+  body[data-vda-page="mi-espacio"] .oferta .boton{font-size:15px}
+  body[data-vda-page="mi-espacio"] .pie{text-align:left;margin:44px 0 0;font-size:16px}
+}
+</style>
+</head>
+<body data-vda-page="mi-espacio">
+<nav class="vda-desktop-nav" aria-label="Navegación principal" hidden>
+  <a class="vda-nav-brand" href="/"><img src="/logo.png" width="44" height="44" alt="Viaje del Alma"></a>
+  <a href="/app/">La app</a>
+  <a href="/carta/">Carta natal</a>
+  <a href="/sinastria/">Sinastría</a>
+  <a href="/revolucion/">Revolución solar</a>
+  <a href="/calendario-2027/">Calendario lunar</a>
+  <a href="/regalo/">Para regalar</a>
+</nav>
+<div class="envoltura">
+  <div class="marca"><a href="/?o=mi-espacio"><img src="/logo.png" width="34" height="34" alt="">Viaje del Alma</a></div>
+
+  <p class="cargando" id="cargando">Abriendo tu espacio…</p>
+
+  <!-- Entrar -->
+  <section id="entrar" hidden>
+    <h1>Mi <em>espacio</em></h1>
+    <p class="entradilla">Entra con tu cuenta de Viaje del Alma: el mismo correo y la misma contraseña que usas en la app.</p>
+    <p class="franja" id="franja-entrar" role="status" hidden></p>
+    <form id="f-entrar" class="bloque" novalidate>
+      <label for="correo">Tu correo</label>
+      <input id="correo" type="email" autocomplete="email" inputmode="email" required>
+      <label for="clave">Tu contraseña</label>
+      <input id="clave" type="password" autocomplete="current-password" required>
+      <div class="centro"><button class="boton" id="b-entrar" type="submit">Entrar</button></div>
+      <p class="error" id="error-entrar" role="alert" hidden></p>
+      <p class="nota centro" style="margin-top:16px">¿No recuerdas tu contraseña? Responde a cualquiera de nuestros correos y te ayudamos.</p>
+      <p class="nota centro">¿Aún no tienes cuenta? Se crea gratis en <a href="/app/">la app</a>.</p>
+    </form>
+  </section>
+
+  <!-- Error -->
+  <section id="aviso" hidden class="centro">
+    <h1>Mi <em>espacio</em></h1>
+    <p class="entradilla" id="aviso-texto"></p>
+    <p><button class="boton secundario" id="b-reintentar" type="button">Volver a intentarlo</button></p>
+  </section>
+
+  <!-- Mi espacio -->
+  <main id="espacio" hidden>
+    <header class="cabecera">
+      <div>
+        <p class="fecha">Mi espacio</p>
+        <h1 id="e-saludo"></h1>
+        <p class="entradilla">Todo lo tuyo de Viaje del Alma, en un solo sitio.</p>
+      </div>
+      <p class="cuenta"><span id="e-cuenta"></span><br><button class="boton secundario" id="b-salir" type="button">Salir</button></p>
+    </header>
+    <p class="franja" id="franja" role="status" hidden></p>
+
+    <p class="seccion-titulo">Tus niveles</p>
+    <div class="niveles" id="e-niveles"></div>
+
+    <div class="fila-dos">
+      <section>
+        <p class="seccion-titulo">Lo que has pedido</p>
+        <div class="bloque" id="e-compras"></div>
+      </section>
+      <section>
+        <p class="seccion-titulo">Para ti</p>
+        <div class="bloque" id="e-ofertas"></div>
+      </section>
+    </div>
+
+    <p class="pie">¿Algo no está bien? Responde a cualquiera de nuestros correos.
+      <br><a href="/privacidad.html">Privacidad</a></p>
+  </main>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.111.0/dist/umd/supabase.js"
+  integrity="sha384-faMlYZUtkJj+Sh6Bmu/L0GzPcraRWN6CW+9RH3GUrK/Z0WS9tgaNNt0tHiLxsbdb" crossorigin="anonymous"></script>
+<script>
+/* ═══════════════════════════════════════════════════════════════════════
+   /mi-espacio/ · Mi espacio (v1, 6-nov-2026; maqueta v2 aprobada por Gemma).
+   · La sesión es la misma que la de la app web (/web) y la de /resumen: misma
+     clave en el navegador y la misma versión de supabase-js (2.111.0).
+   · Todo lo da la Edge Function mi-espacio («estado»). Las compras se buscan
+     por correo y solo salen con el correo confirmado («pedir_confirmacion»
+     manda un enlace; al abrirlo, esta página lo confirma con «confirmar»).
+   · El enlace llega en el fragmento (#confirmar=…): no lo ve ningún servidor
+     ni la analítica, y se borra de la barra de direcciones al leerlo.
+   · Todo se pinta como texto (nunca innerHTML). Sin datos personales en la
+     URL ni en la analítica.
+   ═══════════════════════════════════════════════════════════════════════ */
+const SUPABASE_URL = 'https://orxyhxehapqmjwmqmqgv.supabase.co';
+const SUPABASE_ANON = 'sb_publishable_As7G8e_pyZwjApjgcC48ow_RDc4hZfN';
+const CLAVE_SESION = 'sb-orxyhxehapqmjwmqmqgv-auth-token';
+const FUNCION = `${SUPABASE_URL}/functions/v1/mi-espacio`;
+const FIRMADOS = `${SUPABASE_URL}/storage/v1/object/sign/`;
+const RENUEVA_MS = 50 * 60 * 1000; // los enlaces de los PDF valen 1 h
+const $ = (id) => document.getElementById(id);
+const mide = (ev) => { try { window.goatcounter && window.goatcounter.count && window.goatcounter.count({ path: ev, event: true }); } catch (e) {} };
+
+let sb = null;
+try {
+  sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON, {
+    auth: { storage: window.localStorage, storageKey: CLAVE_SESION, autoRefreshToken: true, persistSession: true, detectSessionInUrl: false },
+  });
+} catch (e) { sb = null; }
+
+const PANTALLAS = ['cargando', 'entrar', 'aviso', 'espacio'];
+function muestra(id) { PANTALLAS.forEach((p) => { $(p).hidden = p !== id; }); }
+function nodo(tag, clase, texto) { const n = document.createElement(tag); if (clase) n.className = clase; if (texto != null) n.textContent = texto; return n; }
+function enlace(texto, href, clase) { const a = nodo('a', clase || '', texto); a.href = href; return a; }
+function vacia(el) { while (el.firstChild) el.removeChild(el.firstChild); }
+
+/* Iconos de Lucide 0.475.0 (licencia ISC; aviso en /resumen/img/iconos/LICENCIA-lucide.txt), con createElementNS. */
+const ICONOS = {
+  premium: [['path', { d: 'M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z' }], ['path', { d: 'M20 3v4' }], ['path', { d: 'M22 5h-4' }]],
+  resumen: [['circle', { cx: '12', cy: '12', r: '4' }], ['path', { d: 'M12 2v2' }], ['path', { d: 'M12 20v2' }], ['path', { d: 'm4.93 4.93 1.41 1.41' }], ['path', { d: 'm17.66 17.66 1.41 1.41' }], ['path', { d: 'M2 12h2' }], ['path', { d: 'M20 12h2' }], ['path', { d: 'm6.34 17.66-1.41 1.41' }], ['path', { d: 'm19.07 4.93-1.41 1.41' }]],
+  mes: [['path', { d: 'M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z' }]],
+  informes: [['path', { d: 'M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z' }], ['path', { d: 'M14 2v4a2 2 0 0 0 2 2h4' }], ['path', { d: 'M10 9H8' }], ['path', { d: 'M16 13H8' }], ['path', { d: 'M16 17H8' }]],
+  regalo: [['rect', { x: '3', y: '8', width: '18', height: '4', rx: '1' }], ['path', { d: 'M12 8v13' }], ['path', { d: 'M19 12v7a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-7' }], ['path', { d: 'M7.5 8a2.5 2.5 0 0 1 0-5A4.8 8 0 0 1 12 8a4.8 8 0 0 1 4.5-5 2.5 2.5 0 0 1 0 5' }]],
+};
+function cabeza(icono, titulo) {
+  const c = nodo('div', 'cabeza'); const m = nodo('span', 'medalla'); m.setAttribute('aria-hidden', 'true');
+  const formas = Object.prototype.hasOwnProperty.call(ICONOS, icono) ? ICONOS[icono] : null;
+  if (formas) {
+    const NS = 'http://www.w3.org/2000/svg';
+    const svg = document.createElementNS(NS, 'svg'); svg.setAttribute('viewBox', '0 0 24 24'); svg.setAttribute('focusable', 'false');
+    formas.forEach(([tag, attrs]) => { const e = document.createElementNS(NS, tag); Object.entries(attrs).forEach(([k, v]) => e.setAttribute(k, v)); svg.appendChild(e); });
+    m.appendChild(svg);
+  }
+  c.appendChild(m); c.appendChild(nodo('p', 'etiqueta', titulo)); return c;
+}
+
+/* Fechas en palabras, en hora de Madrid: «3 de noviembre» (con el año si no es este). */
+function dia(v) {
+  const ms = typeof v === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(v) ? Date.parse(v + 'T12:00:00Z') : Date.parse(v);
+  if (!Number.isFinite(ms)) return '';
+  const d = new Date(ms);
+  const anio = (x) => new Intl.DateTimeFormat('es-ES', { timeZone: 'Europe/Madrid', year: 'numeric' }).format(x);
+  const o = { timeZone: 'Europe/Madrid', day: 'numeric', month: 'long' };
+  if (anio(d) !== anio(new Date())) o.year = 'numeric';
+  return new Intl.DateTimeFormat('es-ES', o).format(d);
+}
+function enumera(l) { return l.length < 2 ? (l[0] || '') : `${l.slice(0, -1).join(', ')} y ${l[l.length - 1]}`; }
+const esFirmado = (u) => typeof u === 'string' && u.startsWith(FIRMADOS);
+const esRuta = (u) => typeof u === 'string' && /^\/(?!\/)[A-Za-z0-9\-._~/?=&%]*$/.test(u);
+
+/* ── Niveles ── */
+function nivel(icono, etiqueta, estado, apagado, titulo, parrafos, notas, acciones) {
+  const s = nodo('section', 'bloque nivel');
+  s.appendChild(cabeza(icono, etiqueta));
+  if (estado) s.appendChild(nodo('span', 'estado' + (apagado ? ' apagado' : ''), estado));
+  s.appendChild(nodo('h2', '', titulo));
+  (parrafos || []).filter(Boolean).forEach((t) => s.appendChild(nodo('p', '', t)));
+  (notas || []).filter(Boolean).forEach((t) => s.appendChild(typeof t === 'string' ? nodo('p', 'nota', t) : t));
+  if (acciones && acciones.length) { const a = nodo('div', 'acciones'); acciones.forEach((x) => a.appendChild(x)); s.appendChild(a); }
+  return s;
+}
+const TIENDA = { google: 'Google Play', apple: 'el App Store', web: 'la web' };
+function nivelPremium(p) {
+  const web = () => { const a = enlace('Abrir la app web', '/web/', 'boton'); a.addEventListener('click', () => mide('mi-espacio-app-web')); return a; };
+  const QUE = 'Todo lo Premium de la app, en Android y en la app web, con tu misma cuenta.';
+  if (!p || p.tipo === 'sin_app') {
+    return nivel('premium', 'Premium en la app', 'Sin la app', true, 'Aún no usas la app',
+      ['El ritual diario es gratis siempre. Con Premium tienes además el tarot completo, los rituales y la meditación.'], [],
+      [enlace('Conocer la app', '/app/', 'boton')]);
+  }
+  if (p.tipo === 'gratis') {
+    return nivel('premium', 'Premium en la app', 'Gratis', true, 'Tienes la versión gratuita',
+      ['Con Premium tienes las 78 cartas del tarot con su lectura, 60 rituales para cada momento y 30 sesiones de yoga mental.'],
+      ['4,99 €/mes o 49,99 €/año. Cancela cuando quieras.'], [web()]);
+  }
+  if (p.tipo === 'santuario') return nivel('premium', 'Premium en la app', 'Activo', false, 'Santuario', [QUE], [], [web()]);
+  if (p.tipo === 'regalo') {
+    return nivel('premium', 'Premium en la app', 'Activo', false, p.hasta ? `De regalo hasta el ${dia(p.hasta)}` : 'De regalo', [QUE],
+      [p.hasta ? 'Al terminar sigues con la versión gratuita. No se activa ninguna suscripción de pago.' : 'No se activa ninguna suscripción de pago.'], [web()]);
+  }
+  if (p.tipo === 'prueba') {
+    return nivel('premium', 'Premium en la app', 'Activo', false, `Semana gratis hasta el ${dia(p.hasta)}`, [QUE],
+      ['Al terminar sigues con la versión gratuita. No se cobra nada.'], [web()]);
+  }
+  // Suscripción
+  const plan = p.plan === 'anual' ? 'anual' : p.plan === 'mensual' ? 'mensual' : '';
+  const donde = TIENDA[p.tienda] || '';
+  const linea = `Tu suscripción${plan ? ' ' + plan : ''}${donde ? ' de ' + donde : ''}.`;
+  if (p.renueva === false && p.hasta) {
+    return nivel('premium', 'Premium en la app', `Hasta el ${dia(p.hasta)}`, false, `Termina el ${dia(p.hasta)}`, [linea, QUE],
+      ['Has cancelado la renovación: no se te cobrará más.'], [web()]);
+  }
+  if (p.renueva === true && p.hasta) {
+    const gestiona = p.tienda === 'google' || p.tienda === 'apple' ? `La gestionas desde ${TIENDA[p.tienda]}.` : '';
+    return nivel('premium', 'Premium en la app', 'Activo', false,
+      p.prueba_tienda ? `Prueba gratis hasta el ${dia(p.hasta)}` : `Se renueva el ${dia(p.hasta)}`, [linea, QUE],
+      [p.prueba_tienda ? `Después se renueva sola, salvo que la canceles. ${gestiona}`.trim() : gestiona], [web()]);
+  }
+  return nivel('premium', 'Premium en la app', 'Activo', false, 'Premium', [linea, QUE], [], [web()]);
+}
+function nivelResumen(r) {
+  const fechas = r.desde && r.hasta ? `del ${dia(r.desde)} al ${dia(r.hasta)}` : '';
+  const secciones = r.secciones && r.secciones.length ? `Tus secciones: ${enumera(r.secciones)}.` : '';
+  const ver = () => { const a = enlace('Ver el de hoy', '/resumen/', 'boton'); a.addEventListener('click', () => mide('mi-espacio-resumen')); return a; };
+  const donde = r.correo ? `En tu correo y aquí${fechas ? ', ' + fechas : ''}.` : `Aquí en la web${fechas ? ', ' + fechas : ''}. El correo lo tienes desactivado.`;
+  if (r.estado === 'pausado') {
+    return nivel('resumen', 'Resumen diario personalizado', 'En pausa', true, 'Tu Resumen está en pausa',
+      ['Si quieres retomarlo, responde a cualquiera de nuestros correos.'], [], []);
+  }
+  if (r.estado === 'terminado') {
+    return nivel('resumen', 'Resumen diario personalizado', 'Terminado', true, r.hasta ? `Terminó el ${dia(r.hasta)}` : 'Terminado',
+      ['Gracias por acompañarnos.'], [], []);
+  }
+  if (r.estado === 'empieza') {
+    return nivel('resumen', 'Resumen diario personalizado', r.desde ? `Empieza el ${dia(r.desde)}` : 'Empieza pronto', false,
+      r.correo ? 'Cada mañana a las 7:00' : 'Cada día, aquí en la web', [donde], [secciones], []);
+  }
+  return nivel('resumen', 'Resumen diario personalizado', 'Activo', false,
+    r.correo ? 'Cada mañana a las 7:00' : 'Cada día, aquí en la web', [donde], [secciones], [ver()]);
+}
+function botonesMes(i, clasePrimero) {
+  const l = [];
+  if (esFirmado(i.leer)) { const a = enlace('Leer', i.leer, clasePrimero); a.target = '_blank'; a.rel = 'noopener'; a.addEventListener('click', () => mide('mi-espacio-mes-leer')); l.push(a); }
+  if (esFirmado(i.imprimir)) { const a = enlace('Para imprimir', i.imprimir, clasePrimero ? clasePrimero + ' secundario' : ''); a.addEventListener('click', () => mide('mi-espacio-mes-imprimir')); l.push(a); }
+  return l;
+}
+function nivelMes(lista) {
+  const [i, ...antes] = lista;
+  const notas = [];
+  const botones = botonesMes(i, 'boton');
+  if (!botones.length && i.enviado_en) notas.push(`Te lo enviamos a tu correo el ${dia(i.enviado_en)}.`);
+  // El piloto tiene dos (17-nov y 17-dic): lo mismo que dice el correo del primero (texto de la maqueta v2).
+  if (i.desde === '2026-11-17') notas.push('El siguiente, del 17 de diciembre al 16 de enero, llega el 17 de diciembre.');
+  if (antes.length) {
+    const ul = nodo('ul', 'meses');
+    antes.forEach((x) => { const li = nodo('li', '', `Del ${dia(x.desde)} al ${dia(x.hasta)}`); botonesMes(x, '').forEach((a) => li.appendChild(a)); ul.appendChild(li); });
+    notas.push(ul);
+  }
+  return nivel('mes', 'Tu mes', 'Listo', false, `Del ${dia(i.desde)} al ${dia(i.hasta)}`,
+    ['Tu informe del mes según tu carta natal: el tono del mes, tus fechas y cómo acompañarlo.'], notas, botones);
+}
+
+/* ── Lo que has pedido ── */
+const ETIQUETA_DESCARGA = { pantalla: 'Para la pantalla', imprimir: 'Para imprimir', guia: 'La guía', audio_descarga: 'El audio' };
+async function descarga(c, li, boton) {
+  const gen = GEN;
+  boton.disabled = true; mide('mi-espacio-descarga');
+  let j = null;
+  try {
+    const q = new URLSearchParams({ p: c.descarga.p, session_id: c.descarga.session_id });
+    const r = await fetch(`${SUPABASE_URL}/functions/v1/descarga?${q}`);
+    j = await r.json();
+  } catch (e) { j = null; }
+  if (gen !== GEN || !li.isConnected) return; // cambió la cuenta o se volvió a pintar (MIE-01)
+  boton.disabled = false;
+  const viejo = li.querySelector('.descargas'); if (viejo) viejo.remove();
+  const caja = nodo('div', 'descargas');
+  const archivos = j && j.ok && j.archivos && typeof j.archivos === 'object' ? j.archivos : {};
+  Object.keys(ETIQUETA_DESCARGA).forEach((k) => {
+    if (Object.prototype.hasOwnProperty.call(archivos, k) && esFirmado(archivos[k])) caja.appendChild(enlace(ETIQUETA_DESCARGA[k], archivos[k]));
+  });
+  if (!caja.childNodes.length) caja.appendChild(nodo('span', 'nota', 'No hemos podido preparar la descarga. Vuelve a intentarlo en un momento.'));
+  else boton.hidden = true;
+  li.firstChild.appendChild(caja);
+}
+function detalleCompra(c) {
+  const f = dia(c.fecha);
+  const pre = c.de_regalo ? 'De regalo · ' : '';
+  if (c.estado === 'enviado') return `${pre}${f} · Te llegó por correo`;
+  if (c.estado === 'preparando') return `${pre}${f} · La estamos preparando. Te llega por correo en menos de 24 horas.`;
+  // MIE-05: retenida o sin disparar: necesita a la PO, así que sin plazo (texto pendiente del «sí» de Gemma).
+  if (c.estado === 'revisando') return `${pre}${f} · La estamos revisando antes de enviártela. Si necesitamos algún dato, te escribimos.`;
+  if (c.estado === 'regalo') {
+    const g = c.regalo || {};
+    const para = g.para ? ` · Para ${g.para}` : '';
+    if (g.canjeado_en) return `${f}${para} · Canjeada el ${dia(g.canjeado_en)}`;
+    return `${f}${para} · Sin canjear todavía${g.caduca_en ? ` (vale hasta el ${dia(g.caduca_en)})` : ''}`;
+  }
+  if (c.estado === 'descarga') return f;
+  return `${pre}${f} · Si no te ha llegado, responde a cualquiera de nuestros correos.`;
+}
+function pintaCompras(x, correo) {
+  const caja = $('e-compras'); vacia(caja);
+  caja.appendChild(cabeza('informes', 'Tus compras en la web'));
+  if (!x || !x.confirmado) {
+    caja.appendChild(nodo('p', '', 'Para enseñarte lo que has comprado en la web, primero confirmamos que este correo es tuyo.'));
+    const b = nodo('button', 'boton', 'Mandarme el enlace'); b.type = 'button';
+    const estado = nodo('p', 'nota'); estado.setAttribute('role', 'status'); estado.hidden = true;
+    b.addEventListener('click', () => pideEnlace(b, estado, correo));
+    caja.appendChild(b); caja.appendChild(estado);
+    return;
+  }
+  const lista = Array.isArray(x.lista) ? x.lista : [];
+  if (!lista.length) caja.appendChild(nodo('p', '', 'Todavía no has comprado nada en la web con este correo.'));
+  else {
+    const ul = nodo('ul', 'lista');
+    lista.forEach((c) => {
+      const li = nodo('li'); const d = nodo('div');
+      d.appendChild(nodo('b', '', c.nombre || ''));
+      d.appendChild(nodo('p', 'detalle', detalleCompra(c)));
+      li.appendChild(d);
+      if (c.estado === 'descarga' && c.descarga && c.descarga.p && c.descarga.session_id) {
+        const b = nodo('button', 'boton secundario', 'Descargar'); b.type = 'button';
+        b.addEventListener('click', () => descarga(c, li, b));
+        li.appendChild(b);
+      }
+      ul.appendChild(li);
+    });
+    caja.appendChild(ul);
+  }
+  if (x.completa === false) caja.appendChild(nodo('p', 'nota', 'Puede que falte alguna compra: vuelve a abrir esta página en un rato.'));
+  const n = nodo('p', 'nota', '¿No la encuentras? Responde a cualquiera de nuestros correos y te la volvemos a enviar.'); n.style.marginTop = '12px';
+  caja.appendChild(n);
+}
+async function pideEnlace(boton, estado, correo) {
+  // MIE-01: el enlace se pide con la sesión de la cuenta que está pintada, y la respuesta
+  // solo se enseña si sigue siendo esa cuenta.
+  const gen = GEN, uid = USUARIO;
+  const s = await cuentaActual();
+  if (gen !== GEN || !s || !uid || s.user.id !== uid) return;
+  boton.disabled = true; mide('mi-espacio-pide-enlace');
+  const j = await llama({ modo: 'pedir_confirmacion' }, s);
+  if (gen !== GEN || !boton.isConnected) return;
+  boton.disabled = false; estado.hidden = false;
+  if (j && j.estado === 'enviado') { estado.textContent = `Te lo hemos mandado a ${correo}. Ábrelo desde ese correo: vale 24 horas.`; boton.hidden = true; return; }
+  if (j && j.estado === 'espera') { estado.textContent = 'Ya te lo hemos mandado hace poco. Míralo en tu correo (también en Promociones o en Spam).'; return; }
+  if (j && j.estado === 'ya_confirmado') { carga(); return; }
+  if (j && j.estado === 'sin_sesion') { await salir(); return; }
+  estado.textContent = 'No hemos podido mandarlo. Vuelve a intentarlo en unos minutos.';
+}
+
+/* ── Para ti ── */
+function pintaOfertas(lista, confirmado) {
+  const caja = $('e-ofertas'); vacia(caja);
+  caja.appendChild(cabeza('regalo', 'Lo que aún no tienes'));
+  const grid = nodo('div', 'ofertas');
+  (Array.isArray(lista) ? lista : []).forEach((o) => {
+    if (!o || !esRuta(o.url)) return;
+    const d = nodo('div', 'oferta');
+    d.appendChild(nodo('b', '', o.nombre || ''));
+    d.appendChild(nodo('p', 'detalle', o.detalle || ''));
+    const pie = nodo('div', 'pie-oferta');
+    pie.appendChild(nodo('span', 'precio', o.precio || ''));
+    const a = enlace('Ver', o.url, 'boton secundario');
+    a.setAttribute('aria-label', `Ver ${o.nombre || ''}`);
+    a.addEventListener('click', () => mide(`mi-espacio-oferta-${String(o.id || '').replace(/[^a-z]/g, '')}`));
+    pie.appendChild(a); d.appendChild(pie); grid.appendChild(d);
+  });
+  caja.appendChild(grid);
+  const n = nodo('p', 'nota', confirmado ? 'Solo te enseñamos lo que todavía no tienes.' : 'Cuando confirmes tu correo, aquí solo verás lo que todavía no tienes.');
+  n.style.marginTop = '12px'; caja.appendChild(n);
+}
+
+function pinta(j) {
+  const saludo = $('e-saludo'); vacia(saludo);
+  if (j.nombre) { saludo.appendChild(document.createTextNode('Hola, ')); saludo.appendChild(nodo('em', '', j.nombre)); }
+  else { saludo.appendChild(document.createTextNode('Tu ')); saludo.appendChild(nodo('em', '', 'espacio')); }
+  $('e-cuenta').textContent = `Has entrado con ${j.correo || ''}`;
+  const niveles = $('e-niveles'); vacia(niveles);
+  niveles.appendChild(nivelPremium(j.premium));
+  if (j.resumen) niveles.appendChild(nivelResumen(j.resumen));
+  if (Array.isArray(j.mes) && j.mes.length) niveles.appendChild(nivelMes(j.mes));
+  pintaCompras(j.compras, j.correo || 'tu correo');
+  pintaOfertas(j.ofertas, !!(j.compras && j.compras.confirmado));
+}
+
+/* ── Sesión y carga ──
+   MIE-01 (REV-0611-MIESPACIO): cada carga lee la sesión UNA vez y con esa misma pide los
+   datos; al cambiar de cuenta o salir se borra al momento todo lo pintado (datos y enlaces)
+   y se anula lo que esté en marcha (TURNO para las cargas, GEN para la cuenta). */
+let USUARIO = null, TURNO = 0, GEN = 0, CARGADO = 0;
+async function cuentaActual() {
+  try { const { data } = await sb.auth.getSession(); return (data && data.session) || null; } catch (e) { return null; }
+}
+function borraDatos() {
+  ['e-saludo', 'e-cuenta', 'e-niveles', 'e-compras', 'e-ofertas'].forEach((id) => vacia($(id)));
+}
+function limpia() {
+  TURNO++; GEN++; USUARIO = null; CARGADO = 0;
+  borraDatos();
+  franja('');
+  muestra('cargando');
+}
+/* Una petición a mi-espacio con ESA sesión (nunca se vuelve a leer otra por el camino). */
+async function llama(cuerpo, s) {
+  if (!s) return { estado: 'sin_sesion' };
+  try {
+    const r = await fetch(FUNCION, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', apikey: SUPABASE_ANON, Authorization: `Bearer ${s.access_token}` },
+      body: JSON.stringify(cuerpo),
+    });
+    return await r.json();
+  } catch (e) { return null; }
+}
+function franja(texto) {
+  ['franja', 'franja-entrar'].forEach((id) => { $(id).textContent = texto || ''; $(id).hidden = !texto; });
+}
+async function carga(silencio) {
+  const turno = ++TURNO;
+  if (!silencio) muestra('cargando');
+  const sesion = await cuentaActual();
+  if (turno !== TURNO) return;
+  if (!sesion) {
+    // MIE2-01: sin sesión no se queda nada de la cuenta anterior (tampoco en una recarga silenciosa).
+    // La franja solo se borra si había una cuenta: la de «correo confirmado, entra» se queda.
+    const habia = !!USUARIO;
+    GEN++; USUARIO = null; CARGADO = 0; borraDatos();
+    if (habia) franja('');
+    muestra('entrar'); mide('mi-espacio-pide-entrar'); return;
+  }
+  const uid = sesion.user.id;
+  if (USUARIO && USUARIO !== uid) { limpia(); return carga(); } // otra cuenta: nada de la anterior se queda
+  const j = await llama({ modo: 'estado' }, sesion);
+  const ahora = await cuentaActual();
+  if (turno !== TURNO) return;                        // una carga más nueva manda (no se borra lo suyo)
+  if (!ahora) { limpia(); muestra('entrar'); return; } // MIE2-01: la sesión se fue mientras tanto
+  if (ahora.user.id !== uid) { limpia(); return carga(); } // cambió la cuenta: se borra y se carga la nueva
+  USUARIO = uid;
+  if (j && j.estado === 'sin_sesion') { await salir(); return; }
+  if (!j || j.estado !== 'ok') {
+    if (silencio) return;
+    $('aviso-texto').textContent = !j ? 'No hemos podido abrir tu espacio. Revisa tu conexión y vuelve a intentarlo.'
+      : 'Algo no ha ido bien al abrir tu espacio. Vuelve a intentarlo en unos minutos.';
+    muestra('aviso'); return;
+  }
+  CARGADO = Date.now();
+  pinta(j);
+  muestra('espacio');
+  if (!silencio) mide(j.compras && j.compras.confirmado ? 'mi-espacio-abre-confirmado' : 'mi-espacio-abre');
+}
+async function revisaCuenta() {
+  const s = await cuentaActual();
+  const id = s ? s.user.id : null;
+  if (id && id === USUARIO) { if (Date.now() - CARGADO > RENUEVA_MS) carga(true); return; }
+  if (!id && !USUARIO && !$('entrar').hidden) return;
+  limpia();
+  if (id) carga(); else muestra('entrar');
+}
+async function salir() { limpia(); try { await sb.auth.signOut({ scope: 'local' }); } catch (e) {} muestra('entrar'); }
+
+/* El enlace del correo: #confirmar=<token> */
+const TEXTOS_CONFIRMAR = {
+  confirmado: 'Correo confirmado. Ya puedes ver tus compras.',
+  caducado: 'Este enlace ha caducado: valen 24 horas. Entra y pide otro.',
+  otro_correo: 'Este enlace era para otro correo. Entra y pide uno nuevo.',
+  no_valido: 'Este enlace no es válido. Entra y pide uno nuevo.',
+};
+async function confirmaDelEnlace() {
+  const m = /^#confirmar=([A-Za-z0-9_-]{10,400}\.[A-Za-z0-9_-]{20,100})$/.exec(location.hash || '');
+  if (!/^#confirmar=/.test(location.hash || '')) return;
+  try { history.replaceState(null, '', location.pathname + location.search); } catch (e) {}
+  if (!m) { franja(TEXTOS_CONFIRMAR.no_valido); return; }
+  const gen = GEN;
+  let j = null;
+  try {
+    const r = await fetch(FUNCION, { method: 'POST', headers: { 'Content-Type': 'application/json', apikey: SUPABASE_ANON }, body: JSON.stringify({ modo: 'confirmar', token: m[1] }) });
+    j = await r.json();
+  } catch (e) { j = null; }
+  if (gen !== GEN) return;
+  const estado = j && Object.prototype.hasOwnProperty.call(TEXTOS_CONFIRMAR, j.estado) ? j.estado : null;
+  mide(`mi-espacio-confirmar-${estado || 'error'}`);
+  if (!estado) { franja('No hemos podido confirmar tu correo. Vuelve a abrir el enlace en un momento.'); return; }
+  const sesion = await cuentaActual();
+  franja(estado === 'confirmado' && !sesion ? 'Correo confirmado. Entra con tu cuenta para ver tus compras.' : TEXTOS_CONFIRMAR[estado]);
+}
+
+$('f-entrar').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const correo = $('correo').value.trim(), clave = $('clave').value;
+  const err = $('error-entrar'); err.hidden = true;
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(correo) || !clave) { err.textContent = 'Escribe tu correo y tu contraseña.'; err.hidden = false; return; }
+  $('b-entrar').disabled = true;
+  const { error } = await sb.auth.signInWithPassword({ email: correo, password: clave });
+  $('b-entrar').disabled = false;
+  if (error) {
+    err.textContent = /invalid/i.test(error.message || '') ? 'El correo o la contraseña no coinciden.' : 'No hemos podido entrar. Vuelve a intentarlo en un momento.';
+    err.hidden = false; mide('mi-espacio-entrar-error'); return;
+  }
+  $('clave').value = '';
+  mide('mi-espacio-entra');
+  if (/^Correo confirmado\. Entra/.test($('franja').textContent)) franja(TEXTOS_CONFIRMAR.confirmado);
+  carga();
+});
+$('b-salir').addEventListener('click', () => { mide('mi-espacio-sale'); salir(); });
+$('b-reintentar').addEventListener('click', () => carga());
+
+if (!sb) { $('aviso-texto').textContent = 'Esta página necesita conexión para cargar. Vuelve a abrirla en un momento.'; muestra('aviso'); }
+else {
+  // Cambios de sesión: en esta pestaña (supabase-js) y en otras (/web, /resumen u otra pestaña), por tres vías.
+  sb.auth.onAuthStateChange((evento, sesion) => {
+    const id = sesion && sesion.user ? sesion.user.id : null;
+    if (evento === 'SIGNED_OUT' || (USUARIO && id && id !== USUARIO)) {
+      if (USUARIO) limpia();             // en el acto: lo de la cuenta anterior no se queda ni un momento
+      setTimeout(revisaCuenta, 0);       // y luego se carga la que haya (fuera del aviso, como pide supabase-js)
+    }
+  });
+  window.addEventListener('storage', (e) => {
+    if (e.key !== CLAVE_SESION) return;
+    let id = null;
+    try { const v = JSON.parse(e.newValue || 'null'); id = v && v.user ? v.user.id : null; } catch (x) { id = null; }
+    if (id !== USUARIO) limpia();        // otra cuenta (u otra vez la misma tras otra): se borra ya
+    revisaCuenta();
+  });
+  document.addEventListener('visibilitychange', () => { if (document.visibilityState === 'visible') revisaCuenta(); });
+  // Los enlaces de los PDF valen 1 h: se renuevan solos.
+  setInterval(() => { if (USUARIO && document.visibilityState === 'visible' && Date.now() - CARGADO > RENUEVA_MS) carga(true); }, 60 * 1000);
+  confirmaDelEnlace().then(() => carga());
+}
+</script>
+</body>
+</html>
