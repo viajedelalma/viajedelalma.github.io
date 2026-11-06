@@ -361,6 +361,7 @@ function nivelMes(lista) {
 /* ── Lo que has pedido ── */
 const ETIQUETA_DESCARGA = { pantalla: 'Para la pantalla', imprimir: 'Para imprimir', guia: 'La guía', audio_descarga: 'El audio' };
 async function descarga(c, li, boton) {
+  const gen = GEN;
   boton.disabled = true; mide('mi-espacio-descarga');
   let j = null;
   try {
@@ -368,6 +369,7 @@ async function descarga(c, li, boton) {
     const r = await fetch(`${SUPABASE_URL}/functions/v1/descarga?${q}`);
     j = await r.json();
   } catch (e) { j = null; }
+  if (gen !== GEN || !li.isConnected) return; // cambió la cuenta o se volvió a pintar (MIE-01)
   boton.disabled = false;
   const viejo = li.querySelector('.descargas'); if (viejo) viejo.remove();
   const caja = nodo('div', 'descargas');
@@ -384,6 +386,8 @@ function detalleCompra(c) {
   const pre = c.de_regalo ? 'De regalo · ' : '';
   if (c.estado === 'enviado') return `${pre}${f} · Te llegó por correo`;
   if (c.estado === 'preparando') return `${pre}${f} · La estamos preparando. Te llega por correo en menos de 24 horas.`;
+  // MIE-05: retenida o sin disparar: necesita a la PO, así que sin plazo (texto pendiente del «sí» de Gemma).
+  if (c.estado === 'revisando') return `${pre}${f} · La estamos revisando antes de enviártela. Si necesitamos algún dato, te escribimos.`;
   if (c.estado === 'regalo') {
     const g = c.regalo || {};
     const para = g.para ? ` · Para ${g.para}` : '';
@@ -427,8 +431,14 @@ function pintaCompras(x, correo) {
   caja.appendChild(n);
 }
 async function pideEnlace(boton, estado, correo) {
+  // MIE-01: el enlace se pide con la sesión de la cuenta que está pintada, y la respuesta
+  // solo se enseña si sigue siendo esa cuenta.
+  const gen = GEN, uid = USUARIO;
+  const s = await cuentaActual();
+  if (gen !== GEN || !s || !uid || s.user.id !== uid) return;
   boton.disabled = true; mide('mi-espacio-pide-enlace');
-  const j = await llama({ modo: 'pedir_confirmacion' });
+  const j = await llama({ modo: 'pedir_confirmacion' }, s);
+  if (gen !== GEN || !boton.isConnected) return;
   boton.disabled = false; estado.hidden = false;
   if (j && j.estado === 'enviado') { estado.textContent = `Te lo hemos mandado a ${correo}. Ábrelo desde ese correo: vale 24 horas.`; boton.hidden = true; return; }
   if (j && j.estado === 'espera') { estado.textContent = 'Ya te lo hemos mandado hace poco. Míralo en tu correo (también en Promociones o en Spam).'; return; }
@@ -472,13 +482,22 @@ function pinta(j) {
   pintaOfertas(j.ofertas, !!(j.compras && j.compras.confirmado));
 }
 
-/* ── Sesión y carga ── */
-let USUARIO = null, TURNO = 0, CARGADO = 0;
+/* ── Sesión y carga ──
+   MIE-01 (REV-0611-MIESPACIO): cada carga lee la sesión UNA vez y con esa misma pide los
+   datos; al cambiar de cuenta o salir se borra al momento todo lo pintado (datos y enlaces)
+   y se anula lo que esté en marcha (TURNO para las cargas, GEN para la cuenta). */
+let USUARIO = null, TURNO = 0, GEN = 0, CARGADO = 0;
 async function cuentaActual() {
   try { const { data } = await sb.auth.getSession(); return (data && data.session) || null; } catch (e) { return null; }
 }
-async function llama(cuerpo) {
-  const s = await cuentaActual();
+function limpia() {
+  TURNO++; GEN++; USUARIO = null; CARGADO = 0;
+  ['e-saludo', 'e-cuenta', 'e-niveles', 'e-compras', 'e-ofertas'].forEach((id) => vacia($(id)));
+  franja('');
+  muestra('cargando');
+}
+/* Una petición a mi-espacio con ESA sesión (nunca se vuelve a leer otra por el camino). */
+async function llama(cuerpo, s) {
   if (!s) return { estado: 'sin_sesion' };
   try {
     const r = await fetch(FUNCION, {
@@ -499,7 +518,8 @@ async function carga(silencio) {
   if (turno !== TURNO) return;
   if (!sesion) { USUARIO = null; muestra('entrar'); mide('mi-espacio-pide-entrar'); return; }
   const uid = sesion.user.id;
-  const j = await llama({ modo: 'estado' });
+  if (USUARIO && USUARIO !== uid) { limpia(); return carga(); } // otra cuenta: nada de la anterior se queda
+  const j = await llama({ modo: 'estado' }, sesion);
   const ahora = await cuentaActual();
   if (turno !== TURNO || !ahora || ahora.user.id !== uid) return; // cambió la cuenta o empezó otra carga
   USUARIO = uid;
@@ -518,11 +538,12 @@ async function carga(silencio) {
 async function revisaCuenta() {
   const s = await cuentaActual();
   const id = s ? s.user.id : null;
-  if (id === USUARIO) { if (id && Date.now() - CARGADO > RENUEVA_MS) carga(true); return; }
-  franja('');
-  if (id) carga(); else { USUARIO = null; muestra('entrar'); }
+  if (id && id === USUARIO) { if (Date.now() - CARGADO > RENUEVA_MS) carga(true); return; }
+  if (!id && !USUARIO && !$('entrar').hidden) return;
+  limpia();
+  if (id) carga(); else muestra('entrar');
 }
-async function salir() { TURNO++; USUARIO = null; franja(''); try { await sb.auth.signOut({ scope: 'local' }); } catch (e) {} muestra('entrar'); }
+async function salir() { limpia(); try { await sb.auth.signOut({ scope: 'local' }); } catch (e) {} muestra('entrar'); }
 
 /* El enlace del correo: #confirmar=<token> */
 const TEXTOS_CONFIRMAR = {
@@ -536,11 +557,13 @@ async function confirmaDelEnlace() {
   if (!/^#confirmar=/.test(location.hash || '')) return;
   try { history.replaceState(null, '', location.pathname + location.search); } catch (e) {}
   if (!m) { franja(TEXTOS_CONFIRMAR.no_valido); return; }
+  const gen = GEN;
   let j = null;
   try {
     const r = await fetch(FUNCION, { method: 'POST', headers: { 'Content-Type': 'application/json', apikey: SUPABASE_ANON }, body: JSON.stringify({ modo: 'confirmar', token: m[1] }) });
     j = await r.json();
   } catch (e) { j = null; }
+  if (gen !== GEN) return;
   const estado = j && Object.prototype.hasOwnProperty.call(TEXTOS_CONFIRMAR, j.estado) ? j.estado : null;
   mide(`mi-espacio-confirmar-${estado || 'error'}`);
   if (!estado) { franja('No hemos podido confirmar tu correo. Vuelve a abrir el enlace en un momento.'); return; }
@@ -573,9 +596,18 @@ else {
   // Cambios de sesión: en esta pestaña (supabase-js) y en otras (/web, /resumen u otra pestaña), por tres vías.
   sb.auth.onAuthStateChange((evento, sesion) => {
     const id = sesion && sesion.user ? sesion.user.id : null;
-    if (evento === 'SIGNED_OUT' || (USUARIO && id && id !== USUARIO)) setTimeout(revisaCuenta, 0);
+    if (evento === 'SIGNED_OUT' || (USUARIO && id && id !== USUARIO)) {
+      if (USUARIO) limpia();             // en el acto: lo de la cuenta anterior no se queda ni un momento
+      setTimeout(revisaCuenta, 0);       // y luego se carga la que haya (fuera del aviso, como pide supabase-js)
+    }
   });
-  window.addEventListener('storage', (e) => { if (e.key === CLAVE_SESION) revisaCuenta(); });
+  window.addEventListener('storage', (e) => {
+    if (e.key !== CLAVE_SESION) return;
+    let id = null;
+    try { const v = JSON.parse(e.newValue || 'null'); id = v && v.user ? v.user.id : null; } catch (x) { id = null; }
+    if (id !== USUARIO) limpia();        // otra cuenta (u otra vez la misma tras otra): se borra ya
+    revisaCuenta();
+  });
   document.addEventListener('visibilitychange', () => { if (document.visibilityState === 'visible') revisaCuenta(); });
   // Los enlaces de los PDF valen 1 h: se renuevan solos.
   setInterval(() => { if (USUARIO && document.visibilityState === 'visible' && Date.now() - CARGADO > RENUEVA_MS) carga(true); }, 60 * 1000);
