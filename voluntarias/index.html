@@ -582,6 +582,9 @@ var ALTA_URL = 'https://orxyhxehapqmjwmqmqgv.supabase.co/functions/v1/voluntaria
 // por un reloj adelantado. La función y la base aplican la misma apertura y el mismo cierre.
 var APERTURA = Date.parse('2026-11-08T09:55:00+01:00');
 // Sin fecha de cierre anunciada (Gemma, 7-nov): se cierra a mano al completar el grupo (voluntarias_config.abierta).
+// CERRAR = DOS PASOS EL MISMO DÍA (CONT-05): abierta = false en la base Y esta CIERRE al instante del cierre
+// (PR a la web). Si solo se hace el primero, la página sigue enseñando el formulario hasta el envío.
+// Procedimiento completo: LEEME del motor, «Prueba continua: cerrar la convocatoria».
 // Esto es solo un techo de seguridad, igual en la función y en la base.
 var CIERRE = Date.parse('2027-01-01T00:00:00+01:00');
 var BORRADOR = 'vda_voluntarias_borrador';
