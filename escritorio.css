@@ -301,3 +301,14 @@
   body[data-vda-page="redireccion"] main { max-width: 760px; }
   body[data-vda-page="redireccion"] a { line-height: 1.6; }
 }
+
+/* 7-nov-2026 · «Mi espacio» en la navegación: entre 1024 y 1199 px los 8 enlaces no caben en una línea con 16 px. */
+@media screen and (min-width: 1024px) and (max-width: 1199px) {
+  body[data-vda-page] > .vda-desktop-nav[hidden] { font-size: 14px; gap: 12px 14px; letter-spacing: .02em; }
+}
+
+/* 7-nov-2026 · Las páginas legales (privacidad, términos, borrar cuenta) dan «nav a { margin: 0 1rem }» a cualquier menú;
+   en la navegación de ordenador el espacio lo pone el gap, así que aquí ese margen sobra y la partía en dos líneas. */
+@media screen and (min-width: 1024px) {
+  body[data-vda-page] > .vda-desktop-nav[hidden] > a { margin: 0; }
+}
