@@ -913,6 +913,12 @@ function recuperaBorrador() {
     var e = f.querySelector('input[name="' + k + '"][value="' + CSS.escape(d[k]) + '"]');
     if (e) e.checked = true;
   });
+  // Borrador de antes del 7-nov (CONT-01): guardaba lo que NO quería (alma_excluye). Se pasa a lo que sí quiere.
+  // Si están los dos formatos, manda el nuevo.
+  if (!Array.isArray(d.alma_recibe) && Array.isArray(d.alma_excluye)) {
+    d.alma_recibe = Array.prototype.map.call(f.querySelectorAll('input[name="alma_recibe"]'), function (e) { return e.value; })
+      .filter(function (v) { return d.alma_excluye.indexOf(v) === -1; });
+  }
   MULTI.forEach(function (k) {
     if (!Array.isArray(d[k])) return;
     Array.prototype.forEach.call(f.querySelectorAll('input[name="' + k + '"]'), function (e) { e.checked = d[k].indexOf(e.value) !== -1; });

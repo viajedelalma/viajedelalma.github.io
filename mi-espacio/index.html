@@ -348,9 +348,8 @@ function nivelMes(lista) {
   const botones = botonesMes(i, 'boton');
   if (!botones.length && i.enviado_en) notas.push(`Te lo enviamos a tu correo el ${dia(i.enviado_en)}.`);
   // La prueba lleva dos informes. Con el primero, se anuncia el segundo: los 30 días que siguen al primero
-  // (prueba continua, 7-nov-2026). Gemma y Lau (17-nov) conservan las fechas que ya les dijo su correo.
-  if (i.desde === '2026-11-17') notas.push('El siguiente, del 17 de diciembre al 16 de enero, llega el 17 de diciembre.');
-  else if (!antes.length && /^\d{4}-\d{2}-\d{2}$/.test(String(i.hasta || ''))) {
+  // (prueba continua, 7-nov-2026). Sin excepciones por fecha (REV-0711-CONTINUA, CONT-02).
+  if (!antes.length && /^\d{4}-\d{2}-\d{2}$/.test(String(i.hasta || ''))) {
     const mas = (n) => new Date(Date.parse(i.hasta + 'T12:00:00Z') + n * 86400000).toISOString().slice(0, 10);
     notas.push(`El siguiente, del ${dia(mas(1))} al ${dia(mas(30))}, llega el ${dia(mas(1))}.`);
   }

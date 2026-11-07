@@ -154,7 +154,8 @@ input:focus{outline:none;border-color:var(--oro)}
     <section class="bloque" id="b-imagen" hidden>
       <p class="etiqueta">La imagen de hoy</p>
       <img class="imagen-hoy" id="r-imagen" alt="" width="1200" height="900">
-      <p class="nota">Imagen creada con IA a partir del cielo y la planta de hoy</p>
+      <p class="cita imagen-frase" id="r-imagen-frase" hidden></p>
+      <p class="nota">Imagen creada con IA a partir del cielo y el mensaje de hoy</p>
     </section>
 
     <section class="bloque" id="b-cielo">
@@ -299,6 +300,9 @@ function pintaResumen(c, sinIa) {
   const ri = $('r-imagen');
   ri.onerror = () => { $('b-imagen').hidden = true; };
   if (img) { ri.src = img; $('b-imagen').hidden = false; } else { ri.removeAttribute('src'); $('b-imagen').hidden = true; }
+  // La frase del día (catálogo de la app), la misma para todas
+  const fr = img && typeof c.imagen.frase === 'string' && c.imagen.frase.trim().length >= 2 && c.imagen.frase.length <= 80 ? c.imagen.frase.trim() : '';
+  $('r-imagen-frase').textContent = fr ? `«${fr}»` : ''; $('r-imagen-frase').hidden = !fr;
 
   // Tu cielo hoy
   $('b-cielo').hidden = !c.cielo || !c.cielo.texto;
@@ -437,7 +441,7 @@ function limpia() {
     'r-planta', 'r-planta-corto', 'r-planta-ritual', 'r-mineral', 'r-mineral-corto', 'r-mineral-ritual'].forEach((id) => { if ($(id)) $(id).textContent = ''; });
   $('b-semana').hidden = true; $('r-cuidado-alma').hidden = true;
   ['r-planta-foto', 'r-mineral-foto'].forEach((id) => { $(id).hidden = true; $(id).removeAttribute('src'); });
-  $('b-imagen').hidden = true; $('r-imagen').removeAttribute('src');
+  $('b-imagen').hidden = true; $('r-imagen').removeAttribute('src'); $('r-imagen-frase').textContent = ''; $('r-imagen-frase').hidden = true;
   muestra('cargando');
 }
 async function cuentaActual() {
