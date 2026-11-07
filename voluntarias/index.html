@@ -206,7 +206,7 @@ body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;
         <span class="num" aria-hidden="true">2</span>
         <h3>El Resumen diario personalizado</h3>
         <p>Durante ese mes, en la web y en tu correo a las 7:00, hora de Madrid.</p>
-        <p>Siempre incluye Tu cielo hoy, La Luna y Planta y mineral. Además, eliges entre tres y cinco de las nueve secciones disponibles.</p>
+        <p>Siempre incluye Tu cielo hoy, La Luna y Planta y mineral. Además, eliges al menos tres de las nueve secciones disponibles, o todas.</p>
       </section>
       <section class="bloque nivel-card">
         <span class="num" aria-hidden="true">3</span>
@@ -398,7 +398,7 @@ body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;
     <section class="bloque">
       <p class="etiqueta">Siempre en tu Resumen diario personalizado</p>
       <ul class="fijo"><li>Tu cielo hoy</li><li>La Luna</li><li>Planta y mineral</li></ul>
-      <p class="ayuda">Estas partes están siempre incluidas y no cuentan dentro de las tres a cinco secciones que eliges a continuación.</p>
+      <p class="ayuda">Estas partes están siempre incluidas y no cuentan dentro de las secciones que eliges a continuación.</p>
 
       <fieldset class="campo" id="c-cielo" aria-describedby="ay-cielo e-cielo">
         <legend>¿Cómo prefieres leer Tu cielo hoy?</legend>
@@ -421,7 +421,7 @@ body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;
 
       <fieldset class="campo" id="c-secciones" aria-describedby="ay-secciones contador-secciones">
         <legend>¿Qué secciones quieres en tu Resumen diario personalizado?</legend>
-        <p class="ayuda" id="ay-secciones">Hemos marcado tres para empezar. Puedes cambiarlas o añadir hasta dos más.</p>
+        <p class="ayuda" id="ay-secciones">Hemos marcado tres para empezar. Puedes cambiarlas o añadir las que quieras, hasta las nueve.</p>
         <div class="opciones dos-col secciones-grid" id="lista-secciones">
           <label class="opcion"><input type="checkbox" name="seccion" value="alma" checked>Alimento del alma</label>
           <label class="opcion"><input type="checkbox" name="seccion" value="mundo" checked>Mundo</label>
@@ -802,28 +802,21 @@ function cambiaHoraTipo() {
   $('c-hora').hidden = !(t === 'exacta' || t === 'aproximada');
 }
 
-// ── Secciones: de 3 a 5, con los mensajes de VOL-FORM ──
-var MSG_SECCIONES = {
-  3: 'Has elegido 3. Puedes añadir hasta 2 más o continuar así.',
-  4: 'Has elegido 4. Puedes añadir 1 más o continuar así.',
-  5: 'Has elegido 5. Para añadir otra, desmarca primero una.'
-};
+// ── Secciones: de 3 a 9 (decisión de Gemma, 7-nov-2026: «que tengamos todos la opción de tener todo») ──
+function msgSecciones(n) {
+  if (n >= 9) return 'Has elegido las 9.';
+  return 'Has elegido ' + n + '. Puedes añadir las que quieras o continuar así.';
+}
 function secciones() { return Array.prototype.map.call(document.querySelectorAll('input[name="seccion"]:checked'), function (e) { return e.value; }); }
 function pintaContador(inicio) {
   var n = secciones().length;
   var c = $('contador-secciones');
-  if (inicio && n === 3) c.textContent = 'Tienes 3 secciones elegidas. Puedes cambiarlas o añadir hasta 2 más.';
+  if (inicio && n === 3) c.textContent = 'Tienes 3 secciones elegidas. Puedes cambiarlas o añadir las que quieras.';
   else if (n < 3) c.textContent = 'Elige al menos 3 secciones.';
-  else c.textContent = MSG_SECCIONES[n] || '';
+  else c.textContent = msgSecciones(n);
   c.classList.toggle('error', n < 3);
 }
 function cambiaSeccion(e) {
-  if (e.target.checked && secciones().length > 5) {
-    e.target.checked = false; // no se añade la sexta ni se quita otra
-    $('contador-secciones').textContent = 'Puedes elegir un máximo de 5 secciones.';
-    $('contador-secciones').classList.remove('error');
-    return;
-  }
   pintaContador(false);
   pintaSubopciones();
 }
@@ -1005,7 +998,7 @@ function valida() {
   if (secs.indexOf('mundo') !== -1 && !marcados('mundo').length) { marcaError('mundo', 'Elige al menos un tema.'); malos.push(document.querySelector('input[name="mundo"]')); }
   // Alimento del alma sin ninguna tradición no tiene sentido (REV-0311-V2-07). PROPUESTA de texto.
   if (secs.indexOf('alma') !== -1 && almaExcluye().length >= TRADICIONES) { marcaError('alma', 'Has desmarcado todas las tradiciones. Deja al menos una marcada o quita Alimento del alma de tus secciones.'); malos.push(document.querySelector('input[name="alma_recibe"]')); }
-  if (secs.length < 3 || secs.length > 5) { pintaContador(false); $('c-secciones').setAttribute('aria-invalid', 'true'); malos.push(document.querySelector('input[name="seccion"]')); }
+  if (secs.length < 3 || secs.length > 9) { pintaContador(false); $('c-secciones').setAttribute('aria-invalid', 'true'); malos.push(document.querySelector('input[name="seccion"]')); }
   if (marcado('fechas') !== 'si') { if (!marcado('fechas')) { marcaError('fechas', 'Elige una respuesta.'); malos.push(document.querySelector('input[name="fechas"]')); } }
   if (!$('acepto').checked) { marcaError('acepto', 'Para enviar la candidatura tienes que marcar esta casilla.', $('acepto')); malos.push($('acepto')); }
   if (malos.length) {
