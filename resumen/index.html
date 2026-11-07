@@ -70,6 +70,9 @@ ol.pasos li{margin:0 0 6px}
 .aviso-mundo{font-size:.95rem;color:var(--oro-claro);margin:4px 0 10px}
 .cuidado-alma{border-color:rgba(232,217,160,.55)}
 .carta-nombre{font-family:var(--display);font-size:1.3rem;color:var(--oro-claro);margin:0 0 6px}
+.imagen-hoy{display:block;width:100%;height:auto;aspect-ratio:4/3;object-fit:cover;border-radius:12px;margin:6px 0 8px;background:var(--noche-3)}
+.carta-img{display:block;width:140px;height:auto;aspect-ratio:300/527;object-fit:cover;border-radius:10px;margin:2px 0 12px;background:var(--noche-3)}
+.carta-img.planta{width:100%;max-width:320px;aspect-ratio:4/3}
 .aspectos{font-size:.86rem;color:var(--tenue);margin:8px 0 0;padding-left:1.1em}
 label{display:block;font-size:.7rem;letter-spacing:.19em;text-transform:uppercase;color:var(--oro);margin:18px 0 7px}
 input{width:100%;font:inherit;color:var(--texto);background:var(--noche-3);border:1px solid var(--linea);border-radius:12px;padding:13px 14px}
@@ -146,6 +149,14 @@ input:focus{outline:none;border-color:var(--oro)}
     <p class="entradilla" id="r-sabbat" hidden></p>
     <p class="entradilla error" id="r-sin-ia" hidden role="status"><span id="r-sin-ia-texto">Tu texto personal de hoy no ha llegado todavía. Aquí tienes lo de cada día; vuelve a intentarlo en un momento.</span>
       <br><button class="boton secundario" id="b-reintentar" type="button">Volver a intentarlo</button></p>
+
+    <!-- La imagen de hoy (Gemma, 7-nov-2026): una común para todas, hecha con IA de madrugada. PROPUESTA de texto. -->
+    <section class="bloque" id="b-imagen" hidden>
+      <p class="etiqueta">La imagen de hoy</p>
+      <img class="imagen-hoy" id="r-imagen" alt="" width="1200" height="900">
+      <p class="cita imagen-frase" id="r-imagen-frase" hidden></p>
+      <p class="nota">Imagen creada con IA a partir del cielo y el mensaje de hoy</p>
+    </section>
 
     <section class="bloque" id="b-cielo">
       <div class="cabeza"><span class="medalla" data-icono="cielo" aria-hidden="true"></span><p class="etiqueta">Tu cielo hoy</p></div>
@@ -258,12 +269,40 @@ function foto(el, tipo, x) {
   el.alt = x.nombre ? `Foto: ${x.nombre}` : ''; el.src = `/resumen/img/${tipo}/${id}.jpg`; el.hidden = false;
 }
 
+/* «Una carta» con su imagen (Gemma, 7-nov-2026): tarot, las 78 de la app (almacén público «cartas»);
+   oráculo de plantas, la foto de la planta. Solo con un id conocido; si no carga, se esconde. */
+const CARTAS = 'https://orxyhxehapqmjwmqmqgv.supabase.co/storage/v1/object/public/cartas/';
+const IMAGEN_BASE = 'https://orxyhxehapqmjwmqmqgv.supabase.co/storage/v1/object/public/imagenes/resumen/';
+const MAYORES = new Map([['loco', '00-loco'], ['mago', '01-mago'], ['sacerdotisa', '02-suma-sacerdotisa'], ['emperatriz', '03-emperatriz'],
+  ['emperador', '04-emperador'], ['hierofante', '05-hierofante'], ['enamorados', '06-enamorados'], ['carro', '07-carro'],
+  ['fuerza', '08-fuerza'], ['ermitano', '09-ermitano'], ['rueda-fortuna', '10-rueda-fortuna'], ['justicia', '11-justicia'],
+  ['colgado', '12-colgado'], ['muerte', '13-muerte'], ['templanza', '14-templanza'], ['diablo', '15-diablo'],
+  ['torre', '16-torre'], ['estrella', '17-estrella'], ['luna', '18-luna'], ['sol', '19-sol'], ['juicio', '20-juicio'], ['mundo', '21-mundo']]);
+const MENOR = /^(copas|bastos|espadas|oros)-(as|0[2-9]|10|sota|caballero|reina|rey)$/;
+function imagenCarta(c) {
+  const id = c && typeof c.id === 'string' ? c.id : '';
+  if (c && c.baraja === 'plantas') return /^[a-z0-9-]{2,40}$/.test(id) ? `/resumen/img/plantas/${id}.jpg` : null;
+  if (MAYORES.has(id)) return `${CARTAS}tarot-${MAYORES.get(id)}.jpg`;
+  if (MENOR.test(id)) return `${CARTAS}tarot-${id}.jpg`;
+  return null;
+}
+
 function pintaResumen(c, sinIa) {
   $('r-fecha').textContent = c.fecha_texto || '';
   $('r-saludo').textContent = c.nombre ? `Buenos días, ${c.nombre}` : 'Buenos días';
   $('r-sabbat').hidden = !c.sabbat;
   if (c.sabbat) $('r-sabbat').textContent = `Hoy es ${c.sabbat} en la rueda del año.`;
   $('r-sin-ia').hidden = !sinIa;
+
+  // La imagen de hoy: solo una del almacén público «imagenes», carpeta resumen/, con el nombre del motor
+  const img = c.imagen && typeof c.imagen.url === 'string' && c.imagen.url.startsWith(IMAGEN_BASE)
+    && /^\d{4}-\d{2}-\d{2}-[0-9a-f]{8}\.jpg$/.test(c.imagen.url.slice(IMAGEN_BASE.length)) ? c.imagen.url : null;
+  const ri = $('r-imagen');
+  ri.onerror = () => { $('b-imagen').hidden = true; };
+  if (img) { ri.src = img; $('b-imagen').hidden = false; } else { ri.removeAttribute('src'); $('b-imagen').hidden = true; }
+  // La frase del día (catálogo de la app), la misma para todas
+  const fr = img && typeof c.imagen.frase === 'string' && c.imagen.frase.trim().length >= 2 && c.imagen.frase.length <= 80 ? c.imagen.frase.trim() : '';
+  $('r-imagen-frase').textContent = fr ? `«${fr}»` : ''; $('r-imagen-frase').hidden = !fr;
 
   // Tu cielo hoy
   $('b-cielo').hidden = !c.cielo || !c.cielo.texto;
@@ -309,6 +348,13 @@ function pintaResumen(c, sinIa) {
     } else if (s.id === 'carta') {
       if (s.carta) {
         if (s.carta.baraja) b.appendChild(nodo('p', 'alma-fuente', s.carta.baraja === 'plantas' ? 'Oráculo de plantas' : 'Tarot'));
+        const u = imagenCarta(s.carta);
+        if (u) {
+          const im = document.createElement('img');
+          im.className = s.carta.baraja === 'plantas' ? 'carta-img planta' : 'carta-img';
+          im.alt = s.carta.nombre ? `Carta: ${s.carta.nombre}` : ''; im.loading = 'lazy';
+          im.onerror = () => { im.hidden = true; }; im.src = u; b.appendChild(im);
+        }
         b.appendChild(nodo('p', 'carta-nombre', s.carta.nombre)); b.appendChild(nodo('p', '', s.carta.sentido));
       }
       if (s.texto) { const d = nodo('div', 'texto'); pinta(d, s.texto); b.appendChild(d); }
@@ -395,6 +441,7 @@ function limpia() {
     'r-planta', 'r-planta-corto', 'r-planta-ritual', 'r-mineral', 'r-mineral-corto', 'r-mineral-ritual'].forEach((id) => { if ($(id)) $(id).textContent = ''; });
   $('b-semana').hidden = true; $('r-cuidado-alma').hidden = true;
   ['r-planta-foto', 'r-mineral-foto'].forEach((id) => { $(id).hidden = true; $(id).removeAttribute('src'); });
+  $('b-imagen').hidden = true; $('r-imagen').removeAttribute('src'); $('r-imagen-frase').textContent = ''; $('r-imagen-frase').hidden = true;
   muestra('cargando');
 }
 async function cuentaActual() {
