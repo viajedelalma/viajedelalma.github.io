@@ -20,5 +20,6 @@ button:disabled { opacity: .55; cursor: wait; }
 .hint { margin: -.35rem 0 1rem; color: #e7d8ea; font-size: .9rem; }
 summary { cursor: pointer; }
 .check { display: flex; gap: .5rem; align-items: baseline; margin: 1.25rem 0; }
+.check.focus { margin-bottom: 0; font-weight: 500; }
 #error { color: #ffc1b2; }
 :focus-visible { outline: 2px solid #ffe4a9; outline-offset: 3px; }

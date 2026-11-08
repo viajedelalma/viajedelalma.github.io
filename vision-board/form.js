@@ -45,7 +45,14 @@ function dreamField(number) {
     caption.value = suggestion.value;
     caption.focus();
   });
-  fieldset.append(descriptionLabel, captionLabel, suggestion);
+  const focusLabel = document.createElement("label");
+  focusLabel.className = "check focus";
+  const focus = document.createElement("input");
+  focus.type = "checkbox";
+  focus.name = "focus";
+  focus.value = String(number - 1);
+  focusLabel.append(focus, " Dar más protagonismo a este sueño");
+  fieldset.append(descriptionLabel, captionLabel, suggestion, focusLabel);
   return {fieldset, caption, suggestion};
 }
 
@@ -92,6 +99,7 @@ if (!endpoint) {
         headers: {"Content-Type": "application/json"},
         body: JSON.stringify({token, dreams: data.getAll("dream"), labels: data.getAll("caption"),
           style: data.get("style"), tones: [data.get("tone"), data.get("accent")].filter(Boolean),
+          focus: data.getAll("focus").map(Number),
           phrase: data.get("phrase"), ack: data.has("ack")}),
       });
       const result = await response.json();
