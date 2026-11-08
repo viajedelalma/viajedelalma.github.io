@@ -156,7 +156,7 @@ input:focus{outline:none;border-color:var(--oro)}
       <p class="etiqueta">La imagen de hoy</p>
       <img class="imagen-hoy" id="r-imagen" alt="" width="1200" height="900">
       <p class="cita imagen-frase" id="r-imagen-frase" hidden></p>
-      <p class="nota">Imagen creada con IA a partir del cielo y el mensaje de hoy</p>
+      <p class="nota" id="r-imagen-pie">Imagen creada con IA a partir del cielo y el mensaje de hoy</p>
     </section>
 
     <section class="bloque" id="b-cielo">
@@ -304,6 +304,9 @@ function pintaResumen(c, sinIa) {
   // La frase del día (catálogo de la app), la misma para todas
   const fr = img && typeof c.imagen.frase === 'string' && c.imagen.frase.trim().length >= 2 && c.imagen.frase.length <= 80 ? c.imagen.frase.trim() : '';
   $('r-imagen-frase').textContent = fr ? `«${fr}»` : ''; $('r-imagen-frase').hidden = !fr;
+  // Una de reserva (otro día, puesta por la base si faltó la de hoy) no se atribuye al cielo de hoy (REV-0811-IMAGEN-01).
+  // PROPUESTA de texto («Imagen creada con IA»), pendiente del «sí» de Gemma; el mismo que el correo.
+  $('r-imagen-pie').textContent = img && c.imagen.reserva === true ? 'Imagen creada con IA' : 'Imagen creada con IA a partir del cielo y el mensaje de hoy';
 
   // Tu cielo hoy
   $('b-cielo').hidden = !c.cielo || !c.cielo.texto;
