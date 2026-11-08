@@ -16,6 +16,8 @@ legend { padding: 0 .35rem; }
 textarea { resize: vertical; }
 button { padding: .75rem 1rem; border: 0; border-radius: .45rem; background: #e9ca8d; color: #211828; font: inherit; font-weight: 700; cursor: pointer; }
 button:disabled { opacity: .55; cursor: wait; }
+.suggestion { background: transparent; color: #e9ca8d; border: 1px solid #7e6a86; font-weight: 500; }
+.hint { margin: -.35rem 0 1rem; color: #e7d8ea; font-size: .9rem; }
 summary { cursor: pointer; }
 .check { display: flex; gap: .5rem; align-items: baseline; margin: 1.25rem 0; }
 #error { color: #ffc1b2; }

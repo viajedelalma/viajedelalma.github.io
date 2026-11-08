@@ -20,23 +20,39 @@
   </header>
   <p id="status" role="status">Abre el enlace privado que acompaña a tu pedido.</p>
   <form id="intake" hidden>
+    <label for="tone">Tono principal de las imágenes</label>
+    <select id="tone" name="tone">
+      <option value="realista">Realista · escenas que podrían fotografiarse</option>
+      <option value="divertido">Divertido · detalles juguetones y sorprendentes</option>
+      <option value="mistico">Místico · atmósferas de ensueño y símbolos sutiles</option>
+      <option value="inspirador">Inspirador · luz y sensación de posibilidad</option>
+    </select>
+    <label for="accent">Segundo tono <small>Opcional</small></label>
+    <select id="accent" name="accent">
+      <option value="">Un solo tono</option>
+      <option value="realista">Realista</option>
+      <option value="divertido">Divertido</option>
+      <option value="mistico">Místico</option>
+      <option value="inspirador">Inspirador</option>
+    </select>
+    <p class="hint">El primer tono guía el conjunto. El segundo añade matices a las imágenes y a los rótulos.</p>
+    <label for="style">Paleta de colores</label>
+    <select id="style" name="style">
+      <option value="calido">Cálida · ocre, oliva y luz suave</option>
+      <option value="lunar">Lunar · índigo, lavanda y atardecer</option>
+      <option value="natural">Natural · crema y verde salvia</option>
+    </select>
     <label for="count">¿Cuántos sueños quieres incluir?</label>
     <select id="count" name="count">
       <option>1</option><option>2</option><option>3</option>
       <option>4</option><option>5</option><option>6</option>
     </select>
     <div id="dreams"></div>
-    <label for="style">Estilo visual</label>
-    <select id="style" name="style">
-      <option value="calido">Cálido · ocre, oliva y luz suave</option>
-      <option value="lunar">Lunar · índigo, lavanda y atardecer</option>
-      <option value="natural">Natural · crema y verde salvia</option>
-    </select>
     <label for="phrase">Frase para el pie del tablero <small>Opcional</small></label>
     <input id="phrase" name="phrase" maxlength="65" placeholder="Un paso a la vez">
     <details>
       <summary>Cómo usamos tus respuestas</summary>
-      <p>Viaje del Alma utiliza tus respuestas para preparar, revisar y entregar tu encargo. Enviamos las descripciones de los sueños a OpenAI para crear las escenas. Componemos las palabras y la frase después. El formulario no pide fotos ni datos de contacto. Evita datos de salud, direcciones, apellidos y datos de otras personas.</p>
+      <p>Viaje del Alma utiliza tus respuestas para preparar, revisar y entregar tu encargo. Enviamos las descripciones, los tonos y la paleta a OpenAI para crear las escenas. Componemos las palabras y la frase después. El formulario no pide fotos ni datos de contacto. Evita datos de salud, direcciones, apellidos y datos de otras personas.</p>
       <p>El enlace caduca a los siete días y se desactiva al enviar. Los datos del pedido se conservan en el servicio hasta 60 días desde su creación. Para consultar tus datos o pedir que se eliminen, escribe en Mensajes de Etsy.</p>
     </details>
     <label class="check"><input type="checkbox" name="ack" required> He leído cómo se usarán mis respuestas.</label>

@@ -5,9 +5,18 @@ const form = document.querySelector("#intake");
 const status = document.querySelector("#status");
 const fields = document.querySelector("#dreams");
 const count = document.querySelector("#count");
+const tone = document.querySelector("#tone");
+const accent = document.querySelector("#accent");
+const phrase = document.querySelector("#phrase");
 const error = document.querySelector("#error");
 const submit = form.querySelector("button");
 const endpoint = document.querySelector('meta[name="intake-endpoint"]').content;
+const examples = {
+  realista: { labels: ["En camino", "Tiempo para mí", "Mi lugar"], phrase: "Un paso a la vez" },
+  divertido: { labels: ["Planazo", "Modo aventura", "Hoy toca jugar"], phrase: "Que nunca falten las ganas de jugar" },
+  mistico: { labels: ["Luz interior", "Luna nueva", "Raíces y alas"], phrase: "Honro el ritmo de mis ciclos" },
+  inspirador: { labels: ["Me atrevo", "Puedo empezar", "Abro camino"], phrase: "Hago sitio a lo que importa" },
+};
 
 function dreamField(number) {
   const fieldset = document.createElement("fieldset");
@@ -28,21 +37,44 @@ function dreamField(number) {
   const caption = document.createElement("input");
   caption.name = "caption";
   caption.maxLength = 22;
-  caption.placeholder = "Calma";
   captionLabel.append(caption);
-  fieldset.append(descriptionLabel, captionLabel);
-  return fieldset;
+  const suggestion = document.createElement("button");
+  suggestion.className = "suggestion";
+  suggestion.type = "button";
+  suggestion.addEventListener("click", () => {
+    caption.value = suggestion.value;
+    caption.focus();
+  });
+  fieldset.append(descriptionLabel, captionLabel, suggestion);
+  return {fieldset, caption, suggestion};
 }
 
 const dreams = Array.from({length: 6}, (_, i) => dreamField(i + 1));
-fields.append(...dreams);
+fields.append(...dreams.map(({fieldset}) => fieldset));
 function updateCount() {
-  dreams.forEach((field, index) => {
-    field.disabled = field.hidden = index >= Number(count.value);
+  dreams.forEach(({fieldset}, index) => {
+    fieldset.disabled = fieldset.hidden = index >= Number(count.value);
   });
 }
+function updateTones() {
+  if (accent.value === tone.value) accent.value = "";
+  for (const option of accent.options) option.disabled = option.value === tone.value;
+  const primary = examples[tone.value];
+  const secondary = accent.value ? examples[accent.value] : primary;
+  dreams.forEach(({caption, suggestion}, index) => {
+    const set = index % 2 ? secondary : primary;
+    const label = set.labels[(accent.value ? Math.floor(index / 2) : index) % set.labels.length];
+    caption.placeholder = label;
+    suggestion.value = label;
+    suggestion.textContent = "Usar «" + label + "»";
+  });
+  phrase.placeholder = primary.phrase;
+}
 count.addEventListener("change", updateCount);
+tone.addEventListener("change", updateTones);
+accent.addEventListener("change", updateTones);
 updateCount();
+updateTones();
 
 if (!endpoint) {
   status.textContent = "El cuestionario aún no está disponible.";
@@ -59,7 +91,8 @@ if (!endpoint) {
         method: "POST", credentials: "omit", cache: "no-store", redirect: "error",
         headers: {"Content-Type": "application/json"},
         body: JSON.stringify({token, dreams: data.getAll("dream"), labels: data.getAll("caption"),
-          style: data.get("style"), phrase: data.get("phrase"), ack: data.has("ack")}),
+          style: data.get("style"), tones: [data.get("tone"), data.get("accent")].filter(Boolean),
+          phrase: data.get("phrase"), ack: data.has("ack")}),
       });
       const result = await response.json();
       if (!response.ok) {
