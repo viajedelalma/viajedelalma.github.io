@@ -305,7 +305,7 @@ function pintaResumen(c, sinIa) {
   const fr = img && typeof c.imagen.frase === 'string' && c.imagen.frase.trim().length >= 2 && c.imagen.frase.length <= 80 ? c.imagen.frase.trim() : '';
   $('r-imagen-frase').textContent = fr ? `«${fr}»` : ''; $('r-imagen-frase').hidden = !fr;
   // Una de reserva (otro día, puesta por la base si faltó la de hoy) no se atribuye al cielo de hoy (REV-0811-IMAGEN-01).
-  // PROPUESTA de texto («Imagen creada con IA»), pendiente del «sí» de Gemma; el mismo que el correo.
+  // Texto «Imagen creada con IA», el mismo que el correo: aprobado por Gemma (8-nov-2026, 09:36).
   $('r-imagen-pie').textContent = img && c.imagen.reserva === true ? 'Imagen creada con IA' : 'Imagen creada con IA a partir del cielo y el mensaje de hoy';
 
   // Tu cielo hoy
