@@ -359,7 +359,8 @@ main section.wrap.bloque{padding:56px 26px 18px}
 .rincon-caja .btn{display:inline-block;margin-top:18px}
 footer .redes-titulo{font-family:var(--display);font-size:.7rem;letter-spacing:.28em;text-transform:uppercase;color:var(--oro);margin-bottom:10px}
 footer p.redes{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin:0 0 26px}
-footer p.redes a{margin:0;border:1px solid var(--linea);border-radius:999px;padding:6px 14px;font-size:.98rem;line-height:1.3}
+footer p.redes a{margin:0;border:1px solid var(--linea);border-radius:999px;padding:6px 14px;font-size:.98rem;line-height:1.3;display:inline-flex;align-items:center;min-height:44px}
+footer nav a{padding:7px 0}
 footer p.redes a:hover{border-color:var(--oro)}
 @media (max-width:400px){header.portada{padding-top:58px}.logo-portada{width:148px;height:148px}}
 @media (max-width:767px){
@@ -434,6 +435,49 @@ footer p.redes a:hover{border-color:var(--oro)}
   body[data-vda-page="inicio"] .sec-desc{font-size:19px}
   body[data-vda-page="inicio"] .indice h2{text-align:left}
 }
+
+/* 9-nov, vuelta 3 (REV-0911-PORTADA de Aina): móvil más corto, botones cómodos y algo más de aire en ordenador. */
+.lh-eti{font-size:.66rem}
+.mi-espacio-top{min-height:44px}
+.prod-mas summary{min-height:44px}
+@media (max-width:520px){
+  header.portada .sub{display:none}
+  header.portada{padding-bottom:0}
+  main section.wrap.bloque{padding:40px 22px 14px}
+  .indice{padding:26px 22px 0!important}
+  .indice h2{margin-bottom:12px}
+  .indice-lista{gap:8px}
+  .ind{padding:12px 6px 10px;gap:6px}
+  .ind-ico{width:42px;height:42px}
+  .ind-tit{font-size:.78rem}
+  .sec-cab{gap:12px;margin-bottom:14px;padding-bottom:12px}
+  .sec-ico{width:44px;height:44px}
+  .sec-desc{font-size:.95rem}
+  .prods{gap:12px}
+  .prod{padding:14px 14px 4px}
+  .prod-img,.prod-icono{width:72px;height:72px;margin:2px 12px 6px 0}
+  .prod h3{font-size:1rem}
+  .prod-frase{font-size:.95rem;line-height:1.4}
+  .prod .chips{display:none}
+  .prod-pie{clear:left;padding-top:8px}
+  .prod-precio{margin-bottom:8px}
+  .prod-pie .btn{padding:13px 14px}
+  .prod-pie .btn-borde{background:none;box-shadow:none;padding:15px 6px 13px;text-decoration:underline;text-underline-offset:4px}
+  .prod-mas{margin-top:4px;border-top:0;padding-top:0}
+  .regalo-portada{padding:22px 16px 16px}
+  .rincon-caja{padding:22px 18px 22px}
+  .rincon-caja p{font-size:.98rem}
+  footer.wrap{padding:56px 22px 40px}
+  footer p.redes{gap:6px}
+  footer p.redes a{font-size:.9rem;padding:5px 11px}
+}
+@media screen and (min-width:1024px){
+  body[data-vda-page="inicio"] main section.wrap.bloque{padding-top:96px;padding-bottom:48px}
+  body[data-vda-page="inicio"] .prods{gap:28px}
+  body[data-vda-page="inicio"] .indice-lista{gap:26px}
+  body[data-vda-page="inicio"] .sec-cab{margin-bottom:28px}
+  body[data-vda-page="inicio"] .botones .btn{letter-spacing:.08em;padding:16px 22px}
+}
 </style>
 <script data-goatcounter="https://viajedelalma.goatcounter.com/count"
         async src="//gc.zgo.at/count.js"></script>
@@ -468,9 +512,9 @@ footer p.redes a:hover{border-color:var(--oro)}
 <p class="sub">Una práctica espiritual diaria en español: rituales breves, tarot, plantas y minerales, y un diario que solo lees tú.</p>
 <div class="botones">
 <a class="btn btn-oro" href="/web/" data-goatcounter-click="portada-web">Abrir la app en el navegador</a>
-<a class="btn btn-borde" href="https://play.google.com/store/apps/details?id=com.viajedelalma.app&amp;referrer=utm%5Fsource%3Dlanding%26utm%5Fmedium%3Dweb%26utm%5Fcampaign%3Dlanzamiento" rel="noopener" data-goatcounter-click="portada-arriba-play">Descargar en Google Play</a>
+<a class="btn btn-borde" href="https://play.google.com/store/apps/details?id=com.viajedelalma.app&amp;referrer=utm%5Fsource%3Dlanding%26utm%5Fmedium%3Dweb%26utm%5Fcampaign%3Dlanzamiento" rel="noopener" data-goatcounter-click="portada-arriba-play">Descargar para Android · Google Play</a>
 </div>
-<p class="portada-nota">El ritual de cada día es gratis. En el navegador es la misma app, con tu misma cuenta, sin descargar nada: iPhone, Android y ordenador.</p>
+<p class="portada-nota">El ritual de cada día es gratis. En el navegador (iPhone, Android y ordenador) es la misma app, con tu misma cuenta y sin descargar nada; los avisos diarios y la semana de prueba son solo de la app de Android.</p>
 <div class="luna-hoy">
 <svg class="dial" viewBox="0 0 200 200" role="img" aria-labelledby="dialTitulo">
 <title id="dialTitulo">Rueda del ciclo lunar con el día de hoy señalado y la luna en su fase actual</title>
@@ -508,7 +552,7 @@ footer p.redes a:hover{border-color:var(--oro)}
 <p class="prod-precio">Gratis · Premium 4,99 €/mes</p>
 <a class="btn btn-oro" href="https://play.google.com/store/apps/details?id=com.viajedelalma.app&amp;referrer=utm%5Fsource%3Dlanding%26utm%5Fmedium%3Dweb%26utm%5Fcampaign%3Dlanzamiento" rel="noopener" data-goatcounter-click="portada-play">Descárgala en Google Play</a>
 <a class="btn btn-borde" href="/web/" data-goatcounter-click="portada-producto-web">Úsala en el navegador</a>
-<details class="prod-mas"><summary data-goatcounter-click="portada-incluye-app">Qué incluye</summary><p>Tu práctica espiritual diaria, en español: un ritual guiado de tres minutos, gratis para siempre, y además tarot, luna, horóscopo, tu planta y tu mineral de cada mes, meditaciones y un diario que solo lees tú.</p><p>Premium desbloquea todo por 4,99 € al mes. En Android, también 49,99 € al año, con siete días de prueba gratis.</p><p class="p-mas"><a href="/app/?o=web">Ver todo lo que incluye</a> · Android, iPhone y ordenador</p></details>
+<details class="prod-mas"><summary data-goatcounter-click="portada-producto-app">Qué incluye</summary><p>Tu práctica espiritual diaria, en español: un ritual guiado de tres minutos, gratis para siempre, y además tarot, luna, horóscopo, tu planta y tu mineral de cada mes, meditaciones y un diario que solo lees tú.</p><p>Premium desbloquea todo por 4,99 € al mes. En Android, también 49,99 € al año, con siete días de prueba gratis.</p><p class="p-mas"><a href="/app/?o=web">Ver todo lo que incluye</a> · Android, iPhone y ordenador</p></details>
 </div>
 </div>
 </article>
@@ -521,7 +565,7 @@ footer p.redes a:hover{border-color:var(--oro)}
 <div class="prod-pie">
 <p class="prod-precio">2,99 €</p>
 <a class="btn btn-oro" href="/calendario-2027/?utm_source=web&amp;utm_medium=portada&amp;utm_campaign=calendario2027" data-goatcounter-click="portada-calendario">Ver el calendario</a>
-<details class="prod-mas"><summary data-goatcounter-click="portada-incluye-calendario">Qué incluye</summary><p>Las 49 fases de la Luna de 2027 con su día, su hora y su signo, la rueda del año, los eclipses y un ritual sencillo para cada luna nueva, cada luna llena y cada sabbat. Para leer en el móvil y para imprimir, en edición norte y sur.</p><p id="regaloPortada">Lo que queda de 2026 y enero a abril de 2027, gratis si te apuntas a la lista.</p>
+<details class="prod-mas"><summary data-goatcounter-click="portada-producto-calendario">Qué incluye</summary><p>Las 49 fases de la Luna de 2027 con su día, su hora y su signo, la rueda del año, los eclipses y un ritual sencillo para cada luna nueva, cada luna llena y cada sabbat. Para leer en el móvil y para imprimir, en edición norte y sur.</p><p id="regaloPortada">Lo que queda de 2026 y enero a abril de 2027, gratis si te apuntas a la lista.</p>
 <script>if(Date.now()>=Date.parse('2027-01-01T00:00:00+01:00'))document.getElementById('regaloPortada').textContent='Enero a abril de 2027, gratis si te apuntas a la lista.';</script></details>
 </div>
 </div>
@@ -541,7 +585,7 @@ footer p.redes a:hover{border-color:var(--oro)}
 <div class="prod-pie">
 <p class="prod-precio">Informe <span data-precio="carta">14,99 €</span> · pago único</p>
 <a class="btn btn-oro" href="/carta/" data-goatcounter-click="portada-carta">Calcula tu carta gratis</a>
-<details class="prod-mas"><summary data-goatcounter-click="portada-incluye-carta">Qué incluye</summary><p>El cielo del día en que naciste. Calcula gratis tu Sol, tu Luna y tu Ascendente con efemérides reales, sin registro: el cálculo ocurre en tu móvil.</p><p>Si quieres la carta entera, el informe completo: unas 25 páginas escritas para ti, en tu correo en menos de 24 horas.</p></details>
+<details class="prod-mas"><summary data-goatcounter-click="portada-producto-carta">Qué incluye</summary><p>El cielo del día en que naciste. Calcula gratis tu Sol, tu Luna y tu Ascendente con efemérides reales, sin registro: el cálculo ocurre en tu móvil.</p><p>Si quieres la carta entera, el informe completo: unas 25 páginas escritas para ti, en tu correo en menos de 24 horas.</p></details>
 </div>
 </div>
 </article>
@@ -554,7 +598,7 @@ footer p.redes a:hover{border-color:var(--oro)}
 <div class="prod-pie">
 <p class="prod-precio">19,99 € · pago único</p>
 <a class="btn btn-oro" href="/sinastria/" data-goatcounter-click="portada-sinastria">Ver la sinastría</a>
-<details class="prod-mas"><summary data-goatcounter-click="portada-incluye-sinastria">Qué incluye</summary><p>Dos cartas natales leídas juntas, para una pareja, una amistad o un vínculo de familia: la compatibilidad por áreas, lo que os une, dónde rozáis y los momentos importantes de vuestro próximo año.</p><p>Unas 22 páginas escritas para que las leáis las dos personas a la vez, en el correo en menos de 24 horas.</p></details>
+<details class="prod-mas"><summary data-goatcounter-click="portada-producto-sinastria">Qué incluye</summary><p>Dos cartas natales leídas juntas, para una pareja, una amistad o un vínculo de familia: la compatibilidad por áreas, lo que os une, dónde rozáis y los momentos importantes de vuestro próximo año.</p><p>Unas 22 páginas escritas para que las leáis las dos personas a la vez, en el correo en menos de 24 horas.</p></details>
 </div>
 </div>
 </article>
@@ -567,7 +611,7 @@ footer p.redes a:hover{border-color:var(--oro)}
 <div class="prod-pie">
 <p class="prod-precio">24,99 € · con tu carta, <span data-precio="pack">28,99 €</span></p>
 <a class="btn btn-oro" href="/revolucion/" data-goatcounter-click="portada-revolucion">Descubre tu año</a>
-<details class="prod-mas"><summary data-goatcounter-click="portada-incluye-revolucion">Qué incluye</summary><p>Tu año, de cumpleaños a cumpleaños, con fechas: la revolución solar calculada con efemérides reales y escrita para ti. Unas treinta y cinco páginas en tu correo en menos de 24 horas.</p><p>Necesita tu hora de nacimiento. Con tu carta natal, las dos juntas por <span data-precio="pack">28,99 €</span> (ahorras <span data-precio="ahorro_pack">10,99 €</span>).</p></details>
+<details class="prod-mas"><summary data-goatcounter-click="portada-producto-revolucion">Qué incluye</summary><p>Tu año, de cumpleaños a cumpleaños, con fechas: la revolución solar calculada con efemérides reales y escrita para ti. Unas treinta y cinco páginas en tu correo en menos de 24 horas.</p><p>Necesita tu hora de nacimiento. Con tu carta natal, las dos juntas por <span data-precio="pack">28,99 €</span> (ahorras <span data-precio="ahorro_pack">10,99 €</span>).</p></details>
 </div>
 </div>
 </article>
@@ -590,8 +634,8 @@ footer p.redes a:hover{border-color:var(--oro)}
 <div class="rincon-caja">
 <span class="eyebrow">Para todas</span>
 <h2 id="tituloRincon">Mi espacio</h2>
-<p>Todo lo tuyo de Viaje del Alma, en un solo sitio: lo que pides en la web y tu Premium, si usas la app.</p>
-<p class="rincon-nota">Entra con tu cuenta de la app: el mismo correo y la misma contraseña. Si aún no tienes, se crea gratis.</p>
+<p>Todo lo tuyo de Viaje del Alma en un solo sitio. Cada una ve lo suyo: lo que ha pedido en la web y su Premium, si lo tiene.</p>
+<p class="rincon-nota">Entra con tu cuenta de la app: el mismo correo y la misma contraseña. Crear la cuenta es gratis.</p>
 <a class="btn btn-borde" href="/mi-espacio/" data-goatcounter-click="portada-bloque-mi-espacio">Entrar en Mi espacio</a>
 </div>
 </section>
