@@ -327,16 +327,7 @@ header.portada .sub{color:var(--niebla);font-size:1.02rem;line-height:1.6;max-wi
 .lh-eti{font-family:var(--display);font-size:.6rem;letter-spacing:.22em;text-transform:uppercase;color:var(--oro)}
 .lh-dato{font-size:1rem;color:var(--niebla)}
 main section.wrap.bloque{padding:56px 26px 18px}
-main section.wrap.bloque.caminos{padding-top:34px}
 .bloque h2{margin:8px 0 22px}
-.caminos-lista{display:grid;gap:14px}
-.camino{display:grid;grid-template-columns:92px minmax(0,1fr);gap:16px;align-items:center;padding:12px 14px 12px 12px;background:linear-gradient(168deg,var(--noche-2),var(--noche-3));border:1px solid var(--linea);border-radius:4px;color:inherit}
-.camino:hover{border-color:var(--oro);border-bottom-color:var(--oro);color:inherit;box-shadow:0 0 24px rgba(196,154,60,.14)}
-.camino img{width:92px;height:92px;object-fit:cover;border-radius:3px;border:1px solid var(--linea);display:block}
-.c-texto{display:flex;flex-direction:column;gap:4px;min-width:0}
-.c-titulo{font-family:var(--display);font-size:1rem;letter-spacing:.04em;line-height:1.3;color:var(--oro-brillo)}
-.c-desc{font-size:.96rem;line-height:1.45;color:var(--niebla)}
-.c-ir{font-family:var(--display);font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;color:var(--oro)}
 .prods{display:grid;gap:18px}
 .prod{background:linear-gradient(168deg,var(--noche-2),var(--noche-3));border:1px solid var(--linea);border-radius:4px;overflow:hidden;display:flex;flex-direction:column;min-width:0}
 .prod-img{display:block;width:100%;height:auto;aspect-ratio:2/1;object-fit:cover;border-bottom:1px solid var(--linea)}
@@ -370,7 +361,7 @@ footer .redes-titulo{font-family:var(--display);font-size:.7rem;letter-spacing:.
 footer p.redes{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin:0 0 26px}
 footer p.redes a{margin:0;border:1px solid var(--linea);border-radius:999px;padding:6px 14px;font-size:.98rem;line-height:1.3}
 footer p.redes a:hover{border-color:var(--oro)}
-@media (max-width:400px){header.portada{padding-top:58px}.logo-portada{width:148px;height:148px}.camino{grid-template-columns:76px minmax(0,1fr);gap:12px}.camino img{width:76px;height:76px}}
+@media (max-width:400px){header.portada{padding-top:58px}.logo-portada{width:148px;height:148px}}
 @media (max-width:767px){
   .prod{display:block;padding:16px 16px 14px}
   .prod::after{content:"";display:table;clear:both}
@@ -399,13 +390,6 @@ footer p.redes a:hover{border-color:var(--oro)}
   body[data-vda-page="inicio"] .portada-nota{margin-left:0;max-width:44em;font-size:18px}
   body[data-vda-page="inicio"] .lh-dato{font-size:19px}
   body[data-vda-page="inicio"] main section.wrap.bloque{padding-top:80px;padding-bottom:40px}
-  body[data-vda-page="inicio"] .caminos-lista{grid-template-columns:repeat(3,minmax(0,1fr));gap:22px}
-  body[data-vda-page="inicio"] .camino{grid-template-columns:1fr;gap:0;padding:0;overflow:hidden;align-items:stretch}
-  body[data-vda-page="inicio"] .camino img{width:100%;height:210px;border:0;border-bottom:1px solid var(--linea);border-radius:0}
-  body[data-vda-page="inicio"] .c-texto{padding:20px 22px 22px;gap:8px}
-  body[data-vda-page="inicio"] .c-titulo{font-size:20px}
-  body[data-vda-page="inicio"] .c-desc{font-size:19px}
-  body[data-vda-page="inicio"] .c-ir{font-size:13px}
   body[data-vda-page="inicio"] .prods{grid-template-columns:repeat(3,minmax(0,1fr));gap:22px;align-items:stretch}
   body[data-vda-page="inicio"] .prods.prods-2{grid-template-columns:repeat(2,minmax(0,1fr))}
   body[data-vda-page="inicio"] .prod-img,body[data-vda-page="inicio"] .prod-icono{aspect-ratio:16/10}
@@ -421,6 +405,34 @@ footer p.redes a:hover{border-color:var(--oro)}
   body[data-vda-page="inicio"] .rincon-caja > *{grid-column:1}
   body[data-vda-page="inicio"] .rincon-caja p{margin-left:0;font-size:19px}
   body[data-vda-page="inicio"] .rincon-caja .btn{grid-column:2;grid-row:1 / 4;margin:0}
+}
+
+/* 9-nov, vuelta 2 · Índice de tres caminos y una sección por camino (cada producto sale una vez). */
+.indice{padding-top:30px!important}
+.indice h2{text-align:center;margin:0 0 16px}
+.indice-lista{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.ind{display:flex;flex-direction:column;align-items:center;text-align:center;gap:8px;padding:14px 8px 12px;background:linear-gradient(168deg,var(--noche-2),var(--noche-3));border:1px solid var(--linea);border-radius:4px;color:inherit}
+.ind:hover{border-color:var(--oro);border-bottom-color:var(--oro);color:inherit;box-shadow:0 0 22px rgba(196,154,60,.14)}
+.ind-ico svg,.sec-ico svg{display:block;width:100%;height:100%}
+.ind-ico{width:52px;height:52px}
+.ind-txt{display:flex;flex-direction:column;gap:3px}
+.ind-tit{font-family:var(--display);font-size:.84rem;letter-spacing:.03em;line-height:1.25;color:var(--oro-brillo)}
+.ind-desc{display:none;font-size:.95rem;line-height:1.4;color:var(--tenue)}
+.seccion{scroll-margin-top:12px}
+.sec-cab{display:flex;align-items:center;gap:16px;margin:0 0 20px;padding-bottom:16px;border-bottom:1px solid var(--linea)}
+.sec-ico{flex:none;width:52px;height:52px}
+.sec-cab h2{margin:0;line-height:1.25}
+.sec-desc{font-size:1rem;line-height:1.45;color:var(--tenue);margin-top:4px}
+#regalo .rp-etiqueta{display:none}
+@media screen and (min-width:1024px){
+  body[data-vda-page="inicio"] .indice-lista{gap:22px}
+  body[data-vda-page="inicio"] .ind{flex-direction:row;text-align:left;gap:18px;padding:22px 24px}
+  body[data-vda-page="inicio"] .ind-ico{width:64px;height:64px;flex:none}
+  body[data-vda-page="inicio"] .ind-tit{font-size:20px}
+  body[data-vda-page="inicio"] .ind-desc{display:block;font-size:18px}
+  body[data-vda-page="inicio"] .sec-ico{width:64px;height:64px}
+  body[data-vda-page="inicio"] .sec-desc{font-size:19px}
+  body[data-vda-page="inicio"] .indice h2{text-align:left}
 }
 </style>
 <script data-goatcounter="https://viajedelalma.goatcounter.com/count"
@@ -474,19 +486,51 @@ footer p.redes a:hover{border-color:var(--oro)}
 
 <main>
 
-<section class="wrap bloque caminos" aria-labelledby="tituloCaminos">
-<span class="eyebrow">Empieza aquí</span>
-<h2 id="tituloCaminos">¿Qué buscas hoy?</h2>
-<div class="caminos-lista">
-<a class="camino" href="/app/?o=web" data-goatcounter-click="portada-camino-app"><img src="/app/poster.jpg" width="540" height="960" alt="" loading="lazy" style="object-position:50% 62%"><span class="c-texto"><span class="c-titulo">Una práctica para cada día</span><span class="c-desc">Un ritual de tres minutos, tarot, luna, meditaciones y tu diario.</span><span class="c-ir">Ver la app →</span></span></a>
-<a class="camino" href="#informes" data-goatcounter-click="portada-camino-informes"><img src="/carta/informe.jpg" width="1004" height="936" alt="" loading="lazy"><span class="c-texto"><span class="c-titulo">Conocerme mejor</span><span class="c-desc">Tu carta natal, tu revolución solar y la sinastría con otra persona, escritas para ti.</span><span class="c-ir">Ver los informes →</span></span></a>
-<a class="camino" href="/regalo/?vda_placement=portada" data-goatcounter-click="portada-camino-regalo"><img src="/regalo/img/regalo_pack.webp" width="1200" height="800" alt="" loading="lazy"><span class="c-texto"><span class="c-titulo">Un regalo especial</span><span class="c-desc">Una carta natal con tu dedicatoria. No necesitas su hora de nacimiento.</span><span class="c-ir">Ver el regalo →</span></span></a>
+<nav class="wrap bloque indice" aria-labelledby="tituloIndice">
+<h2 id="tituloIndice">¿Qué buscas hoy?</h2>
+<div class="indice-lista">
+<a class="ind" href="#practica" data-goatcounter-click="portada-camino-app"><span class="ind-ico"><svg viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="24" r="23.5" fill="#160F2E" stroke="rgba(196,154,60,.45)"/><circle cx="24" cy="24" r="11" fill="#E8CE8C"/><path fill="#160F2E" d="M24 13a11 11 0 0 0 0 22a6.5 11 0 0 1 0-22z"/><g fill="#C49A3C"><circle cx="9" cy="24" r="1.6"/><circle cx="39" cy="24" r="1.6"/><circle cx="24" cy="8.5" r="1.3"/><circle cx="24" cy="39.5" r="1.3"/></g></svg></span><span class="ind-txt"><span class="ind-tit">Mi práctica diaria</span><span class="ind-desc">La app y el calendario lunar</span></span></a>
+<a class="ind" href="#informes" data-goatcounter-click="portada-camino-informes"><span class="ind-ico"><svg viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="24" r="23.5" fill="#160F2E" stroke="rgba(196,154,60,.45)"/><circle cx="24" cy="24" r="18" fill="none" stroke="#C49A3C" stroke-width=".9"/><circle cx="24" cy="24" r="12" fill="none" stroke="#C49A3C" stroke-width=".6"/><path fill="none" stroke="#C49A3C" stroke-width=".6" d="M36 24H42M34.39 30L39.59 33M30 34.39L33 39.59M24 36V42M18 34.39L15 39.59M13.61 30L8.41 33M12 24H6M13.61 18L8.41 15M18 13.61L15 8.41M24 12V6M30 13.61L33 8.41M34.39 18L39.59 15"/><path fill="none" stroke="#E8CE8C" stroke-width=".7" d="M34.34 27.76L15.57 31.07L22.09 13.17Z"/><g fill="#F6E3AE"><circle cx="34.34" cy="27.76" r="1.4"/><circle cx="15.57" cy="31.07" r="1.4"/><circle cx="22.09" cy="13.17" r="1.4"/></g></svg></span><span class="ind-txt"><span class="ind-tit">Conocerme mejor</span><span class="ind-desc">Carta natal, sinastría y revolución solar</span></span></a>
+<a class="ind" href="#regalo" data-goatcounter-click="portada-camino-regalo"><span class="ind-ico"><svg viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="24" r="23.5" fill="#160F2E" stroke="rgba(196,154,60,.45)"/><rect x="13" y="21" width="22" height="15" rx="1.5" fill="none" stroke="#C49A3C" stroke-width="1.2"/><rect x="11.5" y="16.5" width="25" height="5" rx="1" fill="none" stroke="#E8CE8C" stroke-width="1.2"/><path d="M24 16.5V36" stroke="#E8CE8C" stroke-width="1.2"/><path d="M24 16.5c-2.5-4.5-8-4.5-7.5-1.2.4 2.2 5 1.7 7.5 1.2zm0 0c2.5-4.5 8-4.5 7.5-1.2-.4 2.2-5 1.7-7.5 1.2z" fill="none" stroke="#F6E3AE" stroke-width="1.1"/></svg></span><span class="ind-txt"><span class="ind-tit">Regalar</span><span class="ind-desc">Una carta natal con tu dedicatoria</span></span></a>
+</div>
+</nav>
+
+<section class="wrap bloque seccion" id="practica" aria-labelledby="tituloPractica">
+<div class="sec-cab"><span class="sec-ico"><svg viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="24" r="23.5" fill="#160F2E" stroke="rgba(196,154,60,.45)"/><circle cx="24" cy="24" r="11" fill="#E8CE8C"/><path fill="#160F2E" d="M24 13a11 11 0 0 0 0 22a6.5 11 0 0 1 0-22z"/><g fill="#C49A3C"><circle cx="9" cy="24" r="1.6"/><circle cx="39" cy="24" r="1.6"/><circle cx="24" cy="8.5" r="1.3"/><circle cx="24" cy="39.5" r="1.3"/></g></svg></span><div><h2 id="tituloPractica">Mi práctica diaria</h2><p class="sec-desc">Un gesto cada día, con la app y con el calendario de la luna.</p></div></div>
+<div class="prods prods-2">
+<article class="prod">
+<img class="prod-img arriba" src="/app/poster.jpg" width="540" height="960" alt="La planta y el mineral del mes en la app" loading="lazy">
+<div class="prod-cuerpo">
+<h3>La app</h3>
+<p class="prod-frase">Tu práctica espiritual diaria, en español.</p>
+<ul class="chips"><li>Ritual de 3 minutos gratis</li><li>Android, iPhone y ordenador</li></ul>
+<div class="prod-pie">
+<p class="prod-precio">Gratis · Premium 4,99 €/mes</p>
+<a class="btn btn-oro" href="https://play.google.com/store/apps/details?id=com.viajedelalma.app&amp;referrer=utm%5Fsource%3Dlanding%26utm%5Fmedium%3Dweb%26utm%5Fcampaign%3Dlanzamiento" rel="noopener" data-goatcounter-click="portada-play">Descárgala en Google Play</a>
+<a class="btn btn-borde" href="/web/" data-goatcounter-click="portada-producto-web">Úsala en el navegador</a>
+<details class="prod-mas"><summary data-goatcounter-click="portada-incluye-app">Qué incluye</summary><p>Tu práctica espiritual diaria, en español: un ritual guiado de tres minutos, gratis para siempre, y además tarot, luna, horóscopo, tu planta y tu mineral de cada mes, meditaciones y un diario que solo lees tú.</p><p>Premium desbloquea todo por 4,99 € al mes. En Android, también 49,99 € al año, con siete días de prueba gratis.</p><p class="p-mas"><a href="/app/?o=web">Ver todo lo que incluye</a> · Android, iPhone y ordenador</p></details>
+</div>
+</div>
+</article>
+<article class="prod">
+<img class="prod-img" style="object-position:50% 12%" src="/calendario-2027/img/norte_01_portada.webp" width="1200" height="900" alt="Portada y páginas del calendario lunar 2027" loading="lazy">
+<div class="prod-cuerpo">
+<h3>Calendario lunar 2027</h3>
+<p class="prod-frase">Las 49 fases de la Luna de 2027, con su día, su hora y su signo.</p>
+<ul class="chips"><li>PDF</li><li>Norte y sur</li><li>Para imprimir</li></ul>
+<div class="prod-pie">
+<p class="prod-precio">2,99 €</p>
+<a class="btn btn-oro" href="/calendario-2027/?utm_source=web&amp;utm_medium=portada&amp;utm_campaign=calendario2027" data-goatcounter-click="portada-calendario">Ver el calendario</a>
+<details class="prod-mas"><summary data-goatcounter-click="portada-incluye-calendario">Qué incluye</summary><p>Las 49 fases de la Luna de 2027 con su día, su hora y su signo, la rueda del año, los eclipses y un ritual sencillo para cada luna nueva, cada luna llena y cada sabbat. Para leer en el móvil y para imprimir, en edición norte y sur.</p><p id="regaloPortada">Lo que queda de 2026 y enero a abril de 2027, gratis si te apuntas a la lista.</p>
+<script>if(Date.now()>=Date.parse('2027-01-01T00:00:00+01:00'))document.getElementById('regaloPortada').textContent='Enero a abril de 2027, gratis si te apuntas a la lista.';</script></details>
+</div>
+</div>
+</article>
 </div>
 </section>
 
-<section class="wrap bloque" id="informes" aria-labelledby="tituloInformes">
-<span class="eyebrow">Escritos para ti</span>
-<h2 id="tituloInformes">Para conocerte mejor</h2>
+<section class="wrap bloque seccion" id="informes" aria-labelledby="tituloInformes">
+<div class="sec-cab"><span class="sec-ico"><svg viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="24" r="23.5" fill="#160F2E" stroke="rgba(196,154,60,.45)"/><circle cx="24" cy="24" r="18" fill="none" stroke="#C49A3C" stroke-width=".9"/><circle cx="24" cy="24" r="12" fill="none" stroke="#C49A3C" stroke-width=".6"/><path fill="none" stroke="#C49A3C" stroke-width=".6" d="M36 24H42M34.39 30L39.59 33M30 34.39L33 39.59M24 36V42M18 34.39L15 39.59M13.61 30L8.41 33M12 24H6M13.61 18L8.41 15M18 13.61L15 8.41M24 12V6M30 13.61L33 8.41M34.39 18L39.59 15"/><path fill="none" stroke="#E8CE8C" stroke-width=".7" d="M34.34 27.76L15.57 31.07L22.09 13.17Z"/><g fill="#F6E3AE"><circle cx="34.34" cy="27.76" r="1.4"/><circle cx="15.57" cy="31.07" r="1.4"/><circle cx="22.09" cy="13.17" r="1.4"/></g></svg></span><div><h2 id="tituloInformes">Conocerme mejor</h2><p class="sec-desc">Informes escritos para ti, en tu correo en menos de 24 horas.</p></div></div>
 <div class="prods">
 <article class="prod">
 <img class="prod-img" src="/carta/informe.jpg" width="1004" height="936" alt="Páginas de un informe de carta natal" loading="lazy">
@@ -530,7 +574,8 @@ footer p.redes a:hover{border-color:var(--oro)}
 </div>
 </section>
 
-<section class="wrap bloque" id="regalo" aria-label="Para regalar">
+<section class="wrap bloque seccion" id="regalo" aria-labelledby="tituloRegalo">
+<div class="sec-cab"><span class="sec-ico"><svg viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="24" r="23.5" fill="#160F2E" stroke="rgba(196,154,60,.45)"/><rect x="13" y="21" width="22" height="15" rx="1.5" fill="none" stroke="#C49A3C" stroke-width="1.2"/><rect x="11.5" y="16.5" width="25" height="5" rx="1" fill="none" stroke="#E8CE8C" stroke-width="1.2"/><path d="M24 16.5V36" stroke="#E8CE8C" stroke-width="1.2"/><path d="M24 16.5c-2.5-4.5-8-4.5-7.5-1.2.4 2.2 5 1.7 7.5 1.2zm0 0c2.5-4.5 8-4.5 7.5-1.2-.4 2.2-5 1.7-7.5 1.2z" fill="none" stroke="#F6E3AE" stroke-width="1.1"/></svg></span><div><h2 id="tituloRegalo">Regalar</h2><p class="sec-desc">Su carta natal, con tu dedicatoria. No necesitas su hora de nacimiento.</p></div></div>
 <div class="producto regalo-portada" id="regaloPortadaB1"><span class="rp-etiqueta">Para regalar</span>
 <img src="/regalo/img/regalo_pack.webp" width="1200" height="800" alt="La tarjeta de regalo con su dedicatoria, la carta natal y el calendario lunar 2027" loading="lazy">
 <h3>Un regalo que diga: he pensado en ti</h3>
@@ -538,41 +583,6 @@ footer p.redes a:hover{border-color:var(--oro)}
 <p class="rp-precio">19,99 € · pago único</p>
 <p><a class="descarga" href="/regalo/?vda_placement=portada" data-goatcounter-click="portada-regalo">Ver la carta natal de regalo</a></p>
 <p class="rp-nota">Tarjeta en un minuto tras pagar. Carta natal por correo en menos de 24 h después del canje con los datos de nacimiento.</p>
-</div>
-</section>
-
-<section class="wrap bloque" id="la-app" aria-labelledby="tituloDiario">
-<span class="eyebrow">Para cada día</span>
-<h2 id="tituloDiario">Tu práctica y tu calendario</h2>
-<div class="prods prods-2">
-<article class="prod">
-<img class="prod-img arriba" src="/app/poster.jpg" width="540" height="960" alt="La planta y el mineral del mes en la app" loading="lazy">
-<div class="prod-cuerpo">
-<h3>La app</h3>
-<p class="prod-frase">Tu práctica espiritual diaria, en español.</p>
-<ul class="chips"><li>Ritual de 3 minutos gratis</li><li>Android, iPhone y ordenador</li></ul>
-<div class="prod-pie">
-<p class="prod-precio">Gratis · Premium 4,99 €/mes</p>
-<a class="btn btn-oro" href="https://play.google.com/store/apps/details?id=com.viajedelalma.app&amp;referrer=utm%5Fsource%3Dlanding%26utm%5Fmedium%3Dweb%26utm%5Fcampaign%3Dlanzamiento" rel="noopener" data-goatcounter-click="portada-play">Descárgala en Google Play</a>
-<a class="btn btn-borde" href="/web/" data-goatcounter-click="portada-producto-web">Úsala en el navegador</a>
-<details class="prod-mas"><summary data-goatcounter-click="portada-incluye-app">Qué incluye</summary><p>Tu práctica espiritual diaria, en español: un ritual guiado de tres minutos, gratis para siempre, y además tarot, luna, horóscopo, tu planta y tu mineral de cada mes, meditaciones y un diario que solo lees tú.</p><p>Premium desbloquea todo por 4,99 € al mes. En Android, también 49,99 € al año, con siete días de prueba gratis.</p><p class="p-mas"><a href="/app/?o=web">Ver todo lo que incluye</a> · Android, iPhone y ordenador</p></details>
-</div>
-</div>
-</article>
-<article class="prod">
-<img class="prod-img" style="object-position:50% 12%" src="/calendario-2027/img/norte_01_portada.webp" width="1200" height="900" alt="Portada y páginas del calendario lunar 2027" loading="lazy">
-<div class="prod-cuerpo">
-<h3>Calendario lunar 2027</h3>
-<p class="prod-frase">Las 49 fases de la Luna de 2027, con su día, su hora y su signo.</p>
-<ul class="chips"><li>PDF</li><li>Norte y sur</li><li>Para imprimir</li></ul>
-<div class="prod-pie">
-<p class="prod-precio">2,99 €</p>
-<a class="btn btn-oro" href="/calendario-2027/?utm_source=web&amp;utm_medium=portada&amp;utm_campaign=calendario2027" data-goatcounter-click="portada-calendario">Ver el calendario</a>
-<details class="prod-mas"><summary data-goatcounter-click="portada-incluye-calendario">Qué incluye</summary><p>Las 49 fases de la Luna de 2027 con su día, su hora y su signo, la rueda del año, los eclipses y un ritual sencillo para cada luna nueva, cada luna llena y cada sabbat. Para leer en el móvil y para imprimir, en edición norte y sur.</p><p id="regaloPortada">Lo que queda de 2026 y enero a abril de 2027, gratis si te apuntas a la lista.</p>
-<script>if(Date.now()>=Date.parse('2027-01-01T00:00:00+01:00'))document.getElementById('regaloPortada').textContent='Enero a abril de 2027, gratis si te apuntas a la lista.';</script></details>
-</div>
-</div>
-</article>
 </div>
 </section>
 
