@@ -360,9 +360,11 @@ function rellena(p) {
   marca('cielo', o.cielo || 'sin_tecnicismos');
   marca('luna', o.luna || 'ambas');
   marca('seccion', lista(p.secciones));
-  const excl = lista(p.alma_excluye);
+  // Las tradiciones: primero las de opciones (lo que lee el generador); si no están, las de la columna.
+  const excl = Array.isArray(o.alma_excluye) ? lista(o.alma_excluye) : lista(p.alma_excluye);
+  const diaria = typeof o.alma_diaria === 'string' ? o.alma_diaria : (typeof p.alma_diaria === 'string' ? p.alma_diaria : '');
   marca('alma_recibe', TRADICIONES.filter((t) => excl.indexOf(t) === -1));
-  marca('alma_diaria', typeof p.alma_diaria === 'string' ? p.alma_diaria : '');
+  marca('alma_diaria', TRADICIONES.indexOf(diaria) !== -1 ? diaria : '');
   marca('mundo', o.mundo ? lista(o.mundo) : ['es', 'int', 'cultura', 'ciencia']);
   marca('cuidado', lista(o.cuidado));
   marca('dinero', o.dinero || 'no_dice');
