@@ -40,7 +40,7 @@
 <meta property="og:description" content="Tu Sol, tu Luna y tu Ascendente, calculados de verdad. Gratis y sin registro.">
 <title>Carta natal gratis: tu Sol, Luna y Ascendente · Viaje del Alma</title>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300&family=Karla:wght@300;400;500;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300&family=Karla:wght@300;400;500;700&display=swap">
 <style>
 :root{
   --noche:#0B0818; --noche-2:#14102A; --noche-3:#1C1636;
@@ -49,6 +49,7 @@
   --texto:#EDE7DC; --tenue:#A99CCB; --linea:rgba(201,168,76,.22);
   --display:'Cormorant Garamond', 'Iowan Old Style', Georgia, serif;
   --cuerpo:'Karla','Helvetica Neue',Arial,sans-serif;
+  --titulo:'Cinzel', Georgia, serif; --azul:#3C9AC4; --oro-brillo:#F6E3AE;
 }
 *{box-sizing:border-box}
 body{margin:0;background:var(--noche);color:var(--texto);font-family:var(--cuerpo);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased}
@@ -75,7 +76,7 @@ input:focus,select:focus{outline:2px solid var(--oro);outline-offset:1px;border-
 select option{background:#14102A;color:#EDE7DC}
 .check{display:flex;align-items:center;gap:9px;font-size:.88rem;color:var(--tenue);grid-column:1/-1}
 .check input{width:auto}
-button.principal{margin-top:18px;width:100%;font-family:var(--cuerpo);font-weight:500;letter-spacing:.14em;text-transform:uppercase;font-size:.78rem;color:#1B1405;background:linear-gradient(180deg,var(--oro-claro),var(--oro));border:0;border-radius:2px;padding:15px;cursor:pointer;transition:filter .2s}
+button.principal{margin-top:18px;width:100%;font-family:var(--titulo);font-weight:600;letter-spacing:.14em;text-transform:uppercase;font-size:.78rem;color:#1B1405;background:linear-gradient(180deg,var(--oro-claro),var(--oro));border:0;border-radius:2px;padding:15px;cursor:pointer;transition:filter .2s}
 button.principal:hover{filter:brightness(1.08)}
 button.principal:focus-visible{outline:2px solid var(--oro-claro);outline-offset:3px}
 
@@ -98,25 +99,12 @@ button.principal:focus-visible{outline:2px solid var(--oro-claro);outline-offset
 
 /* velo: dos frases reales y degradado, como en la app */
 .velo{position:relative;margin-top:6px}
-.muestra{border:1px solid var(--linea);border-top:0;padding:26px 22px 4px;background:linear-gradient(180deg,rgba(28,22,54,.35),transparent)}
 .muestra .rotulo{font-family:var(--cuerpo);font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;color:var(--oro);margin:0 0 16px}
-.muestra h4{font-family:var(--titulo);font-size:1.35rem;font-weight:400;margin:0 0 12px;color:var(--texto)}
+.muestra .m-titulo{font-family:var(--cuerpo);font-size:1.3rem;font-weight:400;line-height:1.35;margin:0 0 12px;color:var(--texto)}
 .muestra .parrafos{position:relative;max-height:470px;overflow:hidden}
 .muestra .parrafos p{color:#D8D0E4;margin:0 0 14px;line-height:1.65}
 .muestra .parrafos::after{content:'';position:absolute;left:0;right:0;bottom:0;height:120px;background:linear-gradient(180deg,transparent,var(--noche))}
 .muestra .nota{font-size:.8rem;color:var(--tenue);margin:14px 0 22px;font-style:italic}
-.indice{border-top:1px solid var(--linea);padding-top:20px}
-.indice p.enc{font-size:.95rem;color:var(--texto);margin:0 0 14px}
-.indice ol{margin:0;padding-left:1.1rem;color:#D8D0E4}
-.indice li{margin-bottom:9px;line-height:1.5}
-.indice li b{color:var(--texto);font-weight:600}
-.muestra .foto{margin:22px 0 6px;text-align:center}
-.muestra .foto img{width:100%;max-width:420px;border-radius:3px}
-.muestra .foto figcaption{font-size:.78rem;color:var(--tenue);margin-top:8px;font-style:italic}
-.indice .magnitud{margin:0 0 16px;padding:14px 16px;background:rgba(201,168,76,.08);border-left:2px solid var(--oro);color:#D8D0E4;font-size:.95rem;line-height:1.65}
-.indice .magnitud b{color:var(--oro)}
-.indice .carta-entera{margin:18px 0 0;padding:16px 18px;background:rgba(123,107,171,.10);border-left:2px solid var(--oro);color:#D8D0E4;font-size:.95rem;line-height:1.65}
-.indice .carta-entera b{color:var(--oro)}
 .indice .tuyo{margin-top:14px;padding:14px 16px;border:1px solid var(--violeta-tenue);border-radius:2px;color:#D8D0E4;font-size:.95rem;line-height:1.6}
 .indice .tuyo b{color:var(--oro)}
 .velo .contenido{filter:blur(5px);opacity:.6;user-select:none;pointer-events:none}
@@ -126,12 +114,16 @@ button.principal:focus-visible{outline:2px solid var(--oro-claro);outline-offset
 .tabla td:first-child{color:var(--oro-claro);width:2.2em;font-size:1.15rem}
 .tabla td:last-child{text-align:right;color:var(--tenue)}
 
-.puerta{border:1px solid var(--linea);border-top:0;padding:24px;text-align:center;background:linear-gradient(180deg,rgba(28,22,54,.5),transparent)}
-.puerta h3{font-size:1.9rem;margin-bottom:8px}
+.puerta{margin-top:56px;border:1px solid var(--linea);border-radius:4px;padding:28px 20px 24px;text-align:center;background:linear-gradient(180deg,rgba(28,22,54,.6),rgba(20,16,42,.25))}
+.puerta h2{font-size:1.45rem;line-height:1.3;margin-bottom:10px}
 .puerta p{color:var(--tenue);max-width:46ch;margin:0 auto 18px}
 .acciones{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
-.boton-b{font-size:.76rem;letter-spacing:.14em;text-transform:uppercase;padding:13px 22px;border-radius:2px;text-decoration:none;border:1px solid var(--oro);color:var(--oro-claro)}
-.boton-b.lleno{background:var(--oro);color:#1B1405;border-color:var(--oro)}
+/* 9-nov · tres familias, como la portada: dorado lleno = comprar; borde dorado = mirar antes; texto = lo demás. */
+.boton-b{display:inline-block;text-align:center;font-family:var(--titulo);font-weight:600;font-size:.76rem;letter-spacing:.12em;line-height:1.35;text-transform:uppercase;padding:13px 22px;border-radius:2px;text-decoration:none;border:1px solid var(--oro);color:var(--oro-claro);background:rgba(11,8,24,.35);transition:box-shadow .25s ease,background .25s ease}
+.boton-b:hover{background:rgba(201,168,76,.12);color:var(--oro-brillo)}
+.boton-b:focus-visible{outline:2px solid var(--oro-claro);outline-offset:3px}
+.boton-b.lleno{background:linear-gradient(180deg,var(--oro-claro),var(--oro));color:#1B1405;border-color:var(--oro);box-shadow:0 0 22px rgba(201,168,76,.25)}
+.boton-b.lleno:hover{color:#1B1405;box-shadow:0 0 32px rgba(232,217,160,.45)}
 .correo{max-width:460px;margin:0 auto}
 .rol-correo{display:block;text-transform:none;letter-spacing:0;font-size:.95rem;color:var(--texto);margin-bottom:12px}
 .fila-correo{display:flex;gap:8px}
@@ -145,11 +137,9 @@ button.principal:focus-visible{outline:2px solid var(--oro-claro);outline-offset
 .precio b{font-family:var(--display);font-size:2.4rem;color:var(--oro-claro);font-weight:400;line-height:1}
 .precio span{display:block;font-size:.78rem;letter-spacing:.14em;text-transform:uppercase;color:var(--tenue);margin-top:6px}
 .boton-b.grande{font-size:.86rem;padding:17px 34px}
+@media (max-width:520px){.boton-b{font-size:.74rem;letter-spacing:.09em;padding:13px 16px}.boton-b.grande{font-size:.78rem;letter-spacing:.07em;padding:16px 12px}}
 .entrega{margin:16px auto 0;font-size:.95rem;color:var(--texto);max-width:44ch}
 .entrega a{color:var(--oro-claro);text-decoration:underline;text-underline-offset:3px}
-.garantias{list-style:none;margin:18px auto 0;padding:0;max-width:46ch;text-align:left}
-.garantias li{position:relative;padding-left:22px;margin-bottom:10px;font-size:.88rem;color:var(--tenue);line-height:1.55}
-.garantias li::before{content:'';position:absolute;left:4px;top:.62em;width:5px;height:5px;border-radius:50%;background:var(--oro)}
 .hora{margin:18px auto 0;max-width:46ch;text-align:left;border-top:1px solid var(--linea);padding-top:14px}
 .hora summary{cursor:pointer;font-size:.88rem;color:var(--oro-claro);list-style:none}
 .hora summary::-webkit-details-marker{display:none}
@@ -163,17 +153,6 @@ button.principal:focus-visible{outline:2px solid var(--oro-claro);outline-offset
 .pie{margin-top:40px;font-size:.78rem;color:var(--violeta);text-align:center;line-height:1.8}
 .error{color:#E7A6A6;font-size:.9rem;margin-top:10px}
 
-/* 1. aviso del informe bajo el formulario, visible desde el primer segundo */
-.aviso-informe{margin:18px 0 0;padding:14px 16px;border:1px solid var(--linea);border-radius:2px;background:rgba(201,168,76,.06);font-size:.92rem;color:var(--tenue);line-height:1.55;text-align:center}
-.aviso-informe b{color:var(--oro-claro);font-weight:500}
-.aviso-informe a{color:var(--oro-claro);text-decoration:underline;text-underline-offset:3px;white-space:nowrap}
-
-/* 0. (14-oct) botón «Comprar» arriba del todo: quien llega del anuncio ve
-   primero qué se vende y cómo comprarlo, antes de la carta gratis. */
-.compra-arriba{margin:18px 0 0;text-align:center}
-.compra-arriba .boton-b{display:inline-block}
-.compra-arriba p{margin:10px auto 0;font-size:.9rem;color:var(--tenue);max-width:46ch;line-height:1.5}
-@media (max-width:520px){.compra-arriba .boton-b{display:block}}
 
 /* 3. botón de compra sobre la tabla velada */
 .velo-cta{position:absolute;left:0;right:0;bottom:18px;z-index:2;text-align:center;padding:0 12px}
@@ -205,7 +184,7 @@ h1{font-size:clamp(2.1rem,7vw,4rem)}
 /* 27-oct · Para regalar (REGALO-2610-01, B2): alternativa junto a la compra, sin tocar el precio de la carta. */
 .para-regalar{margin:22px auto 6px;max-width:520px;padding:18px 18px 16px;border:1px solid var(--linea);border-left:2px solid var(--oro);background:rgba(201,168,76,.06);text-align:left}
 .para-regalar .eyebrow{display:block;margin-bottom:6px}
-.para-regalar h4{font-family:inherit;font-size:1.25rem;font-weight:500;color:var(--oro-claro);margin:0 0 6px}
+.para-regalar h3{font-family:inherit;font-size:1.25rem;font-weight:500;color:var(--oro-claro);margin:0 0 6px}
 .para-regalar p{color:var(--tenue);margin:0 0 10px;max-width:none}
 .para-regalar .pr-precio{color:var(--oro-claro);font-weight:500}
 .para-regalar .boton-b{display:inline-block;margin:4px 0 10px}
@@ -220,10 +199,93 @@ h1{font-size:clamp(2.1rem,7vw,4rem)}
 .solo-venta{display:none}
 html.modo-venta .solo-gratis{display:none!important}
 html.modo-venta .solo-venta{display:revert}
-html.modo-venta #resultado{display:block!important}
-html.modo-venta .muestra{border-top:1px solid var(--linea);margin-top:26px}
 html.modo-venta #indice-tuyo{display:none!important}
-html.modo-venta .compra-arriba .solo-venta a{color:var(--oro-claro);text-decoration:underline;text-underline-offset:3px}
+
+/* 9-nov-2026 · Fase 2 de la web visual (WEB-VISUAL de Aina, sí de la PO «Sí a la fase 2»):
+   la ficha del informe como en la portada (imagen real, 3 datos, precio y botón), bloques cortos con título
+   y lo largo en desplegables. Solo cambia la presentación: mismos enlaces, precios, eventos y modo venta. */
+.marca-mini{display:inline-flex;align-items:center;gap:10px;min-height:44px;font-family:var(--titulo);font-size:.72rem;letter-spacing:.22em;text-transform:uppercase;color:var(--oro);text-decoration:none;margin-bottom:6px}
+.marca-mini img{width:30px;height:30px;border-radius:24%;border:1px solid rgba(201,168,76,.45)}
+.marca-mini:hover{color:var(--oro-claro)}
+.marca-mini:focus-visible{outline:2px solid var(--oro);outline-offset:3px}
+h2{font-family:var(--titulo);font-weight:400;letter-spacing:.05em;color:var(--oro-claro)}
+#titulo-carta{font-family:var(--display);font-weight:300;letter-spacing:.01em;color:var(--texto)}
+.chips{list-style:none;display:flex;flex-wrap:wrap;gap:6px;margin:10px 0 0;padding:0}
+.chips li{font-size:.76rem;line-height:1.25;color:#CFE8F4;border:1px solid rgba(60,154,196,.5);background:rgba(60,154,196,.08);border-radius:999px;padding:4px 10px}
+
+/* ficha del informe */
+.tarjeta-informe{margin:26px 0 0;padding:18px;border:1px solid var(--linea);border-radius:4px;background:linear-gradient(168deg,var(--noche-2),var(--noche-3));display:grid;grid-template-columns:96px minmax(0,1fr);column-gap:14px;align-items:start;text-align:left}
+.tarjeta-informe>*{grid-column:1/-1;min-width:0}
+.ti-img{grid-column:1;grid-row:1/4;width:96px;height:96px;object-fit:cover;object-position:62% 30%;border:1px solid var(--linea);border-radius:3px;background:var(--noche)}
+.ti-eti,.ti-nombre,.tarjeta-informe .chips{grid-column:2}
+.ti-eti{margin:0;font-size:.68rem;letter-spacing:.2em;text-transform:uppercase;color:var(--oro)}
+.ti-nombre{font-size:1.12rem;line-height:1.3;margin:2px 0 0;color:var(--oro-brillo)}
+.tarjeta-informe .chips{margin-top:8px}
+.ti-botones{display:flex;flex-direction:column;gap:10px;margin-top:16px}
+.tarjeta-informe .regalar-arriba{margin:12px 0 0;font-size:.88rem;color:var(--tenue);line-height:1.5;text-align:center}
+.regalar-arriba a{text-underline-offset:3px}
+
+/* bloques */
+.bloque-p{margin-top:56px}
+.eti{margin:0 0 4px;font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;color:var(--oro)}
+.bloque-p h2{font-size:1.5rem;line-height:1.3;margin:0 0 18px}
+.recibes{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:1fr;gap:8px}
+.recibes li{padding:12px 14px;border:1px solid var(--linea);border-radius:4px;background:rgba(20,16,42,.55);display:grid;grid-template-columns:38px minmax(0,1fr);column-gap:12px;align-items:center}
+.recibes .ico{grid-row:1/3;font-family:var(--display);font-size:1.6rem;line-height:1;color:var(--oro-claro);text-align:center}
+.recibes .ico-txt{font-family:var(--titulo);font-size:.95rem;letter-spacing:.04em}
+.recibes b{font-weight:500;color:var(--texto);font-size:.95rem;line-height:1.3}
+.recibes li>span:last-child{font-size:.84rem;color:var(--tenue);line-height:1.45}
+.muestra .rotulo{font-family:var(--cuerpo);margin:0 0 4px}
+.muestra-texto{border:1px solid var(--linea);border-radius:4px;padding:20px 18px 2px;background:linear-gradient(180deg,rgba(28,22,54,.35),transparent)}
+.muestra .parrafos{max-height:300px}
+.muestra .nota{margin:14px 0 18px}
+.paginas{list-style:none;margin:20px -20px 0;padding:0 20px 8px;display:grid;grid-auto-flow:column;grid-auto-columns:42%;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:thin}
+.paginas li{margin:0;text-align:center;scroll-snap-align:start}
+.paginas img{display:block;width:100%;height:auto;aspect-ratio:420/594;border:1px solid var(--linea);border-radius:3px;background:var(--noche);box-shadow:0 8px 24px rgba(0,0,0,.35)}
+.paginas span{display:block;margin-top:6px;font-size:.78rem;color:var(--tenue)}
+.paginas-pie{margin:12px 0 0;font-size:.85rem;font-style:italic;color:var(--tenue);text-align:center}
+.centrado{text-align:center;margin:16px 0 0}
+.capitulos{list-style:none;margin:0;padding:0;border-top:1px solid var(--linea)}
+.capitulos li{border-bottom:1px solid var(--linea)}
+.capitulos summary{cursor:pointer;list-style:none;display:flex;align-items:center;gap:12px;min-height:50px;padding:6px 2px;font-size:1rem;color:var(--texto)}
+.capitulos summary::-webkit-details-marker{display:none}
+.capitulos summary::after{content:"+";margin-left:auto;font-family:var(--titulo);color:var(--oro);font-size:1.1rem}
+.capitulos details[open] summary::after{content:"−"}
+.capitulos summary:focus-visible{outline:2px solid var(--oro);outline-offset:2px}
+.capitulos .n{flex:none;width:28px;height:28px;border:1px solid var(--oro);border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-family:var(--titulo);font-size:.8rem;color:var(--oro-claro)}
+.capitulos p{margin:0 0 14px 40px;color:#D8D0E4;font-size:.95rem;line-height:1.6}
+.indice .tuyo{margin-top:16px}
+.pasos{list-style:none;margin:0;padding:0;display:grid;gap:10px;counter-reset:none}
+.pasos li{display:grid;grid-template-columns:34px minmax(0,1fr);column-gap:12px;padding:12px 14px;border:1px solid var(--linea);border-radius:4px;background:rgba(20,16,42,.55)}
+.pasos .n{grid-row:1/3;width:32px;height:32px;font-size:.9rem;border-radius:50%;background:linear-gradient(180deg,var(--oro-claro),var(--oro));color:#1B1405;display:flex;align-items:center;justify-content:center;font-family:var(--titulo);font-weight:600}
+.pasos b{font-weight:500;color:var(--texto);line-height:1.35}
+.pasos li>span:last-child{font-size:.9rem;color:var(--tenue);line-height:1.5}
+.puerta .compra{max-width:520px;margin:0 auto}
+.puerta .acciones .boton-b{min-width:min(100%,300px)}
+.confianza{justify-content:center;margin:16px 0 18px}
+.faq .hora{max-width:none;margin:0;padding:0;border-top:1px solid var(--linea)}
+.faq .hora:last-child{border-bottom:1px solid var(--linea)}
+.faq .hora summary{display:flex;align-items:center;gap:12px;min-height:50px;padding:6px 0;font-size:.98rem}
+.faq .hora summary::before{content:none}
+.faq .hora summary::after{content:'+';margin-left:auto;font-family:var(--titulo);color:var(--oro);font-size:1.1rem}
+.faq .hora[open] summary::after{content:'−'}
+.faq .hora summary:focus-visible{outline:2px solid var(--oro);outline-offset:2px}
+.faq .hora p{margin:0 0 14px;font-size:.92rem}
+.app-final{margin:44px auto 0;text-align:center}
+.app-final p{margin:12px 0 0;font-size:.8rem;color:var(--tenue)}
+@media (max-width:360px){.recibes{grid-template-columns:1fr}.tarjeta-informe{grid-template-columns:80px minmax(0,1fr)}.ti-img{width:80px;height:80px}}
+@media (min-width:600px) and (max-width:1023px){
+  .tarjeta-informe{grid-template-columns:150px minmax(0,1fr);column-gap:20px}
+  .ti-img{width:150px;height:150px;grid-row:1/5}
+  .ti-botones,.tarjeta-informe .regalar-arriba{grid-column:2}
+  .tarjeta-informe .regalar-arriba{text-align:left}
+  .paginas{grid-auto-flow:row;grid-template-columns:repeat(4,minmax(0,1fr));margin:20px 0 0;padding:0;overflow:visible}
+  .recibes{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .pasos{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .pasos li{grid-template-columns:1fr;row-gap:6px}
+  .pasos .n{grid-row:auto}
+}
+@media (min-width:1024px){.marca-mini{display:none}}
 </style>
 <script data-goatcounter="https://viajedelalma.goatcounter.com/count"
         async src="//gc.zgo.at/count.js"></script>
@@ -232,7 +294,7 @@ html.modo-venta .compra-arriba .solo-venta a{color:var(--oro-claro);text-decorat
 <script src="/meta.js" defer></script>   <!-- píxel de Meta, solo con consentimiento -->
 <!-- WEB-ESCRITORIO-0511-01: solo pantalla de ordenador; móvil e impresión conservan sus estilos. -->
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600&amp;family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&amp;display=swap" media="screen and (min-width: 1024px)">
-<link rel="stylesheet" href="/escritorio.css?v=20261107-1" media="screen and (min-width: 1024px)">
+<link rel="stylesheet" href="/escritorio.css?v=20261109-1" media="screen and (min-width: 1024px)">
 </head>
 <body data-vda-page="carta">
 <nav class="vda-desktop-nav" aria-label="Navegación principal" hidden>
@@ -249,19 +311,14 @@ html.modo-venta .compra-arriba .solo-venta a{color:var(--oro-claro);text-decorat
 
 <canvas id="estrellas" aria-hidden="true"></canvas>
 <div class="envoltura">
-  <p class="eyebrow">Viaje del Alma</p>
+  <!-- 9-nov-2026 · Fase 2 de la web visual (WEB-VISUAL de Aina): la misma ficha de producto que la portada.
+       Orden: título → calculadora gratis → ficha del informe (imagen real, 3 datos, precio y botón) → tu carta →
+       qué recibes → muestra real → capítulos → cómo funciona → compra → preguntas. Lo gratis lleva .solo-gratis
+       y lo propio de la venta .solo-venta, como desde el 30-oct: con un anuncio de pago, la ficha queda arriba. -->
+  <a class="marca-mini" href="/"><img src="/logo.png" width="30" height="30" alt="">Viaje del Alma</a>
   <h1>El cielo del<br><em>día que naciste</em></h1>
 <p class="entradilla solo-gratis">Tu Sol, tu Luna y tu Ascendente, calculados con efemérides reales. Gratis, sin registro y sin que nadie se quede tu fecha de nacimiento.</p>
 <p class="entradilla solo-venta">Tu carta natal completa, escrita para ti: unas 25 páginas en PDF con tus planetas, tus doce casas, tus aspectos y el año que viene, calculadas con efemérides reales para el día, la hora y el lugar en que naciste. No predice: explica.</p>
-
-  <div class="compra-arriba">
-    <a class="boton-b lleno grande cta-compra" data-origen="boton-arriba" href="/carta/pedido.html">Comprar mi informe · <span data-precio="carta">14,99 €</span></a>
-    <p>Tu carta natal completa en PDF, unas 25 páginas, en tu correo en menos de 24 horas.<span class="solo-gratis"><br>O, si prefieres, mira gratis tu Sol, tu Luna y tu Ascendente aquí debajo.</span><span class="solo-venta"><br>Pago único, IVA incluido. Aquí debajo tienes un trozo del informe y lo que trae, capítulo a capítulo.</span></p>
-    <p class="solo-venta">¿Quieres ver uno entero antes de pedirlo? <a href="/carta/muestra-lorca.pdf" target="_blank" rel="noopener" data-goatcounter-click="carta-ejemplo-venta">Abre el informe de Federico García Lorca</a> (PDF). El tuyo es igual, con tu carta.</p>
-    <p class="regalar-arriba">¿La quieres para otra persona? <a href="/regalo/?vda_placement=carta_arriba" data-goatcounter-click="carta-a-regalo-arriba">Carta natal de regalo + calendario lunar 2027 · 19,99 €</a></p>
-  </div>
-
-  <hr class="regla solo-gratis">
 
   <form class="panel solo-gratis" id="formulario">
     <div class="campos">
@@ -286,7 +343,23 @@ html.modo-venta .compra-arriba .solo-venta a{color:var(--oro-claro);text-decorat
     <p class="error" id="error" hidden></p>
   </form>
 
-  <p class="aviso-informe solo-gratis">¿Quieres la carta entera? <b>Informe completo: unas 25 páginas, <span data-precio="carta">14,99 €</span></b>, en tu correo en menos de 24 horas. Calcula tu carta gratis y verás qué incluye, o <a class="cta-compra" data-origen="arriba" href="/carta/pedido.html">pide tu informe ya</a>. ¿Quieres ver uno entero antes? <a href="/carta/muestra-lorca.pdf" target="_blank" rel="noopener" data-goatcounter-click="carta-ejemplo-arriba">Mira el de Federico García Lorca</a> (PDF).</p>
+  <!-- Ficha del informe. Conserva la clase .compra-arriba: la barra de compra la vigila en el modo venta. -->
+  <div class="compra-arriba tarjeta-informe">
+    <img class="ti-img" src="informe.jpg" width="1004" height="936" alt="Tres páginas del informe de carta natal: la rueda, un capítulo de texto y las tablas de datos">
+    <p class="ti-eti">Informe completo</p>
+    <h2 class="ti-nombre">Tu carta natal completa</h2>
+    <ul class="chips">
+      <li>Unas 25 páginas</li>
+      <li>PDF en menos de 24 h</li>
+      <li>Pago único, IVA incluido</li>
+    </ul>
+    <div class="ti-botones">
+      <a class="boton-b lleno grande cta-compra" data-origen="boton-arriba" href="/carta/pedido.html">Comprar mi informe · <span data-precio="carta">14,99 €</span></a>
+      <a class="boton-b solo-gratis" href="/carta/muestra-lorca.pdf" target="_blank" rel="noopener" data-goatcounter-click="carta-ejemplo-arriba">Ver una muestra (PDF)</a>
+      <a class="boton-b solo-venta" href="/carta/muestra-lorca.pdf" target="_blank" rel="noopener" data-goatcounter-click="carta-ejemplo-venta">Ver una muestra (PDF)</a>
+    </div>
+    <p class="regalar-arriba">¿La quieres para otra persona? <a href="/regalo/?vda_placement=carta_arriba" data-goatcounter-click="carta-a-regalo-arriba">Carta natal de regalo + calendario lunar 2027 · 19,99 €</a></p>
+  </div>
 
   <div id="resultado" hidden>
     <hr class="regla solo-gratis">
@@ -326,10 +399,26 @@ html.modo-venta .compra-arriba .solo-venta a{color:var(--oro-claro);text-decorat
         <p>Están en el informe completo, con todo lo demás.</p>
       </div>
     </div>
+  </div>
 
-    <div class="muestra">
-      <p class="rotulo">Así suena tu informe</p>
-      <h4>Lilith: lo que ansías y aprendiste a callar</h4>
+  <section class="bloque-p" id="que-recibes" aria-labelledby="t-recibes">
+    <p class="eti">El informe completo</p>
+    <h2 id="t-recibes">Qué recibes</h2>
+    <ul class="recibes">
+      <li><span class="ico" aria-hidden="true">☉&#xFE0E;</span><b>Tus diez planetas</b><span>Uno a uno.</span></li>
+      <li><span class="ico ico-txt" aria-hidden="true">XII</span><b>Tus doce casas</b><span>También las que están vacías.</span></li>
+      <li><span class="ico" aria-hidden="true">△&#xFE0E;</span><b>Todos tus aspectos</b><span>Incluidos los que tocan tu Ascendente.</span></li>
+      <li><span class="ico" aria-hidden="true">☊&#xFE0E;</span><b>Tu eje kármico</b><span>Tu Nodo Norte, tu Nodo Sur, tu Lilith y tu Quirón.</span></li>
+      <li><span class="ico" aria-hidden="true">☽&#xFE0E;</span><b>Tu próximo año</b><span>Los tránsitos, con sus fechas exactas.</span></li>
+      <li><span class="ico" aria-hidden="true">◎&#xFE0E;</span><b>Tu carta en datos</b><span>La rueda a tamaño grande, los grados y las doce cúspides.</span></li>
+    </ul>
+  </section>
+
+  <section class="bloque-p muestra" id="muestra" aria-labelledby="t-muestra">
+    <p class="eti rotulo">Así suena tu informe</p>
+    <h2 id="t-muestra">Mira una muestra real</h2>
+    <div class="muestra-texto">
+      <h3 class="m-titulo">Lilith: lo que ansías y aprendiste a callar</h3>
       <div class="parrafos">
         <p>Hay un fuego en tu centro que aprendiste a sofocar muy pronto. Un deseo de ser mirada, de ocupar espacio, de crear solo por el gusto de brillar sin pedir disculpas. En algún momento entendiste que ese orgullo era demasiado, que llamar la atención resulta peligroso o que estaba mal visto disfrutar con descaro.</p>
         <p>Así que lo tapaste con modestia y trabajo impecable. Pero ese deseo no desaparece: se queda dentro, convertido en un resentimiento sordo cuando ves a otras atreverse.</p>
@@ -337,70 +426,100 @@ html.modo-venta .compra-arriba .solo-venta a{color:var(--oro-claro);text-decorat
       </div>
       <p class="nota">Esto es un trozo de uno de los siete capítulos, y ni siquiera el capítulo entero.
       Está tomado de la carta de ejemplo, no de la tuya.</p>
-      <figure class="foto">
-        <img src="informe.jpg" alt="Tres páginas del informe de carta natal: la rueda, un capítulo de texto y las tablas de datos" loading="lazy">
-        <figcaption>Así es el cuaderno por dentro.</figcaption>
-      </figure>
-      <div class="indice">
-        <p class="magnitud" id="magnitud"></p>
-        <p class="enc">Y esto es lo que trae, capítulo a capítulo:</p>
-        <ol>
-          <li><b>Quién eres</b> — tu Sol, tu Luna y tu Ascendente, <span class="solo-gratis">con más hondura que aquí arriba</span><span class="solo-venta">leídos a fondo</span>.</li>
-          <li><b>Tu cielo completo</b> — los ocho planetas, tu Medio Cielo, el regente de tu carta y tu Punto de la Fortuna.</li>
-          <li><b>Dónde ocurre tu vida</b> — tus doce casas, una a una. También las que están vacías: que no haya un planeta dentro también dice algo.</li>
-          <li><b>Cómo se hablan tus planetas</b> — tus aspectos, ordenados por lo que de verdad pesa.</li>
-          <li><b>Tu eje kármico</b> — tu Nodo Norte, tu Nodo Sur, tu Lilith y tu Quirón.</li>
-          <li><b>Tu propósito</b> — la síntesis de todo lo anterior. El capítulo que cierra.</li>
-          <li><b>El año que viene</b> — qué se mueve y cuándo.</li>
-        </ol>
-        <p class="carta-entera">Y <b>tu carta natal completa</b>, para tenerla: la rueda a tamaño grande, los grados exactos de cada planeta, las doce cúspides y la lista entera de tus aspectos con su orbe. Calculada con efemérides reales, no con una tabla de revista.</p>
-        <p class="tuyo" id="indice-tuyo"></p>
+    </div>
+    <ul class="paginas" aria-label="Cuatro páginas del informe de muestra">
+      <li><img src="muestra-portada.webp" width="420" height="594" loading="lazy" alt="Portada del informe de muestra: «Tu carta natal», Federico García Lorca"><span>Portada</span></li>
+      <li><img src="muestra-cielo.webp" width="420" height="594" loading="lazy" alt="Página «Tu cielo», con la rueda de la carta"><span>Tu cielo</span></li>
+      <li><img src="muestra-quien-eres.webp" width="420" height="594" loading="lazy" alt="Primera página del capítulo «Quién eres»"><span>Quién eres</span></li>
+      <li><img src="muestra-datos.webp" width="420" height="594" loading="lazy" alt="Página «Tu carta, en datos», con la tabla de posiciones"><span>Tu carta, en datos</span></li>
+    </ul>
+    <p class="paginas-pie">Páginas del informe de muestra de Federico García Lorca. El tuyo es igual, con tu carta.</p>
+    <p class="centrado"><a class="boton-b" href="/carta/muestra-lorca.pdf" target="_blank" rel="noopener" data-goatcounter-click="carta-ejemplo-muestra">Ver el informe entero (PDF)</a></p>
+  </section>
+
+  <section class="bloque-p indice" id="capitulos" aria-labelledby="t-capitulos">
+    <p class="eti">Capítulo a capítulo</p>
+    <h2 id="t-capitulos">Qué incluye exactamente</h2>
+    <ol class="capitulos">
+      <li><details><summary><span class="n">1</span>Quién eres</summary><p>Tu Sol, tu Luna y tu Ascendente, <span class="solo-gratis">con más hondura que aquí arriba</span><span class="solo-venta">leídos a fondo</span>.</p></details></li>
+      <li><details><summary><span class="n">2</span>Tu cielo completo</summary><p>Los ocho planetas, tu Medio Cielo, el regente de tu carta y tu Punto de la Fortuna.</p></details></li>
+      <li><details><summary><span class="n">3</span>Dónde ocurre tu vida</summary><p>Tus doce casas, una a una. También las que están vacías: que no haya un planeta dentro también dice algo.</p></details></li>
+      <li><details><summary><span class="n">4</span>Cómo se hablan tus planetas</summary><p>Tus aspectos, ordenados por lo que de verdad pesa.</p></details></li>
+      <li><details><summary><span class="n">5</span>Tu eje kármico</summary><p>Tu Nodo Norte, tu Nodo Sur, tu Lilith y tu Quirón.</p></details></li>
+      <li><details><summary><span class="n">6</span>Tu propósito</summary><p>La síntesis de todo lo anterior. El capítulo que cierra.</p></details></li>
+      <li><details><summary><span class="n">7</span>El año que viene</summary><p>Qué se mueve y cuándo.</p></details></li>
+    </ol>
+    <p class="tuyo" id="indice-tuyo"></p>
+  </section>
+
+  <section class="bloque-p" id="como-funciona" aria-labelledby="t-como">
+    <p class="eti">Paso a paso</p>
+    <h2 id="t-como">Cómo funciona</h2>
+    <ol class="pasos">
+      <li><span class="n" aria-hidden="true">1</span><b>Escribes tus datos</b><span>Tus datos de nacimiento, en un formulario sencillo. Ves exactamente qué se va a calcular antes de pagar nada.</span></li>
+      <li><span class="n" aria-hidden="true">2</span><b>Pagas</b><span><span data-precio="carta">14,99 €</span>, pago único, IVA incluido. Eliges uno de los métodos de pago disponibles al finalizar el pedido.</span></li>
+      <li><span class="n" aria-hidden="true">3</span><b>Lo recibes</b><span>Recibes dos PDF por correo en menos de 24 horas: uno preparado para leer en pantalla y otro en blanco para imprimir.</span></li>
+    </ol>
+  </section>
+
+  <div class="puerta" id="puerta">
+    <h2>La carta entera, en un cuaderno para ti</h2>
+    <p>Tus doce casas, todos tus aspectos, tus nodos y el año que viene, escrito para leerse de un tirón. En PDF, a tu correo.</p>
+    <div class="compra">
+      <p class="precio"><b data-precio="carta">14,99 €</b> <span>Pago único · IVA incluido</span></p>
+      <div class="acciones">
+        <a class="boton-b lleno grande cta-compra" data-origen="puerta" id="cta-comprar" href="/carta/pedido.html">Quiero mi informe</a>
+      </div>
+      <ul class="chips confianza">
+        <li>En tu correo en menos de 24 h</li>
+        <li>Pago seguro</li>
+        <li>Si un dato falla, lo rehago sin coste</li>
+      </ul>
+      <p class="entrega">¿Quieres ver cómo es el cuaderno entero? <a href="/carta/muestra-lorca.pdf" target="_blank" rel="noopener" data-goatcounter-click="carta-ejemplo-puerta">Abre el informe de Federico García Lorca</a> (PDF). El tuyo es igual, con tu carta.</p>
+      <p class="entrega">¿Prefieres saber qué te trae el año? <a href="/revolucion/" data-goatcounter-click="carta-a-revolucion">Tu revolución solar, 24,99 €</a>, o las dos juntas por <span data-precio="pack">28,99 €</span>.</p>
+      <!-- 27-oct · B2 (REGALO-2610-01) -->
+      <div class="para-regalar">
+        <span class="eyebrow">Para regalar</span>
+        <h3>¿La quieres para otra persona?</h3>
+        <p>Regálasela sin pedirle sus datos de nacimiento. Recibirás una tarjeta con tu dedicatoria y quien la reciba completará sus datos al canjear.</p>
+        <p class="pr-precio">Carta natal de regalo + calendario lunar 2027 · 19,99 €</p>
+        <a class="boton-b" href="/regalo/?vda_placement=carta" data-goatcounter-click="carta-a-regalo">Preparar un regalo</a>
+        <p>La tarjeta se puede imprimir o mandar por WhatsApp. La carta y el calendario incluyen versión para pantalla y para imprimir en casa.</p>
       </div>
     </div>
-
-    <div class="puerta" id="puerta">
-      <h3>La carta entera, en un cuaderno para ti</h3>
-      <p>Tus doce casas, todos tus aspectos, tus nodos y el año que viene, escrito para leerse de un tirón. En PDF, a tu correo.</p>
-      <div class="compra">
-        <p class="precio"><b data-precio="carta">14,99 €</b> <span>Pago único · IVA incluido</span></p>
-        <div class="acciones">
-          <a class="boton-b lleno grande cta-compra" data-origen="puerta" id="cta-comprar" href="/carta/pedido.html">Quiero mi informe</a>
-        </div>
-        <p class="entrega">Primero tus datos de nacimiento, después el pago. Así ves exactamente qué se va a calcular antes de pagar nada.</p>
-        <p class="entrega">¿Quieres ver cómo es el cuaderno entero? <a href="/carta/muestra-lorca.pdf" target="_blank" rel="noopener" data-goatcounter-click="carta-ejemplo-puerta">Abre el informe de Federico García Lorca</a> (PDF). El tuyo es igual, con tu carta.</p>
-        <p class="entrega">¿Prefieres saber qué te trae el año? <a href="/revolucion/" data-goatcounter-click="carta-a-revolucion">Tu revolución solar, 24,99 €</a>, o las dos juntas por <span data-precio="pack">28,99 €</span>.</p>
-        <!-- 27-oct · B2 (REGALO-2610-01) -->
-        <div class="para-regalar">
-          <span class="eyebrow">Para regalar</span>
-          <h4>¿La quieres para otra persona?</h4>
-          <p>Regálasela sin pedirle sus datos de nacimiento. Recibirás una tarjeta con tu dedicatoria y quien la reciba completará sus datos al canjear.</p>
-          <p class="pr-precio">Carta natal de regalo + calendario lunar 2027 · 19,99 €</p>
-          <a class="boton-b" href="/regalo/?vda_placement=carta" data-goatcounter-click="carta-a-regalo">Preparar un regalo</a>
-          <p>La tarjeta se puede imprimir o mandar por WhatsApp. La carta y el calendario incluyen versión para pantalla y para imprimir en casa.</p>
-        </div>
-        <ul class="garantias">
-          <li>Eliges tu localidad en una lista, no la escribes: de ahí salen tus coordenadas y tu huso horario reales, incluidos los cambios de hora históricos de tu país.</li>
-          <li>Lo recibes en PDF en tu correo en menos de 24 horas, para leerlo despacio y guardarlo. Va en dos versiones: una para la pantalla y otra en blanco, para imprimirla en casa.</li>
-          <li>Si algún dato no es correcto, me respondes al correo y lo rehago sin coste.</li>
-          <li>Pago seguro con tarjeta, Apple Pay o Google Pay. Tus datos de pago no pasan por esta web.</li>
-        </ul>
-        <details class="hora">
-          <summary>¿No sabes tu hora exacta de nacimiento?</summary>
-          <p>Está en tu libro de familia, y si no la encuentras puedes pedirla en el Registro Civil del lugar donde naciste. Con la hora, tu informe incluye tu Ascendente y tus doce casas. Sin ella calculo todo lo demás y te lo digo con claridad: no me invento una hora para rellenar tu carta.</p>
-        </details>
-      </div>
-
-      <hr class="regla solo-gratis" style="margin:28px auto;max-width:520px">
-
-      <div class="acciones solo-gratis" style="margin-top:18px">
-        <a class="boton-b" id="cta-app" href="#" target="_blank" rel="noopener">Descargar la app gratis</a>
-      </div>
-      <p class="solo-gratis" style="margin-top:16px;font-size:.8rem">El ritual diario de la app es gratuito para siempre.</p>
-    </div>
-
-    <div class="redes" style="text-align:center;margin:34px auto 26px;max-width:520px"><p style="margin:0 0 10px;font-size:.74rem;letter-spacing:.24em;text-transform:uppercase;color:var(--oro)">✦ Síguenos en redes ✦</p><p style="margin:0;font-size:1.05rem;line-height:2"><a href="https://www.instagram.com/viajedelalma.app/" target="_blank" rel="noopener" data-goatcounter-click="carta-redes-instagram" style="color:var(--oro-claro);text-decoration:underline;text-underline-offset:4px;margin:0 7px;white-space:nowrap">Instagram</a><span style="color:var(--oro)">·</span><a href="https://www.tiktok.com/@viajedelalma.app" target="_blank" rel="noopener" data-goatcounter-click="carta-redes-tiktok" style="color:var(--oro-claro);text-decoration:underline;text-underline-offset:4px;margin:0 7px;white-space:nowrap">TikTok</a><span style="color:var(--oro)">·</span><a href="https://www.pinterest.com/viajedelalmaapp/" target="_blank" rel="noopener" data-goatcounter-click="carta-redes-pinterest" style="color:var(--oro-claro);text-decoration:underline;text-underline-offset:4px;margin:0 7px;white-space:nowrap">Pinterest</a><span style="color:var(--oro)">·</span><a href="https://www.facebook.com/profile.php?id=61593699406994" target="_blank" rel="noopener" data-goatcounter-click="carta-redes-facebook" style="color:var(--oro-claro);text-decoration:underline;text-underline-offset:4px;margin:0 7px;white-space:nowrap">Facebook</a></p></div>
-    <p class="pie">Cálculo propio sobre efemérides astronómicas · zodiaco tropical · casas de Placidus<br>Precisión verificada contra Swiss Ephemeris: menos de medio minuto de arco.</p>
   </div>
+
+  <section class="bloque-p faq" id="preguntas" aria-labelledby="t-preguntas">
+    <h2 id="t-preguntas">Preguntas frecuentes</h2>
+    <details class="hora">
+      <summary>¿No sabes tu hora exacta de nacimiento?</summary>
+      <p>Está en tu libro de familia, y si no la encuentras puedes pedirla en el Registro Civil del lugar donde naciste. Con la hora, tu informe incluye tu Ascendente y tus doce casas. Sin ella calculo todo lo demás y te lo digo con claridad: no me invento una hora para rellenar tu carta.</p>
+    </details>
+    <details class="hora">
+      <summary>¿Cuándo y cómo lo recibo?</summary>
+      <p>Lo recibes en PDF en tu correo en menos de 24 horas, para leerlo despacio y guardarlo. Va en dos versiones: una para la pantalla y otra en blanco, para imprimirla en casa.</p>
+    </details>
+    <details class="hora">
+      <summary>¿Y si algún dato no es correcto?</summary>
+      <p>Si algún dato no es correcto, me respondes al correo y lo rehago sin coste.</p>
+    </details>
+    <details class="hora">
+      <summary>¿Cómo se paga?</summary>
+      <p>Pago seguro con tarjeta, Apple Pay o Google Pay. Tus datos de pago no pasan por esta web.</p>
+    </details>
+    <details class="hora">
+      <summary>¿Cómo se calcula tu carta?</summary>
+      <p>Eliges tu localidad en una lista, no la escribes: de ahí salen tus coordenadas y tu huso horario reales, incluidos los cambios de hora históricos de tu país. Se calcula con efemérides reales, no con una tabla de revista.</p>
+    </details>
+  </section>
+
+  <div class="app-final solo-gratis">
+    <a class="boton-b" id="cta-app" href="#" target="_blank" rel="noopener">Descargar la app gratis</a>
+    <p>El ritual diario de la app es gratuito para siempre.</p>
+  </div>
+
+  <div class="redes" style="text-align:center;margin:34px auto 26px;max-width:520px"><p style="margin:0 0 10px;font-size:.74rem;letter-spacing:.24em;text-transform:uppercase;color:var(--oro)">✦ Síguenos en redes ✦</p><p style="margin:0;font-size:1.05rem;line-height:2"><a href="https://www.instagram.com/viajedelalma.app/" target="_blank" rel="noopener" data-goatcounter-click="carta-redes-instagram" style="color:var(--oro-claro);text-decoration:underline;text-underline-offset:4px;margin:0 7px;white-space:nowrap">Instagram</a><span style="color:var(--oro)">·</span><a href="https://www.tiktok.com/@viajedelalma.app" target="_blank" rel="noopener" data-goatcounter-click="carta-redes-tiktok" style="color:var(--oro-claro);text-decoration:underline;text-underline-offset:4px;margin:0 7px;white-space:nowrap">TikTok</a><span style="color:var(--oro)">·</span><a href="https://www.pinterest.com/viajedelalmaapp/" target="_blank" rel="noopener" data-goatcounter-click="carta-redes-pinterest" style="color:var(--oro-claro);text-decoration:underline;text-underline-offset:4px;margin:0 7px;white-space:nowrap">Pinterest</a><span style="color:var(--oro)">·</span><a href="https://www.facebook.com/profile.php?id=61593699406994" target="_blank" rel="noopener" data-goatcounter-click="carta-redes-facebook" style="color:var(--oro-claro);text-decoration:underline;text-underline-offset:4px;margin:0 7px;white-space:nowrap">Facebook</a></p></div>
+  <p class="pie">Cálculo propio sobre efemérides astronómicas · zodiaco tropical · casas de Placidus<br>Precisión verificada contra Swiss Ephemeris: menos de medio minuto de arco.</p>
 </div>
 
 <div class="barra" id="barra" aria-hidden="true">
