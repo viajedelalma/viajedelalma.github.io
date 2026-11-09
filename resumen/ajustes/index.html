@@ -1,0 +1,479 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Lo que recibes · Tu Resumen diario · Viaje del Alma</title>
+<meta name="description" content="Cambia lo que recibes en tu Resumen diario personalizado.">
+<link rel="icon" href="/favicon.png">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Karla:wght@300;400;500;700&display=swap">
+<style>
+:root{
+  --noche:#0B0818; --noche-2:#14102A; --noche-3:#1C1636;
+  --oro:#C9A84C; --oro-claro:#E8D9A0; --texto:#EDE7DC; --tenue:#A99CCB; --linea:rgba(201,168,76,.22);
+  --error:#f2b8b5;
+  --display:'Cormorant Garamond','Iowan Old Style',Georgia,serif;
+  --cuerpo:'Karla','Helvetica Neue',Arial,sans-serif;
+}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+body{margin:0;background:var(--noche);color:var(--texto);font-family:var(--cuerpo);font-size:16px;line-height:1.65;-webkit-font-smoothing:antialiased;font-variant-numeric:lining-nums;
+  background-image:radial-gradient(ellipse 90% 38% at 50% 0%,rgba(107,78,158,.34),transparent 70%);background-repeat:no-repeat;min-height:100vh}
+.envoltura{max-width:640px;margin:0 auto;padding:30px 16px 72px}
+.marca{font-size:.72rem;letter-spacing:.34em;color:var(--oro);text-transform:uppercase;margin-bottom:22px;text-align:center}
+.marca a{color:inherit;text-decoration:none;display:inline-flex;align-items:center;gap:10px}
+.marca img{border-radius:50%;border:1px solid var(--oro)}
+h1{font-family:var(--display);font-weight:300;font-size:clamp(2.1rem,8vw,2.9rem);line-height:1.08;margin:0 0 8px;text-align:center}
+h1 em{font-style:italic;color:var(--oro-claro)}
+.entradilla{color:var(--tenue);text-align:center;margin:0 auto 8px;max-width:46ch}
+.bloque{background:linear-gradient(180deg,var(--noche-2),rgba(20,16,42,.6));border:1px solid var(--linea);border-radius:18px;padding:20px 18px;margin:18px 0}
+.etiqueta{font-size:.68rem;letter-spacing:.24em;text-transform:uppercase;color:var(--oro);margin:0 0 14px}
+p{margin:0 0 12px}
+.nota{font-size:.88rem;color:var(--tenue)}
+.nota a{color:var(--oro-claro)}
+.centro{text-align:center}
+fieldset{border:0;margin:0;padding:0;min-width:0}
+.campo{margin:0 0 22px}
+.campo:last-child{margin-bottom:0}
+.pregunta,legend{display:block;font-weight:700;font-size:1rem;color:var(--texto);margin:0 0 4px;padding:0}
+.ayuda{font-size:.88rem;color:var(--tenue);margin:0 0 10px}
+input[type=text],input[type=email],input[type=password],textarea{width:100%;font:inherit;font-size:16px;color:var(--texto);background:var(--noche-3);border:1px solid var(--linea);border-radius:12px;padding:12px 14px}
+textarea{min-height:110px;resize:vertical}
+input:focus,textarea:focus{outline:2px solid var(--oro);outline-offset:1px;border-color:var(--oro)}
+.opciones{display:grid;gap:8px}
+.opciones.dos-col{grid-template-columns:repeat(2,minmax(0,1fr))}
+.opcion{display:flex;align-items:flex-start;gap:12px;border:1px solid var(--linea);border-radius:12px;padding:12px 14px;background:rgba(28,22,54,.55);cursor:pointer;min-height:48px;min-width:0;overflow-wrap:anywhere}
+.opcion input{margin:3px 0 0;width:20px;height:20px;flex:none;accent-color:var(--oro)}
+.opcion:has(input:checked){border-color:var(--oro);background:rgba(201,168,76,.10)}
+.opcion:has(input:focus-visible){outline:2px solid var(--oro);outline-offset:1px}
+.opcion:has(input:disabled){cursor:default;opacity:.75}
+.opciones.chips{display:flex;flex-wrap:wrap;gap:8px}
+.opciones.chips .opcion{min-height:44px;padding:10px 14px 10px 12px;align-items:center;border-radius:999px}
+.opciones.chips .opcion input{margin:0}
+.sub{border-left:2px solid var(--oro);padding-left:14px}
+.sub .pregunta{margin-top:14px}
+.contador{font-size:.9rem;color:var(--oro-claro);margin:10px 0 0}
+.contador.error{color:var(--error)}
+.error{color:var(--error);font-size:.92rem;margin:8px 0 0}
+.fijo{list-style:none;margin:0 0 12px;padding:0;display:flex;flex-wrap:wrap;gap:8px}
+.fijo li{font-size:.9rem;border:1px solid var(--linea);border-radius:999px;padding:6px 12px;color:var(--oro-claro)}
+dl.nacimiento{display:grid;grid-template-columns:auto 1fr;gap:6px 14px;margin:0 0 12px}
+dl.nacimiento dt{color:var(--tenue);font-size:.9rem}
+dl.nacimiento dd{margin:0;color:var(--oro-claro)}
+label.caja{display:block;font-size:.7rem;letter-spacing:.19em;text-transform:uppercase;color:var(--oro);margin:18px 0 7px}
+.boton{display:inline-block;border:0;cursor:pointer;font:inherit;font-weight:700;padding:15px 26px;border-radius:999px;background:linear-gradient(135deg,var(--oro-claro),var(--oro));color:#1a1408;text-decoration:none;margin-top:20px}
+.boton[disabled]{opacity:.6;cursor:default}
+.guardar{position:sticky;bottom:0;padding:12px 0 16px;background:linear-gradient(180deg,rgba(11,8,24,0),var(--noche) 35%);text-align:center;margin-top:8px}
+.guardar .boton{margin-top:0;min-width:220px}
+.estado{font-size:.95rem;margin:10px auto 0;max-width:40ch}
+.estado.bien{color:var(--oro-claro)}
+.estado.mal{color:var(--error)}
+.pie{font-size:.8rem;color:var(--tenue);text-align:center;margin-top:34px}
+.pie a{color:var(--tenue)}
+.cargando{text-align:center;color:var(--tenue);margin:40px 0}
+@media (min-width:900px){
+  html,body{font-size:18px}
+  .envoltura{max-width:800px;padding-top:44px}
+  .bloque{padding:28px 32px;border-radius:22px;margin:22px 0}
+  .opciones.dos-col{grid-template-columns:repeat(3,minmax(0,1fr))}
+}
+</style>
+<script data-goatcounter="https://viajedelalma.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</head>
+<body data-vda-page="resumen-ajustes">
+<div class="envoltura">
+  <div class="marca"><a href="/?o=resumen-ajustes"><img src="/logo.png" width="34" height="34" alt="">Viaje del Alma</a></div>
+
+  <p class="cargando" id="cargando">Cargando lo que elegiste…</p>
+
+  <!-- Entrar -->
+  <section id="entrar" hidden>
+    <h1>Lo que <em>recibes</em></h1>
+    <p class="entradilla">Entra con tu cuenta de Viaje del Alma: el mismo correo y la misma contraseña que usas en la app.</p>
+    <form id="f-entrar" class="bloque" novalidate>
+      <label class="caja" for="correo">Tu correo</label>
+      <input id="correo" type="email" autocomplete="email" inputmode="email" required>
+      <label class="caja" for="clave">Tu contraseña</label>
+      <input id="clave" type="password" autocomplete="current-password" required>
+      <div class="centro"><button class="boton" id="b-entrar" type="submit">Entrar</button></div>
+      <p class="error" id="error-entrar" role="alert" hidden></p>
+      <p class="nota centro" style="margin-top:16px">¿No recuerdas tu contraseña? Responde a cualquiera de nuestros correos y te ayudamos.</p>
+    </form>
+  </section>
+
+  <!-- Sin Resumen -->
+  <section id="aviso" hidden class="centro">
+    <h1>Lo que <em>recibes</em></h1>
+    <p class="entradilla" id="aviso-texto"></p>
+    <a class="boton" href="/resumen/">Ir a tu Resumen</a>
+  </section>
+
+  <!-- Ajustes -->
+  <form id="ajustes" hidden novalidate>
+    <h1>Lo que <em>recibes</em></h1>
+    <p class="entradilla">Aquí tienes lo que elegiste al apuntarte. Cambia lo que quieras y guarda: lo notarás a partir de tu próximo Resumen.</p>
+
+    <section class="bloque">
+      <p class="etiqueta">Cómo te escribimos</p>
+      <div class="campo">
+        <label class="pregunta" for="nombre">¿Cómo quieres que te llamemos?</label>
+        <p class="ayuda" id="ay-nombre">Puede ser tu nombre de pila o el nombre con el que te sientas cómoda. No necesitamos apellidos.</p>
+        <input id="nombre" name="nombre" type="text" maxlength="60" autocomplete="given-name" aria-describedby="ay-nombre e-nombre">
+        <p class="error" id="e-nombre" hidden></p>
+      </div>
+      <fieldset class="campo" id="c-trato" aria-describedby="ay-trato">
+        <legend>Género</legend>
+        <p class="ayuda" id="ay-trato">Lo usamos para escribirte en femenino, en masculino o sin género.</p>
+        <div class="opciones">
+          <label class="opcion"><input type="radio" name="trato" value="femenino">Mujer</label>
+          <label class="opcion"><input type="radio" name="trato" value="masculino">Hombre</label>
+          <label class="opcion"><input type="radio" name="trato" value="neutro">Prefiero no decirlo</label>
+        </div>
+      </fieldset>
+    </section>
+
+    <section class="bloque">
+      <p class="etiqueta">Siempre en tu Resumen</p>
+      <ul class="fijo"><li>Tu cielo hoy</li><li>La Luna</li><li>Planta y mineral</li></ul>
+      <fieldset class="campo" id="c-cielo" aria-describedby="ay-cielo">
+        <legend>¿Cómo prefieres leer Tu cielo hoy?</legend>
+        <p class="ayuda" id="ay-cielo">Cambia la manera de contártelo, no el contenido que recibes.</p>
+        <div class="opciones">
+          <label class="opcion"><input type="radio" name="cielo" value="sin_tecnicismos">Sin tecnicismos: explicado con palabras sencillas</label>
+          <label class="opcion"><input type="radio" name="cielo" value="nombres">Con nombres astrológicos y su explicación</label>
+        </div>
+      </fieldset>
+      <fieldset class="campo" id="c-luna">
+        <legend>¿Qué quieres que te cuente La Luna cada día?</legend>
+        <div class="opciones chips">
+          <label class="opcion"><input type="radio" name="luna" value="afecta">Cómo me afecta</label>
+          <label class="opcion"><input type="radio" name="luna" value="hacer">Qué hacer</label>
+          <label class="opcion"><input type="radio" name="luna" value="ambas">Las dos</label>
+        </div>
+      </fieldset>
+    </section>
+
+    <section class="bloque">
+      <p class="etiqueta">Tus secciones</p>
+      <fieldset class="campo" id="c-secciones" aria-describedby="contador-secciones">
+        <legend>¿Qué secciones quieres en tu Resumen?</legend>
+        <p class="ayuda">Entre 3 y las 9.</p>
+        <div class="opciones dos-col">
+          <label class="opcion"><input type="checkbox" name="seccion" value="alma">Alimento del alma</label>
+          <label class="opcion"><input type="checkbox" name="seccion" value="mundo">Mundo</label>
+          <label class="opcion"><input type="checkbox" name="seccion" value="practica">Práctica</label>
+          <label class="opcion"><input type="checkbox" name="seccion" value="foco">Tu foco</label>
+          <label class="opcion"><input type="checkbox" name="seccion" value="cuidado">Cuidado</label>
+          <label class="opcion"><input type="checkbox" name="seccion" value="dinero">Dinero y trabajo</label>
+          <label class="opcion"><input type="checkbox" name="seccion" value="vinculos">Vínculos</label>
+          <label class="opcion"><input type="checkbox" name="seccion" value="carta">Una carta</label>
+          <label class="opcion"><input type="checkbox" name="seccion" value="palabra">Afirmación del día</label>
+        </div>
+        <p class="contador" id="contador-secciones" aria-live="polite"></p>
+      </fieldset>
+
+      <div id="sub-opciones">
+        <fieldset class="campo sub" data-seccion="alma" aria-describedby="e-alma">
+          <legend>Alimento del alma</legend>
+          <p class="pregunta">¿De qué tradiciones quieres recibirlo?</p>
+          <div class="opciones chips">
+            <label class="opcion"><input type="checkbox" name="alma_recibe" value="cristiana">Cristiana</label>
+            <label class="opcion"><input type="checkbox" name="alma_recibe" value="judia">Judía</label>
+            <label class="opcion"><input type="checkbox" name="alma_recibe" value="oriente">Budismo, zen y Tao</label>
+            <label class="opcion"><input type="checkbox" name="alma_recibe" value="filosofia">Filosofía y estoicismo</label>
+            <label class="opcion"><input type="checkbox" name="alma_recibe" value="poesia">Poesía y mística</label>
+            <label class="opcion"><input type="checkbox" name="alma_recibe" value="celta">Rueda del año celta</label>
+          </div>
+          <p class="pregunta">¿Y algo que no te puede faltar?</p>
+          <p class="ayuda">Si eliges una, te llegará cada día. Para quitarla de arriba, elige primero «Nada en especial».</p>
+          <div class="opciones chips">
+            <label class="opcion"><input type="radio" name="alma_diaria" value="">Nada en especial</label>
+            <label class="opcion"><input type="radio" name="alma_diaria" value="cristiana">Cristiana</label>
+            <label class="opcion"><input type="radio" name="alma_diaria" value="judia">Judía</label>
+            <label class="opcion"><input type="radio" name="alma_diaria" value="oriente">Budismo, zen y Tao</label>
+            <label class="opcion"><input type="radio" name="alma_diaria" value="filosofia">Filosofía y estoicismo</label>
+            <label class="opcion"><input type="radio" name="alma_diaria" value="poesia">Poesía y mística</label>
+            <label class="opcion"><input type="radio" name="alma_diaria" value="celta">Rueda del año celta</label>
+          </div>
+          <p class="error" id="e-alma" hidden></p>
+        </fieldset>
+
+        <fieldset class="campo sub" data-seccion="mundo" aria-describedby="e-mundo">
+          <legend>Mundo: ¿qué temas te interesan?</legend>
+          <div class="opciones chips">
+            <label class="opcion"><input type="checkbox" name="mundo" value="es">España</label>
+            <label class="opcion"><input type="checkbox" name="mundo" value="int">Internacional</label>
+            <label class="opcion"><input type="checkbox" name="mundo" value="cultura">Cultura y sociedad</label>
+            <label class="opcion"><input type="checkbox" name="mundo" value="ciencia">Ciencia y salud</label>
+          </div>
+          <p class="error" id="e-mundo" hidden></p>
+        </fieldset>
+
+        <fieldset class="campo sub" data-seccion="cuidado" aria-describedby="ay-cuidado">
+          <legend>Cuidado: ¿en qué quieres ponerlo?</legend>
+          <p class="ayuda" id="ay-cuidado">Si no marcas ninguna, te hablaremos de lo que más pida el día.</p>
+          <div class="opciones chips">
+            <label class="opcion"><input type="checkbox" name="cuidado" value="cuerpo">Cuerpo y energía</label>
+            <label class="opcion"><input type="checkbox" name="cuidado" value="descanso">Descanso</label>
+            <label class="opcion"><input type="checkbox" name="cuidado" value="animo">Ánimo</label>
+          </div>
+        </fieldset>
+
+        <fieldset class="campo sub" data-seccion="dinero">
+          <legend>Dinero y trabajo: ¿cómo es tu trabajo ahora?</legend>
+          <div class="opciones chips">
+            <label class="opcion"><input type="radio" name="dinero" value="ajena">Por cuenta ajena</label>
+            <label class="opcion"><input type="radio" name="dinero" value="propia">Autónoma o con negocio propio</label>
+            <label class="opcion"><input type="radio" name="dinero" value="cambio">Buscando un cambio</label>
+            <label class="opcion"><input type="radio" name="dinero" value="no_dice">Prefiero no decirlo</label>
+          </div>
+        </fieldset>
+
+        <fieldset class="campo sub" data-seccion="vinculos" aria-describedby="ay-vinculos">
+          <legend>Vínculos: ¿de quién quieres que te hablemos?</legend>
+          <p class="ayuda" id="ay-vinculos">Si no marcas ninguna, de las personas cercanas en general.</p>
+          <div class="opciones chips">
+            <label class="opcion"><input type="checkbox" name="vinculos" value="pareja">Pareja</label>
+            <label class="opcion"><input type="checkbox" name="vinculos" value="familia">Familia</label>
+            <label class="opcion"><input type="checkbox" name="vinculos" value="amistades">Amistades y trabajo</label>
+          </div>
+        </fieldset>
+
+        <fieldset class="campo sub" data-seccion="carta">
+          <legend>Una carta: ¿de qué baraja?</legend>
+          <div class="opciones chips">
+            <label class="opcion"><input type="radio" name="carta" value="tarot">Tarot</label>
+            <label class="opcion"><input type="radio" name="carta" value="plantas">Oráculo de plantas</label>
+            <label class="opcion"><input type="radio" name="carta" value="sorpresa">Sorpréndeme</label>
+          </div>
+        </fieldset>
+      </div>
+    </section>
+
+    <section class="bloque">
+      <p class="etiqueta">Tu momento</p>
+      <div class="campo">
+        <label class="pregunta" for="contexto">¿Qué te preocupa o te ilusiona ahora mismo?</label>
+        <p class="ayuda" id="ay-contexto">Puedes contarlo en una frase o dejarlo en blanco. Lo que escribas aquí se usa, tal cual, para escribir con inteligencia artificial tu Resumen y tus informes mensuales: no pongas tu correo, tu teléfono, tus datos de nacimiento ni nombres de otras personas, ni detalles médicos o íntimos que no quieras compartir.</p>
+        <textarea id="contexto" name="contexto" maxlength="500" aria-describedby="ay-contexto cuenta-contexto"></textarea>
+        <p class="nota" id="cuenta-contexto" style="text-align:right;margin:4px 0 0">0 / 500</p>
+      </div>
+    </section>
+
+    <section class="bloque">
+      <p class="etiqueta">Tus datos de nacimiento</p>
+      <dl class="nacimiento">
+        <dt>Día</dt><dd id="n-fecha">—</dd>
+        <dt>Hora</dt><dd id="n-hora">—</dd>
+        <dt>Lugar</dt><dd id="n-lugar">—</dd>
+      </dl>
+      <p class="nota" style="margin:0">Con estos datos calculamos tu carta. Si alguno no es correcto, responde a cualquiera de nuestros correos y lo corregimos.</p>
+    </section>
+
+    <div class="guardar">
+      <button class="boton" id="b-guardar" type="submit">Guardar cambios</button>
+      <p class="estado" id="estado" role="status" aria-live="polite" hidden></p>
+    </div>
+  </form>
+
+  <p class="pie"><a href="/resumen/">Volver a tu Resumen</a> · <a href="/privacidad.html">Privacidad</a> · <a href="#" id="b-salir">Salir</a></p>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.111.0/dist/umd/supabase.js"
+  integrity="sha384-faMlYZUtkJj+Sh6Bmu/L0GzPcraRWN6CW+9RH3GUrK/Z0WS9tgaNNt0tHiLxsbdb" crossorigin="anonymous"></script>
+<script>
+/* ═══════════════════════════════════════════════════════════════════════
+   /resumen/ajustes/ · Lo que recibes en tu Resumen diario (9-nov-2026).
+   Gemma, 9-nov: «poder cambiar alguna de las opciones seleccionadas… un link
+   en el email a lo que seleccionó al principio y la opción de editar»; datos
+   de nacimiento solo a la vista (opción A).
+   · Misma sesión que /resumen/ y /web/ (sb-orxyhxehapqmjwmqmqgv-auth-token).
+   · Lee sus preferencias de briefing_preferencias (RLS: solo las suyas).
+   · Guarda con la función de la base resumen_ajustes_guarda(p), que solo
+     cambia lo suyo, comprueba lo mismo que el formulario y apunta el cambio.
+   · Todo lo que viene de la base se pinta como texto (nunca como HTML).
+   ═══════════════════════════════════════════════════════════════════════ */
+const SUPABASE_URL = 'https://orxyhxehapqmjwmqmqgv.supabase.co';
+const SUPABASE_ANON = 'sb_publishable_As7G8e_pyZwjApjgcC48ow_RDc4hZfN';
+const CLAVE_SESION = 'sb-orxyhxehapqmjwmqmqgv-auth-token';
+const $ = (id) => document.getElementById(id);
+const mide = (ev) => { try { window.goatcounter && window.goatcounter.count && window.goatcounter.count({ path: ev, event: true }); } catch (e) {} };
+
+let sb = null;
+try {
+  sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON, {
+    auth: { storage: window.localStorage, storageKey: CLAVE_SESION, autoRefreshToken: true, persistSession: true, detectSessionInUrl: false },
+  });
+} catch (e) { sb = null; }
+
+const PANTALLAS = ['cargando', 'entrar', 'aviso', 'ajustes'];
+function muestra(id) { PANTALLAS.forEach((p) => { $(p).hidden = p !== id; }); }
+
+const TRADICIONES = ['cristiana', 'judia', 'oriente', 'filosofia', 'poesia', 'celta'];
+const MESES = ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'];
+let USUARIO = null;
+let TURNO = 0;
+
+/* ── Leer y marcar ─────────────────────────────────────────────────────── */
+const todos = (nombre) => Array.from(document.querySelectorAll('input[name="' + nombre + '"]'));
+const marcados = (nombre) => todos(nombre).filter((e) => e.checked).map((e) => e.value);
+const marcado = (nombre) => { const e = todos(nombre).find((x) => x.checked); return e ? e.value : null; };
+function marca(nombre, valores) { const v = Array.isArray(valores) ? valores.map(String) : [String(valores)]; todos(nombre).forEach((e) => { e.checked = v.indexOf(e.value) !== -1; }); }
+const lista = (x) => (Array.isArray(x) ? x.filter((s) => typeof s === 'string') : []);
+
+function pintaContador() {
+  const n = marcados('seccion').length;
+  const c = $('contador-secciones');
+  c.textContent = n < 3 ? 'Elige al menos 3 secciones.' : (n >= 9 ? 'Has elegido las 9.' : 'Has elegido ' + n + '.');
+  c.classList.toggle('error', n < 3);
+}
+function pintaSubopciones() {
+  const secs = marcados('seccion');
+  document.querySelectorAll('#sub-opciones .sub').forEach((f) => { f.hidden = secs.indexOf(f.getAttribute('data-seccion')) === -1; });
+}
+function coherenciaAlma() {
+  const diaria = marcado('alma_diaria') || '';
+  const excl = TRADICIONES.filter((t) => marcados('alma_recibe').indexOf(t) === -1);
+  todos('alma_recibe').forEach((e) => { if (e.value === diaria) e.checked = true; e.disabled = e.value === diaria; });
+  todos('alma_diaria').forEach((e) => { e.disabled = e.value !== '' && excl.indexOf(e.value) !== -1; });
+}
+function cuentaContexto() { $('cuenta-contexto').textContent = $('contexto').value.length + ' / 500'; }
+
+function fechaLegible(iso) {
+  const m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(String(iso || ''));
+  return m ? Number(m[3]) + ' de ' + MESES[Number(m[2]) - 1] + ' de ' + m[1] : '—';
+}
+function horaLegible(n) {
+  const h = /^\d{2}:\d{2}$/.test(String(n && n.hora || '')) ? n.hora : null;
+  if (!h) return 'Sin hora';
+  if (n.precision === 'exacta') return h;
+  if (n.precision === 'aproximada') return 'Hacia las ' + h + ' (aproximada)';
+  return 'Sin hora exacta';
+}
+
+function rellena(p) {
+  const o = (p && typeof p.opciones === 'object' && p.opciones) || {};
+  $('nombre').value = typeof p.nombre === 'string' ? p.nombre : '';
+  marca('trato', o.trato || 'neutro');
+  marca('cielo', o.cielo || 'sin_tecnicismos');
+  marca('luna', o.luna || 'ambas');
+  marca('seccion', lista(p.secciones));
+  // Las tradiciones: primero las de opciones (lo que lee el generador); si no están, las de la columna.
+  const excl = Array.isArray(o.alma_excluye) ? lista(o.alma_excluye) : lista(p.alma_excluye);
+  const diaria = typeof o.alma_diaria === 'string' ? o.alma_diaria : (typeof p.alma_diaria === 'string' ? p.alma_diaria : '');
+  marca('alma_recibe', TRADICIONES.filter((t) => excl.indexOf(t) === -1));
+  marca('alma_diaria', TRADICIONES.indexOf(diaria) !== -1 ? diaria : '');
+  marca('mundo', o.mundo ? lista(o.mundo) : ['es', 'int', 'cultura', 'ciencia']);
+  marca('cuidado', lista(o.cuidado));
+  marca('dinero', o.dinero || 'no_dice');
+  marca('vinculos', lista(o.vinculos));
+  marca('carta', o.carta || 'sorpresa');
+  $('contexto').value = typeof p.contexto === 'string' ? p.contexto : '';
+  const n = (p && typeof p.nacimiento === 'object' && p.nacimiento) || {};
+  $('n-fecha').textContent = fechaLegible(n.fecha);
+  $('n-hora').textContent = horaLegible(n);
+  $('n-lugar').textContent = typeof n.lugar === 'string' && n.lugar.trim() ? n.lugar.trim() : '—';
+  pintaContador(); pintaSubopciones(); coherenciaAlma(); cuentaContexto();
+}
+
+/* ── Comprobar y guardar ───────────────────────────────────────────────── */
+function errorEn(id, texto) { const e = $(id); e.textContent = texto || ''; e.hidden = !texto; }
+function comprueba() {
+  let bien = true;
+  const secs = marcados('seccion');
+  errorEn('e-nombre', $('nombre').value.trim() ? '' : 'Escribe cómo quieres que te llamemos.');
+  if (!$('nombre').value.trim()) bien = false;
+  if (secs.length < 3) { pintaContador(); bien = false; }
+  errorEn('e-mundo', secs.indexOf('mundo') !== -1 && !marcados('mundo').length ? 'Elige al menos un tema, o quita Mundo de tus secciones.' : '');
+  if (secs.indexOf('mundo') !== -1 && !marcados('mundo').length) bien = false;
+  const sinTradicion = secs.indexOf('alma') !== -1 && !marcados('alma_recibe').length;
+  errorEn('e-alma', sinTradicion ? 'Deja al menos una tradición marcada, o quita Alimento del alma de tus secciones.' : '');
+  if (sinTradicion) bien = false;
+  return bien;
+}
+function datos() {
+  return {
+    nombre: $('nombre').value.trim().slice(0, 60),
+    trato: marcado('trato'),
+    cielo: marcado('cielo'),
+    luna: marcado('luna'),
+    secciones: marcados('seccion'),
+    alma_excluye: TRADICIONES.filter((t) => marcados('alma_recibe').indexOf(t) === -1),
+    alma_diaria: marcado('alma_diaria') || null,
+    mundo: marcados('mundo'),
+    cuidado: marcados('cuidado'),
+    dinero: marcado('dinero'),
+    vinculos: marcados('vinculos'),
+    carta: marcado('carta'),
+    contexto: $('contexto').value.trim().slice(0, 500),
+  };
+}
+function estado(texto, bien) { const e = $('estado'); e.textContent = texto; e.className = 'estado ' + (bien ? 'bien' : 'mal'); e.hidden = !texto; }
+
+$('ajustes').addEventListener('submit', async (ev) => {
+  ev.preventDefault();
+  estado('', true);
+  if (!comprueba()) { estado('Revisa lo que está marcado en rojo.', false); return; }
+  const turno = TURNO;
+  $('b-guardar').disabled = true;
+  let r = null;
+  try { r = await sb.rpc('resumen_ajustes_guarda', { p: datos() }); } catch (e) { r = { error: e }; }
+  $('b-guardar').disabled = false;
+  if (turno !== TURNO) return;
+  if (!r || r.error) { estado('No hemos podido guardar. Vuelve a intentarlo en un momento.', false); mide('resumen-ajustes-error'); return; }
+  estado('Guardado. Lo notarás a partir de tu próximo Resumen.', true);
+  mide('resumen-ajustes-guardado');
+});
+
+['seccion'].forEach((n) => todos(n).forEach((e) => e.addEventListener('change', () => { pintaContador(); pintaSubopciones(); })));
+todos('alma_recibe').concat(todos('alma_diaria')).forEach((e) => e.addEventListener('change', coherenciaAlma));
+$('contexto').addEventListener('input', cuentaContexto);
+
+/* ── Cuenta ────────────────────────────────────────────────────────────── */
+async function cuentaActual() {
+  try { const { data } = await sb.auth.getSession(); return (data && data.session) || null; } catch (e) { return null; }
+}
+async function carga() {
+  const turno = ++TURNO;
+  muestra('cargando');
+  const s = await cuentaActual();
+  if (turno !== TURNO) return;
+  if (!s) { USUARIO = null; muestra('entrar'); return; }
+  USUARIO = s.user.id;
+  const { data, error } = await sb.from('briefing_preferencias')
+    .select('nombre, secciones, opciones, alma_excluye, alma_diaria, contexto, nacimiento').maybeSingle();
+  if (turno !== TURNO) return;
+  if (error) { $('aviso-texto').textContent = 'No hemos podido traer lo que elegiste. Revisa tu conexión y vuelve a abrir esta página.'; muestra('aviso'); return; }
+  if (!data) { $('aviso-texto').textContent = 'Con esta cuenta no tienes un Resumen diario. Si te apuntaste con otro correo, entra con esa cuenta.'; muestra('aviso'); return; }
+  rellena(data);
+  muestra('ajustes');
+  mide('resumen-ajustes-ve');
+}
+async function revisaCuenta() {
+  const s = await cuentaActual();
+  if ((s ? s.user.id : null) !== USUARIO) carga();
+}
+
+$('f-entrar').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const correo = $('correo').value.trim(); const clave = $('clave').value;
+  const err = $('error-entrar'); err.hidden = true;
+  if (!correo || !clave) { err.textContent = 'Escribe tu correo y tu contraseña.'; err.hidden = false; return; }
+  $('b-entrar').disabled = true;
+  const { error } = await sb.auth.signInWithPassword({ email: correo, password: clave });
+  $('b-entrar').disabled = false;
+  if (error) { err.textContent = /invalid/i.test(error.message || '') ? 'El correo o la contraseña no coinciden.' : 'No hemos podido entrar. Vuelve a intentarlo en un momento.'; err.hidden = false; return; }
+  $('clave').value = '';
+  carga();
+});
+$('b-salir').addEventListener('click', async (e) => { e.preventDefault(); TURNO++; USUARIO = null; await sb.auth.signOut({ scope: 'local' }); muestra('entrar'); });
+window.addEventListener('storage', (e) => { if (e.key === CLAVE_SESION) revisaCuenta(); });
+document.addEventListener('visibilitychange', () => { if (!document.hidden) revisaCuenta(); });
+
+if (!sb) { $('aviso-texto').textContent = 'Esta página necesita conexión para cargar. Vuelve a abrirla en un momento.'; muestra('aviso'); }
+else carga();
+</script>
+</body>
+</html>

@@ -321,6 +321,8 @@ function nivelResumen(r) {
   const fechas = r.desde && r.hasta ? `del ${dia(r.desde)} al ${dia(r.hasta)}` : '';
   const secciones = r.secciones && r.secciones.length ? `Tus secciones: ${enumera(r.secciones)}.` : '';
   const ver = () => { const a = enlace('Ver el de hoy', '/resumen/', 'boton'); a.addEventListener('click', () => mide('mi-espacio-resumen')); return a; };
+  // Gemma, 9-nov-2026: poder cambiar lo que eligió al apuntarse (/resumen/ajustes/).
+  const cambiar = () => { const a = enlace('Cambiar lo que recibo', '/resumen/ajustes/', 'boton secundario'); a.addEventListener('click', () => mide('mi-espacio-resumen-ajustes')); return a; };
   const donde = r.correo ? `En tu correo y aquí${fechas ? ', ' + fechas : ''}.` : `Aquí en la web${fechas ? ', ' + fechas : ''}. El correo lo tienes desactivado.`;
   if (r.estado === 'pausado') {
     return nivel('resumen', 'Resumen diario personalizado', 'En pausa', true, 'Tu Resumen está en pausa',
@@ -332,10 +334,10 @@ function nivelResumen(r) {
   }
   if (r.estado === 'empieza') {
     return nivel('resumen', 'Resumen diario personalizado', r.desde ? `Empieza el ${dia(r.desde)}` : 'Empieza pronto', false,
-      r.correo ? 'Cada mañana a las 7:00' : 'Cada día, aquí en la web', [donde], [secciones], []);
+      r.correo ? 'Cada mañana a las 7:00' : 'Cada día, aquí en la web', [donde], [secciones], [cambiar()]);
   }
   return nivel('resumen', 'Resumen diario personalizado', 'Activo', false,
-    r.correo ? 'Cada mañana a las 7:00' : 'Cada día, aquí en la web', [donde], [secciones], [ver()]);
+    r.correo ? 'Cada mañana a las 7:00' : 'Cada día, aquí en la web', [donde], [secciones], [ver(), cambiar()]);
 }
 function botonesMes(i, clasePrimero) {
   const l = [];
