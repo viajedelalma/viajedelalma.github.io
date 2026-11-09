@@ -194,6 +194,7 @@ input:focus{outline:none;border-color:var(--oro)}
     <section class="centro" id="b-semana" hidden>
       <p class="etiqueta" style="margin-top:28px">Tus días</p>
       <ul class="semana" id="r-semana"></ul>
+      <p class="nota" id="r-semana-nota" style="margin:12px auto 0;max-width:30em;text-wrap:balance">Guardamos tus 7 últimos días. Los anteriores se borran solos. Si quieres conservar alguno, guarda el correo de ese día.</p>
     </section>
 
     <p class="pie">Este Resumen es una guía de reflexión espiritual y simbólica. No sustituye el consejo médico, psicológico, legal ni financiero.
@@ -463,9 +464,11 @@ async function abreDia(f, fechaActual) {
   const turno = TURNO;
   if (HOY && f === HOY.fecha) { pintaResumen(HOY.contenido, false); }
   else {
-    const { data } = await sb.from('briefing_diario').select('contenido').eq('fecha', f).maybeSingle();
+    const { data, error } = await sb.from('briefing_diario').select('contenido').eq('fecha', f).maybeSingle();
     if (turno !== TURNO) return;
-    if (data && data.contenido) pintaResumen(data.contenido, false);
+    // R06-20261108-05: si no llega (red, o ya borrado: se guardan 7 días), se queda marcado el día que se ve.
+    if (error || !data || !data.contenido) return;
+    pintaResumen(data.contenido, false);
     mide('resumen-ve-dia-anterior');
   }
   document.querySelectorAll('#r-semana button').forEach((b) => b.setAttribute('aria-current', b.dataset.fecha === f ? 'true' : 'false'));
