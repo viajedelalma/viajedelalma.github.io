@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex,nofollow">
+  <meta name="referrer" content="no-referrer">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; connect-src 'self'; base-uri 'none'; form-action 'none'">
+  <meta name="intake-endpoint" content="">
+  <title>La vida que elijo · Viaje del Alma</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="form.js" defer></script>
+</head>
+<body>
+<main>
+  <header>
+    <p class="eyebrow">Viaje del Alma</p>
+    <h1>La vida que elijo</h1>
+    <p>Cuéntanos qué te gustaría vivir. Crearemos un tablero para que tengas tus sueños a la vista.</p>
+  </header>
+  <p id="status" role="status">Abre el enlace privado que acompaña a tu pedido.</p>
+  <form id="intake" hidden>
+    <label for="tone">Tono principal de las imágenes</label>
+    <select id="tone" name="tone">
+      <option value="realista">Realista · escenas que podrían fotografiarse</option>
+      <option value="divertido">Divertido · detalles juguetones y sorprendentes</option>
+      <option value="mistico">Místico · atmósferas de ensueño y símbolos sutiles</option>
+      <option value="inspirador">Inspirador · luz y sensación de posibilidad</option>
+    </select>
+    <label for="accent">Segundo tono <small>Opcional</small></label>
+    <select id="accent" name="accent">
+      <option value="">Un solo tono</option>
+      <option value="realista">Realista</option>
+      <option value="divertido">Divertido</option>
+      <option value="mistico">Místico</option>
+      <option value="inspirador">Inspirador</option>
+    </select>
+    <p class="hint">El primer tono guía el conjunto. El segundo añade matices a las imágenes y a los rótulos.</p>
+    <label for="style">Paleta de colores</label>
+    <select id="style" name="style">
+      <option value="calido">Cálida · ocre, oliva y luz suave</option>
+      <option value="lunar">Lunar · índigo, lavanda y atardecer</option>
+      <option value="natural">Natural · crema y verde salvia</option>
+    </select>
+    <label for="count">¿Cuántos sueños quieres incluir?</label>
+    <select id="count" name="count">
+      <option>1</option><option>2</option><option>3</option>
+      <option>4</option><option>5</option><option>6</option>
+    </select>
+    <p class="hint">Puedes dedicar el tablero a un solo sueño o marcar varios para darles más protagonismo.</p>
+    <div id="dreams"></div>
+    <label for="phrase">Frase para el pie del tablero <small>Opcional</small></label>
+    <input id="phrase" name="phrase" maxlength="65" placeholder="Un paso a la vez">
+    <details>
+      <summary>Cómo usamos tus respuestas</summary>
+      <p>Viaje del Alma utiliza tus respuestas para preparar, revisar y entregar tu encargo. Enviamos las descripciones, la selección de sueños destacados, los tonos y la paleta a OpenAI para crear las escenas. Componemos las palabras y la frase después. El formulario no pide fotos ni datos de contacto. Evita datos de salud, direcciones, apellidos y datos de otras personas.</p>
+      <p>El enlace caduca a los siete días y se desactiva al enviar. Los datos del pedido se conservan en el servicio hasta 60 días desde su creación. Para consultar tus datos o pedir que se eliminen, escribe en Mensajes de Etsy.</p>
+    </details>
+    <label class="check"><input type="checkbox" name="ack" required> He leído cómo se usarán mis respuestas.</label>
+    <button type="submit">Enviar mis sueños</button>
+    <p id="error" role="alert"></p>
+  </form>
+</main>
+</body>
+</html>
