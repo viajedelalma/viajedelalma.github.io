@@ -105,6 +105,7 @@ details a{color:var(--oro-claro)}
 <!-- WEB-ESCRITORIO-0511-01: solo pantalla de ordenador; móvil e impresión conservan sus estilos. -->
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600&amp;family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&amp;display=swap" media="screen and (min-width: 1024px)">
 <link rel="stylesheet" href="/escritorio.css?v=20261107-1" media="screen and (min-width: 1024px)">
+<link rel="stylesheet" href="/coleccion.css?v=1">
 </head>
 <body data-vda-page="regalo">
 <nav class="vda-desktop-nav" aria-label="Navegación principal" hidden>
@@ -160,42 +161,45 @@ details a{color:var(--oro-claro)}
       de 24 horas y el calendario lo descarga en ese momento. Tiene un año para canjearlo.</span></li>
   </ol>
 
-  <h2 id="comprar">Prepara su regalo</h2>
-  <form class="formulario" id="f" novalidate>
-    <label for="para">Su nombre</label>
-    <input id="para" type="text" maxlength="60" autocomplete="off" placeholder="Para quién es">
+  <section class="vda-regalo-editor" aria-labelledby="comprar">
+    <h2 id="comprar">Prepara su regalo</h2>
+    <form class="formulario" id="f" novalidate>
+      <label for="para">Su nombre</label>
+      <input id="para" type="text" maxlength="60" autocomplete="off" placeholder="Para quién es">
 
-    <label for="de">Tu nombre</label>
-    <input id="de" type="text" maxlength="60" autocomplete="given-name" placeholder="Cómo firmas la tarjeta">
+      <label for="de">Tu nombre</label>
+      <input id="de" type="text" maxlength="60" autocomplete="given-name" placeholder="Cómo firmas la tarjeta">
 
-    <label for="dedicatoria">Tu dedicatoria <span class="contador" id="contador">0 / 300</span></label>
-    <textarea id="dedicatoria" maxlength="300" placeholder="Opcional. Por ejemplo: «Para que te conozcas un poco más. Feliz Navidad»"></textarea>
+      <label for="dedicatoria">Tu dedicatoria <span class="contador" id="contador">0 / 300</span></label>
+      <textarea id="dedicatoria" maxlength="300" placeholder="Opcional. Por ejemplo: «Para que te conozcas un poco más. Feliz Navidad»"></textarea>
 
-    <label for="correo">Tu correo</label>
-    <input id="correo" type="email" maxlength="120" autocomplete="email" inputmode="email" placeholder="Aquí te llega la tarjeta">
-    <p class="ayuda">Solo para mandarte la tarjeta y el recibo. Quien la recibe pondrá su propio correo.</p>
+      <label for="correo">Tu correo</label>
+      <input id="correo" type="email" maxlength="120" autocomplete="email" inputmode="email" placeholder="Aquí te llega la tarjeta">
+      <p class="ayuda">Solo para mandarte la tarjeta y el recibo. Quien la recibe pondrá su propio correo.</p>
 
-    <div class="casilla">
-      <input id="condiciones" type="checkbox">
-      <label for="condiciones">Sé que la tarjeta se canjea en un año, que puedo pedir la devolución en los 14 días
-        siguientes a la compra mientras no se haya canjeado, y que, al canjearla, su carta empieza a prepararse en ese
-        momento (<a href="/terminos.html#regalo" target="_blank" rel="noopener">condiciones</a>).</label>
+      <div class="casilla">
+        <input id="condiciones" type="checkbox">
+        <label for="condiciones">Sé que la tarjeta se canjea en un año, que puedo pedir la devolución en los 14 días
+          siguientes a la compra mientras no se haya canjeado, y que, al canjearla, su carta empieza a prepararse en ese
+          momento (<a href="/terminos.html#regalo" target="_blank" rel="noopener">condiciones</a>).</label>
+      </div>
+
+      <div class="error" id="error"></div>
+      <div class="rescate" id="rescate" hidden>
+        <b>Te llevamos al pago seguro de Stripe.</b> Si allí el botón no responde, suele ser el bloqueador de anuncios
+        o alguna extensión del navegador: abre <a id="rescate-enlace" href="#" target="_blank" rel="noopener">este mismo
+        enlace de pago</a> en una <b>ventana de incógnito</b>. Tus datos ya están guardados.
+      </div>
+      <button class="boton enviar" id="enviar" type="submit">Comprar el regalo · 19,99 €</button>
+      <p class="ayuda" style="text-align:center">Pago seguro con Stripe. IVA incluido. La tarjeta te llega al momento.</p>
+    </form>
+
+    <div class="vista" id="vista">
+      <p>Así queda su tarjeta</p>
+      <div id="tarjeta"></div>
     </div>
 
-    <div class="error" id="error"></div>
-    <div class="rescate" id="rescate" hidden>
-      <b>Te llevamos al pago seguro de Stripe.</b> Si allí el botón no responde, suele ser el bloqueador de anuncios
-      o alguna extensión del navegador: abre <a id="rescate-enlace" href="#" target="_blank" rel="noopener">este mismo
-      enlace de pago</a> en una <b>ventana de incógnito</b>. Tus datos ya están guardados.
-    </div>
-    <button class="boton enviar" id="enviar" type="submit">Comprar el regalo · 19,99 €</button>
-    <p class="ayuda" style="text-align:center">Pago seguro con Stripe. IVA incluido. La tarjeta te llega al momento.</p>
-  </form>
-
-  <div class="vista" id="vista">
-    <p>Así queda su tarjeta</p>
-    <div id="tarjeta"></div>
-  </div>
+  </section>
 
   <h2>Preguntas</h2>
   <div class="preguntas" id="preguntas">

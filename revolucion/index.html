@@ -69,6 +69,7 @@ details p{margin:10px 0 0;color:var(--tenue);font-size:.95rem}
 <!-- WEB-ESCRITORIO-0511-01: solo pantalla de ordenador; móvil e impresión conservan sus estilos. -->
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600&amp;family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&amp;display=swap" media="screen and (min-width: 1024px)">
 <link rel="stylesheet" href="/escritorio.css?v=20261107-1" media="screen and (min-width: 1024px)">
+<link rel="stylesheet" href="/coleccion.css?v=1">
 </head>
 <body data-vda-page="revolucion">
 <nav class="vda-desktop-nav" aria-label="Navegación principal" hidden>
@@ -83,9 +84,20 @@ details p{margin:10px 0 0;color:var(--tenue);font-size:.95rem}
 </nav>
 <div class="envoltura">
 
-  <div class="marca"><a href="/">Viaje del Alma</a></div>
-  <h1>Tu revolución solar</h1>
-  <p class="entradilla">Tu año, de cumpleaños a cumpleaños, con fechas. No es un horóscopo anual: es la carta del instante exacto en que el Sol vuelve al grado en que estaba cuando naciste, calculada con efemérides reales y escrita para ti.</p>
+  <div class="marca"><a href="/"><img src="/logo.png" width="34" height="34" alt="">Viaje del Alma</a></div>
+  <header class="vda-entrada">
+    <div>
+      <p class="vda-antetitulo">De cumpleaños a cumpleaños</p>
+      <h1>Tu revolución solar</h1>
+      <p class="entradilla">Tu año, de cumpleaños a cumpleaños, con fechas. No es un horóscopo anual: es la carta del instante exacto en que el Sol vuelve al grado en que estaba cuando naciste, calculada con efemérides reales y escrita para ti.</p>
+      <a class="boton secundario" href="#precio">Ver el informe y el pack</a>
+    </div>
+    <div class="vda-orbita" aria-hidden="true">
+      <span class="vda-orbita-aro"></span>
+      <span class="vda-orbita-sol">☉</span>
+      <span class="vda-orbita-pie">Tu año · vuelta al Sol</span>
+    </div>
+  </header>
 
   <hr class="regla">
 
@@ -99,7 +111,7 @@ details p{margin:10px 0 0;color:var(--tenue);font-size:.95rem}
   </div>
 
   <h2>Qué recibes</h2>
-  <ul class="lista">
+  <ul class="lista vda-fichas">
     <li><b>Unas treinta y cinco páginas en PDF</b>, en tu correo en menos de 24 horas.</li>
     <li><b>La carta de tu año</b>, dibujada, y el tema que la domina explicado sin jerga (y cada término técnico, aclarado al lado).</li>
     <li><b>Lo que puede traer cada área de tu vida</b> —trabajo, dinero, vínculos, casa, cuerpo, lo que necesitas soltar— <b>trimestre a trimestre</b>.</li>
@@ -116,7 +128,7 @@ details p{margin:10px 0 0;color:var(--tenue);font-size:.95rem}
     <div class="cifra">24,99 €</div>
     <small>IVA incluido · en tu correo en menos de 24 horas</small>
     <a class="boton cta-rs" data-origen="precio" href="/carta/pedido.html?producto=revolucion">Quiero mi revolución</a>
-    <p class="pack">¿Todavía no tienes tu carta natal? <a class="cta-rs" data-origen="pack" href="/carta/pedido.html?producto=pack">Las dos juntas, <span data-precio="pack">28,99 €</span></a> (ahorras <span data-precio="ahorro_pack">10,99 €</span>).</p>
+    <p class="pack vda-pack">¿Todavía no tienes tu carta natal? <a class="cta-rs" data-origen="pack" href="/carta/pedido.html?producto=pack">Las dos juntas, <span data-precio="pack">28,99 €</span></a> (ahorras <span data-precio="ahorro_pack">10,99 €</span>).</p>
   </div>
   <h2>Preguntas</h2>
   <details><summary>¿Necesito saber dónde voy a pasar mi cumpleaños?</summary><p>Sí: la carta se levanta para ese lugar. Si aún no lo sabes, pon donde vives; es lo que se hace habitualmente y la diferencia con un viaje corto es pequeña.</p></details>
