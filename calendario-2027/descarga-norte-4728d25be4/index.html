@@ -108,7 +108,9 @@ a{color:var(--oro-claro)}
       .then(function (d) {
         if (!d || d.pagado !== true) { cuenta('cal-sid-sin-pago-norte'); return; }
         cuenta('cal-pagado-norte');
-        var valor = (d.importe_centimos || 299) / 100, moneda = String(d.moneda || 'eur').toUpperCase();
+        // Para publicidad, usar solo el importe confirmado; nunca un precio de respaldo.
+        if (typeof d.importe_centimos !== 'number' || !Number.isFinite(d.importe_centimos) || d.importe_centimos <= 0) return;
+        var valor = d.importe_centimos / 100, moneda = String(d.moneda || 'eur').toUpperCase();
         var compra = function () { try { window.vdaMeta && vdaMeta.track('Purchase', { value: valor, currency: moneda, content_name: 'calendario 2027 norte' }, { eventID: sid }); } catch (e) {} };
         if (window.vdaMeta || document.readyState === 'complete') compra(); else addEventListener('load', compra, { once: true });
       })
