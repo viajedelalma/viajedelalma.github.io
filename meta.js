@@ -1,14 +1,17 @@
 /* ═══════════════════════════════════════════════════════════════════════
-   Píxel de Meta con consentimiento (20-sep-2026 · revisado 22-sep-2026).
+   Medición de Meta y Google Ads con consentimiento (10-nov-2026).
+   Se conserva la API vdaMeta de las páginas. Purchase solo lo llaman los
+   recorridos que ya verifican el pago con el servidor. Google recibe el
+   importe confirmado y un ID irreversible, nunca el código de pago.
+   El consentimiento antiguo de Meta NO autoriza cargar Google.
 
    Hace dos cosas:
-   1. Pinta una barra de cookies la primera vez. Aceptar y rechazar cuestan
-      lo mismo (un toque). La decisión se guarda en localStorage y no se
-      vuelve a preguntar.
-   2. Solo si se acepta, carga el píxel de Meta y manda los eventos que las
-      páginas piden con vdaMeta.track(...). Si no se acepta, no se carga
-      nada: la web funciona exactamente igual y GoatCounter (sin cookies)
-      sigue contando.
+   1. Pinta una barra de cookies la primera vez o cuando el permiso de Meta
+      es anterior a la incorporación de Google. Aceptar y rechazar cuestan
+      lo mismo (un toque). La decisión y su versión se guardan en localStorage.
+   2. Solo con permiso carga las etiquetas. Meta conserva sus eventos y
+      Google recibe Purchase como conversión, con consentimiento nuevo y
+      sin personalización de anuncios. GoatCounter sigue independiente.
 
    ARREGLO DEL 22-sep-2026 — la barra ya no puede tapar un botón:
    a) RESERVA HUECO. Mientras la barra está visible, añade al final del
@@ -35,10 +38,110 @@
 (function () {
   const PIXEL_ID = '3307782956074811'; // Administrador de eventos › «Viaje del Alma web»
   const CLAVE = 'vda_cookies';         // 'si' | 'no'
+  const VERSION = 'meta-google-20261110';
+  const CLAVE_VERSION = 'vda_cookies_version';
+  // Fragmento de la acción existente «Compra», leído en Google Ads el 10-nov.
+  const GOOGLE_ID = 'AW-18490350522';
+  const GOOGLE_COMPRA = GOOGLE_ID + '/gEiICLOQn44dELq38fBE';
   let estado = null;
   try { estado = localStorage.getItem(CLAVE); } catch (e) { /* sin almacenamiento: se pregunta cada vez */ }
+  if (estado !== 'si' && estado !== 'no') estado = null;
+  let version = null;
+  try { version = localStorage.getItem(CLAVE_VERSION); } catch (e) {}
   const cola = [];
+  const comprasGoogle = new Map();
+  const enviadasGoogle = new Set();
+  let googleCargado = false;
   let vigilante = null; // ResizeObserver que mantiene el hueco al alto de la barra
+
+  function permiteGoogle() { return estado === 'si' && version === VERSION; }
+  function urlMedicion(valor, clic) {
+    try {
+      const u = new URL(valor);
+      const limpia = new URL(u.origin + u.pathname);
+      // Solo identificadores publicitarios. Nunca correos, códigos de regalo,
+      // dedicatorias, session_id, búsquedas ni fragmentos de la URL.
+      if (clic) ['gclid', 'gbraid', 'wbraid'].forEach(k => {
+        const v = u.searchParams.get(k);
+        if (v && /^[A-Za-z0-9_-]{1,512}$/.test(v)) limpia.searchParams.set(k, v);
+      });
+      return limpia.href;
+    } catch (e) { return ''; }
+  }
+  function cargaGoogle() {
+    if (!permiteGoogle()) return;
+    if (googleCargado) {
+      window.gtag('consent', 'update', { ad_storage: 'granted', ad_user_data: 'granted', ad_personalization: 'denied', analytics_storage: 'denied' });
+      vaciaComprasGoogle();
+      return;
+    }
+    window.dataLayer = window.dataLayer || [];
+    window.gtag = window.gtag || function () { window.dataLayer.push(arguments); };
+    window.gtag('consent', 'default', { ad_storage: 'denied', ad_user_data: 'denied', ad_personalization: 'denied', analytics_storage: 'denied' });
+    window.gtag('set', 'ads_data_redaction', true);
+    window.gtag('set', 'allow_ad_personalization_signals', false);
+    window.gtag('consent', 'update', { ad_storage: 'granted', ad_user_data: 'granted', ad_personalization: 'denied', analytics_storage: 'denied' });
+    window.gtag('js', new Date());
+    window.gtag('config', GOOGLE_ID, {
+      send_page_view: false,
+      allow_google_signals: false,
+      allow_ad_personalization_signals: false,
+      page_location: urlMedicion(location.href, true),
+      page_referrer: urlMedicion(document.referrer, false),
+      page_title: 'Viaje del Alma'
+    });
+    googleCargado = true;
+    const s = document.createElement('script');
+    s.async = true;
+    s.src = 'https://www.googletagmanager.com/gtag/js?id=' + GOOGLE_ID;
+    document.head.appendChild(s);
+    vaciaComprasGoogle();
+  }
+  function compraGoogle(datos, opciones) {
+    if (estado === 'no') return;
+    const id = opciones && opciones.eventID;
+    const valor = datos && datos.value;
+    const moneda = datos && datos.currency;
+    // Ni pruebas de Stripe, ni regalos a cero, ni visitas/clics son ventas.
+    if (typeof id !== 'string' || !/^cs_live_[A-Za-z0-9]{10,200}$/.test(id) ||
+        typeof valor !== 'number' || !Number.isFinite(valor) || valor <= 0 ||
+        typeof moneda !== 'string' || !/^[A-Z]{3}$/.test(moneda)) return;
+    comprasGoogle.set(id, { value: valor, currency: moneda });
+    vaciaComprasGoogle();
+  }
+  function vaciaComprasGoogle() {
+    if (!permiteGoogle() || !googleCargado || !window.crypto || !crypto.subtle) return;
+    comprasGoogle.forEach((datos, id) => {
+      comprasGoogle.delete(id);
+      crypto.subtle.digest('SHA-256', new TextEncoder().encode(id)).then(buffer => {
+        // 64 caracteres estables por pedido. Google deduplica también si se
+        // vuelve a abrir la página en otro navegador. No se guarda el pago aquí.
+        const transaccion = Array.from(new Uint8Array(buffer), n => n.toString(16).padStart(2, '0')).join('');
+        if (!permiteGoogle() || enviadasGoogle.has(transaccion)) return;
+        enviadasGoogle.add(transaccion);
+        window.gtag('event', 'conversion', {
+          send_to: GOOGLE_COMPRA,
+          value: datos.value,
+          currency: datos.currency,
+          transaction_id: transaccion
+        });
+      }).catch(function () {});
+    });
+  }
+  function revocaMedicion() {
+    comprasGoogle.clear();
+    cola.length = 0;
+    if (window.fbq) window.fbq('consent', 'revoke');
+    if (googleCargado) window.gtag('consent', 'update', { ad_storage: 'denied', ad_user_data: 'denied', ad_personalization: 'denied', analytics_storage: 'denied' });
+    // Borra solo las cookies publicitarias propias de este sitio.
+    const dominios = ['', location.hostname, '.' + location.hostname];
+    if (location.hostname.endsWith('.viajedelalma.app')) dominios.push('viajedelalma.app', '.viajedelalma.app');
+    document.cookie.split(';').forEach(par => {
+      const nombre = par.trim().split('=')[0];
+      if (!/^(_fbp|_fbc|_gcl_[A-Za-z0-9_]+)$/.test(nombre)) return;
+      dominios.forEach(d => { document.cookie = nombre + '=; Max-Age=0; path=/' + (d ? '; domain=' + d : ''); });
+    });
+  }
 
   function cargaPixel() {
     if (!PIXEL_ID || window.fbq) return;
@@ -57,6 +160,7 @@
     /* Eventos estándar de Meta: ViewContent, InitiateCheckout, Purchase, Lead… */
     track(evento, datos, opciones) {
       if (!PIXEL_ID || estado === 'no') return;
+      if (evento === 'Purchase') compraGoogle(datos, opciones);
       /* opciones (24-sep): { eventID: '…' }. Meta lo usa para no contar dos
          veces el mismo evento. Va como tercer argumento de fbq. */
       const args = opciones ? ['track', evento, datos || {}, opciones] : ['track', evento, datos || {}];
@@ -66,12 +170,22 @@
     /* 24-sep: 'si' | 'no' | null (aún no ha contestado). Para que una página
        decida si merece la pena preparar un evento. */
     consentimiento() { return estado; },
-    acepta() { estado = 'si'; guarda(); quitaBarra(); cargaPixel(); },
-    rechaza() { estado = 'no'; guarda(); quitaBarra(); cola.length = 0; },
+    acepta() {
+      estado = 'si'; version = VERSION; guarda(); quitaBarra();
+      if (window.fbq) {
+        window.fbq('consent', 'grant');
+        cola.splice(0).forEach(a => window.fbq.apply(null, a));
+      } else cargaPixel();
+      cargaGoogle();
+    },
+    rechaza() { estado = 'no'; version = VERSION; guarda(); quitaBarra(); revocaMedicion(); },
     /* Para el enlace «Cambiar mis cookies» de la política de privacidad. */
-    olvida() { try { localStorage.removeItem(CLAVE); } catch (e) {} estado = null; pintaBarra(); },
+    olvida() {
+      try { localStorage.removeItem(CLAVE); localStorage.removeItem(CLAVE_VERSION); } catch (e) {}
+      estado = null; version = null; revocaMedicion(); pintaBarra();
+    },
   };
-  function guarda() { try { localStorage.setItem(CLAVE, estado); } catch (e) {} }
+  function guarda() { try { localStorage.setItem(CLAVE, estado); localStorage.setItem(CLAVE_VERSION, version); } catch (e) {} }
 
   function quitaBarra() {
     const b = document.getElementById('vda-cookies'); if (b) b.remove();
@@ -130,8 +244,8 @@
       '#vda-cookies p{flex:1 1 180px}' +
       '#vda-cookies button{padding:8px 11px;font-size:13px}}' +
       '</style>' +
-      '<div class="in"><p>Usamos una cookie de Meta para medir los anuncios. ' +
-      'Sin ella la web funciona igual. <a href="/privacidad.html#cookies">Más información</a>.</p>' +
+      '<div class="in"><p>Usamos cookies de Meta y Google para medir los anuncios y las compras. ' +
+      'Sin ellas la web funciona igual. <a href="/privacidad.html#cookies">Más información</a>.</p>' +
       '<div class="b"><button type="button" class="no">Solo lo necesario</button>' +
       '<button type="button" class="si">Aceptar</button></div></div>';
     b.querySelector('.si').addEventListener('click', window.vdaMeta.acepta);
@@ -141,8 +255,8 @@
   }
 
   if (!PIXEL_ID) return; // sin ID no hay nada que preguntar
-  if (estado === 'si') cargaPixel();
-  else if (estado !== 'no') {
+  if (estado === 'si') { cargaPixel(); cargaGoogle(); }
+  if (estado !== 'no' && !permiteGoogle()) {
     if (document.body) pintaBarra();
     else document.addEventListener('DOMContentLoaded', pintaBarra, { once: true });
   }
