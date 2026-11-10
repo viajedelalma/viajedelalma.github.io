@@ -244,6 +244,8 @@ h2{font-family:var(--titulo);font-weight:400;letter-spacing:.05em;color:var(--or
 .paginas img{display:block;width:100%;height:auto;aspect-ratio:420/594;border:1px solid var(--linea);border-radius:3px;background:var(--noche);box-shadow:0 8px 24px rgba(0,0,0,.35)}
 .paginas span{display:block;margin-top:6px;font-size:.78rem;color:var(--tenue)}
 .paginas-pie{margin:12px 0 0;font-size:.85rem;font-style:italic;color:var(--tenue);text-align:center}
+.paginas-desliza{margin:8px 0 0;font-size:.85rem;color:var(--oro-claro);text-align:center}
+@media (min-width:600px){.paginas-desliza{display:none}}
 .centrado{text-align:center;margin:16px 0 0}
 .capitulos{list-style:none;margin:0;padding:0;border-top:1px solid var(--linea)}
 .capitulos li{border-bottom:1px solid var(--linea)}
@@ -406,11 +408,11 @@ h2{font-family:var(--titulo);font-weight:400;letter-spacing:.05em;color:var(--or
     <h2 id="t-recibes">Qué recibes</h2>
     <ul class="recibes">
       <li><span class="ico" aria-hidden="true">☉&#xFE0E;</span><b>Tus diez planetas</b><span>Uno a uno.</span></li>
-      <li><span class="ico ico-txt" aria-hidden="true">XII</span><b>Tus doce casas</b><span>También las que están vacías.</span></li>
+      <li><span class="ico ico-txt" aria-hidden="true">XII</span><b>Tus doce casas</b><span>Con hora de nacimiento, también las que están vacías.</span></li>
       <li><span class="ico" aria-hidden="true">△&#xFE0E;</span><b>Todos tus aspectos</b><span>Incluidos los que tocan tu Ascendente.</span></li>
       <li><span class="ico" aria-hidden="true">☊&#xFE0E;</span><b>Tu eje kármico</b><span>Tu Nodo Norte, tu Nodo Sur, tu Lilith y tu Quirón.</span></li>
       <li><span class="ico" aria-hidden="true">☽&#xFE0E;</span><b>Tu próximo año</b><span>Los tránsitos, con sus fechas exactas.</span></li>
-      <li><span class="ico" aria-hidden="true">◎&#xFE0E;</span><b>Tu carta en datos</b><span>La rueda a tamaño grande, los grados y las doce cúspides.</span></li>
+      <li><span class="ico" aria-hidden="true">◎&#xFE0E;</span><b>Tu carta en datos</b><span>La rueda, los grados y, con hora de nacimiento, las doce cúspides.</span></li>
     </ul>
   </section>
 
@@ -433,6 +435,7 @@ h2{font-family:var(--titulo);font-weight:400;letter-spacing:.05em;color:var(--or
       <li><img src="muestra-quien-eres.webp" width="420" height="594" loading="lazy" alt="Primera página del capítulo «Quién eres»"><span>Quién eres</span></li>
       <li><img src="muestra-datos.webp" width="420" height="594" loading="lazy" alt="Página «Tu carta, en datos», con la tabla de posiciones"><span>Tu carta, en datos</span></li>
     </ul>
+    <p class="paginas-desliza">Desliza para ver las cuatro páginas</p>
     <p class="paginas-pie">Páginas del informe de muestra de Federico García Lorca. El tuyo es igual, con tu carta.</p>
     <p class="centrado"><a class="boton-b" href="/carta/muestra-lorca.pdf" target="_blank" rel="noopener" data-goatcounter-click="carta-ejemplo-muestra">Ver el informe entero (PDF)</a></p>
   </section>
