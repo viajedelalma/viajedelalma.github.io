@@ -71,6 +71,7 @@ details p{margin:10px 0 0;color:var(--tenue);font-size:.95rem}
 <!-- WEB-ESCRITORIO-0511-01: solo pantalla de ordenador; móvil e impresión conservan sus estilos. -->
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600&amp;family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&amp;display=swap" media="screen and (min-width: 1024px)">
 <link rel="stylesheet" href="/escritorio.css?v=20261107-1" media="screen and (min-width: 1024px)">
+<link rel="stylesheet" href="/coleccion.css?v=1">
 </head>
 <body data-vda-page="sinastria">
 <nav class="vda-desktop-nav" aria-label="Navegación principal" hidden>
@@ -85,15 +86,20 @@ details p{margin:10px 0 0;color:var(--tenue);font-size:.95rem}
 </nav>
 <div class="envoltura">
 
-  <div class="marca"><a href="/">Viaje del Alma</a></div>
-  <h1>Vuestra sinastría</h1>
-  <p class="entradilla">Dos cartas natales leídas juntas: cuánto se facilitan vuestras cartas en cada área de la relación, qué os une, dónde rozáis y los momentos importantes de vuestro próximo año. Escrita para que la leáis las dos personas a la vez.</p>
-
-  <figure class="muestra">
+  <div class="marca"><a href="/"><img src="/logo.png" width="34" height="34" alt="">Viaje del Alma</a></div>
+  <header class="vda-entrada">
+    <div>
+      <p class="vda-antetitulo">Pareja · amistad · familia</p>
+      <h1>Vuestra sinastría</h1>
+      <p class="entradilla">Dos cartas natales leídas juntas: cuánto se facilitan vuestras cartas en cada área de la relación, qué os une, dónde rozáis y los momentos importantes de vuestro próximo año. Escrita para que la leáis las dos personas a la vez.</p>
+      <a class="boton secundario" href="#precio">Ver precio y pedir el informe</a>
+    </div>
+    <figure class="muestra">
     <img src="/sinastria/muestra-compatibilidad.jpg" width="1200" height="900" loading="eager"
          alt="Página de un informe real: el porcentaje de compatibilidad global y una barra por cada área">
     <figcaption>Página de un informe real, con los nombres y los datos difuminados.</figcaption>
   </figure>
+  </header>
 
   <hr class="regla">
 
@@ -102,7 +108,7 @@ details p{margin:10px 0 0;color:var(--tenue);font-size:.95rem}
   <p>No le habla a quien la pide, sino a las dos a la vez: en plural y a cada una por su nombre. Nadie es la protagonista.</p>
 
   <h2>Qué recibís</h2>
-  <ul class="lista">
+  <ul class="lista vda-fichas">
     <li><b>Unas 22 páginas en PDF</b>, en el correo en menos de 24 horas.</li>
     <li><b>Vuestra compatibilidad</b>: un porcentaje global y uno por cada área (en pareja: comunicación, emociones y cuidado, atracción y deseo, valores y proyecto, y ritmo del día a día), con lo que facilita y lo que pide cada una.</li>
     <li><b>Cómo sois</b>: vuestras Lunas, vuestras Venus y vuestros Martes, comparados.</li>
@@ -112,10 +118,23 @@ details p{margin:10px 0 0;color:var(--tenue);font-size:.95rem}
     <li><b>Un ritual para dos</b> y tres preguntas para hablar. Y las dos ruedas, la tabla de todos los aspectos y un glosario.</li>
   </ul>
 
-  <figure class="muestra">
-    <img src="/sinastria/muestra-momentos.jpg" width="1200" height="900" loading="lazy"
-         alt="Página de los momentos importantes del año, con sus fechas exactas">
-  </figure>
+  <section class="vda-ejemplo" aria-labelledby="titulo-muestras">
+    <h2 id="titulo-muestras">Una mirada al informe</h2>
+    <div class="vda-muestras">
+      <figure>
+        <a href="/sinastria/muestra-compatibilidad.jpg" aria-label="Ampliar la muestra de compatibilidad">
+          <img src="/sinastria/muestra-compatibilidad.jpg" width="1200" height="900" loading="lazy" alt="Porcentaje de compatibilidad global y por áreas">
+        </a>
+        <figcaption>Compatibilidad por áreas</figcaption>
+      </figure>
+      <figure>
+        <a href="/sinastria/muestra-momentos.jpg" aria-label="Ampliar la muestra de los momentos del año">
+          <img src="/sinastria/muestra-momentos.jpg" width="1200" height="900" loading="lazy" alt="Página de los momentos importantes del año, con sus fechas exactas">
+        </a>
+        <figcaption>Momentos importantes del año</figcaption>
+      </figure>
+    </div>
+  </section>
 
   <h2>Pareja, amistad o familia</h2>
   <div class="tres">

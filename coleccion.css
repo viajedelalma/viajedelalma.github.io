@@ -1,0 +1,283 @@
+/* Presentación de los productos y de Mi espacio. Solo se carga en las seis páginas renovadas. */
+body[data-vda-page] {
+  background-color: #080614;
+  background-image: radial-gradient(ellipse 950px 650px at 50% 0, #25173f, transparent 80%);
+  background-repeat: no-repeat;
+}
+
+.vda-antetitulo {
+  margin: 0 0 10px;
+  color: #e8ce8c;
+  font: 600 .78rem/1.5 var(--cuerpo, sans-serif);
+  letter-spacing: .15em;
+  text-transform: uppercase;
+}
+
+body[data-vda-page] :is(a, button, input, textarea, summary):focus-visible {
+  outline: 2px solid #79cbec;
+  outline-offset: 3px;
+}
+
+body[data-vda-page] :is(.boton, .cta, .sonido, .hemis button, .campo button) {
+  min-height: 44px;
+}
+
+body[data-vda-page] summary {
+  min-height: 44px;
+  cursor: pointer;
+}
+
+body[data-vda-page] :is(#comprar, #precio) { scroll-margin-block: 24px; }
+
+body:is([data-vda-page="sinastria"], [data-vda-page="revolucion"]) .marca a {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+
+body:is([data-vda-page="sinastria"], [data-vda-page="revolucion"]) .marca img {
+  border: 1px solid var(--linea);
+  border-radius: 50%;
+}
+
+.vda-entrada {
+  display: grid;
+  align-items: center;
+  gap: 24px;
+  padding: clamp(18px, 5vw, 42px);
+  border: 1px solid var(--linea);
+  border-radius: 16px;
+  background: linear-gradient(135deg, #241a3b, #110c23);
+}
+
+body[data-vda-page="sinastria"] .vda-entrada .muestra {
+  grid-area: auto;
+  width: 100%;
+  margin: 0;
+}
+
+.vda-orbita {
+  position: relative;
+  isolation: isolate;
+  display: grid;
+  min-height: clamp(170px, 32vw, 300px);
+  place-items: center;
+  overflow: hidden;
+  border: 1px solid var(--linea);
+  border-radius: 12px;
+  background: radial-gradient(ellipse at 50% 46%, #573b43, #201733 62%, #100c20);
+  color: #f3d78d;
+}
+
+.vda-orbita-aro {
+  position: absolute;
+  z-index: -1;
+  width: min(46%, 200px);
+  aspect-ratio: 1;
+  border: 1px solid #be9559;
+  border-radius: 50%;
+  box-shadow: 0 0 0 14px #c49a3c24, 0 0 0 27px #c49a3c16;
+}
+
+.vda-orbita-sol { font: 400 clamp(3rem, 9vw, 6rem)/1 Georgia, serif; }
+.vda-orbita-pie {
+  position: absolute;
+  bottom: 10px;
+  padding: 3px 8px;
+  background: #181126;
+  font-size: .76rem;
+  letter-spacing: .08em;
+}
+
+body[data-vda-page] ul.vda-fichas,
+body[data-vda-page="app"] .vda-app-fichas {
+  display: grid;
+  gap: 10px;
+}
+
+body[data-vda-page] ul.vda-fichas > li,
+body[data-vda-page="app"] .vda-app-fichas > li {
+  margin: 0;
+  padding: 14px 16px;
+  border: 1px solid var(--linea);
+  border-radius: 10px;
+  background: #1a132d;
+}
+
+body[data-vda-page] ul.vda-fichas > li::before { content: none; }
+body[data-vda-page] ul.vda-fichas > li > b:first-child {
+  display: block;
+  margin-bottom: 3px;
+  color: #f3d78d;
+}
+
+.vda-muestras {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+body[data-vda-page] :is(.vda-muestras, .galeria) figure {
+  min-width: 0;
+  margin: 0;
+}
+
+body[data-vda-page] :is(.vda-muestras, .galeria) a {
+  display: block;
+  border: 1px solid var(--linea);
+  border-radius: 10px;
+}
+
+body[data-vda-page] :is(.vda-muestras, .galeria) a:hover { border-color: #e8ce8c; }
+
+body[data-vda-page] :is(.vda-muestras, .galeria) img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 9px;
+}
+
+body[data-vda-page] :is(.vda-muestras, .galeria) figcaption {
+  padding: 6px 2px;
+  color: #e4d7c7;
+  font-size: .9rem;
+  line-height: 1.35;
+}
+
+body:is([data-vda-page="sinastria"], [data-vda-page="revolucion"], [data-vda-page="calendario"]) #precio {
+  border-radius: 14px;
+  background: linear-gradient(140deg, #2b1e3e, #170f29);
+}
+
+body:is([data-vda-page="sinastria"], [data-vda-page="revolucion"], [data-vda-page="calendario"]) .barra {
+  bottom: var(--vda-barra-alto, 0px);
+}
+
+body:is([data-vda-page="sinastria"], [data-vda-page="revolucion"]) .barra:not(.visible) { visibility: hidden; }
+body:is([data-vda-page="sinastria"], [data-vda-page="revolucion"], [data-vda-page="calendario"]) .barra .boton {
+  text-align: center;
+  white-space: normal;
+}
+
+body[data-vda-page="revolucion"] .vda-pack {
+  margin-top: 18px;
+  padding: 14px;
+  border: 1px solid var(--linea);
+  border-radius: 10px;
+}
+
+body[data-vda-page="regalo"] .cab {
+  padding: clamp(18px, 4vw, 36px);
+  border: 1px solid var(--linea);
+  border-radius: 16px;
+  background: linear-gradient(135deg, #241a3b, #110c23);
+}
+
+body[data-vda-page="regalo"] .cab .pack { max-width: 100%; border-radius: 10px; }
+body[data-vda-page="regalo"] .vda-regalo-editor { margin-top: 42px; }
+body[data-vda-page="regalo"] :is(.formulario, .vista) {
+  min-width: 0;
+  padding: clamp(14px, 3vw, 24px);
+  border: 1px solid var(--linea);
+  border-radius: 14px;
+  background: #1a132d;
+}
+
+body[data-vda-page="calendario"] .vda-edicion {
+  margin-top: 18px;
+  padding: 14px;
+  border: 1px solid var(--linea);
+  border-radius: 14px;
+  background: #1a132d;
+}
+
+body[data-vda-page="calendario"] .hemis { margin-top: 0; }
+body[data-vda-page="calendario"] .nota-hemis { margin: 8px 0 0; }
+
+body[data-vda-page="calendario"] .muestra {
+  width: 100%;
+  margin: 18px 0 0;
+  border: 1px solid var(--linea);
+  border-radius: 12px;
+}
+
+body[data-vda-page="app"] .vda-app-tipo { text-align: center; }
+body[data-vda-page="app"] .vbox .video { border-radius: 16px; }
+body[data-vda-page="app"] :is(.iphone, .ritual, .correo) {
+  border: 1px solid var(--linea);
+  border-radius: 14px;
+  background: linear-gradient(135deg, #241a3b, #170f29);
+}
+
+body[data-vda-page="mi-espacio"] #entrar { text-align: center; }
+body[data-vda-page="mi-espacio"] #f-entrar {
+  max-width: 490px;
+  margin: 24px auto 0;
+  padding: clamp(18px, 4vw, 30px);
+  text-align: left;
+}
+
+body[data-vda-page="mi-espacio"] #b-entrar { width: 100%; }
+body[data-vda-page="mi-espacio"] .cabecera {
+  padding: clamp(18px, 4vw, 32px);
+  border: 1px solid var(--linea);
+  border-radius: 14px;
+  background: linear-gradient(135deg, #241a3b, #170f29);
+  overflow-wrap: anywhere;
+}
+
+body[data-vda-page="mi-espacio"] .pie-oferta { flex-wrap: wrap; }
+
+@media (min-width: 680px) {
+  body[data-vda-page="regalo"] .vda-regalo-editor {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    align-items: start;
+    gap: 18px 24px;
+  }
+
+  .vda-regalo-editor h2 { grid-column: 1 / -1; }
+  body[data-vda-page="regalo"] :is(.formulario, .vista) {
+    width: 100%;
+    margin: 0;
+  }
+}
+
+@media (min-width: 1024px) {
+  .vda-entrada { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  body[data-vda-page] ul.vda-fichas { gap: 16px; }
+  body[data-vda-page] ul.vda-fichas > li { padding: 20px; }
+  .vda-muestras { gap: 24px; }
+  body[data-vda-page="calendario"] .vda-edicion { grid-area: 4 / 1; }
+  body[data-vda-page="calendario"] .muestra {
+    grid-row: 4 / 7;
+    align-self: start;
+  }
+  body[data-vda-page="app"] .vda-app-tipo {
+    grid-area: 2 / 1;
+    text-align: left;
+  }
+
+  body[data-vda-page="app"] > .wrap > h1 { grid-row: 3; }
+  body[data-vda-page="app"] > .wrap > .sub { grid-row: 4; }
+  body[data-vda-page="app"] #cta1 { grid-row: 5; }
+  body[data-vda-page="app"] #cta1 + .nota { grid-row: 6; }
+  body[data-vda-page="app"] .iphone { grid-row: 7; }
+  body[data-vda-page="app"] .vbox { grid-row: 2 / 8; }
+  body[data-vda-page="app"] .vda-app-fichas { gap: 14px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body[data-vda-page] .barra { transition: none; }
+}
+
+body[data-vda-page] a[data-goatcounter-click*="-redes-"] { display: inline-block; }
+
+@media (max-width: 560px) {
+  body[data-vda-page="app"] .vbox { max-width: 240px; }
+}
+
+@media (max-width: 380px) {
+  body[data-vda-page="calendario"] table.lunas td { white-space: normal; }
+  body[data-vda-page="calendario"] table.lunas :is(th, td) { padding-inline: 4px; }
+}

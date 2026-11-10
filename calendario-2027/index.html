@@ -108,6 +108,7 @@ details p{margin:10px 0 0;color:var(--tenue);font-size:.95rem}
 <!-- WEB-ESCRITORIO-0511-01: solo pantalla de ordenador; móvil e impresión conservan sus estilos. -->
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600&amp;family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&amp;display=swap" media="screen and (min-width: 1024px)">
 <link rel="stylesheet" href="/escritorio.css?v=20261107-1" media="screen and (min-width: 1024px)">
+<link rel="stylesheet" href="/coleccion.css?v=1">
 </head>
 <body class="ed-norte" data-vda-page="calendario">
 <nav class="vda-desktop-nav" aria-label="Navegación principal" hidden>
@@ -126,12 +127,15 @@ details p{margin:10px 0 0;color:var(--tenue);font-size:.95rem}
   <h1>Calendario lunar 2027</h1>
   <p class="entradilla">Las 49 fases de la Luna de 2027 con su día, su hora y su signo, la rueda del año y un gesto sencillo para cada luna nueva, cada luna llena y cada sabbat. En PDF, para leer en el móvil y para imprimir.</p>
 
-  <div class="hemis" role="group" aria-label="Elige tu hemisferio">
-    <button type="button" data-elige="norte" aria-pressed="true">Hemisferio norte</button>
-    <button type="button" data-elige="sur" aria-pressed="false">Hemisferio sur</button>
+  <div class="vda-edicion">
+    <p class="vda-antetitulo">Elige tu edición</p>
+    <div class="hemis" role="group" aria-label="Elige tu hemisferio">
+      <button type="button" data-elige="norte" aria-pressed="true">Hemisferio norte</button>
+      <button type="button" data-elige="sur" aria-pressed="false">Hemisferio sur</button>
+    </div>
+    <p class="nota-hemis" data-ed="norte">España y el resto del hemisferio norte · horas de España</p>
+    <p class="nota-hemis" data-ed="sur">Argentina, Uruguay, Paraguay, Chile, Bolivia, Perú y Ecuador · horas de cada país</p>
   </div>
-  <p class="nota-hemis" data-ed="norte">España y el resto del hemisferio norte · horas de España</p>
-  <p class="nota-hemis" data-ed="sur">Argentina, Uruguay, Paraguay, Chile, Bolivia, Perú y Ecuador · horas de cada país</p>
 
   <img class="muestra" data-ed="norte" src="img/norte_01_portada.webp" width="1200" height="900" alt="Portada del Calendario lunar 2027 de Viaje del Alma, con el logo y las fases de la Luna, junto a páginas interiores.">
   <img class="muestra" data-ed="sur" src="img/sur_01_portada.webp" width="1200" height="900" alt="Portada del Calendario lunar 2027 para el hemisferio sur, junto a páginas interiores." loading="lazy">
@@ -169,17 +173,58 @@ details p{margin:10px 0 0;color:var(--tenue);font-size:.95rem}
     <li><b>Dos versiones en la descarga</b>: una para leer en el móvil y otra con fondo blanco, pensada para imprimir en casa en A4 con muy poca tinta.</li>
   </ul>
 
+  <h2>Por dentro del calendario</h2>
   <div class="galeria" data-ed="norte">
-    <img src="img/norte_03_un_mes.webp" width="1200" height="900" loading="lazy" alt="Las dos páginas de un mes: rituales de luna nueva y luna llena, el altar del mes y el mes luna a luna.">
-    <img src="img/norte_04_rueda.webp" width="1200" height="900" loading="lazy" alt="La rueda del año 2027 con las ocho fiestas y sus fechas.">
-    <img src="img/norte_05_fechas.webp" width="1200" height="900" loading="lazy" alt="Fechas de la Agenda Astronómica del Instituto Geográfico Nacional, en hora peninsular.">
-    <img src="img/norte_06_imprimir.webp" width="1200" height="900" loading="lazy" alt="La versión para imprimir, con fondo blanco.">
+    <figure>
+      <a href="img/norte_03_un_mes.webp" aria-label="Ampliar muestra: Un mes por dentro">
+        <img src="img/norte_03_un_mes.webp" width="1200" height="900" loading="lazy" alt="Las dos páginas de un mes: rituales de luna nueva y luna llena, el altar del mes y el mes luna a luna.">
+      </a>
+      <figcaption>Un mes por dentro</figcaption>
+    </figure>
+    <figure>
+      <a href="img/norte_04_rueda.webp" aria-label="Ampliar muestra: La rueda del año">
+        <img src="img/norte_04_rueda.webp" width="1200" height="900" loading="lazy" alt="La rueda del año 2027 con las ocho fiestas y sus fechas.">
+      </a>
+      <figcaption>La rueda del año</figcaption>
+    </figure>
+    <figure>
+      <a href="img/norte_05_fechas.webp" aria-label="Ampliar muestra: Fechas en hora de España">
+        <img src="img/norte_05_fechas.webp" width="1200" height="900" loading="lazy" alt="Fechas de la Agenda Astronómica del Instituto Geográfico Nacional, en hora peninsular.">
+      </a>
+      <figcaption>Fechas en hora de España</figcaption>
+    </figure>
+    <figure>
+      <a href="img/norte_06_imprimir.webp" aria-label="Ampliar muestra: Versión para imprimir">
+        <img src="img/norte_06_imprimir.webp" width="1200" height="900" loading="lazy" alt="La versión para imprimir, con fondo blanco.">
+      </a>
+      <figcaption>Versión para imprimir</figcaption>
+    </figure>
   </div>
   <div class="galeria" data-ed="sur">
-    <img src="img/sur_03_un_mes.webp" width="1200" height="900" loading="lazy" alt="Las dos páginas de un mes en la edición del hemisferio sur.">
-    <img src="img/sur_04_rueda.webp" width="1200" height="900" loading="lazy" alt="La rueda del año del hemisferio sur, con Samhain en abril y Yule en junio.">
-    <img src="img/sur_05_tu_hora.webp" width="1200" height="900" loading="lazy" alt="La tabla con las fases en hora de Argentina, Chile, Bolivia y Perú.">
-    <img src="img/sur_06_imprimir.webp" width="1200" height="900" loading="lazy" alt="La versión para imprimir, con fondo blanco.">
+    <figure>
+      <a href="img/sur_03_un_mes.webp" aria-label="Ampliar muestra: Un mes por dentro">
+        <img src="img/sur_03_un_mes.webp" width="1200" height="900" loading="lazy" alt="Las dos páginas de un mes en la edición del hemisferio sur.">
+      </a>
+      <figcaption>Un mes por dentro</figcaption>
+    </figure>
+    <figure>
+      <a href="img/sur_04_rueda.webp" aria-label="Ampliar muestra: La rueda del año">
+        <img src="img/sur_04_rueda.webp" width="1200" height="900" loading="lazy" alt="La rueda del año del hemisferio sur, con Samhain en abril y Yule en junio.">
+      </a>
+      <figcaption>La rueda del año</figcaption>
+    </figure>
+    <figure>
+      <a href="img/sur_05_tu_hora.webp" aria-label="Ampliar muestra: Fechas en hora local">
+        <img src="img/sur_05_tu_hora.webp" width="1200" height="900" loading="lazy" alt="La tabla con las fases en hora de Argentina, Chile, Bolivia y Perú.">
+      </a>
+      <figcaption>Fechas en hora local</figcaption>
+    </figure>
+    <figure>
+      <a href="img/sur_06_imprimir.webp" aria-label="Ampliar muestra: Versión para imprimir">
+        <img src="img/sur_06_imprimir.webp" width="1200" height="900" loading="lazy" alt="La versión para imprimir, con fondo blanco.">
+      </a>
+      <figcaption>Versión para imprimir</figcaption>
+    </figure>
   </div>
 
   <div class="regalo" id="regalo">
