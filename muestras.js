@@ -84,10 +84,20 @@
     visor.hidden = false;
     muestra(grupo.indexOf(el));
     cerrar.focus();
-    // El seguimiento mide aperturas, no ventas ni compras atribuidas.
-    try { if (window.goatcounter && window.goatcounter.count) window.goatcounter.count({
-      path: 'muestra-ampliada-' + nombre, title: 'Muestra ampliada ' + nombre, event: true
-    }); } catch (e) {}
+    // Seguimiento de aperturas, nunca de ventas. GoatCounter se carga con async:
+    // si aún no está listo, se registra el clic al terminar de cargar el script.
+    var evento = {path: 'muestra-ampliada-' + nombre, title: 'Muestra ampliada ' + nombre, event: true};
+    function cuentaMuestra() {
+      try {
+        if (window.goatcounter && window.goatcounter.count) window.goatcounter.count(evento);
+      } catch (e) {}
+    }
+    if (window.goatcounter && window.goatcounter.count) {
+      cuentaMuestra();
+    } else {
+      var script = document.querySelector('script[data-goatcounter]');
+      if (script) script.addEventListener('load', cuentaMuestra, {once: true});
+    }
   }
   function cierra() {
     if (!visor || visor.hidden) return;
