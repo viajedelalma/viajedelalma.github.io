@@ -65,6 +65,23 @@ details p{margin:10px 0 0;color:var(--tenue);font-size:.95rem}
 .barra .boton{margin:0;padding:12px 20px}
 .barra span{font-size:.9rem;color:var(--tenue)}
 @media (max-width:520px){.eje{grid-template-columns:1fr}.barra span{display:none}}
+
+/* Lectura de extractos auténticos sin datos de nacimiento; visual adaptable. */
+.vda-ejemplo-real{scroll-margin-top:22px;margin:40px 0 26px;padding:24px 20px;border:1px solid rgba(196,154,60,.55);border-radius:8px;background:linear-gradient(160deg,#17112B,#090713)}
+.vda-ejemplo-real h2{margin:2px 0 10px;color:#F5EBD0}
+.vda-ejemplo-etiqueta{margin:0;font:500 .76rem/1.4 var(--cuerpo);color:#E0BE77;letter-spacing:.14em;text-transform:uppercase}
+.vda-ejemplo-intro,.vda-ejemplo-aviso{color:#E8DCEA;line-height:1.6;font-size:1rem}
+.vda-ejemplo-paginas{display:grid;grid-template-columns:1fr;gap:16px;margin:22px 0}
+.vda-ejemplo-pagina{display:flex;flex-direction:column;min-height:260px;padding:26px 22px;border:1px solid rgba(196,154,60,.45);border-radius:4px;background:#0B0818;color:#F5EBD0;box-shadow:0 12px 30px rgba(0,0,0,.25)}
+.vda-ejemplo-kicker{margin:0 0 10px!important;font:500 .73rem/1.4 var(--cuerpo);letter-spacing:.12em;text-transform:uppercase;color:#DBB566!important}
+.vda-ejemplo-pagina h3{margin:0 0 18px;color:#F4DEA5;font:500 clamp(1.45rem,4vw,1.95rem)/1.2 var(--display)}
+.vda-ejemplo-pagina>p:not(.vda-ejemplo-kicker):not(.vda-ejemplo-pie){margin:0 0 16px;color:#EFE9EE;font-size:1.03rem;line-height:1.7}
+.vda-ejemplo-pagina strong{color:#E8C984;font-weight:600}
+.vda-ejemplo-pie{margin:auto 0 0!important;padding-top:15px;border-top:1px solid rgba(196,154,60,.22);color:#C7B8D1!important;font-size:.84rem!important;font-style:italic}
+.vda-ejemplo-aviso{font-size:.89rem;margin:12px 0 4px;font-style:italic}
+@media(min-width:820px){.vda-ejemplo-paginas{grid-template-columns:repeat(2,minmax(0,1fr))}.vda-ejemplo-real{padding:30px}}
+@media(max-width:480px){.vda-ejemplo-real{margin-inline:-4px;padding:20px 14px}.vda-ejemplo-pagina{padding:20px 16px}.vda-ejemplo-pagina>p:not(.vda-ejemplo-kicker):not(.vda-ejemplo-pie){font-size:1rem;line-height:1.62}}
+
 </style>
 <!-- WEB-ESCRITORIO-0511-01: solo pantalla de ordenador; móvil e impresión conservan sus estilos. -->
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600&amp;family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&amp;display=swap" media="screen and (min-width: 1024px)">
@@ -130,8 +147,34 @@ details p{margin:10px 0 0;color:var(--tenue);font-size:.95rem}
       <li><strong>El año por trimestres</strong><span>Una lectura por áreas de tu vida, organizada en cuatro etapas para que puedas volver a consultarla.</span></li>
       <li><strong>El calendario del año</strong><span>Fechas de tránsitos, progresiones y eclipses relevantes para tu carta, con contexto y sin promesas de resultados.</span></li>
     </ol>
-    <p class="vda-mapa-nota">Representación de los contenidos, no una captura del PDF. Aún no publicamos una muestra de páginas interiores de este informe.</p>
+    <p class="vda-mapa-nota">Representación de los contenidos, no una captura del PDF. A continuación puedes leer dos fragmentos auténticos de un informe anterior, sin datos personales.</p>
     <a class="vda-mapa-enlace" href="#precio" data-goatcounter-click="rs-contenidos-ver-precio">Ver el precio y cómo pedirlo</a>
+  </section>
+
+
+  <!-- Muestra textual auténtica, extraída de un PDF de ejemplo anterior:
+       solo fragmentos sin nombre, fecha de nacimiento, lugar ni posiciones personales.
+       No representa una página completa del informe vigente. -->
+  <section class="vda-ejemplo-real" id="muestra-real" aria-labelledby="muestra-real-titulo">
+    <p class="vda-ejemplo-etiqueta">Dos fragmentos originales</p>
+    <h2 id="muestra-real-titulo">Lee cómo escribimos nuestros informes</h2>
+    <p class="vda-ejemplo-intro">Aquí puedes leer dos extractos de un informe de revolución solar elaborado anteriormente. Los mostramos como texto adaptable para que se lean bien también en el móvil.</p>
+    <div class="vda-ejemplo-paginas">
+      <article class="vda-ejemplo-pagina">
+        <p class="vda-ejemplo-kicker">Fragmento real · Práctica personal</p>
+        <h3>Tu ritual de cumpleaños</h3>
+        <p><strong>4. Conecta con el agua.</strong> Mira el agua del cuenco. Visualiza cómo fluyen tus emociones y cómo te permites sentir plenamente. Puedes sumergir los dedos y sentir su frescura, permitiéndote liberar cualquier tensión. El agua te ayuda a recordar que la adaptabilidad es una fortaleza.</p>
+        <p class="vda-ejemplo-pie">Extracto de una práctica de un informe anterior</p>
+      </article>
+      <article class="vda-ejemplo-pagina">
+        <p class="vda-ejemplo-kicker">Fragmento real · Glosario</p>
+        <h3>Ascendente</h3>
+        <p>El signo que asomaba por el horizonte en el instante de la carta. Marca el tono con el que vives y cómo te perciben. Su punto opuesto es el Descendente, el de las relaciones.</p>
+        <p class="vda-ejemplo-pie">Extracto del glosario de un informe anterior</p>
+      </article>
+    </div>
+    <p class="vda-ejemplo-aviso">Estos textos son fragmentos auténticos de una muestra anterior, no imágenes de páginas del PDF actual. Hemos omitido todos los datos personales. El texto, los capítulos y las prácticas de tu informe se adaptan a tus datos y pueden ser diferentes.</p>
+    <a href="#precio" class="vda-mapa-enlace" data-goatcounter-click="rs-muestra-real-ver-precio">Ver precio y cómo pedir mi informe</a>
   </section>
 
   <h2>Para quién es</h2>
