@@ -482,6 +482,18 @@ footer p.redes a:hover{border-color:var(--oro)}
 /* UI-1211: símbolos de cada red en su color; nombres y medición conservados. */
 footer p.redes a{gap:8px;white-space:nowrap}
 footer p.redes .red-social-icono{display:block;width:24px;height:24px;flex:0 0 24px}
+/* 12-nov · productos digitales: dejar de recortar las páginas de los documentos. */
+.prod-documento>.prod-img{object-fit:contain!important;background:#120D25;padding:10px}
+.prod-previa{display:inline-block;margin-top:10px;color:#E9D39E;font-size:.91rem;line-height:1.4;text-decoration:underline;text-underline-offset:4px}
+.prod-previa:hover{color:#FFFFFF}
+.prod-previa:focus-visible{outline:3px solid #3C9AC4;outline-offset:3px}
+@media(max-width:767px){
+  .prod-documento>.prod-img{float:none;width:100%;height:auto;aspect-ratio:16/9;margin:0 0 14px;border:1px solid rgba(196,154,60,.35);border-radius:4px;padding:8px}
+  .prod-documento>.prod-cuerpo{clear:both}
+}
+@media(min-width:768px){
+  .prod-documento>.prod-img{height:210px;aspect-ratio:auto}
+}
 </style>
 <script data-goatcounter="https://viajedelalma.goatcounter.com/count"
         async src="//gc.zgo.at/count.js"></script>
@@ -560,7 +572,7 @@ footer p.redes .red-social-icono{display:block;width:24px;height:24px;flex:0 0 2
 </div>
 </div>
 </article>
-<article class="prod">
+<article class="prod prod-documento">
 <img class="prod-img" style="object-position:50% 12%" src="/calendario-2027/img/norte_01_portada.webp" width="1200" height="900" alt="Portada y páginas del calendario lunar 2027" loading="lazy">
 <div class="prod-cuerpo">
 <h3>Calendario lunar 2027</h3>
@@ -569,12 +581,13 @@ footer p.redes .red-social-icono{display:block;width:24px;height:24px;flex:0 0 2
 <div class="prod-pie">
 <p class="prod-precio">2,99 €</p>
 <a class="btn btn-oro" href="/calendario-2027/?utm_source=web&amp;utm_medium=portada&amp;utm_campaign=calendario2027" data-goatcounter-click="portada-calendario">Ver el calendario</a>
+<a class="prod-previa" href="/calendario-2027/#muestras-interior" data-goatcounter-click="portada-calendario-muestra">Ver páginas reales del calendario</a>
 <details class="prod-mas"><summary data-goatcounter-click="portada-producto-calendario">Qué incluye</summary><p>Las 49 fases de la Luna de 2027 con su día, su hora y su signo, la rueda del año, los eclipses y un ritual sencillo para cada luna nueva, cada luna llena y cada sabbat. Para leer en el móvil y para imprimir, en edición norte y sur.</p><p id="regaloPortada">Lo que queda de 2026 y enero a abril de 2027, gratis si te apuntas a la lista.</p>
 <script>if(Date.now()>=Date.parse('2027-01-01T00:00:00+01:00'))document.getElementById('regaloPortada').textContent='Enero a abril de 2027, gratis si te apuntas a la lista.';</script></details>
 </div>
 </div>
 </article>
-<article class="prod">
+<article class="prod prod-documento">
 <img class="prod-img" src="/vision-board/muestra.jpg" width="2400" height="2000" alt="Muestra del tablero de sueños en móvil y ordenador, con escenas creadas con IA" loading="lazy">
 <div class="prod-cuerpo">
 <h3>Tablero de sueños</h3>
@@ -582,6 +595,7 @@ footer p.redes .red-social-icono{display:block;width:24px;height:24px;flex:0 0 2
 <ul class="chips"><li>Personalizado</li><li>4 archivos digitales</li></ul>
 <div class="prod-pie">
 <a class="btn btn-oro" href="/vision-board/" data-goatcounter-click="portada-tablero">Ver el tablero de sueños</a>
+<a class="prod-previa" href="/vision-board/#titulo" data-goatcounter-click="portada-tablero-muestra">Ver ejemplo visual (IA)</a>
 </div>
 </div>
 </article>
@@ -591,7 +605,7 @@ footer p.redes .red-social-icono{display:block;width:24px;height:24px;flex:0 0 2
 <section class="wrap bloque seccion" id="informes" aria-labelledby="tituloInformes">
 <div class="sec-cab"><span class="sec-ico"><svg viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="24" r="23.5" fill="#160F2E" stroke="rgba(196,154,60,.45)"/><circle cx="24" cy="24" r="18" fill="none" stroke="#C49A3C" stroke-width=".9"/><circle cx="24" cy="24" r="12" fill="none" stroke="#C49A3C" stroke-width=".6"/><path fill="none" stroke="#C49A3C" stroke-width=".6" d="M36 24H42M34.39 30L39.59 33M30 34.39L33 39.59M24 36V42M18 34.39L15 39.59M13.61 30L8.41 33M12 24H6M13.61 18L8.41 15M18 13.61L15 8.41M24 12V6M30 13.61L33 8.41M34.39 18L39.59 15"/><path fill="none" stroke="#E8CE8C" stroke-width=".7" d="M34.34 27.76L15.57 31.07L22.09 13.17Z"/><g fill="#F6E3AE"><circle cx="34.34" cy="27.76" r="1.4"/><circle cx="15.57" cy="31.07" r="1.4"/><circle cx="22.09" cy="13.17" r="1.4"/></g></svg></span><div><h2 id="tituloInformes">Conocerme mejor</h2><p class="sec-desc">Informes escritos para ti, en tu correo en menos de 24 horas.</p></div></div>
 <div class="prods">
-<article class="prod">
+<article class="prod prod-documento">
 <img class="prod-img" src="/carta/informe.jpg" width="1004" height="936" alt="Páginas de un informe de carta natal" loading="lazy">
 <div class="prod-cuerpo">
 <h3>Tu carta natal</h3>
@@ -600,11 +614,12 @@ footer p.redes .red-social-icono{display:block;width:24px;height:24px;flex:0 0 2
 <div class="prod-pie">
 <p class="prod-precio">Informe <span data-precio="carta">14,99 €</span> · pago único</p>
 <a class="btn btn-oro" href="/carta/" data-goatcounter-click="portada-carta">Calcula tu carta gratis</a>
+<a class="prod-previa" href="/carta/#muestra" data-goatcounter-click="portada-carta-muestra">Ver cuatro páginas reales del informe</a>
 <details class="prod-mas"><summary data-goatcounter-click="portada-producto-carta">Qué incluye</summary><p>El cielo del día en que naciste. Calcula gratis tu Sol, tu Luna y tu Ascendente con efemérides reales, sin registro: el cálculo ocurre en tu móvil.</p><p>Si quieres la carta entera, el informe completo: unas 25 páginas escritas para ti, en tu correo en menos de 24 horas.</p></details>
 </div>
 </div>
 </article>
-<article class="prod">
+<article class="prod prod-documento">
 <img class="prod-img" src="/sinastria/muestra-compatibilidad.jpg" width="1200" height="900" alt="Página de compatibilidad de una sinastría" loading="lazy">
 <div class="prod-cuerpo">
 <h3>Vuestra sinastría</h3>
@@ -613,6 +628,7 @@ footer p.redes .red-social-icono{display:block;width:24px;height:24px;flex:0 0 2
 <div class="prod-pie">
 <p class="prod-precio">19,99 € · pago único</p>
 <a class="btn btn-oro" href="/sinastria/" data-goatcounter-click="portada-sinastria">Ver la sinastría</a>
+<a class="prod-previa" href="/sinastria/#titulo-muestras" data-goatcounter-click="portada-sinastria-muestra">Ver páginas del informe por dentro</a>
 <details class="prod-mas"><summary data-goatcounter-click="portada-producto-sinastria">Qué incluye</summary><p>Dos cartas natales leídas juntas, para una pareja, una amistad o un vínculo de familia: la compatibilidad por áreas, lo que os une, dónde rozáis y los momentos importantes de vuestro próximo año.</p><p>Unas 22 páginas escritas para que las leáis las dos personas a la vez, en el correo en menos de 24 horas.</p></details>
 </div>
 </div>
@@ -626,6 +642,7 @@ footer p.redes .red-social-icono{display:block;width:24px;height:24px;flex:0 0 2
 <div class="prod-pie">
 <p class="prod-precio">24,99 € · con tu carta, <span data-precio="pack">28,99 €</span></p>
 <a class="btn btn-oro" href="/revolucion/" data-goatcounter-click="portada-revolucion">Descubre tu año</a>
+<a class="prod-previa" href="/revolucion/#vda-mapa-titulo" data-goatcounter-click="portada-revolucion-contenidos">Ver cómo se organiza el informe</a>
 <details class="prod-mas"><summary data-goatcounter-click="portada-producto-revolucion">Qué incluye</summary><p>Tu año, de cumpleaños a cumpleaños, con fechas: la revolución solar calculada con efemérides reales y escrita para ti. Unas treinta y cinco páginas en tu correo en menos de 24 horas.</p><p>Necesita tu hora de nacimiento. Con tu carta natal, las dos juntas por <span data-precio="pack">28,99 €</span> (ahorras <span data-precio="ahorro_pack">10,99 €</span>).</p></details>
 </div>
 </div>
