@@ -72,6 +72,8 @@ details p{margin:10px 0 0;color:var(--tenue);font-size:.95rem}
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600&amp;family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&amp;display=swap" media="screen and (min-width: 1024px)">
 <link rel="stylesheet" href="/escritorio.css?v=20261107-1" media="screen and (min-width: 1024px)">
 <link rel="stylesheet" href="/coleccion.css?v=1">
+<link rel="stylesheet" href="/muestras.css?v=20261112-1">
+<script src="/muestras.js?v=20261112-1" defer></script>
 </head>
 <body data-vda-page="sinastria">
 <nav class="vda-desktop-nav" aria-label="Navegación principal" hidden>
@@ -95,8 +97,8 @@ details p{margin:10px 0 0;color:var(--tenue);font-size:.95rem}
       <a class="boton secundario" href="#precio">Ver precio y pedir el informe</a>
     </div>
     <figure class="muestra">
-    <img src="/sinastria/muestra-compatibilidad.jpg" width="1200" height="900" loading="eager"
-         alt="Página de un informe real: el porcentaje de compatibilidad global y una barra por cada área">
+    <a href="/sinastria/muestra-compatibilidad.jpg" data-vda-muestra data-vda-grupo="sinastria-portada" aria-label="Ampliar una página real de sinastría"><img src="/sinastria/muestra-compatibilidad.jpg" width="1200" height="900" loading="eager"
+         alt="Página de un informe real: el porcentaje de compatibilidad global y una barra por cada área"></a>
     <figcaption>Página de un informe real, con los nombres y los datos difuminados.</figcaption>
   </figure>
   </header>
@@ -120,18 +122,25 @@ details p{margin:10px 0 0;color:var(--tenue);font-size:.95rem}
 
   <section class="vda-ejemplo" aria-labelledby="titulo-muestras">
     <h2 id="titulo-muestras">Una mirada al informe</h2>
+    <p class="vda-muestra-ayuda"><strong>Pulsa las imágenes para ampliarlas.</strong> Mira las páginas reales y cambia entre ellas con las flechas.</p>
     <div class="vda-muestras">
       <figure>
-        <a href="/sinastria/muestra-compatibilidad.jpg" aria-label="Ampliar la muestra de compatibilidad">
+        <a href="/sinastria/muestra-compatibilidad.jpg" data-vda-muestra data-vda-grupo="sinastria-interior" aria-label="Ampliar la muestra de compatibilidad">
           <img src="/sinastria/muestra-compatibilidad.jpg" width="1200" height="900" loading="lazy" alt="Porcentaje de compatibilidad global y por áreas">
         </a>
         <figcaption>Compatibilidad por áreas</figcaption>
       </figure>
       <figure>
-        <a href="/sinastria/muestra-momentos.jpg" aria-label="Ampliar la muestra de los momentos del año">
+        <a href="/sinastria/muestra-momentos.jpg" data-vda-muestra data-vda-grupo="sinastria-interior" aria-label="Ampliar la muestra de los momentos del año">
           <img src="/sinastria/muestra-momentos.jpg" width="1200" height="900" loading="lazy" alt="Página de los momentos importantes del año, con sus fechas exactas">
         </a>
         <figcaption>Momentos importantes del año</figcaption>
+      </figure>
+      <figure>
+        <a href="/sinastria/muestra-cartas.jpg" data-vda-muestra data-vda-grupo="sinastria-interior" aria-label="Ampliar las dos cartas del ejemplo">
+          <img src="/sinastria/muestra-cartas.jpg" width="1200" height="900" loading="lazy" alt="Ejemplo de las dos cartas natales en una sinastría">
+        </a>
+        <figcaption>Las dos cartas</figcaption>
       </figure>
     </div>
   </section>

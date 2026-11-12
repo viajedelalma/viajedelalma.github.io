@@ -109,6 +109,8 @@ details p{margin:10px 0 0;color:var(--tenue);font-size:.95rem}
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600&amp;family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&amp;display=swap" media="screen and (min-width: 1024px)">
 <link rel="stylesheet" href="/escritorio.css?v=20261107-1" media="screen and (min-width: 1024px)">
 <link rel="stylesheet" href="/coleccion.css?v=1">
+<link rel="stylesheet" href="/muestras.css?v=20261112-1">
+<script src="/muestras.js?v=20261112-1" defer></script>
 </head>
 <body class="ed-norte" data-vda-page="calendario">
 <nav class="vda-desktop-nav" aria-label="Navegación principal" hidden>
@@ -173,28 +175,29 @@ details p{margin:10px 0 0;color:var(--tenue);font-size:.95rem}
     <li><b>Dos versiones en la descarga</b>: una para leer en el móvil y otra con fondo blanco, pensada para imprimir en casa en A4 con muy poca tinta.</li>
   </ul>
 
-  <h2>Por dentro del calendario</h2>
+  <h2 id="muestras-interior">Por dentro del calendario</h2>
+  <p class="vda-muestra-ayuda"><strong>Estas son páginas reales.</strong> Toca cada imagen para ampliarla y pasar de una a otra sin salir de la web.</p>
   <div class="galeria" data-ed="norte">
     <figure>
-      <a href="img/norte_03_un_mes.webp" aria-label="Ampliar muestra: Un mes por dentro">
+      <a href="img/norte_03_un_mes.webp" data-vda-muestra data-vda-grupo="calendario-norte" aria-label="Ampliar muestra: Un mes por dentro">
         <img src="img/norte_03_un_mes.webp" width="1200" height="900" loading="lazy" alt="Las dos páginas de un mes: rituales de luna nueva y luna llena, el altar del mes y el mes luna a luna.">
       </a>
       <figcaption>Un mes por dentro</figcaption>
     </figure>
     <figure>
-      <a href="img/norte_04_rueda.webp" aria-label="Ampliar muestra: La rueda del año">
+      <a href="img/norte_04_rueda.webp" data-vda-muestra data-vda-grupo="calendario-norte" aria-label="Ampliar muestra: La rueda del año">
         <img src="img/norte_04_rueda.webp" width="1200" height="900" loading="lazy" alt="La rueda del año 2027 con las ocho fiestas y sus fechas.">
       </a>
       <figcaption>La rueda del año</figcaption>
     </figure>
     <figure>
-      <a href="img/norte_05_fechas.webp" aria-label="Ampliar muestra: Fechas en hora de España">
+      <a href="img/norte_05_fechas.webp" data-vda-muestra data-vda-grupo="calendario-norte" aria-label="Ampliar muestra: Fechas en hora de España">
         <img src="img/norte_05_fechas.webp" width="1200" height="900" loading="lazy" alt="Fechas de la Agenda Astronómica del Instituto Geográfico Nacional, en hora peninsular.">
       </a>
       <figcaption>Fechas en hora de España</figcaption>
     </figure>
     <figure>
-      <a href="img/norte_06_imprimir.webp" aria-label="Ampliar muestra: Versión para imprimir">
+      <a href="img/norte_06_imprimir.webp" data-vda-muestra data-vda-grupo="calendario-norte" aria-label="Ampliar muestra: Versión para imprimir">
         <img src="img/norte_06_imprimir.webp" width="1200" height="900" loading="lazy" alt="La versión para imprimir, con fondo blanco.">
       </a>
       <figcaption>Versión para imprimir</figcaption>
@@ -202,25 +205,25 @@ details p{margin:10px 0 0;color:var(--tenue);font-size:.95rem}
   </div>
   <div class="galeria" data-ed="sur">
     <figure>
-      <a href="img/sur_03_un_mes.webp" aria-label="Ampliar muestra: Un mes por dentro">
+      <a href="img/sur_03_un_mes.webp" data-vda-muestra data-vda-grupo="calendario-sur" aria-label="Ampliar muestra: Un mes por dentro">
         <img src="img/sur_03_un_mes.webp" width="1200" height="900" loading="lazy" alt="Las dos páginas de un mes en la edición del hemisferio sur.">
       </a>
       <figcaption>Un mes por dentro</figcaption>
     </figure>
     <figure>
-      <a href="img/sur_04_rueda.webp" aria-label="Ampliar muestra: La rueda del año">
+      <a href="img/sur_04_rueda.webp" data-vda-muestra data-vda-grupo="calendario-sur" aria-label="Ampliar muestra: La rueda del año">
         <img src="img/sur_04_rueda.webp" width="1200" height="900" loading="lazy" alt="La rueda del año del hemisferio sur, con Samhain en abril y Yule en junio.">
       </a>
       <figcaption>La rueda del año</figcaption>
     </figure>
     <figure>
-      <a href="img/sur_05_tu_hora.webp" aria-label="Ampliar muestra: Fechas en hora local">
+      <a href="img/sur_05_tu_hora.webp" data-vda-muestra data-vda-grupo="calendario-sur" aria-label="Ampliar muestra: Fechas en hora local">
         <img src="img/sur_05_tu_hora.webp" width="1200" height="900" loading="lazy" alt="La tabla con las fases en hora de Argentina, Chile, Bolivia y Perú.">
       </a>
       <figcaption>Fechas en hora local</figcaption>
     </figure>
     <figure>
-      <a href="img/sur_06_imprimir.webp" aria-label="Ampliar muestra: Versión para imprimir">
+      <a href="img/sur_06_imprimir.webp" data-vda-muestra data-vda-grupo="calendario-sur" aria-label="Ampliar muestra: Versión para imprimir">
         <img src="img/sur_06_imprimir.webp" width="1200" height="900" loading="lazy" alt="La versión para imprimir, con fondo blanco.">
       </a>
       <figcaption>Versión para imprimir</figcaption>
