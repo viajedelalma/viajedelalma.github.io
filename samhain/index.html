@@ -4,14 +4,13 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Ritual de Samhain 2026: guía de siete noches · Viaje del Alma</title>
-<meta name="description" content="Guía en PDF para celebrar Samhain 2026 del 25 de octubre al 1 de noviembre: un ritual sencillo cada noche, una meditación guiada exclusiva, un oráculo para imprimir y la versión del hemisferio sur. 6,99 €.">
+<meta name="description" content="La guía de Samhain 2026 ya no está a la venta. Consulta información de esta celebración y conoce las novedades de Viaje del Alma.">
+<meta name="robots" content="noindex, follow">
 <link rel="icon" href="/favicon.png">
 <link rel="canonical" href="https://viajedelalma.app/samhain/">
-<script type="application/ld+json">
-{"@context":"https://schema.org","@type":"Product","name":"Guía de Samhain 2026 · Siete noches y una mañana","description":"Guía en PDF para celebrar Samhain del 25 de octubre al 1 de noviembre: un ritual sencillo cada noche, una meditación guiada exclusiva, un oráculo para imprimir y la versión del hemisferio sur.","image":"https://viajedelalma.app/samhain/guia.jpg","brand":{"@type":"Brand","name":"Viaje del Alma"},"offers":{"@type":"Offer","price":"6.99","priceCurrency":"EUR","priceValidUntil":"2026-11-01","url":"https://viajedelalma.app/samhain/"}}
-</script>
+
 <meta property="og:title" content="Samhain · Siete noches y una mañana">
-<meta property="og:description" content="Un ritual sencillo cada noche hasta el año nuevo celta. Guía en PDF: 6,99 €.">
+<meta property="og:description" content="La guía de Samhain 2026 ya no está a la venta. Conoce las próximas celebraciones de Viaje del Alma.">
 <meta property="og:image" content="https://viajedelalma.app/samhain/guia.jpg">
 <meta property="og:url" content="https://viajedelalma.app/samhain/">
 <meta name="twitter:card" content="summary_large_image">
@@ -142,7 +141,7 @@ body.cerrada .fase-cerrada{display:block}
     <div class="cifra" style="font-size:1.9rem;line-height:1.15">La guía de este año ya pasó</div>
     <div id="cerrada-yule" hidden>
       <p class="lead-oferta">La próxima rueda es <b>Yule</b>, el solsticio de invierno, y ya tiene su guía.</p>
-      <a class="boton" id="ir-yule" href="/yule/?utm_source=web&amp;utm_medium=samhain&amp;utm_campaign=yule">Ver la guía de Yule</a>
+      <a class="boton" id="ir-yule">Ver la guía de Yule</a>
     </div>
     <div id="cerrada-lista">
       <p class="lead-oferta"><b>Apúntate a la de Yule</b>, el solsticio de invierno. Te escribimos con calma, con las lunas y los sabbats, y te avisamos cuando salga su guía.</p>
@@ -219,7 +218,7 @@ body.cerrada .fase-cerrada{display:block}
 (function () {
   // El lanzamiento a 1 € terminó el sáb 24-oct (su enlace está desactivado en Stripe desde el 25-oct).
   // Desde el dom 25-oct (la primera noche), 6,99 €. R06-20261025-02, 26-oct.
-  var ENLACE_699 = 'https://buy.stripe.com/8x23cw2vadLt1o74ooew803';
+  var ENLACE_699 = ''; // Samhain cerrado: antiguo enlace de cobro retirado.
   var enLanzamiento = false;
   var ENLACE_PAGO = ENLACE_699;
   var PRECIO = 6.99;
@@ -294,10 +293,16 @@ body.cerrada .fase-cerrada{display:block}
 
   if (cerrada) {
     cuenta('sh-ve-cerrada');
-    // Si /yule/ ya está publicada, se lleva allí; si no (404), se ofrece la lista.
-    fetch('/yule/', { method: 'HEAD', cache: 'no-store' }).then(function (r) {
-      if (r.ok) { document.getElementById('cerrada-yule').hidden = false; document.getElementById('cerrada-lista').hidden = true; }
-    }).catch(function () {});
+    // Yule comienza el 1-dic-2026: no mostrar ni enlazar a la guía antes de esa fecha y de que exista su página.
+    if (Date.now() >= Date.parse('2026-12-01T00:00:00+01:00')) {
+      fetch('/yule/', { method: 'HEAD', cache: 'no-store' }).then(function (r) {
+        if (r.ok) {
+          document.getElementById('ir-yule').href = '/yule/?utm_source=web&utm_medium=samhain&utm_campaign=yule';
+          document.getElementById('cerrada-yule').hidden = false;
+          document.getElementById('cerrada-lista').hidden = true;
+        }
+      }).catch(function () {});
+    }
     document.getElementById('ir-yule').addEventListener('click', function () { cuenta('sh-cerrada-a-yule'); });
     (function listaYule() {
       var btn = document.getElementById('apuntar-yule'), inp = document.getElementById('email-yule'), av = document.getElementById('aviso-yule');
