@@ -1,0 +1,53 @@
+/* Viaje del Alma · muestras reales de productos · 12 nov 2026.
+   No modifica los botones de compra, precios, checkout ni el contenido de los PDF. */
+.vda-muestra-enlace{display:block;cursor:zoom-in}
+.vda-muestra-enlace:focus-visible{outline:3px solid #3c9ac4;outline-offset:4px;border-radius:5px}
+.vda-muestra-enlace img{display:block;max-width:100%}
+.vda-muestra-ayuda{font-size:.95rem;line-height:1.5;color:#E2D6EC;margin:12px 0 16px}
+.vda-muestra-ayuda strong{color:#E9D29C;font-weight:600}
+.vda-muestra-enlace:hover img{filter:brightness(1.06)}
+.vda-muestra-enlace:focus-visible img{filter:brightness(1.06)}
+.vda-muestra-pack img{display:block;width:100%;height:auto;border-radius:4px}
+.vda-muestras-modal[hidden]{display:none!important}
+.vda-muestras-modal{position:fixed;inset:0;z-index:2147483000;display:flex;align-items:center;justify-content:center;padding:12px;background:rgba(4,3,12,.95);color:#F5EBD0;font-family:'Karla',Arial,sans-serif;box-sizing:border-box}
+.vda-muestras-modal *{box-sizing:border-box}
+.vda-muestras-ventana{width:min(1040px,100%);max-height:calc(100dvh - 24px);display:flex;flex-direction:column;border-radius:12px;overflow:hidden;background:#100C22;border:1px solid #C49A3C;box-shadow:0 15px 50px rgba(0,0,0,.65)}
+.vda-muestras-cabecera{display:flex;flex:0 0 auto;align-items:center;gap:12px;padding:10px 14px;border-bottom:1px solid rgba(196,154,60,.38)}
+.vda-muestras-logo{width:40px;height:40px;object-fit:contain;border-radius:9px}
+.vda-muestras-nombre{min-width:0;flex:1;margin:0;color:#F5EBD0;font-family:'Cormorant Garamond',Georgia,serif;font-size:clamp(1.15rem,4vw,1.65rem);font-weight:500;line-height:1.1}
+.vda-muestras-cerrar,.vda-muestras-nav{display:inline-flex;align-items:center;justify-content:center;flex:0 0 auto;width:42px;height:42px;border:1px solid rgba(196,154,60,.6);border-radius:50%;background:#1C1535;color:#F5EBD0;font:600 1.5rem/1 Arial,sans-serif;cursor:pointer}
+.vda-muestras-cerrar:hover,.vda-muestras-nav:hover{background:#302447}
+.vda-muestras-cerrar:focus-visible,.vda-muestras-nav:focus-visible,.vda-muestras-original:focus-visible{outline:3px solid #3C9AC4;outline-offset:2px}
+.vda-muestras-cerrar{font-size:1.2rem}
+.vda-muestras-escena{min-height:0;flex:1 1 auto;display:flex;justify-content:center;align-items:center;overflow:auto;padding:12px;background:#070511}
+.vda-muestras-imagen{display:block;width:auto;height:auto;max-width:100%;max-height:calc(100dvh - 230px);object-fit:contain;border-radius:3px;background:#100C22}
+.vda-muestras-pie{flex:0 0 auto;padding:9px 14px 12px;border-top:1px solid rgba(196,154,60,.38);display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:12px}
+.vda-muestras-dato{margin:0;font:500 .9rem/1.4 'Karla',Arial,sans-serif;color:#EEE4D2;text-align:center}
+.vda-muestras-numero{display:block;color:#D0B36F;font-size:.76rem;letter-spacing:.08em;margin:0 0 2px}
+.vda-muestras-original{display:inline-block;margin-top:4px;font-size:.83rem;color:#D7C493;text-underline-offset:3px}
+.vda-muestras-nav[hidden]{display:none!important}
+.vda-mapa-informe{margin:36px 0;padding:24px 18px;background:linear-gradient(145deg,#19112D,#090714);border:1px solid rgba(196,154,60,.5);border-radius:8px}
+.vda-mapa-informe h2{margin:0 0 8px;color:#F5EBD0}
+.vda-mapa-intro{color:#E3D7EB;font-size:1rem}
+.vda-mapa-lista{list-style:none;counter-reset:informe;display:grid;grid-template-columns:1fr;gap:12px;margin:20px 0 0;padding:0}
+.vda-mapa-lista li{position:relative;padding:16px 16px 16px 60px;min-height:82px;border:1px solid rgba(196,154,60,.36);border-radius:5px;background:rgba(60,154,196,.065);color:#EDE4ED}
+.vda-mapa-lista li:before{counter-increment:informe;content:counter(informe,decimal-leading-zero);position:absolute;top:16px;left:16px;color:#DDBF76;font:600 1.04rem/1.3 'Cinzel',Georgia,serif}
+.vda-mapa-lista strong{display:block;color:#F5EBD0;font-size:1rem;line-height:1.35;margin-bottom:4px}
+.vda-mapa-lista span{display:block;color:#E3D7EB;font-size:.91rem;line-height:1.45}
+.vda-mapa-nota{margin:14px 0 0;font-size:.82rem;color:#E3D7EB;font-style:italic}
+.vda-mapa-enlace{display:inline-block;margin-top:14px;padding:10px 14px;border:1px solid #C49A3C;border-radius:4px;color:#F5EBD0;text-decoration:none;font-size:.89rem;font-weight:600}
+.vda-mapa-enlace:hover{background:rgba(196,154,60,.14)}
+.vda-mapa-enlace:focus-visible{outline:3px solid #3C9AC4;outline-offset:3px}
+@media(min-width:760px){.vda-mapa-lista{grid-template-columns:repeat(3,minmax(0,1fr))}.vda-mapa-lista li{padding:54px 16px 18px}.vda-mapa-lista li:before{top:17px}}
+@media(max-width:520px){
+  .vda-muestras-modal{padding:4px}
+  .vda-muestras-ventana{max-height:calc(100dvh - 8px);border-radius:8px}
+  .vda-muestras-cabecera{padding:8px 10px;gap:8px}
+  .vda-muestras-logo{width:34px;height:34px}
+  .vda-muestras-cerrar,.vda-muestras-nav{width:40px;height:40px}
+  .vda-muestras-escena{padding:6px}
+  .vda-muestras-imagen{max-height:calc(100dvh - 200px)}
+  .vda-muestras-pie{padding:8px;gap:6px}
+  .vda-muestras-dato{font-size:.81rem}
+}
+@media(prefers-reduced-motion:reduce){.vda-muestra-enlace img{transition:none}}
