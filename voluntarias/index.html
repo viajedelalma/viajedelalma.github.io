@@ -43,6 +43,9 @@ a{color:var(--oro-claro)}
 .nivel{margin:0 0 16px}
 .nivel:last-child{margin-bottom:0}
 .nota{font-size:.88rem;color:var(--tenue)}
+.video-muestra{margin:20px auto 8px;max-width:300px;text-align:center}
+.video-muestra video{display:block;width:100%;height:auto;border-radius:18px;border:1px solid var(--linea);background:var(--noche-2)}
+.video-muestra figcaption{margin:8px 0 0}
 .centro{text-align:center}
 .boton{display:inline-block;border:0;cursor:pointer;font:inherit;font-weight:700;padding:15px 26px;border-radius:999px;background:linear-gradient(135deg,var(--oro-claro),var(--oro));color:#1a1408;text-decoration:none;margin-top:12px}
 .boton[disabled]{opacity:.55;cursor:default}
@@ -195,6 +198,12 @@ body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;
   <main id="previa" hidden>
     <h1 tabindex="-1">Tres maneras de acompañarte.<br class="solo-ancha"> Queremos saber cuáles te sirven.</h1>
     <p class="entradilla">Estamos preparando tres niveles de Viaje del Alma y buscamos entre 8 y 10 voluntarias para probarlos y contarnos su experiencia.</p>
+
+    <!-- VOL-1311-MUESTRA: vídeo de 30 s con la app, el Resumen y «Tu mes» (aprobado por Gemma el 13-nov, versión con piano) -->
+    <figure class="video-muestra">
+      <video id="video-muestra" src="/voluntarias/muestra-30s.mp4" poster="/voluntarias/muestra-poster.jpg" controls playsinline preload="none" width="540" height="960" aria-describedby="video-muestra-pie"></video>
+      <figcaption id="video-muestra-pie" class="nota">Mira en 30 segundos lo que probarás: la app, el Resumen diario y el informe «Tu mes». Las muestras son de una persona inventada.</figcaption>
+    </figure>
 
     <p class="etiqueta centro">Esto es lo que probarás</p>
     <div class="rejilla tres">
@@ -652,6 +661,8 @@ function quitaEnsayo() { ENSAYO = ''; try { sessionStorage.removeItem(ENSAYO_CLA
 function mide(ev) { if (window.VDA_SIN_MEDIR || ENSAYO) return; try { window.goatcounter && window.goatcounter.count && window.goatcounter.count({ path: ev, event: true }); } catch (e) {} }
 var medido = {};
 function mideUnaVez(ev) { if (!medido[ev]) { medido[ev] = 1; mide(ev); } }
+// VOL-1311-MUESTRA: cuenta una vez quién pulsa play en el vídeo de muestra
+(function () { var v = document.getElementById('video-muestra'); if (v) v.addEventListener('play', function () { mideUnaVez('voluntarias-ve-muestra'); }); })();
 
 // ── Pantallas ──
 var PANTALLAS = ['cargando', 'antes', 'cerrada', 'previa', 'formulario', 'gracias'];
