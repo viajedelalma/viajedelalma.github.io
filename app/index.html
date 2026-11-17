@@ -62,6 +62,8 @@ background:linear-gradient(168deg,#120C28,#080614);text-align:center;box-shadow:
 .iphone p{font-size:18px;line-height:1.5;margin-bottom:10px}
 .iphone .cta{margin-top:16px}
 .iphone .ip-nota{font-size:15px;color:var(--tenue);font-style:italic;margin:12px 0 0}
+/* 17-nov · oferta de la app web: primer mes a 1,99 € con PRIMERMES, hasta el 31-dic (sí de Gemma, 10:41). Se oculta sola desde el 1-ene. */
+.iphone .ip-oferta{font-size:16px;line-height:1.45;color:var(--oro-claro);margin:12px 0 0}
 /* 26-oct · Meditación colectiva de Samhain (sáb 31, 21:00 de cada móvil). Se esconde sola el 1-nov a las 03:00, hora de cada móvil. */
 .colectiva{border:1px solid rgba(196,154,60,.55);border-radius:16px;padding:20px 20px 18px;margin:0 auto 26px;max-width:520px;
 background:linear-gradient(168deg,#1d1030,#080614);text-align:center;box-shadow:0 0 30px rgba(196,154,60,.14)}
@@ -150,6 +152,8 @@ if(new URLSearchParams(location.search).get("utm_campaign")==="samhain_colectiva
 <p>También puedes entrar desde tu móvil Android o tu ordenador. Si ya tienes una cuenta, usa la misma: tu Premium también es el mismo.</p>
 <a class="cta" href="/web/" data-goatcounter-click="app-web-iphone">Entrar desde el navegador</a>
 <p class="ip-nota">Premium opcional · SUSCRIPCIÓN de 4,99 €/mes · Cancela cuando quieras.</p>
+<p class="ip-oferta" id="ofertaWeb">En la web, tu primer mes de Premium cuesta 1,99 € con el código <b>PRIMERMES</b> (luego 4,99 €/mes). Hasta el 31 de diciembre.</p>
+<script>(function(){try{if(Date.now()>=Date.parse("2027-01-01T00:00:00+01:00")){var o=document.getElementById("ofertaWeb");if(o)o.remove();}}catch(e){}})();</script>
 </section>
 <script>(function(){try{if(/iPhone|iPad|iPod/.test(navigator.userAgent)||(navigator.platform==="MacIntel"&&navigator.maxTouchPoints>1)){var b=document.getElementById("bloqueIphone"),c=document.getElementById("cta1");if(b&&c)c.parentNode.insertBefore(b,c);
 /* 26-oct · En iPhone, en la colectiva va primero (y relleno) el botón del navegador. */
