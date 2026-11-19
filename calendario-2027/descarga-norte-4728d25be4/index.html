@@ -62,11 +62,12 @@ a{color:var(--oro-claro)}
 <div class="envoltura">
   <div class="marca"><a href="/"><img src="/logo.png" width="34" height="34" alt="">Viaje del Alma</a></div>
   <h1>Gracias. Tu calendario ya es tuyo.</h1>
-  <p class="entradilla">Descarga las dos versiones y guárdalas en el móvil o en el ordenador. La primera luna de 2027, la nueva, llega el jueves 7 de enero a las 21:24 (hora peninsular).</p>
+  <p class="entradilla">Descarga las dos versiones del lunar y el ilustrado de regalo; guárdalos en el móvil o en el ordenador. La primera luna de 2027, la nueva, llega el jueves 7 de enero a las 21:24 (hora peninsular).</p>
   <img class="portada" src="../img/norte_01_portada.webp" width="1200" height="900" alt="Portada del Calendario lunar 2027">
   <div class="botones">
     <a class="boton" id="d-pantalla" href="#" aria-disabled="true">Descargar para el móvil ✦</a>
     <a class="boton secundario" id="d-imprimir" href="#" aria-disabled="true">Descargar para imprimir</a>
+    <a class="boton secundario" id="d-ilustrado" hidden href="/calendario-ilustrado/ViajeDelAlma_Calendario2027_Ilustrado_HemisferioNorte.pdf" download>Descargar ilustrado de regalo</a>
   </div>
   <p id="sin-compra" hidden style="margin:14px auto 0;max-width:46ch;color:var(--oro-claro);font-size:.95rem">No encontramos tu compra en este navegador. Abre esta página desde el mismo móvil con el que pagaste o escríbenos a <b>viajedelalma.app@gmail.com</b> con el correo de la compra y te lo enviamos.</p>
   <p class="chica" style="margin-top:16px">Si un botón no descarga, mantenlo pulsado y elige «Descargar enlace». Guarda también esta página: puedes volver a ella desde este mismo móvil cuando quieras. El recibo del pago te llega aparte, de Link, el servicio de pagos de Stripe; si algún día pierdes el PDF, escribe a <b>viajedelalma.app@gmail.com</b> y te lo enviamos.</p>
@@ -132,7 +133,7 @@ a{color:var(--oro-claro)}
       .then(function (r) { return r.json(); })
       .then(function (d) {
         if (!d || !d.ok) { aviso.hidden = false; cuenta('dl-calendario_norte-denegada'); return; }
-        aviso.hidden = true; alListo(d.archivos);
+        aviso.hidden = true; document.getElementById('d-ilustrado').hidden = false; alListo(d.archivos);
       })
       .catch(function () { aviso.hidden = false; cuenta('dl-calendario_norte-sin-respuesta'); });
   }
