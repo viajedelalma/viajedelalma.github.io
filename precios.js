@@ -42,3 +42,77 @@
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', pinta);
   else pinta();
 })();
+
+/* ═══════════════════════════════════════════════════════════════════════
+   Franja del Black Friday (BF-1711, decidido «A» por la PO el 18-nov-2026).
+   −30 % en informes con el código BLACK30 (Stripe, cupón xS349YvG:
+   carta, revolución, sinastría, pack y regalo). Premium NO entra.
+   Se ve SOLO del lun 23-nov 00:00 al lun 30-nov 23:59 (hora de Madrid) y
+   desaparece sola: no hace falta otro cambio para quitarla.
+   BLACK30 caduca en Stripe el 30-nov a las 23:59:59 (Madrid).
+   Precio tachado: 14,99 € es el más bajo de los 30 días anteriores
+   (art. 20 LOCM; comprobado el 18 y el 20-nov).
+   Revisión de Aina (BF-2011, 20-nov):
+   · 01: sin vista previa pública (?bf=1 la dejaba ver después del día 30).
+     Para probarla, un reloj simulado (Playwright, page.clock).
+   · 02: con la página abierta, aparece a las 00:00 del 23 y se quita a las
+     00:00 del 1-dic sin recargar: se vuelve a mirar la hora cada minuto y al
+     volver a la pestaña.
+   · 04: letra pequeña a 14 px para móviles estrechos.
+   ═══════════════════════════════════════════════════════════════════════ */
+(function () {
+  var INICIO = Date.UTC(2026, 10, 22, 23, 0, 0);   // 23-nov 00:00 Madrid (UTC+1)
+  var FIN    = Date.UTC(2026, 10, 30, 23, 0, 0);   // 1-dic 00:00 Madrid
+  if (Date.now() >= FIN) return;
+  var ID = 'vda-franja-bf';
+  var reloj = null;
+
+  function quita() {
+    var f = document.getElementById(ID);
+    if (f && f.parentNode) f.parentNode.removeChild(f);
+  }
+
+  function monta() {
+    if (document.getElementById(ID)) return;
+    if (!document.getElementById(ID + '-css')) {
+      var css = document.createElement('style');
+      css.id = ID + '-css';
+      css.textContent =
+        '#vda-franja-bf{background:#080614;color:#f3ead8;border-bottom:1px solid #C49A3C;' +
+        'text-align:center;padding:10px 16px;font:400 15px/1.45 "Cormorant Garamond",Georgia,serif;' +
+        'position:relative;z-index:50}' +
+        '#vda-franja-bf b.t{display:block;font:600 14px/1.6 Cinzel,Georgia,serif;letter-spacing:.14em;color:#C49A3C}' +
+        '#vda-franja-bf code{font:600 14px/1 Cinzel,Georgia,serif;color:#C49A3C;letter-spacing:.06em}' +
+        '#vda-franja-bf s{opacity:.7}' +
+        '#vda-franja-bf small{display:block;font-size:14px;opacity:.8;margin-top:2px}';
+      document.head.appendChild(css);
+    }
+    var f = document.createElement('div');
+    f.id = ID;
+    f.setAttribute('role', 'note');
+    f.innerHTML =
+      '<b class="t">BLACK FRIDAY · 23–30 NOVIEMBRE</b>' +
+      '−30 % en informes seleccionados. Usa el código <code>BLACK30</code> al pagar. ' +
+      'Carta natal <s>14,99 €</s> 10,49 €' +
+      '<small>Hasta el 30 de noviembre a las 23:59. Premium no incluido.</small>';
+    document.body.insertBefore(f, document.body.firstChild);
+  }
+
+  function revisa() {
+    if (reloj) { clearTimeout(reloj); reloj = null; }
+    var ahora = Date.now();
+    if (ahora >= FIN) { quita(); return; }
+    if (ahora >= INICIO) monta(); else quita();
+    var falta = (ahora < INICIO ? INICIO : FIN) - ahora;
+    reloj = setTimeout(revisa, Math.min(falta + 50, 60000));
+  }
+
+  function empieza() {
+    revisa();
+    document.addEventListener('visibilitychange', function () {
+      if (!document.hidden) revisa();
+    });
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', empieza);
+  else empieza();
+})();
