@@ -2,8 +2,8 @@
   'use strict';
   // Activar únicamente después de revisar el PDF, Stripe y la descarga real.
   const ENLACE_699 = '';
-  // Pendiente de decisión. Propuesta documentada en README.md, sin activar.
-  const FIN_VENTA = '';
+  // Cierre aprobado en COORD-20261124 (hora de Madrid).
+  const FIN_VENTA = '2027-01-07T00:00:00+01:00';
   const DESCARGA_LISTA = false;
   const config = Object.freeze({ ENLACE_699, FIN_VENTA, DESCARGA_LISTA, PRECIO: 6.99 });
 

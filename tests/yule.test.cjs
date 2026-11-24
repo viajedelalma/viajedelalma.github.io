@@ -11,8 +11,8 @@ const firmado = name => 'https://orxyhxehapqmjwmqmqgv.supabase.co/storage/v1/obj
 test('el borrador no cobra, ni solo con Stripe ni solo con los archivos listos', () => {
   assert.equal(api.config.PRECIO, 6.99);
   assert.equal(api.config.ENLACE_699, '');
-  assert.equal(api.config.FIN_VENTA, '');
-  assert.equal(api.estadoVenta(api.config, Date.now()), 'pendiente');
+  assert.equal(api.config.FIN_VENTA, '2027-01-07T00:00:00+01:00');
+  assert.equal(api.estadoVenta(api.config, Date.parse('2026-11-24T12:00:00+01:00')), 'pendiente');
   assert.equal(api.estadoVenta({...abierta, DESCARGA_LISTA: false}, Date.now()), 'pendiente');
   assert.equal(api.estadoVenta({...abierta, ENLACE_699: ''}, Date.now()), 'pendiente');
   assert.equal(api.estadoVenta(abierta, Date.now()), 'venta');

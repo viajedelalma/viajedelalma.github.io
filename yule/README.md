@@ -6,30 +6,30 @@ El precio es **6,99 €**, pago único, sin rebaja ni precio tachado. La guía s
 
 ## Configuración y activación posterior
 
-En `config.js` se mantienen `ENLACE_699 = ''`, `FIN_VENTA = ''` y `DESCARGA_LISTA = false`.
+En `config.js` se mantienen `ENLACE_699 = ''`, `FIN_VENTA = '2027-01-07T00:00:00+01:00'` y `DESCARGA_LISTA = false`.
 
 1. Revisar los PDF finales Noche y Papel, campos y enlaces, y el acceso al audio aprobado. No se publica un número de páginas hasta comprobar los PDF.
 2. Crear el producto de 6,99 € en Stripe y su enlace. Configurar el retorno a `https://viajedelalma.app/yule/gracias-3d3dddbec7/?session_id={CHECKOUT_SESSION_ID}`. La URL con hash es una ruta de retorno, **no una protección de los archivos**.
 3. Preparar y probar el servidor de descarga para `p=yule`. Esta PR solo prepara el cliente: no afirma que el servidor ya admita este producto. El servidor debe comprobar pago, producto Yule e importe correcto; emitir enlaces firmados y rechazar sesiones ajenas, impagadas o inválidas.
 4. Contrato del cliente: HTTP 2xx y `{ "ok": true, "archivos": { "pantalla": "URL firmada del PDF Noche", "imprimir": "URL firmada del PDF Papel", "audio": "URL firmada del audio", "audio_descarga": "URL firmada de descarga del audio" } }`. Ambos PDF son obligatorios. El audio solo se muestra si su URL es válida. Confirmar antes de activar el contrato real del servidor y la duración de los enlaces: el cliente los renueva a los 50 minutos, como en Samhain.
-5. Resolver Premium y FIN_VENTA según las propuestas de abajo. Revisar el texto de consentimiento y los términos vigentes para esta guía.
-6. Solo tras la comprobación completa, rellenar `ENLACE_699`, poner `DESCARGA_LISTA = true`, añadir la fecha que se decida y sustituir los textos «próximamente» de metadatos y preguntas por la disponibilidad real. Retirar `noindex` de la página comercial cuando se publique; conservarlo siempre en gracias.
+5. Premium y FIN_VENTA aprobados el 24-nov (COORD-20261124). El acceso Premium se prepara en PR separada y debe funcionar antes de anunciarse. Revisar el texto de consentimiento y los términos vigentes para esta guía.
+6. Solo tras la comprobación completa, rellenar `ENLACE_699`, poner `DESCARGA_LISTA = true`, conservar la fecha aprobada y sustituir los textos «próximamente» de metadatos y preguntas por la disponibilidad real. Retirar `noindex` de la página comercial cuando se publique; conservarlo siempre en gracias.
 
 Un enlace de Stripe por sí solo no habilita la compra si la entrega no está lista. Una fecha inválida deja la venta pendiente. El cierre se comprueba al entrar, cada minuto, al volver a la pestaña y al pulsar; no hay parámetro de URL que lo anule. El fin de venta no bloquea las descargas de compras anteriores.
 
-## Propuesta Premium · pendiente de decisión, sin implementar
+## Premium · aprobado el 24-nov; implementación en PR separada
 
 Texto propuesto junto al precio: **«Incluida en Premium. Si ya tienes una suscripción activa, no necesitas comprarla de nuevo.»**
 
 Cuando el acceso esté terminado, añadir debajo: **«Entra en Mi espacio para descargar tu guía.»** con enlace a `/mi-espacio/`. Hasta entonces no se añade este botón ni se anuncia un acceso que aún no existe. Si se publicara una página de preparación antes, el texto veraz sería: **«La guía estará incluida en Premium cuando esté disponible.»**
 
-Propuesta de entrega: una sección «Guía de Yule» en Mi espacio, con dos botones Noche/Papel y el audio aprobado, tras comprobar en el servidor la sesión autenticada y la suscripción activa. La ruta «Siete luces» de la app enlazaría al mismo acceso. Así no se mantienen dos sistemas de entrega y las suscriptoras no pasan por Stripe otra vez. Los PDF descargados se conservan; la posibilidad de volver a descargarlos tras cancelar Premium requiere una decisión expresa. Nada de este flujo se programa en esta PR.
+Entrega aprobada: una sección «Guía de Yule» en Mi espacio, con dos botones Noche/Papel y el audio aprobado, tras comprobar en el servidor la sesión autenticada y la suscripción activa. La ruta «Siete luces» de la app enlazaría al mismo acceso. Así no se mantienen dos sistemas de entrega y las suscriptoras no pasan por Stripe otra vez. Los PDF descargados se conservan aunque se cancele. Las nuevas descargas requieren una suscripción vigente, comprobada en el servidor: cancelar la renovación no elimina el tiempo contratado. Nada de este flujo se programa en esta PR.
 
-## Propuesta FIN_VENTA · pendiente de decisión, sin activar
+## FIN_VENTA · aprobado y configurado el 24-nov
 
 **6 de enero de 2027, 23:59, hora de Madrid**, con cierre técnico el **7 de enero a las 00:00**: `2027-01-07T00:00:00+01:00`.
 
-Permite comprar durante las fiestas y Reyes, porque el recorrido se puede empezar en cualquier momento y también trae adaptaciones al verano. Evita tratar el solsticio como una fecha límite artificial. Es una propuesta para esta edición; una eventual venta de invierno austral en junio sería otra decisión. No hay cuenta atrás ni cierre activado en este borrador.
+Permite comprar durante las fiestas y Reyes, porque el recorrido se puede empezar en cualquier momento y también trae adaptaciones al verano. Evita tratar el solsticio como una fecha límite artificial. Es el cierre aprobado para esta edición; una eventual venta de invierno austral en junio sería otra decisión. No hay cuenta atrás. El cierre está configurado; el cobro sigue bloqueado por ENLACE_699 vacío y DESCARGA_LISTA false.
 
 ## Medición y privacidad
 
