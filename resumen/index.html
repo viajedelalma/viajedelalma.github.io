@@ -59,7 +59,7 @@ ol.pasos li{margin:0 0 6px}
 .titulares a:hover,.titulares a:focus-visible{text-decoration:underline}
 .titulares p{margin:0;font-size:.95rem}
 .alma-fuente{font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;color:var(--tenue);margin:0 0 10px}
-.alma-cita{font-family:var(--display);font-style:italic;font-size:1.35rem;line-height:1.4;color:var(--oro-claro);margin:4px 0 4px}
+.alma-cita{white-space:pre-line;font-family:var(--display);font-style:italic;font-size:1.35rem;line-height:1.4;color:var(--oro-claro);margin:4px 0 4px}
 .alma-ref{font-size:.85rem;color:var(--tenue);margin:0 0 14px}
 .alma-eco{border-top:1px solid var(--linea);margin-top:14px;padding-top:12px;font-size:.95rem}
 .alma-eco em{font-family:var(--display);font-size:1.12rem;color:var(--oro-claro)}
@@ -281,9 +281,11 @@ const MAYORES = new Map([['loco', '00-loco'], ['mago', '01-mago'], ['sacerdotisa
   ['colgado', '12-colgado'], ['muerte', '13-muerte'], ['templanza', '14-templanza'], ['diablo', '15-diablo'],
   ['torre', '16-torre'], ['estrella', '17-estrella'], ['luna', '18-luna'], ['sol', '19-sol'], ['juicio', '20-juicio'], ['mundo', '21-mundo']]);
 const MENOR = /^(copas|bastos|espadas|oros)-(as|0[2-9]|10|sota|caballero|reina|rey)$/;
+const NOMBRES_ORACULOS = {"tarot": "Tarot", "ogham": "Ogham", "runas": "Runas · Futhark antiguo", "lenormand": "Lenormand", "zen": "Oráculo zen · Viaje del Alma", "plantas": "Oráculo de plantas"};
 function imagenCarta(c) {
   const id = c && typeof c.id === 'string' ? c.id : '';
   if (c && c.baraja === 'plantas') return /^[a-z0-9-]{2,40}$/.test(id) ? `/resumen/img/plantas/${id}.jpg` : null;
+  if (c && c.baraja && c.baraja !== 'tarot') return null;
   if (MAYORES.has(id)) return `${CARTAS}tarot-${MAYORES.get(id)}.jpg`;
   if (MENOR.test(id)) return `${CARTAS}tarot-${id}.jpg`;
   return null;
@@ -341,7 +343,7 @@ function pintaResumen(c, sinIa) {
   (c.secciones || []).forEach((s) => {
     const b = nodo('section', 'bloque' + (s.pendiente ? ' pendiente' : ''));
     // REV-0611-FRASE (FRA-01): los Resúmenes guardados antes llevan otro nombre («Palabra del día» o «Frase del día»); se lee el de ahora.
-    b.appendChild(cabeza(s.id, s.id === 'palabra' ? 'Afirmación del día' : s.titulo));
+    b.appendChild(cabeza(s.id, s.id === 'palabra' ? 'Afirmación del día' : s.id === 'carta' && s.carta && s.carta.baraja ? `Una carta · ${NOMBRES_ORACULOS[s.carta.baraja] || 'Oráculo'}` : s.titulo));
     if (s.id === 'practica') {
       b.appendChild(nodo('h2', '', s.subtitulo || 'Tu práctica de hoy'));
       const ol = nodo('ol', 'pasos'); (s.pasos || []).forEach((x) => ol.appendChild(nodo('li', '', x))); b.appendChild(ol);
@@ -352,7 +354,7 @@ function pintaResumen(c, sinIa) {
       b.appendChild(nodo('p', 'cita', `«${s.texto || ''}»`));
     } else if (s.id === 'carta') {
       if (s.carta) {
-        if (s.carta.baraja) b.appendChild(nodo('p', 'alma-fuente', s.carta.baraja === 'plantas' ? 'Oráculo de plantas' : 'Tarot'));
+        if (s.carta.baraja) b.appendChild(nodo('p', 'alma-fuente', NOMBRES_ORACULOS[s.carta.baraja] || 'Oráculo'));
         const u = imagenCarta(s.carta);
         if (u) {
           const im = document.createElement('img');
@@ -367,14 +369,16 @@ function pintaResumen(c, sinIa) {
       // Lectura del catálogo (texto exacto, dominio público), reflexión y eco de otra tradición
       b.appendChild(nodo('p', 'alma-fuente', [s.tradicion, s.fuente, s.dia].filter(Boolean).join(' · ')));
       if (s.momento) b.appendChild(nodo('p', 'alma-momento', s.momento));
-      const c = s.cita.charAt(0).toUpperCase() + s.cita.slice(1);
-      b.appendChild(nodo('p', 'alma-cita', `«${c.replace(/[:;,]$/, '')}»`));
+      b.appendChild(nodo('p', 'alma-cita', s.cita));
       if (s.cita_ref && s.cita_ref !== s.fuente) b.appendChild(nodo('p', 'alma-ref', s.cita_ref));
       if (s.texto) { const d = nodo('div', 'texto'); pinta(d, s.texto); b.appendChild(d); }
       if (s.eco && s.eco.cita) {
-        const e = nodo('p', 'alma-eco'); e.append(`${s.eco.desde}: `);
-        const ec = s.eco.cita.charAt(0).toUpperCase() + s.eco.cita.slice(1);
-        e.appendChild(nodo('em', '', `«${ec.replace(/[:;,]$/, '')}»`)); e.append(` (${s.eco.ref})`);
+        const e = nodo('div', 'alma-eco');
+        e.appendChild(nodo('p', 'alma-fuente', s.eco.desde));
+        e.appendChild(nodo('p', 'alma-cita', s.eco.cita));
+        e.appendChild(nodo('p', 'alma-ref', s.eco.ref));
+        if (s.eco.texto) { const d = nodo('div', 'texto'); pinta(d, s.eco.texto); e.appendChild(d); }
+        if (s.eco.nota) e.appendChild(nodo('p', 'nota', s.eco.nota));
         b.appendChild(e);
       }
       if (s.nota) b.appendChild(nodo('p', 'nota', s.nota));
