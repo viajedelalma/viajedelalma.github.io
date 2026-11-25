@@ -84,10 +84,11 @@ test('el enlace vacío permanece desactivado al invocar el manejador', () => {
 });
 
 const turn = () => new Promise(resolve=>setImmediate(resolve));
-async function descarga({config=abierta, sid='cs_test_ficticio', response, denied=false, blockedStorage=false}={}) {
+async function descarga({config=abierta, sid='cs_test_ficticio', response, denied=false, blockedStorage=false, desdeCorreo=false}={}) {
   const e=env(config); let calls=0;
   const stored = new Map();
   e.context.window.yuleSession=sid;
+  e.context.window.yuleDesdeCorreo=desdeCorreo;
   const storage={getItem:k=>stored.get(k),setItem:(k,v)=>stored.set(k,v)};
   e.context.window.localStorage=e.context.window.sessionStorage=storage;
   if (blockedStorage) Object.defineProperty(e.context.window,'localStorage',{get(){throw Error('bloqueado');}});
@@ -139,4 +140,20 @@ test('la página de gracias elimina la consulta antes de recursos externos', () 
   vm.runInNewContext(script,{URL,location:{href:'https://viajedelalma.app/yule/gracias-3d3dddbec7/?session_id=cs_test_ficticio&utm_source=prueba#fragmento'},window,history:{replaceState:(a,b,u)=>urls.push(u)}});
   assert.equal(window.yuleSession,'cs_test_ficticio');
   assert.deepEqual(urls,['/yule/gracias-3d3dddbec7/']);
+});
+test('desde el correo de entrega da acceso pero no cuenta otro pago', async () => {
+  const e=await descarga({desdeCorreo:true,response:{ok:true,archivos:{pantalla:firmado('noche.pdf'),imprimir:firmado('papel.pdf')}}});
+  assert.equal(e.nodes.archivos.hidden,false);
+  assert.deepEqual(e.events,['yule-desde-correo']);
+});
+test('la página de gracias reconoce ?de=correo y lo quita de la dirección', () => {
+  const html=source('gracias-3d3dddbec7/index.html');
+  const script=html.match(/<script>([\s\S]+?)<\/script>/)[1];
+  for (const [consulta, esperado] of [['?session_id=cs_test_ficticio&de=correo', true], ['?session_id=cs_test_ficticio', false], ['?session_id=cs_test_ficticio&de=otro', false]]) {
+    const urls=[], window={};
+    vm.runInNewContext(script,{URL,location:{href:'https://viajedelalma.app/yule/gracias-3d3dddbec7/'+consulta},window,history:{replaceState:(a,b,u)=>urls.push(u)}});
+    assert.equal(window.yuleSession,'cs_test_ficticio');
+    assert.equal(window.yuleDesdeCorreo,esperado);
+    assert.deepEqual(urls,['/yule/gracias-3d3dddbec7/']);
+  }
 });

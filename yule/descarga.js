@@ -12,7 +12,9 @@
   const cuenta = window.yuleCuenta || function () {};
   const clave = 'vda-yule-session';
   const retorno = window.yuleSession || '';
+  const desdeCorreo = window.yuleDesdeCorreo === true;
   delete window.yuleSession;
+  delete window.yuleDesdeCorreo;
   function leer(almacen, k) { try { return almacen.getItem(k) || ''; } catch (_) { return ''; } }
   function guardar(almacen, k, valor) { try { almacen.setItem(k, valor); } catch (_) {} }
   // El almacenamiento puede estar bloqueado por el navegador.
@@ -69,7 +71,7 @@
       // No es una fuente contable: solo una confirmación de acceso en este navegador.
       // Abrir una URL con session_id jamás basta para registrar este evento.
       if (!confirmado && leer(sesion, 'vda-yule-contado') !== sid) {
-        cuenta(retorno ? 'yule-pago-verificado' : 'yule-recupera-descarga');
+        cuenta(retorno ? (desdeCorreo ? 'yule-desde-correo' : 'yule-pago-verificado') : 'yule-recupera-descarga');
         guardar(sesion, 'vda-yule-contado', sid);
       }
       confirmado = true;
