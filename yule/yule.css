@@ -5,3 +5,12 @@
 @media(min-width:1024px){body[data-vda-page="yule"] .cabecera{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,.8fr);gap:64px;align-items:center;margin-bottom:54px}body[data-vda-page="yule"] .portada{margin:0 auto;max-width:340px}body[data-vda-page="yule"] h1{font-family:'Cinzel',Georgia,serif;font-size:clamp(36px,3.8vw,52px)}body[data-vda-page="yule"] .contenido{display:grid;grid-template-columns:1fr 1fr;gap:12px 44px}body[data-vda-page="yule"] .seccion{max-width:960px;margin:auto}body[data-vda-page="yule"] .preguntas{max-width:760px}body[data-vda-page="yule"] .precio{padding:34px}body[data-vda-page="yule"] .noches{display:grid;grid-template-columns:1fr 1fr;column-gap:44px}body[data-vda-page="yule"] .noches b{min-width:110px}body[data-vda-page="yule"] .cifra{font-size:3.2rem}body[data-vda-page="descarga-yule"] .envoltura{max-width:820px}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.barra{transition:none}}
 @media print{body{background:white;color:#222}.barra,.vda-desktop-nav,.saltar,.boton{display:none!important}.envoltura{padding:12px}.precio,.eje>div{background:none;border-color:#888}.nota,.lista li,details p,.entradilla,.rotulo,.noches span,.noches b{color:#333}.seccion{break-inside:avoid}a,b,strong,h1,h2,h3{color:#222}}
+/* 25-nov-2026: la guía por dentro (portada con páginas, galería de páginas reales y formatos) */
+.portada-guia{max-width:560px!important}.portada-guia a{display:block}.portada-guia img{border-radius:0}
+.galeria{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px 14px;margin:22px 0 0}
+.galeria figure{margin:0}.galeria a{display:block;border:1px solid var(--linea);border-radius:3px;overflow:hidden;box-shadow:0 10px 24px rgba(0,0,0,.45)}
+.galeria img{display:block;width:100%;height:auto}.galeria figcaption{margin-top:9px;font-size:.92rem;line-height:1.35;color:var(--tenue);text-align:center}
+.formato{display:block;margin:0 auto 16px;max-width:260px;border:1px solid var(--linea);border-radius:3px;overflow:hidden}.formato img{display:block;width:100%;height:auto}
+.eje>div{text-align:center}
+@media(min-width:760px){.galeria{grid-template-columns:repeat(4,minmax(0,1fr));gap:26px 18px}}
+@media(min-width:1024px){body[data-vda-page="yule"] .portada-guia{max-width:520px!important}}
