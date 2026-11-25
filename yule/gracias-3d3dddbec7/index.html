@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="referrer" content="no-referrer">
+  <title>Tu guía de Yule · Viaje del Alma</title>
+  <script>
+    // Retirar el identificador antes de cargar fuentes, imágenes o analítica.
+    (function () {
+      var u = new URL(location.href);
+      window.yuleSession = u.searchParams.get('session_id') || '';
+      if (u.search || u.hash) history.replaceState(null, '', u.pathname);
+    })();
+  </script>
+  <link rel="icon" href="/favicon.png">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&amp;family=Karla:wght@400;500;700&amp;display=swap">
+  <link rel="stylesheet" href="/yule/yule.css">
+  <script defer src="/yule/config.js"></script>
+  <script defer src="/yule/contador.js"></script>
+  <script defer src="/yule/descarga.js"></script>
+</head>
+<body data-vda-page="descarga-yule">
+  <main class="envoltura descarga-contenido">
+    <div class="marca"><a href="/"><img src="/logo.png" width="36" height="36" alt="">Viaje del Alma</a></div>
+    <p class="rotulo">Tu guía de Yule</p>
+    <h1>Siete luces y una mañana</h1>
+    <p class="estado-descarga" id="estado-descarga" role="status">Estamos comprobando tu compra…</p>
+    <div id="archivos" hidden>
+      <p>Tu compra está confirmada. Guarda los dos PDF para tenerlos a mano.</p>
+      <div class="descargas">
+        <a class="boton" id="pdf-noche" target="_blank" rel="noopener noreferrer">Descargar Noche</a>
+        <a class="boton" id="pdf-papel" target="_blank" rel="noopener noreferrer">Descargar Papel</a>
+      </div>
+      <p class="nota">Noche está pensada para la pantalla. Papel tiene fondo blanco para imprimir.</p>
+      <section class="seccion" id="meditacion" hidden>
+        <h2>La luz que vuelve</h2>
+        <p>Escucha la meditación cuando te venga bien.</p>
+        <audio id="audio" controls preload="none" aria-label="Meditación La luz que vuelve"></audio>
+        <p><a id="audio-descarga" target="_blank" rel="noopener noreferrer">Descargar el audio</a></p>
+      </section>
+    </div>
+    <button class="boton" id="reintentar" type="button" hidden>Volver a comprobar</button>
+    <noscript><p>Activa JavaScript para comprobar tu compra y acceder a los archivos.</p></noscript>
+    <p class="nota ayuda">Si necesitas ayuda, escribe a <a href="mailto:viajedelalma.app@gmail.com">viajedelalma.app@gmail.com</a>. No envíes datos de tu tarjeta.</p>
+    <p><a href="/yule/">Volver a la guía</a></p>
+    <footer class="pie"><img src="/logo.png" width="64" height="64" alt="Viaje del Alma"><p><a href="/privacidad.html">Privacidad</a> · <a href="/terminos.html">Términos</a></p></footer>
+  </main>
+</body>
+</html>
