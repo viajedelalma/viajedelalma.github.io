@@ -1,10 +1,11 @@
 (function (root) {
   'use strict';
-  // Activar únicamente después de revisar el PDF, Stripe y la descarga real.
-  const ENLACE_699 = '';
+  // Enlace de pago de 6,99 € (Stripe, plink_1UfhRRKjCAbuA162uj2xmN7V, creado el 25-nov).
+  const ENLACE_699 = 'https://buy.stripe.com/4gMaEYc5K36Pc2LcUUew80d';
   // Cierre aprobado en COORD-20261124 (hora de Madrid).
   const FIN_VENTA = '2027-01-07T00:00:00+01:00';
-  const DESCARGA_LISTA = false;
+  // PDF v3 en el servidor y función «descarga» v5 con Yule (25-nov).
+  const DESCARGA_LISTA = true;
   const config = Object.freeze({ ENLACE_699, FIN_VENTA, DESCARGA_LISTA, PRECIO: 6.99 });
 
   function enlacePagoValido(enlace) {

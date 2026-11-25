@@ -6,13 +6,17 @@ const path = require('node:path');
 const api = require('../yule/config.js');
 const source = name => fs.readFileSync(path.join(__dirname, '../yule', name), 'utf8');
 const abierta = { ENLACE_699: 'https://buy.stripe.com/test_yule', FIN_VENTA: '', DESCARGA_LISTA: true };
+// El borrador anterior a la venta (sin enlace ni descarga) sigue sin cobrar ni descargar.
+const pendiente = { ...api.config, ENLACE_699: '', DESCARGA_LISTA: false };
 const firmado = name => 'https://orxyhxehapqmjwmqmqgv.supabase.co/storage/v1/object/sign/yule/' + name + '?token=ficticio';
 
-test('el borrador no cobra, ni solo con Stripe ni solo con los archivos listos', () => {
+test('no cobra ni solo con Stripe ni solo con los archivos listos; la configuración publicada abre la venta', () => {
   assert.equal(api.config.PRECIO, 6.99);
-  assert.equal(api.config.ENLACE_699, '');
+  assert.equal(api.config.ENLACE_699, 'https://buy.stripe.com/4gMaEYc5K36Pc2LcUUew80d');
+  assert.equal(api.config.DESCARGA_LISTA, true);
   assert.equal(api.config.FIN_VENTA, '2027-01-07T00:00:00+01:00');
-  assert.equal(api.estadoVenta(api.config, Date.parse('2026-11-24T12:00:00+01:00')), 'pendiente');
+  assert.equal(api.estadoVenta(api.config, Date.parse('2026-11-28T12:00:00+01:00')), 'venta');
+  assert.equal(api.estadoVenta(api.config, Date.parse('2027-01-07T00:00:00+01:00')), 'cerrada');
   assert.equal(api.estadoVenta({...abierta, DESCARGA_LISTA: false}, Date.now()), 'pendiente');
   assert.equal(api.estadoVenta({...abierta, ENLACE_699: ''}, Date.now()), 'pendiente');
   assert.equal(api.estadoVenta(abierta, Date.now()), 'venta');
@@ -72,7 +76,7 @@ test('sin consentimiento no sale a Stripe; evita el doble clic y el cobro si ven
   assert.equal(e.nodes.cerrada.hidden,false);
 });
 test('el enlace vacío permanece desactivado al invocar el manejador', () => {
-  const e=env(api.config);
+  const e=env(pendiente);
   vm.runInNewContext(source('yule.js'),e.context);
   e.nodes.consiento.checked=true; e.nodes.comprar.fire('click');
   assert.equal(e.nodes.comprar.disabled,true);
@@ -93,7 +97,7 @@ async function descarga({config=abierta, sid='cs_test_ficticio', response, denie
   return {...e,stored,calls};
 }
 test('ninguna descarga ni confirmación con enlace inventado o lanzamiento pendiente', async () => {
-  for (const setup of [{config:api.config},{sid:'inventado'}]) {
+  for (const setup of [{config:pendiente},{sid:'inventado'}]) {
     const e=await descarga(setup);
     assert.equal(e.calls,0); assert.equal(e.events.length,0);
     assert.equal(e.nodes.archivos.hidden,true); assert.equal(e.stored.size,0);

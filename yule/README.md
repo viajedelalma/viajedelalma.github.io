@@ -6,6 +6,8 @@ El precio es **6,99 €**, pago único, sin rebaja ni precio tachado. La guía s
 
 ## Configuración y activación posterior
 
+**25-nov-2026 (Luna): venta preparada en esta PR.** `ENLACE_699` = enlace de Stripe de 6,99 € (`plink_1UfhRRKjCAbuA162uj2xmN7V`, retorno a `/yule/gracias-3d3dddbec7/?session_id={CHECKOUT_SESSION_ID}`), `DESCARGA_LISTA = true`, sin `noindex` en la página comercial (gracias lo conserva), textos sin «próximamente», `/yule/` en el sitemap y el apartado 6 bis de los términos con la guía. Los PDF v3 (Noche y Papel, 69 págs.) y la función `descarga` v5 con `p=yule` dependen del «hazlo» de Gemma del 25-nov: **no fusionar hasta que la compra de prueba de 0 € haya bajado los dos PDF y la meditación.** Premium desde Mi espacio sigue en la PR n.º 62 y esta página todavía no lo anuncia.
+
 En `config.js` se mantienen `ENLACE_699 = ''`, `FIN_VENTA = '2027-01-07T00:00:00+01:00'` y `DESCARGA_LISTA = false`.
 
 1. Revisar los PDF finales Noche y Papel, campos y enlaces, y el acceso al audio aprobado. No se publica un número de páginas hasta comprobar los PDF.
