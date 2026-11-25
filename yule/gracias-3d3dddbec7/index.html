@@ -11,6 +11,8 @@
     (function () {
       var u = new URL(location.href);
       window.yuleSession = u.searchParams.get('session_id') || '';
+      // ?de=correo: vuelve desde el correo de entrega; no es un pago nuevo.
+      window.yuleDesdeCorreo = u.searchParams.get('de') === 'correo';
       if (u.search || u.hash) history.replaceState(null, '', u.pathname);
     })();
   </script>

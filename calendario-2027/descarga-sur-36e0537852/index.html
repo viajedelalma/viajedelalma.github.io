@@ -98,6 +98,8 @@ a{color:var(--oro-claro)}
   // R06-20261018-02: como gracias.html, la compra solo cuenta si Stripe confirma el cobro.
   // Un ?session_id= inventado, sin pagar o de otro producto no cuenta nada.
   var q = new URLSearchParams(location.search), sid = q.get('session_id');
+  // ?de=correo: vuelve desde el correo de entrega a sus descargas; no es una venta nueva.
+  var desdeCorreo = q.get('de') === 'correo';
   if (sid) try { history.replaceState(null, '', location.pathname + location.hash); } catch (e) {}
   // La venta se cuenta (GoatCounter y Purchase) solo cuando la Edge Function «descarga» confirma
   // que la compra es de ESTE calendario (abajo, en carga()); estado-pedido da el importe cobrado.
@@ -117,7 +119,7 @@ a{color:var(--oro-claro)}
       })
       .catch(function () { cuenta('cal-sid-sin-respuesta-sur'); });
   }
-  if (!sid) cuenta('cal-vuelve-sur');
+  if (!sid) cuenta('cal-vuelve-sur'); else if (desdeCorreo) cuenta('cal-desde-correo-sur');
 
   // R06-20261018-01: los archivos de pago viven en un almacén privado. Esta página pide a la
   // Edge Function «descarga» enlaces que caducan en 1 h, y solo si Stripe confirma la compra.
@@ -141,7 +143,7 @@ a{color:var(--oro-claro)}
   var contada = false;
   function carga() { pideEnlaces(function (a) {
     for (var k in botones) if (a[k]) { botones[k].href = a[k]; botones[k].removeAttribute('aria-disabled'); }
-    if (sid && !contada) { contada = true; cuentaVenta(); }   // solo al llegar desde Stripe
+    if (sid && !desdeCorreo && !contada) { contada = true; cuentaVenta(); }   // solo al llegar desde Stripe (no desde el correo)
   }); }
   carga(); setInterval(carga, 50 * 60 * 1000);   // los enlaces valen 1 h
   for (var k in botones) botones[k].addEventListener('click', function (e) { if (this.getAttribute('aria-disabled')) e.preventDefault(); });
