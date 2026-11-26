@@ -285,7 +285,8 @@ const NOMBRES_ORACULOS = {"tarot": "Tarot", "ogham": "Ogham", "runas": "Runas ·
 function imagenCarta(c) {
   const id = c && typeof c.id === 'string' ? c.id : '';
   if (c && c.baraja === 'plantas') return /^[a-z0-9-]{2,40}$/.test(id) ? `/resumen/img/plantas/${id}.jpg` : null;
-  if (c && c.baraja && c.baraja !== 'tarot') return null;
+  // Oráculos nuevos (Ogham, runas, Lenormand, zen): su imagen va en la carta y solo vale la del almacén «cartas».
+  if (c && c.baraja && c.baraja !== 'tarot') return typeof c.imagen === 'string' && /^https:\/\/orxyhxehapqmjwmqmqgv\.supabase\.co\/storage\/v1\/object\/public\/cartas\/[a-z0-9-]{1,60}\.(jpg|png|webp)$/.test(c.imagen) ? c.imagen : null;
   if (MAYORES.has(id)) return `${CARTAS}tarot-${MAYORES.get(id)}.jpg`;
   if (MENOR.test(id)) return `${CARTAS}tarot-${id}.jpg`;
   return null;
