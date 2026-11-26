@@ -1,0 +1,39 @@
+# Viaje del Alma
+
+> App y web de práctica espiritual en español. Un ritual diario de tres minutos guiado por la Luna, gratis para siempre, con tarot, oráculo, horóscopo, meditación y diario. En la web, informes de astrología personalizados en PDF, calendarios lunares y guías de la Rueda del Año. Para España y Latinoamérica, con ediciones para el hemisferio norte y el sur.
+
+No hace falta ser bruja ni saber de astrología. La app se inspira en la Wicca y en las tradiciones celtas.
+
+## La app
+- Android, gratis en Google Play: https://play.google.com/store/apps/details?id=com.viajedelalma.app
+- iPhone y ordenador: la misma app desde el navegador, con la misma cuenta y sin descargar nada: https://viajedelalma.app/web/
+- Gratis: el ritual diario de tres minutos, siempre.
+- Premium: 4,99 € al mes. En Android también 49,99 € al año, con siete días de prueba gratis.
+- Qué incluye: https://viajedelalma.app/app/
+
+## Astrología personalizada
+- Carta natal: el Sol, la Luna y el Ascendente se calculan gratis y sin registro. El informe completo, de unas 25 páginas en PDF, cuesta 14,99 € y llega por correo en menos de 24 horas: https://viajedelalma.app/carta/
+- Sinastría de pareja, amistad o familia: dos cartas natales leídas juntas, unas 22 páginas en PDF, 19,99 €: https://viajedelalma.app/sinastria/
+- Revolución solar: el año de cumpleaños a cumpleaños, unas 35 páginas en PDF, 24,99 € (28,99 € junto con la carta natal): https://viajedelalma.app/revolucion/
+- Carta natal de regalo, con tarjeta y el calendario lunar 2027, 19,99 €. No hace falta saber la hora de nacimiento de quien la recibe: https://viajedelalma.app/regalo/
+
+## Calendarios y guías
+- Calendario lunar 2027 en PDF, edición norte y sur, 2,99 €: https://viajedelalma.app/calendario-2027/
+- Calendario ilustrado 2027 para imprimir en A4, gratis: https://viajedelalma.app/calendario-ilustrado/
+- Guía de Yule «Siete luces y una mañana», PDF de 69 páginas, 6,99 €: https://viajedelalma.app/yule/
+- Tablero de sueños personalizado, en nuestra tienda de Etsy: https://viajedelalma.app/vision-board/
+
+## Artículos gratis de la Rueda del Año
+- Yule: qué es, cuándo es y cómo celebrarlo en casa: https://viajedelalma.app/rituales/yule/
+- Samhain: qué es y cómo celebrarlo en casa: https://viajedelalma.app/rituales/samhain/
+
+## Contacto y redes
+- Correo: viajedelalma.app@gmail.com
+- Instagram: https://www.instagram.com/viajedelalma.app/
+- TikTok: https://www.tiktok.com/@viajedelalma.app
+- Facebook: https://www.facebook.com/profile.php?id=61593699406994
+- Pinterest: https://www.pinterest.com/viajedelalmaapp/
+- YouTube: https://www.youtube.com/@viajedelalmaapp
+- Etsy: https://viajedelalma.etsy.com
+- Términos: https://viajedelalma.app/terminos.html
+- Privacidad: https://viajedelalma.app/privacidad.html
