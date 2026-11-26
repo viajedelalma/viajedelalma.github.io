@@ -14,6 +14,17 @@
   const barraCta = document.getElementById('barra-cta');
   let estado;
   let saliendo = false;
+  // Datos para Google: al cerrar la venta la oferta deja de estar disponible (REV-2611-SEO).
+  function marcaOferta(e) {
+    const ld = document.getElementById('ld-producto');
+    if (!ld) return;
+    try {
+      const datos = JSON.parse(ld.textContent);
+      datos.offers.availability = 'https://schema.org/'
+        + (e === 'venta' ? 'InStock' : e === 'cerrada' ? 'Discontinued' : 'OutOfStock');
+      ld.textContent = JSON.stringify(datos);
+    } catch (_) { /* el bloque estático sigue valiendo */ }
+  }
   function actualiza() {
     const nuevo = api.estadoVenta(c, Date.now());
     if (nuevo !== estado) {
@@ -28,6 +39,7 @@
       boton.textContent = estado === 'venta' ? 'Quiero mi guía · 6,99 €' : 'Próximamente';
       barraCta.textContent = estado === 'venta' ? 'Quiero mi guía · 6,99 €' : 'Ver la guía · 6,99 €';
       cuenta('yule-' + estado);
+      marcaOferta(estado);
     }
     boton.disabled = estado !== 'venta' || saliendo;
     pintaBarra();

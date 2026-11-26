@@ -157,3 +157,21 @@ test('la página de gracias reconoce ?de=correo y lo quita de la dirección', ()
     assert.deepEqual(urls,['/yule/gracias-3d3dddbec7/']);
   }
 });
+
+// REV-2611-SEO: los datos para Google siguen el estado de la venta y caducan con ella.
+test('la oferta de los datos estructurados pasa a retirada al cerrar la venta', () => {
+  const html = fs.readFileSync(path.join(__dirname, '../yule/index.html'), 'utf8');
+  const bloque = html.match(/<script type="application\/ld\+json" id="ld-producto">(.*?)<\/script>/s);
+  assert.ok(bloque, 'el bloque Product lleva id="ld-producto"');
+  const datos = JSON.parse(bloque[1]);
+  assert.equal(datos.offers.price, '6.99');
+  assert.equal(datos.offers.priceValidUntil, '2027-01-06');
+  assert.equal(Date.parse(api.config.FIN_VENTA), Date.parse('2027-01-07T00:00:00+01:00'));
+  const e = env({...abierta, FIN_VENTA: '2027-01-07T00:00:00+01:00'});
+  e.nodes['ld-producto'] = {textContent: bloque[1]};
+  vm.runInNewContext(source('yule.js'), e.context);
+  assert.equal(JSON.parse(e.nodes['ld-producto'].textContent).offers.availability, 'https://schema.org/InStock');
+  e.setNow(Date.parse('2027-01-07T00:00:00+01:00'));
+  e.handlers.pageshow();
+  assert.equal(JSON.parse(e.nodes['ld-producto'].textContent).offers.availability, 'https://schema.org/Discontinued');
+});
