@@ -220,7 +220,17 @@ const SUPABASE_URL = 'https://orxyhxehapqmjwmqmqgv.supabase.co';
 const SUPABASE_ANON = 'sb_publishable_As7G8e_pyZwjApjgcC48ow_RDc4hZfN';
 const CLAVE_SESION = 'sb-orxyhxehapqmjwmqmqgv-auth-token';
 const $ = (id) => document.getElementById(id);
-const mide = (ev) => { try { window.goatcounter && window.goatcounter.count && window.goatcounter.count({ path: ev, event: true }); } catch (e) {} };
+const mide = (ev) => {
+  const envia = () => { try { window.goatcounter && window.goatcounter.count && window.goatcounter.count({ path: ev, event: true }); } catch (e) {} };
+  try {
+    if (window.goatcounter && window.goatcounter.count) envia();
+    else {
+      // count.js carga con async: conserva el evento hasta que esté disponible.
+      const contador = document.querySelector('script[data-goatcounter]');
+      if (contador) contador.addEventListener('load', envia, { once: true });
+    }
+  } catch (e) {} // La medición nunca debe impedir leer el Resumen.
+};
 
 let sb = null;
 try {
