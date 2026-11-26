@@ -367,6 +367,69 @@ function nivelMes(lista) {
     ['Tu informe del mes según tu carta natal: el tono del mes, tus fechas y cómo acompañarlo.'], notas, botones);
 }
 
+/* ── Yule incluido en una suscripción vigente: el servidor decide y vuelve a comprobar al descargar. ── */
+function nivelYule() {
+  const boton = nodo('button', 'boton', 'Preparar mi guía'); boton.type = 'button';
+  const caja = nodo('div', 'descargas'); caja.setAttribute('aria-live', 'polite');
+  const seccion = nivel('informes', 'Guía de Yule · incluida en Premium', 'Disponible', false, 'Siete luces y una mañana',
+    ['Tu guía en PDF, en las versiones Noche y Papel, y la meditación.'],
+    ['Los PDF que descargues puedes conservarlos aunque canceles tu suscripción.'], [boton]);
+  seccion.appendChild(caja);
+  const gen = GEN, uid = USUARIO;
+  const vigente = () => gen === GEN && uid === USUARIO && seccion.isConnected;
+  const firmado = (v) => {
+    try { const u = new URL(v); return u.protocol === 'https:' && u.origin === SUPABASE_URL && !u.username && !u.password &&
+      u.pathname.startsWith('/storage/v1/object/sign/descargas/yule/') && !!u.searchParams.get('token'); } catch (_) { return false; }
+  };
+  let reloj;
+  boton.addEventListener('click', async () => {
+    if (boton.disabled) return;
+    clearTimeout(reloj); vacia(caja); boton.disabled = true;
+    caja.textContent = 'Estamos comprobando tu suscripción y preparando los archivos…';
+    let j = null;
+    try {
+      const s = await cuentaActual();
+      if (!vigente()) return;
+      if (!s || s.user.id !== uid) { limpia(); return; }
+      const r = await fetch(`${SUPABASE_URL}/functions/v1/descarga?p=yule`, {
+        headers: { Authorization: `Bearer ${s.access_token}`, apikey: SUPABASE_ANON },
+        cache: 'no-store', signal: AbortSignal.timeout(15000),
+      });
+      if (r.ok) j = await r.json();
+      const actual = await cuentaActual();
+      if (!vigente()) return;
+      if (!actual || actual.user.id !== uid) { limpia(); return; }
+    } catch (_) { j = null; }
+    if (!vigente()) return;
+    boton.disabled = false; vacia(caja);
+    const a = j && j.ok === true && j.archivos;
+    const hasta = j ? Date.parse(j.caduca_en) : NaN;
+    const ms = hasta - Date.now();
+    if (!a || !firmado(a.pantalla) || !firmado(a.imprimir) || !Number.isFinite(ms) || ms <= 0 || ms > 301000) {
+      caja.textContent = 'No hemos podido preparar la guía. Comprueba que tu suscripción siga activa y vuelve a intentarlo en un momento.';
+      return;
+    }
+    const caduca = () => {
+      if (!vigente()) return;
+      vacia(caja); caja.textContent = 'Los enlaces han caducado. Puedes prepararlos de nuevo.';
+    };
+    const etiquetas = { pantalla: 'PDF Noche', imprimir: 'PDF Papel · para imprimir', audio_descarga: 'Descargar la meditación' };
+    Object.keys(etiquetas).forEach(k => {
+      if (!firmado(a[k])) return;
+      const enlaceArchivo = enlace(etiquetas[k], a[k]); enlaceArchivo.rel = 'noopener noreferrer';
+      enlaceArchivo.addEventListener('click', e => {
+        if (!vigente() || Date.now() >= hasta) { e.preventDefault(); caduca(); return; }
+        mide(`mi-espacio-yule-${k}`);
+      });
+      caja.appendChild(enlaceArchivo);
+    });
+    boton.textContent = 'Preparar enlaces nuevos';
+    reloj = setTimeout(caduca, ms);
+    mide('mi-espacio-yule-preparada');
+  });
+  return seccion;
+}
+
 /* ── Lo que has pedido ── */
 const ETIQUETA_DESCARGA = { pantalla: 'Para la pantalla', imprimir: 'Para imprimir', guia: 'La guía', audio_descarga: 'El audio' };
 async function descarga(c, li, boton) {
@@ -485,6 +548,7 @@ function pinta(j) {
   $('e-cuenta').textContent = `Has entrado con ${j.correo || ''}`;
   const niveles = $('e-niveles'); vacia(niveles);
   niveles.appendChild(nivelPremium(j.premium));
+  if (j.yule && j.yule.disponible === true) niveles.appendChild(nivelYule());
   if (j.resumen) niveles.appendChild(nivelResumen(j.resumen));
   if (Array.isArray(j.mes) && j.mes.length) niveles.appendChild(nivelMes(j.mes));
   pintaCompras(j.compras, j.correo || 'tu correo');
