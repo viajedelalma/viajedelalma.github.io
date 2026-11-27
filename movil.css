@@ -82,8 +82,8 @@
   body[data-vda-page] #vda-cookies :is(p, a, button) { font-size: 16px !important; line-height: 1.5 !important; }
   body[data-vda-page] #vda-cookies .b { display: grid; grid-template-columns: minmax(0,1fr) auto; flex: 1 1 100%; width: 100%; max-width: 100%; }
   body[data-vda-page] #vda-cookies button { min-width: 0; letter-spacing: 0 !important; white-space: normal; }
-  body[data-vda-page] #vda-franja-bf { font-size: 16px !important; line-height: 1.5 !important; }
-  body[data-vda-page] #vda-franja-bf :is(b, code, small, s, a) { font-size: 16px !important; line-height: 1.5 !important; }
+  body[data-vda-page] #vda-franja-bf { font-size: 18px !important; line-height: 1.5 !important; }
+  body[data-vda-page] #vda-franja-bf :is(b, code, small, s, a) { font-size: 18px !important; line-height: 1.5 !important; }
 
   /* Dar espacio al texto: no ocultar un desborde para aparentar que cabe. */
   body[data-vda-page] :is(.envoltura, .wrap, main, section, article, form, .prod,
@@ -102,6 +102,14 @@
   body[data-vda-page="inicio"] #novedades .nov-etiqueta,
   body[data-vda-page="inicio"] #rituales .nov-etiqueta { font-size: 13px !important; }
   body[data-vda-page="inicio"] #rituales .ritual-tarjeta h4 { font-size: 20px; line-height: 1.5; }
+
+  /* WEB-NOV-2711-B: notas en Cormorant; las notas en Karla siguen a 16 px. */
+  body[data-vda-page="inicio"] :is(.portada-nota, .rp-nota),
+  body[data-vda-page="app"] :is(.nota, .letra-chica, figcaption, footer),
+  body[data-vda-page="gracias"] .letra-chica,
+  body:is([data-vda-page="inicio"], [data-vda-page="app"], [data-vda-page="legal"])
+    :is(footer, .pie) :is(p, nav, a, span, small):not(.redes-titulo),
+  body[data-vda-page="calendario"] table.lunas tbody th { font-size: 18px !important; }
 
   /* La tarjeta personalizada también se lee en pantalla. En móvil crece con
      su dedicatoria; su proporción y maquetación de impresión no se modifican. */
