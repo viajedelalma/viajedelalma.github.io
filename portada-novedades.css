@@ -1,0 +1,32 @@
+/* WEB-NOV-2711: estilos limitados a las dos secciones de portada. */
+body[data-vda-page="inicio"] #novedades { padding-top: 30px; }
+#novedades .novedades-lista { display: grid; gap: 22px; }
+#novedades .nov-tarjeta { padding: 0; color: inherit; text-decoration: none; }
+#novedades [hidden] { display: none !important; }
+#novedades .prod-img { float: none; display: block; width: 100%; height: auto; aspect-ratio: 3 / 2; object-fit: cover; margin: 0; }
+#novedades .nov-portada { object-fit: contain; background: #100b20; padding: 12px; }
+#novedades .prod-cuerpo { display: flex; flex-direction: column; padding: 22px; }
+#novedades .nov-tarjeta h3 { font-size: 22px; line-height: 1.4; letter-spacing: .02em; margin: 8px 0 12px; }
+#novedades .prod-frase { font-size: 20px; line-height: 1.55; }
+#novedades .sec-desc, #rituales > p { font-size: 20px; line-height: 1.55; }
+#novedades .prod-pie { clear: none; margin-top: auto; padding-top: 20px; }
+#novedades .prod-precio { font-size: 17px; white-space: nowrap; letter-spacing: .01em; }
+#novedades .btn { font-size: 15px; line-height: 1.5; letter-spacing: .04em; padding: 14px 10px; }
+#novedades .btn-borde { background: rgba(196,154,60,.06); text-decoration: none; }
+#novedades .nov-etiqueta, #rituales .nov-etiqueta { display: block; font: 500 13px/1.5 var(--display); letter-spacing: .05em; color: var(--oro-claro); }
+#novedades .nov-tarjeta:hover, #rituales .ritual-tarjeta:hover { border-color: var(--oro); box-shadow: 0 0 24px rgba(196,154,60,.14); }
+#novedades .nov-tarjeta:focus-visible, #rituales .ritual-tarjeta:focus-visible { outline: 3px solid #3C9AC4; outline-offset: 4px; }
+#rituales .rituales-lista { display: grid; gap: 14px; margin-top: 18px; }
+#rituales .ritual-tarjeta { display: grid; grid-template-columns: 96px minmax(0,1fr); gap: 14px; align-items: start; padding: 14px; border: 1px solid var(--linea); border-radius: 4px; background: linear-gradient(168deg,var(--noche-2),var(--noche-3)); color: inherit; text-decoration: none; }
+#rituales .ritual-tarjeta img { width: 96px; height: 96px; object-fit: cover; border-radius: 3px; }
+#rituales .ritual-tarjeta h4 { font: 500 20px/1.5 var(--serif); color: var(--oro-claro); margin: 7px 0 10px; }
+#rituales .ritual-leer { font: 500 15px/1.5 var(--display); color: var(--oro-claro); }
+@media screen and (min-width: 1024px) {
+  #novedades .novedades-lista { grid-template-columns: repeat(2,minmax(0,1fr)); }
+  #novedades .novedades-lista:has(> [hidden]) { grid-template-columns: 1fr; }
+  #novedades .novedades-lista:has(> [hidden]) > .nov-tarjeta:not([hidden]) { display: grid; grid-template-columns: minmax(0,1fr) minmax(0,1fr); }
+  #novedades .novedades-lista:has(> [hidden]) .prod-img { height: 100%; }
+  #rituales .rituales-lista { grid-template-columns: repeat(2,minmax(0,1fr)); }
+  #rituales .ritual-tarjeta { grid-template-columns: 120px minmax(0,1fr); padding: 20px; gap: 20px; }
+  #rituales .ritual-tarjeta img { width: 120px; height: 120px; }
+}
