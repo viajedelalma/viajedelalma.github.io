@@ -31,6 +31,7 @@
 <script type="application/ld+json">
 {"@context":"https://schema.org","@graph":[{"@type":"WebSite","@id":"https://viajedelalma.app/#web","name":"Viaje del Alma","alternateName":["Viaje del Alma: Tarot y Ritual Diario","viajedelalma.app"],"url":"https://viajedelalma.app/","inLanguage":"es","publisher":{"@id":"https://viajedelalma.app/#marca"}},{"@type":"Organization","@id":"https://viajedelalma.app/#marca","name":"Viaje del Alma","url":"https://viajedelalma.app/","logo":"https://viajedelalma.app/logo.png","sameAs":["https://www.instagram.com/viajedelalma.app/","https://www.tiktok.com/@viajedelalma.app","https://www.pinterest.com/viajedelalmaapp/","https://www.facebook.com/profile.php?id=61593699406994","https://play.google.com/store/apps/details?id=com.viajedelalma.app"]}]}
 </script>
+<link rel="stylesheet" href="/portada-novedades.css?v=20261127-1">
 <style>
 :root{
 --noche:#080614;
@@ -547,6 +548,30 @@ footer p.redes .red-social-icono{display:block;width:24px;height:24px;flex:0 0 2
 
 <main>
 
+<section class="wrap bloque seccion" id="novedades" aria-labelledby="tituloNovedades">
+<div class="sec-cab"><div><h2 id="tituloNovedades">Novedades</h2><p class="sec-desc">Lo último que hemos preparado para esta estación.</p></div></div>
+<div class="novedades-lista">
+<a class="prod nov-tarjeta" href="/rituales/yule/" data-goatcounter-click="portada-novedades-articulo-yule">
+<img class="prod-img" src="/rituales/yule/img/yule-bosque-invierno.webp" width="1200" height="800" alt="Bosque nevado bajo un cielo violeta, con tres luces sobre un tronco de Yule." loading="lazy">
+<div class="prod-cuerpo">
+<span class="nov-etiqueta">Lectura gratuita</span>
+<h3>Yule 2026: qué es y cómo celebrarlo en casa</h3>
+<p class="prod-frase">El solsticio llega el lunes 21 de diciembre a las 21:50, hora peninsular. Su historia, sus símbolos y siete gestos sencillos para esa noche.</p>
+<div class="prod-pie"><span class="btn btn-borde">Leer el artículo</span></div>
+</div>
+</a>
+<a class="prod nov-tarjeta" id="guiaYule" hidden href="/yule/" data-goatcounter-click="portada-novedades-guia-yule">
+<img class="prod-img nov-portada" src="/yule/img/guia_por_dentro_700.webp" width="700" height="526" alt="Portada de Siete luces y una mañana, con páginas ilustradas de una manualidad y del oráculo." loading="lazy">
+<div class="prod-cuerpo">
+<span class="nov-etiqueta">Nuevo · hasta el 6 de enero</span>
+<h3>Guía de Yule: Siete luces y una mañana</h3>
+<p class="prod-frase">69 páginas ilustradas: el ritual de la noche de Yule, ocho manualidades con su historia, tres recetas y siete noches con diario.</p>
+<div class="prod-pie"><p class="prod-precio">6,99 € · pago único</p><span class="btn btn-oro">Ver la guía por dentro</span></div>
+</div>
+</a>
+</div>
+</section>
+
 <nav class="wrap bloque indice" aria-labelledby="tituloIndice">
 <h2 id="tituloIndice">¿Qué buscas hoy?</h2>
 <div class="indice-lista">
@@ -604,7 +629,16 @@ footer p.redes .red-social-icono{display:block;width:24px;height:24px;flex:0 0 2
 <div id="rituales" style="margin-top:28px">
 <h3>Rituales de la Rueda del Año</h3>
 <p>Lecturas gratuitas para acompañar cada estación.</p>
-<p><a href="/rituales/yule/" data-goatcounter-click="portada-articulo-yule">Yule 2026: qué es, cuándo es y cómo celebrarlo en casa</a> · <a href="/rituales/samhain/" data-goatcounter-click="portada-articulo-samhain">Samhain: significado y rituales</a></p>
+<div class="rituales-lista">
+<a class="ritual-tarjeta" href="/rituales/yule/" data-goatcounter-click="portada-articulo-yule">
+<img src="/rituales/yule/img/yule-bosque-invierno.webp" width="1200" height="800" alt="Bosque nevado y tronco de Yule con luces." loading="lazy">
+<div><span class="nov-etiqueta">Lectura gratuita</span><h4>Yule 2026: qué es, cuándo es y cómo celebrarlo en casa</h4><span class="ritual-leer">Leer ›</span></div>
+</a>
+<a class="ritual-tarjeta" href="/rituales/samhain/" data-goatcounter-click="portada-articulo-samhain">
+<img src="/samhain/guia.jpg" width="1200" height="750" alt="Presentación ilustrada de la guía de Samhain." loading="lazy">
+<div><span class="nov-etiqueta">Lectura gratuita</span><h4>Samhain: significado y rituales</h4><span class="ritual-leer">Leer ›</span></div>
+</a>
+</div>
 </div>
 </section>
 
@@ -908,5 +942,7 @@ function apaga(){b.setAttribute("aria-pressed","false");b.classList.remove("sona
 b.addEventListener("click",function(){if(b.getAttribute("aria-pressed")==="true")apaga();else enciende();});
 })();
 </script>
+<script defer src="/yule/config.js"></script>
+<script defer src="/rituales/yule/guia.js"></script>
 </body>
 </html>
