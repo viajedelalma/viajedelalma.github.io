@@ -1,0 +1,410 @@
+[
+  {
+    "page": "404.html",
+    "type": "no-encontrada",
+    "width": 320,
+    "scroll": 320,
+    "small": [],
+    "overflow": []
+  },
+  {
+    "page": "app/index.html",
+    "type": "app",
+    "width": 320,
+    "scroll": 320,
+    "small": [],
+    "overflow": []
+  },
+  {
+    "page": "borrar-cuenta.html",
+    "type": "legal",
+    "width": 320,
+    "scroll": 320,
+    "small": [],
+    "overflow": []
+  },
+  {
+    "page": "calendario-2027/descarga-norte-4728d25be4/index.html",
+    "type": "descarga-calendario",
+    "width": 320,
+    "scroll": 320,
+    "small": [],
+    "overflow": []
+  },
+  {
+    "page": "calendario-2027/descarga-sur-36e0537852/index.html",
+    "type": "descarga-calendario",
+    "width": 320,
+    "scroll": 320,
+    "small": [],
+    "overflow": []
+  },
+  {
+    "page": "calendario-2027/index.html",
+    "type": "calendario",
+    "width": 320,
+    "scroll": 320,
+    "small": [],
+    "overflow": []
+  },
+  {
+    "page": "calendario-ilustrado/index.html",
+    "type": "calendario-ilustrado",
+    "width": 320,
+    "scroll": 320,
+    "small": [],
+    "overflow": []
+  },
+  {
+    "page": "carta/index.html",
+    "type": "carta",
+    "width": 320,
+    "scroll": 320,
+    "small": [],
+    "overflow": []
+  },
+  {
+    "page": "carta/pedido.html",
+    "type": "pedido-carta",
+    "width": 320,
+    "scroll": 320,
+    "small": [],
+    "overflow": []
+  },
+  {
+    "page": "fb/alma/index.html",
+    "type": "redireccion",
+    "width": 320,
+    "scroll": 320,
+    "small": [],
+    "overflow": []
+  },
+  {
+    "page": "fb/alma/play/index.html",
+    "type": "redireccion",
+    "width": 320,
+    "scroll": 320,
+    "small": [],
+    "overflow": []
+  },
+  {
+    "page": "fb/calendario-ilustrado/index.html",
+    "type": "redireccion",
+    "width": 320,
+    "scroll": 320,
+    "small": [],
+    "overflow": []
+  },
+  {
+    "page": "fb/carta/index.html",
+    "type": "redireccion",
+    "width": 320,
+    "scroll": 320,
+    "small": [],
+    "overflow": []
+  },
+  {
+    "page": "fb/carta/play/index.html",
+    "type": "redireccion",
+    "width": 320,
+    "scroll": 320,
+    "small": [],
+    "overflow": []
+  },
+  {
+    "page": "fb/iphone/index.html",
+    "type": "redireccion",
+    "width": 320,
+    "scroll": 320,
+    "small": [],
+    "overflow": []
+  },
+  {
+    "page": "fb/iphone/play/index.html",
+    "type": "redireccion",
+    "width": 320,
+    "scroll": 320,
+    "small": [],
+    "overflow": []
+  },
+  {
+    "page": "fb/regalo/c01/index.html",
+    "type": "redireccion",
+    "width": 320,
+    "scroll": 320,
+    "small": [],
+    "overflow": []
+  },
+  {
+    "page": "fb/regalo/c02/index.html",
+    "type": "redireccion",
+    "width": 320,
+    "scroll": 320,
+    "small": [],
+    "overflow": []
+  },
+  {
+    "page": "fb/regalo/play/index.html",
+    "type": "redireccion",
+    "width": 320,
+    "scroll": 320,
+    "small": [],
+    "overflow": []
+  },
+  {
+    "page": "fb/regalo/r01/index.html",
+    "type": "redireccion",
+    "width": 320,
+    "scroll": 320,
+    "small": [],
+    "overflow": []
+  },
+  {
+    "page": "fb/regalo/r02/index.html",
+    "type": "redireccion",
+    "width": 320,
+    "scroll": 320,
+    "small": [],
+    "overflow": []
+  },
+  {
+    "page": "fb/sinastria/index.html",
+    "type": "redireccion",
+    "width": 320,
+    "scroll": 320,
+    "small": [],
+    "overflow": []
+  },
+  {
+    "page": "fb/sinastria/play/index.html",
+    "type": "redireccion",
+    "width": 320,
+    "scroll": 320,
+    "small": [],
+    "overflow": []
+  },
+  {
+    "page": "fb/yule/index.html",
+    "type": "redireccion",
+    "width": 320,
+    "scroll": 320,
+    "small": [],
+    "overflow": []
+  },
+  {
+    "page": "gracias.html",
+    "type": "gracias",
+    "width": 320,
+    "scroll": 320,
+    "small": [],
+    "overflow": []
+  },
+  {
+    "page": "index.html",
+    "type": "inicio",
+    "width": 320,
+    "scroll": 320,
+    "small": [],
+    "overflow": []
+  },
+  {
+    "page": "mi-espacio/index.html",
+    "type": "mi-espacio",
+    "width": 320,
+    "scroll": 320,
+    "small": [],
+    "overflow": []
+  },
+  {
+    "page": "privacidad.html",
+    "type": "legal",
+    "width": 320,
+    "scroll": 320,
+    "small": [],
+    "overflow": []
+  },
+  {
+    "page": "r/facebook/index.html",
+    "type": "redireccion",
+    "width": 320,
+    "scroll": 320,
+    "small": [],
+    "overflow": []
+  },
+  {
+    "page": "r/instagram/index.html",
+    "type": "redireccion",
+    "width": 320,
+    "scroll": 320,
+    "small": [],
+    "overflow": []
+  },
+  {
+    "page": "r/pinterest/index.html",
+    "type": "redireccion",
+    "width": 320,
+    "scroll": 320,
+    "small": [],
+    "overflow": []
+  },
+  {
+    "page": "r/tiktok/index.html",
+    "type": "redireccion",
+    "width": 320,
+    "scroll": 320,
+    "small": [],
+    "overflow": []
+  },
+  {
+    "page": "regalo/canjear/index.html",
+    "type": "canjear",
+    "width": 320,
+    "scroll": 320,
+    "small": [],
+    "overflow": []
+  },
+  {
+    "page": "regalo/gracias/index.html",
+    "type": "gracias-regalo",
+    "width": 320,
+    "scroll": 320,
+    "small": [],
+    "overflow": []
+  },
+  {
+    "page": "regalo/index.html",
+    "type": "regalo",
+    "width": 320,
+    "scroll": 320,
+    "small": [],
+    "overflow": []
+  },
+  {
+    "page": "regalo/vale/index.html",
+    "type": "vale",
+    "width": 320,
+    "scroll": 320,
+    "small": [],
+    "overflow": []
+  },
+  {
+    "page": "resumen/ajustes/index.html",
+    "type": "resumen-ajustes",
+    "width": 320,
+    "scroll": 320,
+    "small": [],
+    "overflow": []
+  },
+  {
+    "page": "resumen/baja/index.html",
+    "type": "baja",
+    "width": 320,
+    "scroll": 320,
+    "small": [],
+    "overflow": []
+  },
+  {
+    "page": "resumen/index.html",
+    "type": "resumen",
+    "width": 320,
+    "scroll": 320,
+    "small": [],
+    "overflow": []
+  },
+  {
+    "page": "revolucion/index.html",
+    "type": "revolucion",
+    "width": 320,
+    "scroll": 320,
+    "small": [],
+    "overflow": []
+  },
+  {
+    "page": "rituales/samhain/index.html",
+    "type": "ritual",
+    "width": 320,
+    "scroll": 320,
+    "small": [],
+    "overflow": []
+  },
+  {
+    "page": "rituales/yule/index.html",
+    "type": "ritual",
+    "width": 320,
+    "scroll": 320,
+    "small": [],
+    "overflow": []
+  },
+  {
+    "page": "samhain/gracias-df60abcc43/index.html",
+    "type": "descarga-samhain",
+    "width": 320,
+    "scroll": 320,
+    "small": [],
+    "overflow": []
+  },
+  {
+    "page": "samhain/index.html",
+    "type": "samhain",
+    "width": 320,
+    "scroll": 320,
+    "small": [],
+    "overflow": []
+  },
+  {
+    "page": "sinastria/index.html",
+    "type": "sinastria",
+    "width": 320,
+    "scroll": 320,
+    "small": [],
+    "overflow": []
+  },
+  {
+    "page": "sinastria/pedido.html",
+    "type": "pedido-sinastria",
+    "width": 320,
+    "scroll": 320,
+    "small": [],
+    "overflow": []
+  },
+  {
+    "page": "tania/index.html",
+    "type": "redireccion",
+    "width": 320,
+    "scroll": 320,
+    "small": [],
+    "overflow": []
+  },
+  {
+    "page": "terminos.html",
+    "type": "legal",
+    "width": 320,
+    "scroll": 320,
+    "small": [],
+    "overflow": []
+  },
+  {
+    "page": "voluntarias/index.html",
+    "type": "voluntarias",
+    "width": 320,
+    "scroll": 320,
+    "small": [],
+    "overflow": []
+  },
+  {
+    "page": "yule/gracias-3d3dddbec7/index.html",
+    "type": "descarga-yule",
+    "width": 320,
+    "scroll": 320,
+    "small": [],
+    "overflow": []
+  },
+  {
+    "page": "yule/index.html",
+    "type": "yule",
+    "width": 320,
+    "scroll": 320,
+    "small": [],
+    "overflow": []
+  }
+]

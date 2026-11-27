@@ -1,0 +1,128 @@
+/* WEB-NOV-2711. Solo móvil/tableta y solo páginas editoriales/comerciales.
+   Los !important de tipografía sustituyen tamaños inline antiguos; no afectan
+   a escritorio, impresión, SVG ni a las aplicaciones excluidas. */
+@media screen and (max-width: 1023px) {
+  body[data-vda-page] {
+    --vda-texto-movil: 18px;
+    font-size: var(--vda-texto-movil);
+    line-height: 1.55;
+    overflow-wrap: anywhere;
+  }
+  body[data-vda-page]:is([data-vda-page="inicio"], [data-vda-page="app"],
+    [data-vda-page="gracias"], [data-vda-page="legal"]) { --vda-texto-movil: 20px; }
+
+  /* Prosa y enlaces de lectura. El tamaño se hereda en los énfasis y enlaces
+     interiores, también cuando el HTML antiguo los reducía por separado. */
+  body[data-vda-page] :is(p, li, dt, dd, blockquote, summary, .texto, .caja, .sub) {
+    font-size: var(--vda-texto-movil) !important;
+    line-height: 1.55 !important;
+  }
+  body[data-vda-page] :is(a, span, strong, b, em, i, s, code) {
+    font-size: inherit;
+    line-height: inherit;
+  }
+  body[data-vda-page] :is(p, li, dt, dd, blockquote, summary, label, button, a, figcaption, td, th)
+    :is(a, span, strong, b, em, i, s, code) { font-size: inherit !important; line-height: inherit !important; }
+  body[data-vda-page] :is(.alma-cita, .alma-eco em, .cita) { font-size: 20px !important; line-height: 1.55 !important; }
+  body[data-vda-page] .entradilla { font-size: 20px !important; line-height: 1.55 !important; }
+  body[data-vda-page="inicio"] :is(.claim, .entradilla),
+  body[data-vda-page="app"] .entradilla { font-size: 22px !important; }
+
+  /* Notas, pies, formularios y tablas: 16 px incluso con estilos inline. */
+  body[data-vda-page] :is(small, figcaption, caption, td, th, label, .nota, .chica,
+    .ayuda, .pista, .pista-inline, .aviso, .aviso-f, .aviso-frio, .aviso-informe,
+    .aviso-correo, .aviso-mundo, .error, .rescate, .revisa-correo, .entrega,
+    .legal, .fuente, .fuentes, .acepto, .etsy, .nota-hemis, .letra-chica,
+    .descarga-nota, .cta-web-nota, .rp-nota, .te-llega, .garantias,
+    .pie, footer, footer p, footer nav, .contador, .paginas-pie, .paginas-desliza,
+    .portada-nota, .prod-nota, .vda-muestra-ayuda, .vda-mapa-nota,
+    .vda-muestras-dato, .vda-muestras-original, .vda-muestras-numero,
+    .check, .casilla, .rol-correo, .alma-fuente, .vinculo) {
+    font-size: 16px !important;
+    line-height: 1.5 !important;
+  }
+  body[data-vda-page] :is(.pie, footer, .nota, .fuentes, .acepto, .check, .casilla,
+    .vda-muestras-dato) :is(p, li, a, span, small, label) { font-size: 16px !important; line-height: 1.5 !important; }
+  body[data-vda-page] :is(input, select, textarea) {
+    font-size: 18px !important; line-height: 1.5; min-width: 0; max-width: 100%; box-sizing: border-box;
+  }
+  body[data-vda-page] :is(button, .btn, .boton, .boton-b, .descarga, .enlace-boton,
+    .cta-web-txt, .ritual-leer, .t-ir, .musica, .mi-espacio-top) {
+    font-size: 15px !important; line-height: 1.5 !important; letter-spacing: .04em !important;
+    max-width: 100%; box-sizing: border-box; white-space: normal; overflow-wrap: normal;
+  }
+  body[data-vda-page] :is(button, .btn, .boton, .boton-b) { min-height: 44px; }
+
+  /* Rótulos y chips Cinzel; etiquetas de formulario siguen a 16 px. */
+  body[data-vda-page] :is(.eyebrow, .etiqueta, .fecha, .rol, .rotulo, .cinta,
+    .aviso-ejemplo, .tema, .cta-web-nuevo, .t-etiqueta, .rp-etiqueta, .col-eti,
+    .lh-eti, .ti-eti, .eti, .nov-etiqueta, .redes-titulo, .ritual .fase,
+    .marca-mini, .chips li, .marca, .miga, .breadcrumb) {
+    font-size: 13px !important; line-height: 1.5 !important; letter-spacing: .06em !important;
+  }
+  body[data-vda-page] :is(.chips li, .nov-etiqueta) { font-family: "Cinzel", Georgia, serif; }
+  body[data-vda-page] .redes :is(.t, .titulo, p:first-child) {
+    font-size: 13px !important; line-height: 1.5 !important; letter-spacing: .06em !important;
+  }
+  body[data-vda-page] :is(.cuando b, .noches b, .reloj span, .capitulos .n, .pasos .n) {
+    font-size: 16px !important; line-height: 1.5 !important;
+  }
+  body[data-vda-page] :is(.precio .cifra, .precio > b, .precio-cab b) {
+    font-size: 36px !important; line-height: 1.2 !important; white-space: nowrap;
+  }
+  body[data-vda-page] .fase-cerrada .cifra { font-size: 20px !important; line-height: 1.5 !important; white-space: normal; }
+  body[data-vda-page] :is(.prod-precio, .p-precio, .rp-precio) {
+    font-size: 17px !important; line-height: 1.5 !important; letter-spacing: 0 !important;
+  }
+  body[data-vda-page] :is([data-precio], .barra b, .cifra) { white-space: nowrap; }
+  body[data-vda-page] :is(.prod-precio, .p-precio, .rp-precio) [data-precio] { display: inline-block; }
+
+  /* Avisos insertados por JavaScript después de cargar la hoja. */
+  body[data-vda-page] #vda-cookies,
+  body[data-vda-page] #vda-cookies :is(p, a, button) { font-size: 16px !important; line-height: 1.5 !important; }
+  body[data-vda-page] #vda-cookies .b { display: grid; grid-template-columns: minmax(0,1fr) auto; flex: 1 1 100%; width: 100%; max-width: 100%; }
+  body[data-vda-page] #vda-cookies button { min-width: 0; letter-spacing: 0 !important; white-space: normal; }
+  body[data-vda-page] #vda-franja-bf { font-size: 16px !important; line-height: 1.5 !important; }
+  body[data-vda-page] #vda-franja-bf :is(b, code, small, s, a) { font-size: 16px !important; line-height: 1.5 !important; }
+
+  /* Dar espacio al texto: no ocultar un desborde para aparentar que cabe. */
+  body[data-vda-page] :is(.envoltura, .wrap, main, section, article, form, .prod,
+    .prod-cuerpo, .campo, .campos > *, .ind-txt) { min-width: 0; box-sizing: border-box; }
+  body[data-vda-page] :is(img, video, audio, canvas) { max-width: 100%; }
+  body[data-vda-page] table { width: 100%; table-layout: fixed; }
+  body[data-vda-page] :is(th, td) { white-space: normal; overflow-wrap: anywhere; padding-left: 5px; padding-right: 5px; }
+  body[data-vda-page] .redes p:last-child { display: flex; flex-wrap: wrap; justify-content: center; align-items: baseline; gap: 2px 8px; }
+  body[data-vda-page] .redes p:last-child a { margin: 0 !important; font-size: 16px !important; }
+  body[data-vda-page] :is(.fila-correo, .descargas, .barra) { flex-wrap: wrap; }
+  body[data-vda-page] .barra .txt { font-size: 16px !important; line-height: 1.5 !important; }
+  body[data-vda-page] .barra .txt b { font-size: 18px !important; }
+  body[data-vda-page] .barra .boton-b { padding-left: 12px; padding-right: 12px; }
+  body[data-vda-page="inicio"] .ind-tit { font-size: 15px !important; line-height: 1.4 !important; letter-spacing: .01em; }
+  body[data-vda-page="inicio"] .luna-hoy .lh-eti { font-size: 13px !important; }
+  body[data-vda-page="inicio"] #novedades .nov-etiqueta,
+  body[data-vda-page="inicio"] #rituales .nov-etiqueta { font-size: 13px !important; }
+  body[data-vda-page="inicio"] #rituales .ritual-tarjeta h4 { font-size: 20px; line-height: 1.5; }
+
+  /* La tarjeta personalizada también se lee en pantalla. En móvil crece con
+     su dedicatoria; su proporción y maquetación de impresión no se modifican. */
+  body[data-vda-page] .tarjeta { aspect-ratio: auto; padding: 10px; }
+  body[data-vda-page] .tarjeta .t-marco { position: relative; inset: auto; padding: 20px 12px; outline-offset: -5px; }
+  body[data-vda-page] .tarjeta .t-esquina { width: 16px; height: 16px; }
+  body[data-vda-page] .tarjeta .t-marca { font-size: 13px; line-height: 1.5; letter-spacing: .04em; gap: 8px; }
+  body[data-vda-page] .tarjeta .t-marca img { width: 28px; height: 28px; }
+  body[data-vda-page] .tarjeta .t-para { font-size: 28px; line-height: 1.3; }
+  body[data-vda-page] .tarjeta :is(.t-regalo, .t-dedicatoria) { font-size: 20px !important; line-height: 1.5; max-width: 100%; }
+  body[data-vda-page] .tarjeta :is(.t-firma, .t-canje, .t-codigo) { font-size: 16px; line-height: 1.5; }
+  body[data-vda-page] .tarjeta .t-pie { margin-top: 18px; padding-top: 14px; flex-wrap: wrap; }
+  body[data-vda-page] .tarjeta .t-canje { max-width: 100%; }
+  body[data-vda-page] .tarjeta .t-qr { width: 80px; height: 80px; padding: 4px; }
+}
+@media screen and (max-width: 520px) {
+  body[data-vda-page] .fila-correo { flex-direction: column; align-items: stretch; }
+  body[data-vda-page] .fila-correo :is(input, button) { width: 100%; }
+  body[data-vda-page="carta"] .paginas { grid-auto-flow: row; grid-template-columns: repeat(2,minmax(0,1fr)); grid-auto-columns: auto; overflow: visible; }
+  body[data-vda-page="inicio"] .indice-lista { grid-template-columns: 1fr; }
+  body[data-vda-page="inicio"] .ind { flex-direction: row; text-align: left; padding: 12px; }
+  body[data-vda-page="inicio"] .ind-ico { flex: 0 0 44px; width: 44px; height: 44px; }
+  body[data-vda-page] :is(.hemis .hemi, .selector .hemi, .hemi a, .hemi button) { white-space: normal; }
+}

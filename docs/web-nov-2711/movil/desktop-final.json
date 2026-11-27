@@ -1,0 +1,32 @@
+{
+  "inicio": {
+    "width": 1536,
+    "before": 104,
+    "after": 104,
+    "differences": []
+  },
+  "carta": {
+    "width": 1536,
+    "before": 191,
+    "after": 191,
+    "differences": []
+  },
+  "calendario": {
+    "width": 1536,
+    "before": 132,
+    "after": 132,
+    "differences": []
+  },
+  "yule": {
+    "width": 1536,
+    "before": 79,
+    "after": 79,
+    "differences": []
+  },
+  "articulo": {
+    "width": 1536,
+    "before": 116,
+    "after": 116,
+    "differences": []
+  }
+}
